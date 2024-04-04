@@ -44,8 +44,8 @@ jobs:
 
     # Create the NuGet package in the folder from the environment variable NuGetDirectory
     - run: |
-        dotnet pack src/Eventing.EventLibrary --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
-        dotnet pack src/Eventing.EventLibrary.AzureServiceBus --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
+        dotnet pack src/EventLibrary --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
+        dotnet pack src/EventLibrary.AzureServiceBus --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
 
     # Publish the NuGet package as an artifact, so they can be used in the following jobs
     - uses: actions/upload-artifact@v3
