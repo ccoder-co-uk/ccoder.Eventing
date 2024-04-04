@@ -14,4 +14,22 @@
   <ItemGroup>
     <ProjectReference Include="..\EventLibrary\EventLibrary.csproj" />
   </ItemGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageTags>cCoder;Eventing;cCoder.Eventing;cCoder.Eventing.EventLibrary.AzureServiceBus</PackageTags>
+
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PrivateRepositoryUrl>https://github.com/ccoder-co-uk/ccoder.Eventing.git</PrivateRepositoryUrl>
+		<ProjectUrl>https://github.com/ccoder-co-uk/ccoder.Eventing.git</ProjectUrl>
+		<Description>cCoder.Eventing.EventLibrary.AzureServiceBus</Description>
+
+		<Authors>cCoder</Authors>
+		<PackageId>cCoder.Eventing.EventLibrary.AzureServiceBus</PackageId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+	
 </Project>

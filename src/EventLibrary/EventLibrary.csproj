@@ -12,4 +12,21 @@
     <PackageReference Include="DeepCloner" Version="0.10.4" />
   </ItemGroup>
 
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageTags>cCoder;Eventing;cCoder.Eventing;cCoder.Eventing.EventLibrary</PackageTags>
+
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PrivateRepositoryUrl>https://github.com/ccoder-co-uk/ccoder.Eventing.git</PrivateRepositoryUrl>
+		<ProjectUrl>https://github.com/ccoder-co-uk/ccoder.Eventing.git</ProjectUrl>
+		<Description>cCoder.Eventing.EventLibrary</Description>
+
+		<Authors>cCoder</Authors>
+		<PackageId>cCoder.Eventing.EventLibrary</PackageId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+	
 </Project>
