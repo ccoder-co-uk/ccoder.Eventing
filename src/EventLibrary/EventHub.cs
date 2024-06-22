@@ -49,6 +49,8 @@ namespace EventLibrary
         /// <returns></returns>
         public async ValueTask RaiseEventAsync<T>(string name, EventMessage<T> message)
         {
+            ValidateRequest(name, message);
+
             var service = GetEventService<T>();
 
             if (service is not null)
@@ -67,8 +69,26 @@ namespace EventLibrary
         /// <returns></returns>
         public async ValueTask RaiseEventsAsync<T>(string name, EventMessage<T>[] messages)
         {
-            foreach(var message in messages)
+            foreach (var message in messages)
+                ValidateRequest(name, message);
+
+            foreach (var message in messages)
                 await RaiseEventAsync(name, message);
+        }
+
+        static void ValidateRequest<T>(string name, EventMessage<T> message)
+        {
+            if (name is null)
+                throw new InvalidOperationException("You must provide an event name when raising events.");
+
+            if (message is null)
+                throw new InvalidOperationException("You must provide a message when raising events.");
+
+            if (message.Data is null)
+                throw new InvalidOperationException("You must provide some message data when raising events.");
+
+            if (message.AuthInfo is null)
+                throw new InvalidOperationException("You must provide some message auth information when raising events.");
         }
 
         IEventProcessingService<T> GetEventService<T>() => 
