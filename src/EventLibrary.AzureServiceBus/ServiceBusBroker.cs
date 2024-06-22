@@ -7,12 +7,20 @@ using System.Text;
 
 namespace EventLibrary.AzureServiceBus
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AzureServiceBusClient : IAzureServiceBusCient
     {
         readonly ServiceBusClient serviceBusClient;
         private readonly ILogger log;
         readonly IDictionary<string, ServiceBusSender> senders;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serviceBusClient"></param>
+        /// <param name="log"></param>
         public AzureServiceBusClient(ServiceBusClient serviceBusClient, ILogger log)
         {
             this.serviceBusClient = serviceBusClient;
@@ -21,6 +29,13 @@ namespace EventLibrary.AzureServiceBus
             senders = new Dictionary<string, ServiceBusSender>();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="name"></param>
+        /// <param name="eventMessage"></param>
+        /// <returns></returns>
         public async ValueTask RaiseEventAsync<T>(string name, EventMessage<T> eventMessage)
         {
             try
@@ -39,21 +54,22 @@ namespace EventLibrary.AzureServiceBus
             }
             catch (Exception ex)
             {
-                log.LogError($"Exception thrown whilst raising {name} event", ex);
-                log.LogError(ex.Message);
-                log.LogError(ex.StackTrace);
+                log.LogError(ex, "Exception thrown whilst raising {Name} event:\n{Message}\n{StackTrace}", name, ex.Message, ex.StackTrace);
 
                 if (ex.InnerException is not null)
-                {
-                    log.LogError("Inner Exception: ", ex.InnerException);
-                    log.LogError(ex.InnerException.Message);
-                    log.LogError(ex.InnerException.StackTrace);
-                }
+                    log.LogError(ex.InnerException, "Inner Exception:\n{Message}\n{StackTrace}", ex.InnerException.Message, ex.InnerException.StackTrace);
 
-                throw;
+                throw new InvalidOperationException("Could not raise event due to exception, see inner exception for details.", ex);
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="name"></param>
+        /// <param name="eventMessages"></param>
+        /// <returns></returns>
         public async ValueTask RaiseEventsAsync<T>(string name, EventMessage<T>[] eventMessages)
         {
             try
@@ -113,18 +129,12 @@ namespace EventLibrary.AzureServiceBus
             }
             catch (Exception ex)
             {
-                log.LogError($"Exception thrown whilst raising {name} event", ex);
-                log.LogError(ex.Message);
-                log.LogError(ex.StackTrace);
+                log.LogError(ex, "Exception thrown whilst raising {Name} event:\n{Message}\n{StackTrace}", name, ex.Message, ex.StackTrace);
 
                 if (ex.InnerException is not null)
-                {
-                    log.LogError("Inner Exception: ", ex.InnerException);
-                    log.LogError(ex.InnerException.Message);
-                    log.LogError(ex.InnerException.StackTrace);
-                }
+                    log.LogError(ex.InnerException, "Inner Exception:\n{Message}\n{StackTrace}", ex.InnerException.Message, ex.InnerException.StackTrace);
 
-                throw;
+                throw new InvalidOperationException("Could not raise event due to exception, see inner exception for more details", ex);
             }
         }
 
@@ -137,6 +147,9 @@ namespace EventLibrary.AzureServiceBus
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         ~AzureServiceBusClient() 
         {
             foreach(var sender in senders)

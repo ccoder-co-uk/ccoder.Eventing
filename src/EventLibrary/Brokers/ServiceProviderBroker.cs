@@ -18,7 +18,7 @@ namespace EventLibrary.Brokers
 
         public IServiceScope GetScopeForEvent(EventMessage message)
         {
-            log.LogDebug($"Creating event scope for user {message?.AuthInfo?.SSOUserId ?? "Guest"}");
+            log.LogDebug("Creating event scope for user {UserId}", message?.AuthInfo?.SSOUserId ?? "Guest");
 
             var scope = serviceProvider.CreateScope();
 
