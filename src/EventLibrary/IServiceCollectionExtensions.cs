@@ -9,8 +9,16 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EventLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class IServiceCollectionExtensions
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="getUserId"></param>
         public static void AddEventing(this IServiceCollection services, Func<IServiceProvider, string> getUserId)
         {
             services.AddScoped<IEventAuthorizationBroker, EventAuthorizationBroker>(
@@ -24,6 +32,11 @@ namespace EventLibrary
             services.AddSingleton<IEventHub, EventHub>();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="services"></param>
         public static void AddEventingForType<T>(this IServiceCollection services)
         {
             services.AddTransient<IEventBroker<EventMessage<T>>, EventBroker<EventMessage<T>>>();

@@ -6,11 +6,20 @@ using Microsoft.Extensions.Logging;
 
 namespace EventLibrary.AzureServiceBus
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AzureServiceBusEventHub : IEventHub
     {
         readonly Func<IEventAuthInfo> getAuthInfo;
         readonly IAzureServiceBusCient serviceBusClient;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="getAuthInfo"></param>
+        /// <param name="serviceBusConnectionString"></param>
+        /// <param name="log"></param>
         public AzureServiceBusEventHub(Func<IEventAuthInfo> getAuthInfo, string serviceBusConnectionString, ILogger<AzureServiceBusEventHub> log)
         {
             this.getAuthInfo = getAuthInfo;
@@ -22,6 +31,13 @@ namespace EventLibrary.AzureServiceBus
         public void ListenToEvent<T>(string name, Func<IServiceProvider, T, ValueTask> handler) =>
             throw new NotImplementedException();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="name"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async ValueTask RaiseEventAsync<T>(string name, T data)
         {
             var eventMessage = new EventMessage<T>
@@ -33,9 +49,23 @@ namespace EventLibrary.AzureServiceBus
             await serviceBusClient.RaiseEventAsync<T>(name, eventMessage);
         }
 
-        public async ValueTask RaiseEventAsync<T>(string name, EventMessage<T> data) =>
-            await serviceBusClient.RaiseEventAsync<T>(name, data);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="name"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public async ValueTask RaiseEventAsync<T>(string name, EventMessage<T> message) =>
+            await serviceBusClient.RaiseEventAsync<T>(name, message);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="name"></param>
+        /// <param name="messages"></param>
+        /// <returns></returns>
         public async ValueTask RaiseEventsAsync<T>(string name, EventMessage<T>[] messages) =>
             await serviceBusClient.RaiseEventsAsync(name, messages);
     }
