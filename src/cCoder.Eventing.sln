@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventLibrary.Tests", "Event
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventLibrary.AzureServiceBus", "EventLibrary.AzureServiceBus\EventLibrary.AzureServiceBus.csproj", "{BAA7B3E2-9AB8-4D82-BBD3-3CA53F9C6313}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventLibrary.AzureServiceBus.Tests", "EventLibrary.AzureServiceBus.Tests\EventLibrary.AzureServiceBus.Tests.csproj", "{E550E12C-5F12-4DA5-85EF-34F4D2A4B32B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BAA7B3E2-9AB8-4D82-BBD3-3CA53F9C6313}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAA7B3E2-9AB8-4D82-BBD3-3CA53F9C6313}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAA7B3E2-9AB8-4D82-BBD3-3CA53F9C6313}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E550E12C-5F12-4DA5-85EF-34F4D2A4B32B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E550E12C-5F12-4DA5-85EF-34F4D2A4B32B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E550E12C-5F12-4DA5-85EF-34F4D2A4B32B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E550E12C-5F12-4DA5-85EF-34F4D2A4B32B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
