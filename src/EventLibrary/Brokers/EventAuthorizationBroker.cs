@@ -1,37 +1,21 @@
-﻿using EventLibrary.Brokers.Interfaces;
-using EventLibrary.Objects;
-using EventLibrary.Objects.Interfaces;
+using EventLibrary.Brokers.Interfaces;
+using EventLibrary.Models;
+using EventLibrary.Models.Interfaces;
 
-namespace EventLibrary.Brokers
+namespace EventLibrary.Brokers;
+
+public class EventAuthorizationBroker : IEventAuthorizationBroker
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class EventAuthorizationBroker : IEventAuthorizationBroker
-    {
-        readonly Func<string> getSSOUserId;
+    private readonly Func<string> getSSOUserId;
 
-        internal EventMessage Message { get; set; }
+    internal EventMessage Message { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="getSSOUserId"></param>
-        public EventAuthorizationBroker(Func<string> getSSOUserId) =>
-            this.getSSOUserId = getSSOUserId;
+    public EventAuthorizationBroker(Func<string> getSSOUserId) =>
+        this.getSSOUserId = getSSOUserId;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public IEventAuthInfo GetEventAuthInfo() =>
-            Message?.AuthInfo ?? new EventAuthInfo { SSOUserId = GetSSOUserId() };
+    public IEventAuthInfo GetEventAuthInfo() =>
+        Message?.AuthInfo ?? new EventAuthInfo { SSOUserId = GetSSOUserId() };
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string GetSSOUserId() =>
-            Message?.AuthInfo.SSOUserId ?? getSSOUserId();
-    }
+    public string GetSSOUserId() =>
+        Message?.AuthInfo.SSOUserId ?? getSSOUserId();
 }
