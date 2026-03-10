@@ -1,5 +1,3 @@
-using EventLibrary.Models.Interfaces;
-
 namespace EventLibrary.Models;
 
 public class EventMessage<T> : EventMessage

@@ -1,4 +1,3 @@
-using EventLibrary.Brokers.Interfaces;
 using EventLibrary.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
