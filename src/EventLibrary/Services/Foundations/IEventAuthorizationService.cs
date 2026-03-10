@@ -1,4 +1,4 @@
-using EventLibrary.Models.Interfaces;
+using EventLibrary.Models;
 
 namespace EventLibrary.Services.Foundations;
 

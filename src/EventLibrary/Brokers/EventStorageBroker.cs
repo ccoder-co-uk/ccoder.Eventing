@@ -1,6 +1,6 @@
 using EventLibrary.Brokers;
 
-namespace EventLibrary;
+namespace EventLibrary.Brokers;
 
 public class EventBroker<T> : IEventBroker<T>
 {

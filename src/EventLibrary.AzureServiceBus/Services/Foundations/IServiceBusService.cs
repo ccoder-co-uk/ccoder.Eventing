@@ -1,6 +1,6 @@
 using EventLibrary.Models;
 
-namespace EventLibrary.AzureServiceBus.Services.Foundations.Interfaces;
+namespace EventLibrary.AzureServiceBus.Services.Foundations;
 
 public interface IServiceBusService
 {

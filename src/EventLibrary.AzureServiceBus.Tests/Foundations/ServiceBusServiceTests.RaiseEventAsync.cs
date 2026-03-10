@@ -1,6 +1,5 @@
 using Azure.Messaging.ServiceBus;
 using EventLibrary.Models;
-using EventLibrary.Models.Interfaces;
 using FluentAssertions;
 using Moq;
 using Xunit;

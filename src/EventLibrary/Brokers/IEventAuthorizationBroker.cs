@@ -1,6 +1,6 @@
-using EventLibrary.Models.Interfaces;
+using EventLibrary.Models;
 
-namespace EventLibrary.Brokers.Interfaces;
+namespace EventLibrary.Brokers;
 
 public interface IEventAuthorizationBroker
 {

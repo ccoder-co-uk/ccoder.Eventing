@@ -1,6 +1,4 @@
-using EventLibrary.Brokers.Interfaces;
 using EventLibrary.Models;
-using EventLibrary.Models.Interfaces;
 
 namespace EventLibrary.Brokers;
 

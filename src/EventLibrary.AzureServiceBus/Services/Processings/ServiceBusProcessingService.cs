@@ -1,7 +1,5 @@
-using EventLibrary.AzureServiceBus.Services.Foundations.Interfaces;
-using EventLibrary.AzureServiceBus.Services.Processings.Interfaces;
+using EventLibrary.AzureServiceBus.Services.Foundations;
 using EventLibrary.Models;
-using EventLibrary.Models.Interfaces;
 
 namespace EventLibrary.AzureServiceBus.Services.Processings;
 

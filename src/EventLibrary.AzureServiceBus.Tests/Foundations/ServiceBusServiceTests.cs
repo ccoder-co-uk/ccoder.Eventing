@@ -1,6 +1,5 @@
-using EventLibrary.AzureServiceBus.Brokers.Interfaces;
+using EventLibrary.AzureServiceBus.Brokers;
 using EventLibrary.AzureServiceBus.Services.Foundations;
-using EventLibrary.AzureServiceBus.Services.Foundations.Interfaces;
 using Microsoft.Extensions.Logging;
 using Moq;
 

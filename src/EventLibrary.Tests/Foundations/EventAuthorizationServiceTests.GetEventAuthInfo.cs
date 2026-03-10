@@ -1,4 +1,4 @@
-using EventLibrary.Models.Interfaces;
+using EventLibrary.Models;
 using FluentAssertions;
 using Moq;
 using Xunit;

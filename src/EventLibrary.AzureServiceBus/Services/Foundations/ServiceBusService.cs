@@ -1,6 +1,5 @@
 using Azure.Messaging.ServiceBus;
-using EventLibrary.AzureServiceBus.Brokers.Interfaces;
-using EventLibrary.AzureServiceBus.Services.Foundations.Interfaces;
+using EventLibrary.AzureServiceBus.Brokers;
 using EventLibrary.Models;
 using Microsoft.Extensions.Logging;
 

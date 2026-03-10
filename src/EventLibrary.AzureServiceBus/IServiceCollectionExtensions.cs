@@ -1,11 +1,8 @@
 using Azure.Messaging.ServiceBus;
 using EventLibrary.AzureServiceBus.Brokers;
-using EventLibrary.AzureServiceBus.Brokers.Interfaces;
 using EventLibrary.AzureServiceBus.Services.Foundations;
-using EventLibrary.AzureServiceBus.Services.Foundations.Interfaces;
 using EventLibrary.AzureServiceBus.Services.Processings;
-using EventLibrary.AzureServiceBus.Services.Processings.Interfaces;
-using EventLibrary.Models.Interfaces;
+using EventLibrary.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EventLibrary.AzureServiceBus;

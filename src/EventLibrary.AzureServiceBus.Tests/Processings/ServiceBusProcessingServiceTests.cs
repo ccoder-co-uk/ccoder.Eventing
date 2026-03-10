@@ -1,7 +1,6 @@
-using EventLibrary.AzureServiceBus.Services.Foundations.Interfaces;
 using EventLibrary.AzureServiceBus.Services.Processings;
-using EventLibrary.AzureServiceBus.Services.Processings.Interfaces;
-using EventLibrary.Models.Interfaces;
+using EventLibrary.AzureServiceBus.Services.Foundations;
+using EventLibrary.Models;
 using Moq;
 
 namespace EventLibrary.AzureServiceBus.Tests.Processings;

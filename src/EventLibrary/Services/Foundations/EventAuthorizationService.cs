@@ -1,5 +1,5 @@
-using EventLibrary.Brokers.Interfaces;
-using EventLibrary.Models.Interfaces;
+using EventLibrary.Brokers;
+using EventLibrary.Models;
 
 namespace EventLibrary.Services.Foundations;
 

@@ -1,6 +1,5 @@
 using EventLibrary.AzureServiceBus.Services.Processings;
 using EventLibrary.Models;
-using EventLibrary.Models.Interfaces;
 using FluentAssertions;
 using Moq;
 using Xunit;

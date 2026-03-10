@@ -1,5 +1,4 @@
-using EventLibrary.Brokers.Interfaces;
-using EventLibrary.Models.Interfaces;
+using EventLibrary.Brokers;
 using EventLibrary.Services.Foundations;
 using Moq;
 

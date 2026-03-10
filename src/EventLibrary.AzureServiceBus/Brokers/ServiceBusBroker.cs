@@ -1,5 +1,4 @@
 using Azure.Messaging.ServiceBus;
-using EventLibrary.AzureServiceBus.Brokers.Interfaces;
 
 namespace EventLibrary.AzureServiceBus.Brokers;
 

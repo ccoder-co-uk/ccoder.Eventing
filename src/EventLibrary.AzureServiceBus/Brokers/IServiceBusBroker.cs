@@ -1,6 +1,6 @@
 using Azure.Messaging.ServiceBus;
 
-namespace EventLibrary.AzureServiceBus.Brokers.Interfaces;
+namespace EventLibrary.AzureServiceBus.Brokers;
 
 public interface IServiceBusBroker
 {

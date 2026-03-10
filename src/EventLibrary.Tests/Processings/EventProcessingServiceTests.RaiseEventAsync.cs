@@ -1,5 +1,4 @@
 using EventLibrary.Models;
-using EventLibrary.Models.Interfaces;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;

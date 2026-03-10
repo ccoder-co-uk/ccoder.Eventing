@@ -1,5 +1,4 @@
 using EventLibrary.Brokers;
-using EventLibrary.Brokers.Interfaces;
 using EventLibrary.Models;
 using EventLibrary.Services.Foundations;
 using EventLibrary.Services.Processings;

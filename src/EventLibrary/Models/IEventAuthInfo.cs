@@ -1,4 +1,4 @@
-namespace EventLibrary.Models.Interfaces;
+namespace EventLibrary.Models;
 
 public interface IEventAuthInfo
 {
