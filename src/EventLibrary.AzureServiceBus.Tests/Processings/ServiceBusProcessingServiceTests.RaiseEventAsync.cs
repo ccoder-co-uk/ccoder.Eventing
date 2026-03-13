@@ -1,5 +1,5 @@
 using EventLibrary.AzureServiceBus.Services.Processings;
-using EventLibrary.Models;
+using EventLibrary.AzureServiceBus.Models;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -13,22 +13,22 @@ public partial class ServiceBusProcessingServiceTests
     {
         string inputName = "event-name";
         FakeObject inputData = new() { Name = "test" };
-        EventMessage<FakeObject> actualMessage = null;
+        ServiceBusEventMessage<FakeObject> actualMessage = null;
 
         eventAuthInfoMock.SetupGet(auth => auth.SSOUserId).Returns("user");
 
         serviceBusServiceMock
             .Setup(service => service.RaiseEventAsync(
                 inputName,
-                It.IsAny<EventMessage<FakeObject>>()))
-            .Callback<string, EventMessage<FakeObject>>((_, message) => actualMessage = message)
+                It.IsAny<ServiceBusEventMessage<FakeObject>>()))
+            .Callback<string, ServiceBusEventMessage<FakeObject>>((_, message) => actualMessage = message)
             .Returns(ValueTask.CompletedTask);
 
         await serviceBusProcessingService.RaiseEventAsync(inputName, inputData);
 
         actualMessage.Should().NotBeNull();
         actualMessage.Data.Should().BeSameAs(inputData);
-        actualMessage.AuthInfo.Should().BeSameAs(eventAuthInfoMock.Object);
+        actualMessage.AuthInfo.SSOUserId.Should().Be("user");
     }
 
     [Fact]
@@ -68,9 +68,9 @@ public partial class ServiceBusProcessingServiceTests
     public async Task ShouldRaiseEventAsyncWithMessage()
     {
         string inputName = "event-name";
-        EventMessage<FakeObject> inputMessage = new()
+        ServiceBusEventMessage<FakeObject> inputMessage = new()
         {
-            AuthInfo = Mock.Of<IEventAuthInfo>(),
+            AuthInfo = new ServiceBusEventAuthInfo { SSOUserId = "user" },
             Data = new FakeObject()
         };
 
@@ -84,9 +84,9 @@ public partial class ServiceBusProcessingServiceTests
     [Fact]
     public async Task ShouldThrowOnRaiseEventAsyncWithMessageIfNameIsNull()
     {
-        EventMessage<FakeObject> inputMessage = new()
+        ServiceBusEventMessage<FakeObject> inputMessage = new()
         {
-            AuthInfo = Mock.Of<IEventAuthInfo>(),
+            AuthInfo = new ServiceBusEventAuthInfo { SSOUserId = "user" },
             Data = new FakeObject()
         };
 
@@ -108,9 +108,9 @@ public partial class ServiceBusProcessingServiceTests
     [Fact]
     public async Task ShouldThrowOnRaiseEventAsyncWithMessageIfDataIsNull()
     {
-        EventMessage<FakeObject> inputMessage = new()
+        ServiceBusEventMessage<FakeObject> inputMessage = new()
         {
-            AuthInfo = Mock.Of<IEventAuthInfo>(),
+            AuthInfo = new ServiceBusEventAuthInfo { SSOUserId = "user" },
             Data = null
         };
 
@@ -123,7 +123,7 @@ public partial class ServiceBusProcessingServiceTests
     [Fact]
     public async Task ShouldThrowOnRaiseEventAsyncWithMessageIfAuthInfoIsNull()
     {
-        EventMessage<FakeObject> inputMessage = new()
+        ServiceBusEventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = null,
             Data = new FakeObject()

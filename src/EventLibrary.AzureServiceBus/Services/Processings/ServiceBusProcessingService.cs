@@ -1,29 +1,24 @@
+using EventLibrary.AzureServiceBus.Models;
 using EventLibrary.AzureServiceBus.Services.Foundations;
-using EventLibrary.Models;
 
 namespace EventLibrary.AzureServiceBus.Services.Processings;
 
-public class ServiceBusProcessingService : IServiceBusProcessingService
+internal class ServiceBusProcessingService(
+        Func<IServiceBusEventAuthInfo> getAuthInfo,
+        IServiceBusService serviceBusService) 
+            : IServiceBusProcessingService
 {
-    private readonly Func<IEventAuthInfo> getAuthInfo;
-    private readonly IServiceBusService serviceBusService;
-
-    public ServiceBusProcessingService(
-        Func<IEventAuthInfo> getAuthInfo,
-        IServiceBusService serviceBusService)
-    {
-        this.getAuthInfo = getAuthInfo;
-        this.serviceBusService = serviceBusService;
-    }
-
     public void ListenToEvent<T>(string name, Func<IServiceProvider, T, ValueTask> handler) =>
-        throw new NotSupportedException("Azure Service Bus event hubs do not support in-process listeners.");
+        serviceBusService.ListenToEvent<T>(name, handler);
 
     public async ValueTask RaiseEventAsync<T>(string name, T data)
     {
-        EventMessage<T> eventMessage = new()
+        IServiceBusEventAuthInfo authInfo = getAuthInfo();
+        ServiceBusEventMessage<T> eventMessage = new()
         {
-            AuthInfo = getAuthInfo(),
+            AuthInfo = authInfo is null
+                ? null
+                : new ServiceBusEventAuthInfo { SSOUserId = authInfo.SSOUserId },
             Data = data
         };
 
@@ -31,21 +26,21 @@ public class ServiceBusProcessingService : IServiceBusProcessingService
         await serviceBusService.RaiseEventAsync(name, eventMessage);
     }
 
-    public async ValueTask RaiseEventAsync<T>(string name, EventMessage<T> message)
+    public async ValueTask RaiseEventAsync<T>(string name, ServiceBusEventMessage<T> message)
     {
         ValidateRequest(name, message);
         await serviceBusService.RaiseEventAsync(name, message);
     }
 
-    public async ValueTask RaiseEventsAsync<T>(string name, EventMessage<T>[] messages)
+    public async ValueTask RaiseEventsAsync<T>(string name, ServiceBusEventMessage<T>[] messages)
     {
-        foreach (EventMessage<T> message in messages)
+        foreach (ServiceBusEventMessage<T> message in messages)
         {
             await RaiseEventAsync(name, message);
         }
     }
 
-    private static void ValidateRequest<T>(string name, EventMessage<T> message)
+    private static void ValidateRequest<T>(string name, ServiceBusEventMessage<T> message)
     {
         if (name is null)
         {

@@ -1,21 +1,24 @@
 using EventLibrary.Models;
-using EventLibrary.Services.Foundations;
+using EventLibrary.Services.Orchestrations;
 
 namespace EventLibrary;
 
 public class EventHub : IEventHub
 {
-    private readonly IEventServiceProviderService eventServiceProviderService;
+    private readonly IEventOrchestrationService eventOrchestrationService;
 
-    public EventHub(IEventServiceProviderService eventServiceProviderService) =>
-        this.eventServiceProviderService = eventServiceProviderService;
+    internal EventHub(IEventOrchestrationService eventOrchestrationService) =>
+        this.eventOrchestrationService = eventOrchestrationService;
 
     public void ListenToEvent<T>(string name, Func<IServiceProvider, T, ValueTask> handler) =>
-        eventServiceProviderService.ListenToEvent(name, handler);
+        eventOrchestrationService.ListenToEvent(name, handler);
+
+    public void ListenToEvent<T, TService>(string name, Func<TService, T, ValueTask> handler) =>
+        eventOrchestrationService.ListenToEvent(name, handler);
 
     public ValueTask RaiseEventAsync<T>(string name, EventMessage<T> message) =>
-        eventServiceProviderService.RaiseEventAsync(name, message);
+        eventOrchestrationService.RaiseEventAsync(name, message);
 
     public ValueTask RaiseEventsAsync<T>(string name, EventMessage<T>[] messages) =>
-        eventServiceProviderService.RaiseEventsAsync(name, messages);
+        eventOrchestrationService.RaiseEventsAsync(name, messages);
 }

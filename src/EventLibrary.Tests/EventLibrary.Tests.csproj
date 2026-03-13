@@ -23,11 +23,4 @@
   <ItemGroup>
     <ProjectReference Include="..\EventLibrary\EventLibrary.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="obj\**\*.cs" />
-    <EmbeddedResource Remove="obj\**\*" />
-    <None Remove="obj\**\*" />
-  </ItemGroup>
-
 </Project>

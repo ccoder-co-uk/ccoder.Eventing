@@ -1,35 +1,47 @@
 using EventLibrary.Brokers;
+using EventLibrary.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace EventLibrary.Services.Foundations;
 
-public class EventService<T> : IEventService<T>
+internal class EventService<T>(
+        IServiceProviderBroker serviceProviderBroker,
+        ILogger<EventService<T>> log) 
+            : IEventService<T>
 {
-    private readonly IEventBroker<T> eventStorageBroker;
-    private readonly ILogger<EventService<T>> log;
-
-    public EventService(
-        IEventBroker<T> eventStorageBroker,
-        ILogger<EventService<T>> log)
-    {
-        this.eventStorageBroker = eventStorageBroker;
-        this.log = log;
-    }
-
-    public void ListenToEvent(string name, Func<IServiceProvider, T, ValueTask> handler) =>
-        eventStorageBroker.ListenToEvent(name, handler);
-
-    public async ValueTask RaiseEventAsync(string name, IServiceProvider serviceProvider, T message)
+    public void ListenToEvent(string name, Func<IServiceProvider, T, ValueTask> handler)
     {
         try
         {
+            serviceProviderBroker.GetService<IEventBroker<T>>()
+                .ListenToEvent(name, handler);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(
+                ex,
+                "Exception thrown whilst listening to {Name} event\n{Message}\n{StackTrace}",
+                name,
+                ex.Message,
+                ex.StackTrace);
+
+            throw;
+        }
+    }
+
+    public async ValueTask RaiseEventAsync(string name, EventMessage<T> message)
+    {
+        try
+        {
+            using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message);
+
             IEnumerable<Func<IServiceProvider, T, ValueTask>> handlers =
-                eventStorageBroker.GetHandlers(name);
+                serviceProviderBroker.GetService<IEventBroker<T>>()
+                    .GetHandlers(name);
 
             foreach (Func<IServiceProvider, T, ValueTask> handler in handlers)
-            {
-                await handler.Invoke(serviceProvider, message);
-            }
+                await handler.Invoke(scope.ServiceProvider, message.Data);
         }
         catch (Exception ex)
         {
@@ -40,9 +52,7 @@ public class EventService<T> : IEventService<T>
                 ex.Message,
                 ex.StackTrace);
 
-            throw new InvalidOperationException(
-                "Eventing is unable to raise event, see inner exception for details",
-                ex);
+            throw;
         }
     }
 }

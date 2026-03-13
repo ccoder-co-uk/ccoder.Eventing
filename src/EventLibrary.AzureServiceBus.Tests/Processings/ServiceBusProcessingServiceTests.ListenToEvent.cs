@@ -1,4 +1,5 @@
-using FluentAssertions;
+using EventLibrary.AzureServiceBus.Models;
+using Moq;
 using Xunit;
 
 namespace EventLibrary.AzureServiceBus.Tests.Processings;
@@ -6,13 +7,21 @@ namespace EventLibrary.AzureServiceBus.Tests.Processings;
 public partial class ServiceBusProcessingServiceTests
 {
     [Fact]
-    public void ShouldThrowOnListenToEvent()
+    public void ShouldListenToEvent()
     {
-        Action listenToEventAction = () =>
-            serviceBusProcessingService.ListenToEvent<FakeObject>(
-                "event-name",
-                (_, _) => ValueTask.CompletedTask);
+        string inputName = "event-name";
+        Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
+            (_, _) => ValueTask.CompletedTask;
 
-        listenToEventAction.Should().Throw<NotSupportedException>();
+        serviceBusServiceMock
+            .Setup(service => service.ListenToEvent(
+                inputName,
+                inputHandler));
+
+        serviceBusProcessingService.ListenToEvent(inputName, inputHandler);
+
+        serviceBusServiceMock.Verify(
+            service => service.ListenToEvent(inputName, inputHandler),
+            Times.Once);
     }
 }

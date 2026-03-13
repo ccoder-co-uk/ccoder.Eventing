@@ -1,24 +1,48 @@
 using Azure.Messaging.ServiceBus;
 using EventLibrary.AzureServiceBus.Brokers;
-using EventLibrary.Models;
+using EventLibrary.AzureServiceBus.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace EventLibrary.AzureServiceBus.Services.Foundations;
 
-public class ServiceBusService : IServiceBusService
-{
-    private readonly IServiceBusBroker serviceBusBroker;
-    private readonly ILogger<ServiceBusService> log;
-
-    public ServiceBusService(
+internal class ServiceBusService(
         IServiceBusBroker serviceBusBroker,
-        ILogger<ServiceBusService> log)
+        IServiceProviderBroker serviceProviderBroker,
+        ILogger<ServiceBusService> log) : IServiceBusService
+{
+    public void ListenToEvent<T>(string name, Func<IServiceProvider, T, ValueTask> handler)
     {
-        this.serviceBusBroker = serviceBusBroker;
-        this.log = log;
+        try
+        {
+            ServiceBusProcessor processor = serviceBusBroker.CreateProcessor(name);
+
+            processor.ProcessMessageAsync += (ProcessMessageEventArgs messageDetails) =>
+                HandleServiceBusMessage(serviceProviderBroker, handler, messageDetails);
+
+            processor.ProcessErrorAsync += (ProcessErrorEventArgs problemDetails) =>
+                HandleServiceBusError(name, problemDetails);
+
+            serviceBusBroker
+                .StartProcessorAsync(name)
+                .AsTask()
+                .GetAwaiter()
+                .GetResult();
+        }
+        catch (Exception ex)
+        {
+            log.LogError(
+                ex,
+                "Exception thrown whilst listening to {Name} event:\n{Message}\n{StackTrace}",
+                name,
+                ex.Message,
+                ex.StackTrace);
+
+            throw;
+        }
     }
 
-    public async ValueTask RaiseEventAsync<T>(string name, EventMessage<T> eventMessage)
+    public async ValueTask RaiseEventAsync<T>(string name, ServiceBusEventMessage<T> eventMessage)
     {
         try
         {
@@ -48,9 +72,48 @@ public class ServiceBusService : IServiceBusService
                     ex.InnerException.StackTrace);
             }
 
-            throw new InvalidOperationException(
-                "Could not raise event due to exception, see inner exception for details.",
-                ex);
+            throw;
         }
+    }
+
+    async Task HandleServiceBusMessage<T>(
+        IServiceProviderBroker serviceProviderBroker,
+        Func<IServiceProvider, T, ValueTask> handler,
+        ProcessMessageEventArgs messageDetails)
+    {
+        try
+        {
+            ServiceBusEventMessage<T> message = messageDetails
+                .Message
+                .Body
+                .ToObjectFromJson<ServiceBusEventMessage<T>>();
+
+            using IServiceScope scope = serviceProviderBroker
+                .GetScopeForEvent(message);
+
+            await handler(scope.ServiceProvider, message.Data);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(
+                ex,
+                "Exception thrown whilst handling service bus message\n{Message}\n{StackTrace}",
+                ex.Message,
+                ex.StackTrace);
+
+            throw;
+        }
+    }
+
+    Task HandleServiceBusError(string name, ProcessErrorEventArgs problemDetails)
+    {
+        log.LogError(
+            problemDetails.Exception,
+            "Exception thrown whilst listening to {Name} event:\n{Message}\n{StackTrace}",
+            name,
+            problemDetails.Exception.Message,
+            problemDetails.Exception.StackTrace);
+
+        return Task.CompletedTask;
     }
 }
