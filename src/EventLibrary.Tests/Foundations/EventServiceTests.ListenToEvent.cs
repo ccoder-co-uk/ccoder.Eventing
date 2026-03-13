@@ -1,3 +1,4 @@
+using EventLibrary.Brokers;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -14,6 +15,10 @@ public partial class EventServiceTests
             (_, _) => ValueTask.CompletedTask;
 
         eventService.ListenToEvent(inputName, inputHandler);
+
+        serviceProviderBrokerMock.Verify(
+            broker => broker.GetService<IEventBroker<FakeObject>>(),
+            Times.Once);
 
         eventBrokerMock.Verify(
             broker => broker.ListenToEvent(inputName, inputHandler),

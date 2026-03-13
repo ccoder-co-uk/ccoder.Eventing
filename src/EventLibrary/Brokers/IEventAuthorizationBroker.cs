@@ -2,8 +2,7 @@ using EventLibrary.Models;
 
 namespace EventLibrary.Brokers;
 
-public interface IEventAuthorizationBroker
+internal interface IEventAuthorizationBroker
 {
     IEventAuthInfo GetEventAuthInfo();
-    string GetSSOUserId();
 }

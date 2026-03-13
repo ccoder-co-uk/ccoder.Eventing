@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EventLibrary.Services.Foundations;
 
-public class EventServiceProviderService : IEventServiceProviderService
+internal class EventServiceProviderService : IEventServiceProviderService
 {
     private readonly List<object> services = [];
     private readonly IServiceProviderBroker serviceProviderBroker;
@@ -21,38 +21,77 @@ public class EventServiceProviderService : IEventServiceProviderService
 
     public void ListenToEvent<T>(string name, Func<IServiceProvider, T, ValueTask> handler)
     {
-        IEventProcessingService<T> typedEventService = GetEventService<T>();
-
-        if (typedEventService is null)
+        try
         {
-            typedEventService = serviceProviderBroker.GetService<IEventProcessingService<T>>();
-            services.Add(typedEventService);
-        }
+            IEventProcessingService<T> typedEventService = GetEventService<T>();
 
-        typedEventService.ListenToEvent(name, handler);
+            if (typedEventService is null)
+            {
+                typedEventService = serviceProviderBroker.GetService<IEventProcessingService<T>>();
+                services.Add(typedEventService);
+            }
+
+            typedEventService.ListenToEvent(name, handler);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(
+                ex,
+                "Exception thrown whilst listening to {Name} event\n{Message}\n{StackTrace}",
+                name,
+                ex.Message,
+                ex.StackTrace);
+
+            throw;
+        }
     }
 
     public async ValueTask RaiseEventAsync<T>(string name, EventMessage<T> message)
     {
-        ValidateRequest(name, message);
-
-        IEventProcessingService<T> service = GetEventService<T>();
-
-        if (service is null)
+        try
         {
-            log.LogWarning("{Name} event was raised, but no handler was configured for it", name);
-            return;
-        }
+            ValidateRequest(name, message);
 
-        await service.RaiseEventAsync(name, message);
+            IEventProcessingService<T> service = GetEventService<T>();
+
+            if (service is null)
+            {
+                log.LogWarning("{Name} event was raised, but no handler was configured for it", name);
+                return;
+            }
+
+            await service.RaiseEventAsync(name, message);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(
+                ex,
+                "Exception thrown whilst raising {Name} event\n{Message}\n{StackTrace}",
+                name,
+                ex.Message,
+                ex.StackTrace);
+
+            throw;
+        }
     }
 
     public async ValueTask RaiseEventsAsync<T>(string name, EventMessage<T>[] messages)
     {
-        foreach (EventMessage<T> message in messages)
+        try
         {
-            ValidateRequest(name, message);
-            await RaiseEventAsync(name, message);
+            foreach (EventMessage<T> message in messages)
+                await RaiseEventAsync(name, message);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(
+                ex,
+                "Exception thrown whilst raising {Name} events\n{Message}\n{StackTrace}",
+                name,
+                ex.Message,
+                ex.StackTrace);
+
+            throw;
         }
     }
 

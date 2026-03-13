@@ -10,18 +10,6 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="obj\**\*.cs" />
-    <EmbeddedResource Remove="obj\**\*" />
-    <None Remove="obj\**\*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="obj\**\*.cs" />
-    <EmbeddedResource Remove="obj\**\*" />
-    <None Remove="obj\**\*" />
-  </ItemGroup>
-
 	<PropertyGroup>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageTags>cCoder;Eventing;cCoder.Eventing;cCoder.Eventing.EventLibrary</PackageTags>

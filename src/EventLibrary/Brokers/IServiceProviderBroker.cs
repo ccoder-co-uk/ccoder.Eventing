@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EventLibrary.Brokers;
 
-public interface IServiceProviderBroker
+internal interface IServiceProviderBroker
 {
     IServiceScope GetScopeForEvent(EventMessage message);
     IServiceProvider GetServiceProvider();

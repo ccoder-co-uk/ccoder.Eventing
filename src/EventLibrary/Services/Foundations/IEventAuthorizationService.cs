@@ -2,7 +2,7 @@ using EventLibrary.Models;
 
 namespace EventLibrary.Services.Foundations;
 
-public interface IEventAuthorizationService
+internal interface IEventAuthorizationService
 {
     IEventAuthInfo GetEventAuthInfo();
 }

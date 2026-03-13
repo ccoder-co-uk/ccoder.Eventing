@@ -1,4 +1,4 @@
-using EventLibrary.Models;
+using EventLibrary.AzureServiceBus.Models;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -11,16 +11,16 @@ public partial class ServiceBusProcessingServiceTests
     public async Task ShouldRaiseEventsAsync()
     {
         string inputName = "event-name";
-        EventMessage<FakeObject>[] inputMessages =
+        ServiceBusEventMessage<FakeObject>[] inputMessages =
         [
-            new EventMessage<FakeObject>
+            new ServiceBusEventMessage<FakeObject>
             {
-                AuthInfo = Mock.Of<IEventAuthInfo>(),
+                AuthInfo = new ServiceBusEventAuthInfo { SSOUserId = "user-one" },
                 Data = new FakeObject()
             },
-            new EventMessage<FakeObject>
+            new ServiceBusEventMessage<FakeObject>
             {
-                AuthInfo = Mock.Of<IEventAuthInfo>(),
+                AuthInfo = new ServiceBusEventAuthInfo { SSOUserId = "user-two" },
                 Data = new FakeObject()
             }
         ];
@@ -28,7 +28,7 @@ public partial class ServiceBusProcessingServiceTests
         await serviceBusProcessingService.RaiseEventsAsync(inputName, inputMessages);
 
         serviceBusServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, It.IsAny<EventMessage<FakeObject>>()),
+            service => service.RaiseEventAsync(inputName, It.IsAny<ServiceBusEventMessage<FakeObject>>()),
             Times.Exactly(inputMessages.Length));
     }
 
@@ -36,14 +36,14 @@ public partial class ServiceBusProcessingServiceTests
     public async Task ShouldThrowOnRaiseEventsAsyncWhenMessageIsInvalid()
     {
         string inputName = "event-name";
-        EventMessage<FakeObject>[] inputMessages =
+        ServiceBusEventMessage<FakeObject>[] inputMessages =
         [
-            new EventMessage<FakeObject>
+            new ServiceBusEventMessage<FakeObject>
             {
-                AuthInfo = Mock.Of<IEventAuthInfo>(),
+                AuthInfo = new ServiceBusEventAuthInfo { SSOUserId = "user-one" },
                 Data = new FakeObject()
             },
-            new EventMessage<FakeObject>
+            new ServiceBusEventMessage<FakeObject>
             {
                 AuthInfo = null,
                 Data = new FakeObject()
@@ -56,7 +56,7 @@ public partial class ServiceBusProcessingServiceTests
         await raiseEventsAsyncTask.Should().ThrowAsync<InvalidOperationException>();
 
         serviceBusServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, It.IsAny<EventMessage<FakeObject>>()),
+            service => service.RaiseEventAsync(inputName, It.IsAny<ServiceBusEventMessage<FakeObject>>()),
             Times.Once);
     }
 }

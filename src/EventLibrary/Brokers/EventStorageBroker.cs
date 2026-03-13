@@ -2,7 +2,7 @@ using EventLibrary.Brokers;
 
 namespace EventLibrary.Brokers;
 
-public class EventBroker<T> : IEventBroker<T>
+internal class EventBroker<T> : IEventBroker<T>
 {
     private readonly IDictionary<string, ICollection<Func<IServiceProvider, T, ValueTask>>> functionBindings =
         new Dictionary<string, ICollection<Func<IServiceProvider, T, ValueTask>>>();

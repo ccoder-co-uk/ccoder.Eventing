@@ -1,8 +1,9 @@
-using EventLibrary.Models;
+using EventLibrary.AzureServiceBus.Models;
 
 namespace EventLibrary.AzureServiceBus.Services.Foundations;
 
-public interface IServiceBusService
+internal interface IServiceBusService
 {
-    ValueTask RaiseEventAsync<T>(string name, EventMessage<T> eventMessage);
+    void ListenToEvent<T>(string name, Func<IServiceProvider, T, ValueTask> handler);
+    ValueTask RaiseEventAsync<T>(string name, ServiceBusEventMessage<T> eventMessage);
 }

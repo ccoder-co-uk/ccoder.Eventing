@@ -13,20 +13,14 @@ public partial class EventProcessingServiceTests
         string inputName = "event-name";
         IServiceProvider inputServiceProvider = Mock.Of<IServiceProvider>();
         FakeObject inputData = new() { Name = "test" };
-        EventMessage<FakeObject> inputMessage = new()
-        {
-            AuthInfo = Mock.Of<IEventAuthInfo>(),
-            Data = inputData
-        };
-
-        Func<IServiceProvider, EventMessage<FakeObject>, ValueTask> forwardedHandler = null;
+        Func<IServiceProvider, FakeObject, ValueTask> forwardedHandler = null;
         FakeObject actualData = null;
 
         eventServiceMock
             .Setup(service => service.ListenToEvent(
                 inputName,
-                It.IsAny<Func<IServiceProvider, EventMessage<FakeObject>, ValueTask>>()))
-            .Callback<string, Func<IServiceProvider, EventMessage<FakeObject>, ValueTask>>(
+                It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
+            .Callback<string, Func<IServiceProvider, FakeObject, ValueTask>>(
                 (_, handler) => forwardedHandler = handler);
 
         eventProcessingService.ListenToEvent(
@@ -37,7 +31,7 @@ public partial class EventProcessingServiceTests
                 return ValueTask.CompletedTask;
             });
 
-        await forwardedHandler(inputServiceProvider, inputMessage);
+        await forwardedHandler(inputServiceProvider, inputData);
 
         actualData.Should().BeSameAs(inputData);
     }
@@ -47,14 +41,14 @@ public partial class EventProcessingServiceTests
     {
         string inputName = "event-name";
         IServiceProvider inputServiceProvider = Mock.Of<IServiceProvider>();
-        Func<IServiceProvider, EventMessage<FakeObject>, ValueTask> forwardedHandler = null;
+        Func<IServiceProvider, FakeObject, ValueTask> forwardedHandler = null;
         bool handlerWasCalled = false;
 
         eventServiceMock
             .Setup(service => service.ListenToEvent(
                 inputName,
-                It.IsAny<Func<IServiceProvider, EventMessage<FakeObject>, ValueTask>>()))
-            .Callback<string, Func<IServiceProvider, EventMessage<FakeObject>, ValueTask>>(
+                It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
+            .Callback<string, Func<IServiceProvider, FakeObject, ValueTask>>(
                 (_, handler) => forwardedHandler = handler);
 
         eventProcessingService.ListenToEvent(

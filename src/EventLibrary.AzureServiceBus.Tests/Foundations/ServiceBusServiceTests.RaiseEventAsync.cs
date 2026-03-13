@@ -1,5 +1,5 @@
 using Azure.Messaging.ServiceBus;
-using EventLibrary.Models;
+using EventLibrary.AzureServiceBus.Models;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -13,9 +13,9 @@ public partial class ServiceBusServiceTests
     {
         string inputName = "event-name";
         ServiceBusMessage actualMessage = null;
-        EventMessage<FakeObject> inputEventMessage = new()
+        ServiceBusEventMessage<FakeObject> inputEventMessage = new()
         {
-            AuthInfo = Mock.Of<IEventAuthInfo>(auth => auth.SSOUserId == "user"),
+            AuthInfo = new ServiceBusEventAuthInfo { SSOUserId = "user" },
             Data = new FakeObject { Name = "test" }
         };
 
@@ -38,12 +38,12 @@ public partial class ServiceBusServiceTests
     }
 
     [Fact]
-    public async Task ShouldThrowWrappedExceptionOnRaiseEventAsyncWhenBrokerFails()
+    public async Task ShouldRethrowOnRaiseEventAsyncWhenBrokerFails()
     {
         string inputName = "event-name";
-        EventMessage<FakeObject> inputEventMessage = new()
+        ServiceBusEventMessage<FakeObject> inputEventMessage = new()
         {
-            AuthInfo = Mock.Of<IEventAuthInfo>(auth => auth.SSOUserId == "user"),
+            AuthInfo = new ServiceBusEventAuthInfo { SSOUserId = "user" },
             Data = new FakeObject()
         };
 
@@ -56,19 +56,19 @@ public partial class ServiceBusServiceTests
         Func<Task> raiseEventAsyncTask = async () =>
             await serviceBusService.RaiseEventAsync(inputName, inputEventMessage);
 
-        InvalidOperationException actualException =
-            await Assert.ThrowsAsync<InvalidOperationException>(raiseEventAsyncTask);
+        Exception actualException =
+            await Assert.ThrowsAsync<Exception>(raiseEventAsyncTask);
 
-        actualException.InnerException.Should().BeSameAs(serviceBusException);
+        actualException.Should().BeSameAs(serviceBusException);
     }
 
     [Fact]
-    public async Task ShouldThrowWrappedExceptionOnRaiseEventAsyncWhenBrokerFailsWithInnerException()
+    public async Task ShouldRethrowOnRaiseEventAsyncWhenBrokerFailsWithInnerException()
     {
         string inputName = "event-name";
-        EventMessage<FakeObject> inputEventMessage = new()
+        ServiceBusEventMessage<FakeObject> inputEventMessage = new()
         {
-            AuthInfo = Mock.Of<IEventAuthInfo>(auth => auth.SSOUserId == "user"),
+            AuthInfo = new ServiceBusEventAuthInfo { SSOUserId = "user" },
             Data = new FakeObject()
         };
 
@@ -82,10 +82,10 @@ public partial class ServiceBusServiceTests
         Func<Task> raiseEventAsyncTask = async () =>
             await serviceBusService.RaiseEventAsync(inputName, inputEventMessage);
 
-        InvalidOperationException actualException =
-            await Assert.ThrowsAsync<InvalidOperationException>(raiseEventAsyncTask);
+        Exception actualException =
+            await Assert.ThrowsAsync<Exception>(raiseEventAsyncTask);
 
-        actualException.InnerException.Should().BeSameAs(serviceBusException);
-        actualException.InnerException.InnerException.Should().BeSameAs(innerException);
+        actualException.Should().BeSameAs(serviceBusException);
+        actualException.InnerException.Should().BeSameAs(innerException);
     }
 }

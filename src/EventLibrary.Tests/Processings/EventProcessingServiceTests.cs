@@ -9,20 +9,17 @@ namespace EventLibrary.Tests.Processings;
 
 public partial class EventProcessingServiceTests
 {
-    private readonly Mock<IEventService<EventMessage<FakeObject>>> eventServiceMock;
-    private readonly Mock<IServiceProviderBroker> serviceProviderBrokerMock;
+    private readonly Mock<IEventService<FakeObject>> eventServiceMock;
     private readonly Mock<ILogger<EventProcessingService<FakeObject>>> loggerMock;
     private readonly IEventProcessingService<FakeObject> eventProcessingService;
 
     public EventProcessingServiceTests()
     {
-        eventServiceMock = new Mock<IEventService<EventMessage<FakeObject>>>();
-        serviceProviderBrokerMock = new Mock<IServiceProviderBroker>();
+        eventServiceMock = new Mock<IEventService<FakeObject>>();
         loggerMock = new Mock<ILogger<EventProcessingService<FakeObject>>>();
 
         eventProcessingService = new EventProcessingService<FakeObject>(
             eventServiceMock.Object,
-            serviceProviderBrokerMock.Object,
             loggerMock.Object);
     }
 }
