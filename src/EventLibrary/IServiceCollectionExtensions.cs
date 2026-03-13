@@ -20,6 +20,7 @@ public static class IServiceCollectionExtensions
 
         services.AddTransient<IServiceProviderBroker, ServiceProviderBroker>();
         services.AddTransient<IEventAuthorizationService, EventAuthorizationService>();
+        services.AddSingleton<IEventServiceProviderService, EventServiceProviderService>();
         services.AddSingleton<IEventHub, EventHub>();
     }
 
