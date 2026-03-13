@@ -4,19 +4,10 @@ using Microsoft.Extensions.Logging;
 
 namespace EventLibrary.Brokers;
 
-public class ServiceProviderBroker : IServiceProviderBroker
+public class ServiceProviderBroker(
+    IServiceProvider serviceProvider,
+    ILogger<ServiceProviderBroker> log) : IServiceProviderBroker
 {
-    private readonly IServiceProvider serviceProvider;
-    private readonly ILogger<ServiceProviderBroker> log;
-
-    public ServiceProviderBroker(
-        IServiceProvider serviceProvider,
-        ILogger<ServiceProviderBroker> log)
-    {
-        this.serviceProvider = serviceProvider;
-        this.log = log;
-    }
-
     public IServiceScope GetScopeForEvent(EventMessage message)
     {
         log.LogDebug("Creating event scope for user {UserId}", message?.AuthInfo?.SSOUserId ?? "Guest");
