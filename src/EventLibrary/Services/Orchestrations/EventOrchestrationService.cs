@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace EventLibrary.Services.Orchestrations;
 
 internal class EventOrchestrationService(
+    IEventProviderService eventProviderService,
     IEventServiceProviderService eventServiceProviderService) 
         : IEventOrchestrationService
 {
@@ -28,9 +29,23 @@ internal class EventOrchestrationService(
             .ListenToEvent(name, internalHandler);
     }
 
-    public ValueTask RaiseEventAsync<T>(string name, EventMessage<T> message) =>
-        eventServiceProviderService.RaiseEventAsync(name, message);
+    public async ValueTask RaiseEventAsync<T>(string name, EventMessage<T> message)
+    {
+        bool handled = await eventProviderService.RaiseEventAsync(name, message);
 
-    public ValueTask RaiseEventsAsync<T>(string name, EventMessage<T>[] messages) =>
-        eventServiceProviderService.RaiseEventsAsync(name, messages);
+        if (!handled)
+        {
+            await eventServiceProviderService.RaiseEventAsync(name, message);
+        }
+    }
+
+    public async ValueTask RaiseEventsAsync<T>(string name, EventMessage<T>[] messages)
+    {
+        bool handled = await eventProviderService.RaiseEventsAsync(name, messages);
+
+        if (!handled)
+        {
+            await eventServiceProviderService.RaiseEventsAsync(name, messages);
+        }
+    }
 }

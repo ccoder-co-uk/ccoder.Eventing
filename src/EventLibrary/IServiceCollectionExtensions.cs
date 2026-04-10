@@ -9,14 +9,21 @@ namespace EventLibrary;
 
 public static class IServiceCollectionExtensions
 {
-    public static void AddEventing(this IServiceCollection services)
+    public static void AddEventing(this IServiceCollection services) =>
+        AddEventing(services, new EventingConfiguration());
+
+    public static void AddEventing(
+        this IServiceCollection services,
+        EventingConfiguration eventingConfiguration)
     {
+        services.AddSingleton(eventingConfiguration ?? new EventingConfiguration());
         services.AddScoped<IEventAuthorizationBroker, EventAuthorizationBroker>();
         services.AddTransient(serviceProvider =>
             serviceProvider.GetRequiredService<IEventAuthorizationBroker>().GetEventAuthInfo());
 
         services.AddTransient<IServiceProviderBroker, ServiceProviderBroker>();
         services.AddTransient<IEventAuthorizationService, EventAuthorizationService>();
+        services.AddSingleton<IEventProviderService, EventProviderService>();
         services.AddSingleton<IEventServiceProviderService, EventServiceProviderService>();
         services.AddSingleton<IEventOrchestrationService, EventOrchestrationService>();
         services.AddSingleton<IEventHub>(serviceProvider =>
