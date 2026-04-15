@@ -6,27 +6,83 @@ public abstract class EventProvider
 
     internal abstract Type MessageType { get; }
 
-    internal bool CanHandle<T>(string name) =>
+    internal bool CanSend<T>(string name) =>
         Events?.Contains(name, StringComparer.Ordinal) == true &&
-        MessageType == typeof(T);
+        MessageType == typeof(T) &&
+        HasSendHandler;
 
-    internal abstract ValueTask HandleAsync(IServiceProvider serviceProvider, EventMessage message);
+    internal bool CanReceive<T>(string name) =>
+        Events?.Contains(name, StringComparer.Ordinal) == true &&
+        MessageType == typeof(T) &&
+        HasReceiveHandler;
+
+    internal abstract bool HasSendHandler { get; }
+
+    internal abstract bool HasReceiveHandler { get; }
+
+    internal abstract ValueTask HandleSendAsync(
+        IServiceProvider serviceProvider,
+        string eventName,
+        EventMessage message);
+
+    internal abstract ValueTask HandleReceiveAsync(
+        IServiceProvider serviceProvider,
+        string eventName,
+        EventMessage message);
 }
 
 public class EventProvider<T> : EventProvider
 {
-    public Func<IServiceProvider, EventMessage<T>, ValueTask> Handler { get; set; }
+    private Func<IServiceProvider, EventMessage<T>, ValueTask> handler;
+
+    public Func<IServiceProvider, string, EventMessage<T>, ValueTask> SendHandler { get; set; }
+
+    public Func<IServiceProvider, string, EventMessage<T>, ValueTask> ReceiveHandler { get; set; }
+
+    [Obsolete("Use SendHandler instead.")]
+    public Func<IServiceProvider, EventMessage<T>, ValueTask> Handler
+    {
+        get => handler;
+        set
+        {
+            handler = value;
+
+            if (value is not null && SendHandler is null)
+                SendHandler = (serviceProvider, _, message) => value(serviceProvider, message);
+        }
+    }
 
     internal override Type MessageType => typeof(T);
 
-    internal override ValueTask HandleAsync(IServiceProvider serviceProvider, EventMessage message)
+    internal override bool HasSendHandler => SendHandler is not null;
+
+    internal override bool HasReceiveHandler => ReceiveHandler is not null;
+
+    internal override ValueTask HandleSendAsync(
+        IServiceProvider serviceProvider,
+        string eventName,
+        EventMessage message)
     {
-        if (Handler is null)
+        if (SendHandler is null)
         {
             throw new InvalidOperationException(
-                $"You must provide a handler for event providers of type {typeof(T).Name}.");
+                $"You must provide a send handler for event providers of type {typeof(T).Name}.");
         }
 
-        return Handler(serviceProvider, (EventMessage<T>)message);
+        return SendHandler(serviceProvider, eventName, (EventMessage<T>)message);
+    }
+
+    internal override ValueTask HandleReceiveAsync(
+        IServiceProvider serviceProvider,
+        string eventName,
+        EventMessage message)
+    {
+        if (ReceiveHandler is null)
+        {
+            throw new InvalidOperationException(
+                $"You must provide a receive handler for event providers of type {typeof(T).Name}.");
+        }
+
+        return ReceiveHandler(serviceProvider, eventName, (EventMessage<T>)message);
     }
 }

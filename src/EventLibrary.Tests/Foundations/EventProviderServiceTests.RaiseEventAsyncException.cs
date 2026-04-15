@@ -23,7 +23,7 @@ public partial class EventProviderServiceTests
             new EventProvider<FakeObject>
             {
                 Events = [inputName],
-                Handler = (_, _) => ValueTask.FromException(innerException)
+                SendHandler = (_, _, _) => ValueTask.FromException(innerException)
             });
 
         Func<Task> raiseEventAsyncTask = async () =>

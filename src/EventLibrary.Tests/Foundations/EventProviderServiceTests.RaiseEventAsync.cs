@@ -24,7 +24,7 @@ public partial class EventProviderServiceTests
             new EventProvider<FakeObject>
             {
                 Events = [inputName],
-                Handler = (serviceProvider, message) =>
+                SendHandler = (serviceProvider, _, message) =>
                 {
                     actualServiceProvider = serviceProvider;
                     actualMessage = message;
@@ -58,7 +58,7 @@ public partial class EventProviderServiceTests
             new EventProvider<FakeObject>
             {
                 Events = [inputName],
-                Handler = (_, _) =>
+                SendHandler = (_, _, _) =>
                 {
                     callCount++;
                     return ValueTask.CompletedTask;
@@ -67,7 +67,7 @@ public partial class EventProviderServiceTests
             new EventProvider<FakeObject>
             {
                 Events = [inputName],
-                Handler = (_, _) =>
+                SendHandler = (_, _, _) =>
                 {
                     callCount++;
                     return ValueTask.CompletedTask;
@@ -98,7 +98,7 @@ public partial class EventProviderServiceTests
             new EventProvider<string>
             {
                 Events = [inputName],
-                Handler = (_, _) => ValueTask.CompletedTask
+                SendHandler = (_, _, _) => ValueTask.CompletedTask
             });
 
         bool handled = await eventProviderService.RaiseEventAsync(inputName, inputMessage);

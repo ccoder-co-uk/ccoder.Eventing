@@ -7,7 +7,8 @@ namespace EventLibrary.Services.Foundations;
 
 internal class EventProviderService(
         IServiceProviderBroker serviceProviderBroker,
-        EventingConfiguration eventingConfiguration,
+        IEnumerable<EventProvider> eventProviders,
+        IEnumerable<BulkEventProvider> bulkEventProviders,
         ILogger<EventProviderService> log)
             : IEventProviderService
 {
@@ -17,8 +18,8 @@ internal class EventProviderService(
         {
             ValidateRequest(name, message);
 
-            EventProvider[] matchingProviders = eventingConfiguration.EventProviders
-                .Where(provider => provider.CanHandle<T>(name))
+            EventProvider[] matchingProviders = eventProviders
+                .Where(provider => provider.CanSend<T>(name))
                 .ToArray();
 
             if (matchingProviders.Length == 0)
@@ -30,7 +31,7 @@ internal class EventProviderService(
 
             foreach (EventProvider provider in matchingProviders)
             {
-                await provider.HandleAsync(scope.ServiceProvider, message);
+                await provider.HandleSendAsync(scope.ServiceProvider, name, message);
             }
 
             return true;
@@ -54,7 +55,7 @@ internal class EventProviderService(
         {
             ValidateRequest(name, messages);
 
-            BulkEventProvider[] matchingProviders = eventingConfiguration.BulkEventProviders
+            BulkEventProvider[] matchingProviders = bulkEventProviders
                 .Where(provider => provider.CanHandle<T>(name))
                 .ToArray();
 
