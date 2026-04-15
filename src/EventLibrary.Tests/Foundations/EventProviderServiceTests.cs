@@ -1,6 +1,7 @@
 using EventLibrary.Brokers;
 using EventLibrary.Models;
 using EventLibrary.Services.Foundations;
+using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -33,10 +34,8 @@ public partial class EventProviderServiceTests
     private IEventProviderService CreateEventProviderService(params EventProvider[] eventProviders) =>
         new EventProviderService(
             serviceProviderBrokerMock.Object,
-            new EventingConfiguration
-            {
-                EventProviders = eventProviders
-            },
+            eventProviders,
+            [],
             loggerMock.Object);
 
     private IEventProviderService CreateEventProviderService(
@@ -44,10 +43,7 @@ public partial class EventProviderServiceTests
         BulkEventProvider[] bulkEventProviders) =>
         new EventProviderService(
             serviceProviderBrokerMock.Object,
-            new EventingConfiguration
-            {
-                EventProviders = eventProviders,
-                BulkEventProviders = bulkEventProviders
-            },
+            eventProviders,
+            bulkEventProviders,
             loggerMock.Object);
 }

@@ -13,6 +13,10 @@
 	<PropertyGroup>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageTags>cCoder;Eventing;cCoder.Eventing;cCoder.Eventing.EventLibrary</PackageTags>
+		<Version>2026.3.13.1755</Version>
+		<AssemblyVersion>2026.3.13.1755</AssemblyVersion>
+		<FileVersion>2026.3.13.1755</FileVersion>
+		<InformationalVersion>2026.3.13.1755</InformationalVersion>
 
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<PrivateRepositoryUrl>https://github.com/ccoder-co-uk/ccoder.Eventing.git</PrivateRepositoryUrl>

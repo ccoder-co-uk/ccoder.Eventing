@@ -16,7 +16,11 @@ public static class IServiceCollectionExtensions
         this IServiceCollection services,
         EventingConfiguration eventingConfiguration)
     {
-        services.AddSingleton(eventingConfiguration ?? new EventingConfiguration());
+        EventingConfiguration configuration = eventingConfiguration ?? new EventingConfiguration();
+
+        services.AddSingleton(configuration);
+        services.AddEventProviders(configuration.EventProviders);
+        services.AddBulkEventProviders(configuration.BulkEventProviders);
         services.AddScoped<IEventAuthorizationBroker, EventAuthorizationBroker>();
         services.AddTransient(serviceProvider =>
             serviceProvider.GetRequiredService<IEventAuthorizationBroker>().GetEventAuthInfo());
@@ -28,6 +32,28 @@ public static class IServiceCollectionExtensions
         services.AddSingleton<IEventOrchestrationService, EventOrchestrationService>();
         services.AddSingleton<IEventHub>(serviceProvider =>
             new EventHub(serviceProvider.GetRequiredService<IEventOrchestrationService>()));
+    }
+
+    public static void AddEventProviders(
+        this IServiceCollection services,
+        params EventProvider[] eventProviders)
+    {
+        foreach (EventProvider eventProvider in eventProviders ?? [])
+        {
+            if (eventProvider is not null)
+                services.AddSingleton(eventProvider);
+        }
+    }
+
+    public static void AddBulkEventProviders(
+        this IServiceCollection services,
+        params BulkEventProvider[] bulkEventProviders)
+    {
+        foreach (BulkEventProvider bulkEventProvider in bulkEventProviders ?? [])
+        {
+            if (bulkEventProvider is not null)
+                services.AddSingleton(bulkEventProvider);
+        }
     }
 
     public static void AddEventingForType<T>(this IServiceCollection services)
