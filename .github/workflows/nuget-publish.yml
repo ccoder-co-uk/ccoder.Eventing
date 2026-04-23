@@ -32,7 +32,7 @@ jobs:
     
     - name: Create version number
       id: version
-      run: echo "::set-output name=version::$(date +'%Y.%m.%d.%H%M')"
+      run: echo "version=$(date +'%Y.%m.%d.%H%M')" >> $env:GITHUB_OUTPUT
 
     # Install the .NET SDK indicated in the global.json file
     - name: Setup .NET
@@ -42,8 +42,9 @@ jobs:
 
     # Create the NuGet package in the folder from the environment variable NuGetDirectory
     - run: |
-        dotnet pack src/EventLibrary --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
-        dotnet pack src/EventLibrary.AzureServiceBus --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
+        dotnet pack src/cCoder.Eventing/cCoder.Eventing.csproj --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
+        dotnet pack src/cCoder.Eventing.AzureServiceBus/cCoder.Eventing.AzureServiceBus.csproj --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
+        dotnet pack src/cCoder.Eventing.Http/cCoder.Eventing.Http.csproj --configuration Release --output ${{ env.NuGetDirectory }} /p:Version="${{ steps.version.outputs.version }}"
 
     # Publish the NuGet package as an artifact, so they can be used in the following jobs
     - uses: actions/upload-artifact@v4
