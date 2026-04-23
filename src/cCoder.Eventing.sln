@@ -1,21 +1,29 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.4.11519.219 insiders
+VisualStudioVersion = 18.4.11519.219
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventLibrary", "EventLibrary\EventLibrary.csproj", "{F2595EB9-9A47-409D-A95F-753535252D7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cCoder.Eventing", "cCoder.Eventing\cCoder.Eventing.csproj", "{F2595EB9-9A47-409D-A95F-753535252D7D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventLibrary.Tests", "EventLibrary.Tests\EventLibrary.Tests.csproj", "{C128D4DD-4AE0-43E7-A563-2316F191EE67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cCoder.Eventing.Tests", "cCoder.Eventing.Tests\cCoder.Eventing.Tests.csproj", "{C128D4DD-4AE0-43E7-A563-2316F191EE67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventLibrary.AzureServiceBus", "EventLibrary.AzureServiceBus\EventLibrary.AzureServiceBus.csproj", "{BAA7B3E2-9AB8-4D82-BBD3-3CA53F9C6313}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cCoder.Eventing.AzureServiceBus", "cCoder.Eventing.AzureServiceBus\cCoder.Eventing.AzureServiceBus.csproj", "{BAA7B3E2-9AB8-4D82-BBD3-3CA53F9C6313}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventLibrary.AzureServiceBus.Tests", "EventLibrary.AzureServiceBus.Tests\EventLibrary.AzureServiceBus.Tests.csproj", "{E550E12C-5F12-4DA5-85EF-34F4D2A4B32B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cCoder.Eventing.AzureServiceBus.Tests", "cCoder.Eventing.AzureServiceBus.Tests\cCoder.Eventing.AzureServiceBus.Tests.csproj", "{E550E12C-5F12-4DA5-85EF-34F4D2A4B32B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventLibrary.AcceptanceTests", "EventLibrary.AcceptanceTests\EventLibrary.AcceptanceTests.csproj", "{3B540C97-7B89-4718-8BDD-C25F3CCBAECE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cCoder.Eventing.AcceptanceTests", "cCoder.Eventing.AcceptanceTests\cCoder.Eventing.AcceptanceTests.csproj", "{3B540C97-7B89-4718-8BDD-C25F3CCBAECE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventLibrary.AzureServiceBus.AcceptanceTests", "EventLibrary.AzureServiceBus.AcceptanceTests\EventLibrary.AzureServiceBus.AcceptanceTests.csproj", "{D8464E40-2CBD-462A-8B99-DEC254C96DF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cCoder.Eventing.AzureServiceBus.AcceptanceTests", "cCoder.Eventing.AzureServiceBus.AcceptanceTests\cCoder.Eventing.AzureServiceBus.AcceptanceTests.csproj", "{D8464E40-2CBD-462A-8B99-DEC254C96DF5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureServiceBus", "AzureServiceBus", "{FAD0F612-017C-4ABC-97A0-283D4F72711A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cCoder.Eventing.Http", "cCoder.Eventing.Http\cCoder.Eventing.Http.csproj", "{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cCoder.Eventing.Http.Tests", "cCoder.Eventing.Http.Tests\cCoder.Eventing.Http.Tests.csproj", "{8B926D47-8FA6-4966-A4B9-A261B4E2905F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Internal", "Internal", "{F4BE89F4-EFD8-425E-AB24-DE7A494C28E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Http", "Http", "{57C4950D-30E5-4C8C-8FDF-B60E3086F41F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,14 +107,43 @@ Global
 		{D8464E40-2CBD-462A-8B99-DEC254C96DF5}.Release|x64.Build.0 = Release|Any CPU
 		{D8464E40-2CBD-462A-8B99-DEC254C96DF5}.Release|x86.ActiveCfg = Release|Any CPU
 		{D8464E40-2CBD-462A-8B99-DEC254C96DF5}.Release|x86.Build.0 = Release|Any CPU
+		{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13}.Debug|x64.Build.0 = Debug|Any CPU
+		{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13}.Debug|x86.Build.0 = Debug|Any CPU
+		{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13}.Release|x64.ActiveCfg = Release|Any CPU
+		{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13}.Release|x64.Build.0 = Release|Any CPU
+		{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13}.Release|x86.ActiveCfg = Release|Any CPU
+		{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13}.Release|x86.Build.0 = Release|Any CPU
+		{8B926D47-8FA6-4966-A4B9-A261B4E2905F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B926D47-8FA6-4966-A4B9-A261B4E2905F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B926D47-8FA6-4966-A4B9-A261B4E2905F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8B926D47-8FA6-4966-A4B9-A261B4E2905F}.Debug|x64.Build.0 = Debug|Any CPU
+		{8B926D47-8FA6-4966-A4B9-A261B4E2905F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8B926D47-8FA6-4966-A4B9-A261B4E2905F}.Debug|x86.Build.0 = Debug|Any CPU
+		{8B926D47-8FA6-4966-A4B9-A261B4E2905F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B926D47-8FA6-4966-A4B9-A261B4E2905F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B926D47-8FA6-4966-A4B9-A261B4E2905F}.Release|x64.ActiveCfg = Release|Any CPU
+		{8B926D47-8FA6-4966-A4B9-A261B4E2905F}.Release|x64.Build.0 = Release|Any CPU
+		{8B926D47-8FA6-4966-A4B9-A261B4E2905F}.Release|x86.ActiveCfg = Release|Any CPU
+		{8B926D47-8FA6-4966-A4B9-A261B4E2905F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{F2595EB9-9A47-409D-A95F-753535252D7D} = {F4BE89F4-EFD8-425E-AB24-DE7A494C28E4}
+		{C128D4DD-4AE0-43E7-A563-2316F191EE67} = {F4BE89F4-EFD8-425E-AB24-DE7A494C28E4}
 		{BAA7B3E2-9AB8-4D82-BBD3-3CA53F9C6313} = {FAD0F612-017C-4ABC-97A0-283D4F72711A}
 		{E550E12C-5F12-4DA5-85EF-34F4D2A4B32B} = {FAD0F612-017C-4ABC-97A0-283D4F72711A}
+		{3B540C97-7B89-4718-8BDD-C25F3CCBAECE} = {F4BE89F4-EFD8-425E-AB24-DE7A494C28E4}
 		{D8464E40-2CBD-462A-8B99-DEC254C96DF5} = {FAD0F612-017C-4ABC-97A0-283D4F72711A}
+		{1735A9A4-2F4D-4F53-B79C-44BB2D3B1B13} = {57C4950D-30E5-4C8C-8FDF-B60E3086F41F}
+		{8B926D47-8FA6-4966-A4B9-A261B4E2905F} = {57C4950D-30E5-4C8C-8FDF-B60E3086F41F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {36517CA3-D42A-4DF2-B783-52023F07D817}
