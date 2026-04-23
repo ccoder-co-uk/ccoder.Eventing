@@ -94,6 +94,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ validate_nuget ]
     permissions:
+      contents: read
       id-token: write
     steps:
       # Download the NuGet package created in the previous job
@@ -111,7 +112,7 @@ jobs:
         id: login
         uses: NuGet/login@v1
         with:
-          user: CCoder
+          user: ${{ secrets.NUGET_USER }}
       # Publish all NuGet packages to NuGet.org
       # Use --skip-duplicate to prevent errors if a package with the same version already exists.
       # If you retry a failed workflow, already published packages will be skipped without error.
