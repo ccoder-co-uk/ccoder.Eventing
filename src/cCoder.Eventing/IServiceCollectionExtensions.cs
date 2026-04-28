@@ -7,17 +7,42 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace cCoder.Eventing;
 
-public static class IServiceCollectionExtensions
+public static partial class IServiceCollectionExtensions
 {
     public static void AddEventing(this IServiceCollection services) =>
-        AddEventing(services, new EventingConfiguration());
+        AddEventing(services, static _ => { });
+
+    public static void AddEventingWeb(
+        this IServiceCollection services,
+        Action<EventingConfiguration> configure = null) =>
+        AddEventing(services, configure);
+
+    public static void AddEventingHostedServices(
+        this IServiceCollection services,
+        Action<EventingConfiguration> configure = null) =>
+        AddEventing(services, configure);
+
+    public static void AddEventing(
+        this IServiceCollection services,
+        Action<EventingConfiguration> configure)
+    {
+        EventingConfiguration configuration = new();
+        configure?.Invoke(configuration);
+        RegisterEventing(services, configuration);
+    }
 
     public static void AddEventing(
         this IServiceCollection services,
         EventingConfiguration eventingConfiguration)
     {
         EventingConfiguration configuration = eventingConfiguration ?? new EventingConfiguration();
+        RegisterEventing(services, configuration);
+    }
 
+    private static void RegisterEventing(
+        IServiceCollection services,
+        EventingConfiguration configuration)
+    {
         services.AddSingleton(configuration);
         services.AddEventProviders(configuration.EventProviders);
         services.AddBulkEventProviders(configuration.BulkEventProviders);

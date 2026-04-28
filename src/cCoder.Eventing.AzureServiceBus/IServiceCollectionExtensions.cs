@@ -7,13 +7,41 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace cCoder.Eventing.AzureServiceBus;
 
-public static class IServiceCollectionExtensions
+public static partial class IServiceCollectionExtensions
 {
+    public static void AddAzureServiceBusEventingWeb(
+        this IServiceCollection services,
+        Action<AzureServiceBusEventingConfiguration> configure = null) =>
+        AddAzureServiceBusEventing(services, configure);
+
+    public static void AddAzureServiceBusEventingHostedServices(
+        this IServiceCollection services,
+        Action<AzureServiceBusEventingConfiguration> configure = null) =>
+        AddAzureServiceBusEventing(services, configure);
+
+    public static void AddAzureServiceBusEventing(
+        this IServiceCollection services,
+        Action<AzureServiceBusEventingConfiguration> configure)
+    {
+        AzureServiceBusEventingConfiguration configuration = new();
+        configure?.Invoke(configuration);
+        RegisterAzureServiceBusEventing(services, configuration);
+    }
+
     public static void AddAzureServiceBusEventing(
         this IServiceCollection services,
         string serviceBusConnectionString)
     {
-        services.AddSingleton(_ => new ServiceBusClient(serviceBusConnectionString));
+        AddAzureServiceBusEventing(
+            services,
+            configuration => configuration.ConnectionString = serviceBusConnectionString);
+    }
+
+    private static void RegisterAzureServiceBusEventing(
+        IServiceCollection services,
+        AzureServiceBusEventingConfiguration configuration)
+    {
+        services.AddSingleton(_ => new ServiceBusClient(configuration.ConnectionString));
 
         services.AddScoped<IServiceBusEventAuthorizationBroker, ServiceBusEventAuthorizationBroker>();
         services.AddTransient(serviceProvider =>

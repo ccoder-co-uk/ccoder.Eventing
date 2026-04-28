@@ -1,23 +1,40 @@
 using cCoder.Eventing.Http.Brokers;
-using cCoder.Eventing.Http.Controllers;
 using cCoder.Eventing.Http.Models;
 using cCoder.Eventing.Http.Services.Foundations;
 using cCoder.Eventing.Http.Services.Processings;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace cCoder.Eventing.Http;
 
-public static class IServiceCollectionExtensions
+public static partial class IServiceCollectionExtensions
 {
+    public static void AddHttpEventingWeb(
+        this IServiceCollection services,
+        Action<HttpEventingOptions> configure = null) =>
+        AddHttpEventing(services, configure);
+
+    public static void AddHttpEventingHostedServices(
+        this IServiceCollection services,
+        Action<HttpEventingOptions> configure = null)
+    {
+        AddHttpEventing(services, configure);
+        services.AddControllers().AddHttpEventingControllers();
+    }
+
     public static void AddHttpEventing(
         this IServiceCollection services,
         Action<HttpEventingOptions> configure = null)
     {
         HttpEventingOptions options = new();
         configure?.Invoke(options);
+        RegisterHttpEventing(services, options);
+    }
 
+    private static void RegisterHttpEventing(
+        IServiceCollection services,
+        HttpEventingOptions options)
+    {
         services.TryAddSingleton(options);
         services.AddHttpClient(HttpEventingOptions.HttpClientName);
 
@@ -32,7 +49,4 @@ public static class IServiceCollectionExtensions
 
         services.AddHostedService<HttpEventDispatcherHostedService>();
     }
-
-    public static IMvcBuilder AddHttpEventingControllers(this IMvcBuilder builder) =>
-        builder.AddApplicationPart(typeof(HttpEventController).Assembly);
 }
