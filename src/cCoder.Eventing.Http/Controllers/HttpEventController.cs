@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace cCoder.Eventing.Http.Controllers;
 
 [ApiController]
+[Route("Api/Eventing")]
 [Route("Api/Eventing/Http")]
 public class HttpEventController(IHttpEventHub httpEventHub) : ControllerBase
 {
