@@ -41,6 +41,7 @@ public static partial class IServiceCollectionExtensions
         IServiceCollection services,
         AzureServiceBusEventingConfiguration configuration)
     {
+        services.AddSingleton(configuration);
         services.AddSingleton(_ => new ServiceBusClient(configuration.ConnectionString));
 
         services.AddScoped<IServiceBusEventAuthorizationBroker, ServiceBusEventAuthorizationBroker>();
