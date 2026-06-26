@@ -1,17 +1,22 @@
 using Azure.Messaging.ServiceBus;
+using cCoder.Eventing.AzureServiceBus.Models;
 
 namespace cCoder.Eventing.AzureServiceBus.Brokers;
 
 internal class ServiceBusBroker : IServiceBusBroker
 {
     private readonly ServiceBusClient serviceBusClient;
+    private readonly AzureServiceBusEventingConfiguration configuration;
     private readonly IDictionary<string, ServiceBusSender> senders;
     private readonly IDictionary<string, ServiceBusProcessor> receivers;
     private readonly ISet<string> startedReceivers;
 
-    public ServiceBusBroker(ServiceBusClient serviceBusClient)
+    public ServiceBusBroker(
+        ServiceBusClient serviceBusClient,
+        AzureServiceBusEventingConfiguration configuration)
     {
         this.serviceBusClient = serviceBusClient;
+        this.configuration = configuration;
         senders = new Dictionary<string, ServiceBusSender>();
         receivers = new Dictionary<string, ServiceBusProcessor>();
         startedReceivers = new HashSet<string>();
@@ -61,7 +66,13 @@ internal class ServiceBusBroker : IServiceBusBroker
                 return receivers[name];
             }
 
-            receivers[name] = serviceBusClient.CreateProcessor(name);
+            receivers[name] = serviceBusClient.CreateProcessor(
+                name,
+                new ServiceBusProcessorOptions
+                {
+                    MaxConcurrentCalls = Math.Max(1, configuration.MaxConcurrency)
+                });
+
             return receivers[name];
         }
     }
