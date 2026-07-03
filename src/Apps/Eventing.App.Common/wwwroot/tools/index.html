@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eventing Chat</title>
+  <link rel="stylesheet" href="/tools/styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-mark">E</div>
+      <div>
+        <h1 id="appName">Eventing</h1>
+        <p id="remoteHub">Loading configuration...</p>
+      </div>
+    </div>
+    <div class="status">
+      <span id="connectionState">Disconnected</span>
+      <a href="/Health" target="_blank">Health</a>
+    </div>
+  </header>
+
+  <main class="chat-shell">
+    <section class="chat-panel">
+      <div class="chat-toolbar">
+        <label>
+          User
+          <input id="userInput" value="Guest" maxlength="40">
+        </label>
+        <label>
+          Message
+          <input id="messageInput" placeholder="Type a chat_event message" maxlength="240">
+        </label>
+        <button id="sendButton" type="button">Send</button>
+      </div>
+
+      <div id="messageList" class="message-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script src="/tools/signalr.min.js"></script>
+  <script src="/tools/chat.js"></script>
+</body>
+</html>
