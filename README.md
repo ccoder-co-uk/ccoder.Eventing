@@ -1,36 +1,84 @@
 # cCoder.Eventing
 
-`cCoder.Eventing` provides two related libraries:
+`cCoder.Eventing` provides lightweight event distribution for cCoder domain
+applications.
 
-- `EventLibrary`
-  Internal application eventing for in-process publish/subscribe workflows.
-- `EventLibrary.AzureServiceBus`
-  An Azure Service Bus backed `IEventHub` implementation for sending events out of process.
+It contains three packages:
 
-## Projects
+- `cCoder.Eventing` for in-process publish/subscribe through `IEventHub`.
+- `cCoder.Eventing.Http` for HTTP event handoff between application hosts.
+- `cCoder.Eventing.AzureServiceBus` for Azure Service Bus backed event delivery.
 
-- [EventLibrary](src/EventLibrary/README.md)
-- [EventLibrary.AzureServiceBus](src/EventLibrary.AzureServiceBus/README.md)
+## Functionality
 
-## Which package to use
+The core package provides a DI-backed event hub. Applications register typed
+handlers for named events and raise `EventMessage<T>` payloads from their
+orchestration layer.
 
-Use `EventLibrary` when event publishers and handlers live in the same application and you want a simple dependency-injection based event hub.
+The HTTP package adds a default event endpoint at:
 
-Use `EventLibrary.AzureServiceBus` when you want the same `IEventHub` abstraction to publish messages onto Azure Service Bus instead of dispatching them locally.
+- `POST /Api/Eventing`
+- `POST /Api/Eventing/Http`
 
-## Repository layout
+Consumers configure the remote hub URL and register receive handlers through
+`IHttpEventHub`. This keeps application code on top of the eventing hubs while
+the package owns dispatching and message transport.
 
-- `src/EventLibrary`
-  Core eventing abstractions, models, brokers, services, and the default `IEventHub`.
-- `src/EventLibrary.AzureServiceBus`
-  Azure Service Bus implementation of `IEventHub`.
-- `src/EventLibrary.Tests`
-  Unit tests for the core library.
-- `src/EventLibrary.AzureServiceBus.Tests`
-  Unit tests for the Azure Service Bus library.
+The Azure Service Bus package provides the same eventing shape for queue/topic
+based delivery.
 
-## Getting started
+## Demo Apps
 
-For local in-process eventing, start with the [EventLibrary README](src/EventLibrary/README.md).
+The repository includes two small runnable apps:
 
-For Azure Service Bus publishing, start with the [EventLibrary.AzureServiceBus README](src/EventLibrary.AzureServiceBus/README.md).
+- `src/Apps/Eventing.App1`
+- `src/Apps/Eventing.App2`
+
+Each app hosts a SignalR chat UI at `/tools/index.html`, a health endpoint at
+`/Health`, and the default HTTP eventing endpoint. Sending a chat message raises
+`chat_event` locally through `IEventHub` and remotely through `IHttpEventHub`.
+Both local and remote handlers broadcast received messages to connected SignalR
+clients.
+
+Default local URLs:
+
+- App1: `https://localhost:7161`
+- App2: `https://localhost:7162`
+
+Run both apps, open both `/tools/index.html` pages, and send a message from
+either side to see local and remote event handling.
+
+## Configuration
+
+The demo apps use standard ASP.NET Core configuration:
+
+```json
+{
+  "EventingChat": {
+    "AppName": "Eventing.App1",
+    "RemoteHubUrl": "https://localhost:7162/Api/Eventing/Http"
+  }
+}
+```
+
+Runtime configuration should be provided through `appsettings.json`,
+environment-specific appsettings files, and `AddEnvironmentVariables()` as part
+of normal application startup. Runtime code should depend on typed configuration
+models rather than reading environment variables directly.
+
+## Tests
+
+The solution contains:
+
+- Unit tests for core, HTTP, and Azure Service Bus eventing.
+- Acceptance tests for core package behavior.
+- Acceptance tests for `Eventing.App1` and `Eventing.App2` health/UI startup.
+- Integration tests that start both apps, connect SignalR clients to both, send
+  a `chat_event`, and assert both app clients receive the message.
+
+Run everything with:
+
+```powershell
+dotnet build src/cCoder.Eventing.sln -c Release -m:1 /p:BuildInParallel=false /p:UseSharedCompilation=false
+dotnet test src/cCoder.Eventing.sln -c Release --no-build -m:1 /p:BuildInParallel=false /p:UseSharedCompilation=false
+```
