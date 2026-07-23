@@ -50,8 +50,8 @@ internal class ChatOrchestrationService(
             return;
 
         await chatHub.Clients.All.SendAsync(
-method:            "chatReceived",
-arg1:            message);
+method: "chatReceived",
+arg1: message);
     }
 
     private static void ValidateRequest(ChatMessageRequest request)

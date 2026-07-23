@@ -19,6 +19,7 @@ public partial class AzureServiceBusEventHubTests
         {
             IAzureServiceBusEventHub eventHub =
                 serviceProvider.GetRequiredService<IAzureServiceBusEventHub>();
+
             TestEventHandlingBroker broker =
                 serviceProvider.GetRequiredService<TestEventHandlingBroker>();
 
@@ -26,16 +27,16 @@ public partial class AzureServiceBusEventHubTests
             string userId = $"user-{Guid.NewGuid():N}";
 
             eventHub.ListenToEvent<TestPayload>(
-name:                queueName,
-handler:                (scopedProvider, payload) =>
+name: queueName,
+handler: (scopedProvider, payload) =>
                 {
                     TestEventHandlingService handlingService =
                         scopedProvider.GetRequiredService<TestEventHandlingService>();
 
-                    return handlingService.HandleAsync(payload);
+                    return handlingService.HandleAsync(payload:payload);
                 });
 
-            await eventHub.RaiseEventAsync(name:queueName, message:CreateMessage(payloadValue, userId));
+            await eventHub.RaiseEventAsync(name:queueName, message:CreateMessage(payloadValue:payloadValue, userId:userId));
 
             EventRecord record = await WaitForSingleRecordAsync(broker:broker);
 

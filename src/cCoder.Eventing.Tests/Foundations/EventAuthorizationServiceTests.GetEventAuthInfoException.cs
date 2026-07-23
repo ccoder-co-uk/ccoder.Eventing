@@ -12,17 +12,26 @@ public partial class EventAuthorizationServiceTests
     [Fact]
     public void ShouldThrowWrappedExceptionOnGetEventAuthInfoIfBrokerFails()
     {
+        // Given
+
         Exception innerException = new("Broker failure");
 
         eventAuthorizationBrokerMock
-            .Setup(broker => broker.GetEventAuthInfo())
+            .Setup(expression:broker => broker.GetEventAuthInfo())
             .Throws(exception:innerException);
+
+        // When
 
         Action getEventAuthInfoAction = () => eventAuthorizationService.GetEventAuthInfo();
 
-        Exception actualException =
-            getEventAuthInfoAction.Should().Throw<Exception>().Which;
+        // Then
 
-        actualException.Should().BeSameAs(expected:innerException);
+        Exception actualException =
+            getEventAuthInfoAction.Should()
+                .Throw<Exception>()
+                .Which;
+
+        actualException.Should()
+            .BeSameAs(expected:innerException);
     }
 }

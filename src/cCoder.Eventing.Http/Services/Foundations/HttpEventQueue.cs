@@ -11,7 +11,7 @@ internal class HttpEventQueue : IHttpEventQueue
 {
     private readonly Channel<HttpEventMessage> channel =
         Channel.CreateUnbounded<HttpEventMessage>(
-options:            new UnboundedChannelOptions
+options: new UnboundedChannelOptions
             {
                 SingleReader = false,
                 SingleWriter = false

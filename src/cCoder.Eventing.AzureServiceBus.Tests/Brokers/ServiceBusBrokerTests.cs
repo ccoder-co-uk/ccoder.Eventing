@@ -4,6 +4,7 @@
 
 using Azure.Messaging.ServiceBus;
 using cCoder.Eventing.AzureServiceBus.Brokers;
+using cCoder.Eventing.AzureServiceBus.Dependencies;
 using cCoder.Eventing.AzureServiceBus.Models;
 using FluentAssertions;
 using Moq;
@@ -16,16 +17,18 @@ public sealed class ServiceBusBrokerTests
     [Fact]
     public void CreateProcessor_ShouldApplyConfiguredMaxConcurrency()
     {
+        // Given
+
         string inputName = "event-name";
         ServiceBusProcessorOptions actualOptions = null;
         Mock<ServiceBusProcessor> processorMock = new();
         Mock<ServiceBusClient> clientMock = new();
 
         clientMock
-            .Setup(client => client.CreateProcessor(
+            .Setup(expression:client => client.CreateProcessor(
                 inputName,
                 It.IsAny<ServiceBusProcessorOptions>()))
-            .Callback<string, ServiceBusProcessorOptions>((_, options) => actualOptions = options)
+            .Callback<string, ServiceBusProcessorOptions>(action:(_, options) => actualOptions = options)
             .Returns(value:processorMock.Object);
 
         ServiceBusBroker broker = new(
@@ -35,26 +38,37 @@ public sealed class ServiceBusBrokerTests
                 MaxConcurrency = 4
             });
 
+        // When
+
         ServiceBusProcessor actualProcessor = broker.CreateProcessor(name:inputName);
 
-        actualProcessor.Should().BeSameAs(expected:processorMock.Object);
-        actualOptions.Should().NotBeNull();
-        actualOptions.MaxConcurrentCalls.Should().Be(expected:4);
+        // Then
+
+        actualProcessor.Should()
+            .BeSameAs(expected:processorMock.Object);
+
+        actualOptions.Should()
+            .NotBeNull();
+
+        actualOptions.MaxConcurrentCalls.Should()
+            .Be(expected:4);
     }
 
     [Fact]
     public void CreateProcessor_ShouldUseMinimumMaxConcurrencyOfOne()
     {
+        // Given
+
         string inputName = "event-name";
         ServiceBusProcessorOptions actualOptions = null;
         Mock<ServiceBusProcessor> processorMock = new();
         Mock<ServiceBusClient> clientMock = new();
 
         clientMock
-            .Setup(client => client.CreateProcessor(
+            .Setup(expression:client => client.CreateProcessor(
                 inputName,
                 It.IsAny<ServiceBusProcessorOptions>()))
-            .Callback<string, ServiceBusProcessorOptions>((_, options) => actualOptions = options)
+            .Callback<string, ServiceBusProcessorOptions>(action:(_, options) => actualOptions = options)
             .Returns(value:processorMock.Object);
 
         ServiceBusBroker broker = new(
@@ -64,9 +78,16 @@ public sealed class ServiceBusBrokerTests
                 MaxConcurrency = 0
             });
 
+        // When
+
         broker.CreateProcessor(name:inputName);
 
-        actualOptions.Should().NotBeNull();
-        actualOptions.MaxConcurrentCalls.Should().Be(expected:1);
+        // Then
+
+        actualOptions.Should()
+            .NotBeNull();
+
+        actualOptions.MaxConcurrentCalls.Should()
+            .Be(expected:1);
     }
 }

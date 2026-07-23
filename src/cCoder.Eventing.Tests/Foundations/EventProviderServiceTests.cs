@@ -27,11 +27,11 @@ public partial class EventProviderServiceTests
         scopedServiceProviderMock = new Mock<IServiceProvider>();
 
         serviceScopeMock
-            .SetupGet(scope => scope.ServiceProvider)
+            .SetupGet(expression:scope => scope.ServiceProvider)
             .Returns(value:scopedServiceProviderMock.Object);
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetScopeForEvent(It.IsAny<EventMessage>()))
+            .Setup(expression:broker => broker.GetScopeForEvent(message:It.IsAny<EventMessage>()))
             .Returns(value:serviceScopeMock.Object);
     }
 

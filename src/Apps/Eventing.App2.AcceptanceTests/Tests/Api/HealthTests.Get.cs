@@ -17,6 +17,8 @@ public partial class HealthTests
         response.EnsureSuccessStatusCode();
 
         string content = await response.Content.ReadAsStringAsync();
-        content.Should().Contain(expected:"OK");
+
+        content.Should()
+            .Contain(expected:"OK");
     }
 }

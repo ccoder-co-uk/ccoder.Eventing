@@ -26,7 +26,7 @@ internal class HttpEventHandlerRegistry : IHttpEventHandlerRegistry
             {
                 EventName = name,
                 DataType = typeof(T),
-                Handler = (serviceProvider, data) => handler(serviceProvider, (T)data)
+                Handler = (serviceProvider, data) => handler(arg1:serviceProvider, arg2:(T)data)
             });
         }
     }

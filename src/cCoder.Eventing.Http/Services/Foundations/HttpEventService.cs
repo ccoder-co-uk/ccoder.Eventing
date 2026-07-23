@@ -37,8 +37,8 @@ internal class HttpEventService(
                 EventName = name,
                 SSOUserId = message.AuthInfo.SSOUserId,
                 Data = JsonSerializer.Serialize(
-value:                    message.Data,
-options:                    options.JsonSerializerOptions)
+value: message.Data,
+options: options.JsonSerializerOptions)
             };
 
             await httpEventBroker.SendAsync(message:httpEventMessage, cancellationToken:cancellationToken);

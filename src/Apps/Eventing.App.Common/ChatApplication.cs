@@ -20,14 +20,20 @@ public static class ChatApplication
     public static WebApplicationBuilder Configure(WebApplicationBuilder builder)
     {
         ChatConfiguration configuration = new();
-        builder.Configuration.GetSection("EventingChat").Bind(instance:configuration);
+
+        builder.Configuration.GetSection(key:"EventingChat")
+            .Bind(instance:configuration);
 
         builder.Services.AddSingleton(implementationInstance:configuration);
         builder.Services.AddSingleton<IChatOrchestrationService, ChatOrchestrationService>();
         builder.Services.AddSignalR();
-        builder.Services.AddControllers().AddHttpEventingControllers();
+
+        builder.Services.AddControllers()
+            .AddHttpEventingControllers();
+
         builder.Services.AddEventing();
         builder.Services.AddEventingForType<ChatMessage>();
+
         builder.Services.AddHttpEventingWeb(configure:options =>
             options.HubUrl = configuration.RemoteHubUrl);
 
@@ -40,13 +46,14 @@ public static class ChatApplication
         IHttpEventHub httpEventHub = app.Services.GetRequiredService<IHttpEventHub>();
 
         eventHub.ListenToEvent<ChatMessage, IChatOrchestrationService>(
-name:            ChatEventNames.ChatEvent,
-handler:            static (service, message) => service.ReceiveAsync(message));
+name: ChatEventNames.ChatEvent,
+handler: static (service, message) => service.ReceiveAsync(message:message));
 
         httpEventHub.ListenToEvent<ChatMessage>(
-name:            ChatEventNames.ChatEvent,
-handler:            static (serviceProvider, message) =>
-                serviceProvider.GetRequiredService<IChatOrchestrationService>().ReceiveAsync(message));
+name: ChatEventNames.ChatEvent,
+handler: static (serviceProvider, message) =>
+                serviceProvider.GetRequiredService<IChatOrchestrationService>()
+                    .ReceiveAsync(message:message));
 
         string sharedWebRoot = GetSharedWebRoot(contentRootPath:app.Environment.ContentRootPath);
         PhysicalFileProvider webRootFileProvider = new(sharedWebRoot);
@@ -63,8 +70,8 @@ handler:            static (serviceProvider, message) =>
 
         app.MapControllers();
         app.MapHub<ChatHub>(pattern:"/Api/Hubs/Chat");
-        app.MapGet(pattern:"/Health", handler:() => Results.Ok("OK"));
-        app.MapGet(pattern:"/Api/Chat/Config", handler:(ChatConfiguration configuration) => Results.Ok(configuration));
+        app.MapGet(pattern:"/Health", handler:() => Results.Ok(value:"OK"));
+        app.MapGet(pattern:"/Api/Chat/Config", handler:(ChatConfiguration configuration) => Results.Ok(value:configuration));
 
         return app;
     }
@@ -72,11 +79,11 @@ handler:            static (serviceProvider, message) =>
     private static string GetSharedWebRoot(string contentRootPath)
     {
         string sharedWebRoot = Path.GetFullPath(
-path:            Path.Combine(
-                contentRootPath,
-                "..",
-                "Eventing.App.Common",
-                "wwwroot"));
+path: Path.Combine(
+path1: contentRootPath,
+path2: "..",
+path3: "Eventing.App.Common",
+path4: "wwwroot"));
 
         if (Directory.Exists(path:sharedWebRoot))
             return sharedWebRoot;

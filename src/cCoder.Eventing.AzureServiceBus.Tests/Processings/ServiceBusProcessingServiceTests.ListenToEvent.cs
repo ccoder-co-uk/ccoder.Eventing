@@ -13,19 +13,26 @@ public partial class ServiceBusProcessingServiceTests
     [Fact]
     public void ShouldListenToEvent()
     {
+        // Given
+
         string inputName = "event-name";
+
         Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
 
         serviceBusServiceMock
             .Setup(expression:service => service.ListenToEvent(
-                inputName,
-                inputHandler));
+name: inputName,
+handler: inputHandler));
+
+        // When
 
         serviceBusProcessingService.ListenToEvent(name:inputName, handler:inputHandler);
 
+        // Then
+
         serviceBusServiceMock.Verify(
-expression:            service => service.ListenToEvent(inputName, inputHandler),
-times:            Times.Once);
+expression: service => service.ListenToEvent(name:inputName, handler:inputHandler),
+times: Times.Once);
     }
 }

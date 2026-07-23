@@ -17,6 +17,8 @@ public partial class ToolsTests
         response.EnsureSuccessStatusCode();
 
         string content = await response.Content.ReadAsStringAsync();
-        content.Should().Contain(expected:"Eventing Chat");
+
+        content.Should()
+            .Contain(expected:"Eventing Chat");
     }
 }

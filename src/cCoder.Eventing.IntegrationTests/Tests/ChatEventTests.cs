@@ -47,16 +47,18 @@ public partial class ChatEventTests : IAsyncLifetime
         string remoteHubUrl)
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(
-options:            new WebApplicationOptions
+options: new WebApplicationOptions
             {
-                ContentRootPath = GetAppContentRoot(appDirectory),
-                ApplicationName = typeof(ChatApplication).Assembly.FullName
+                ContentRootPath = GetAppContentRoot(appDirectory:appDirectory),
+                ApplicationName = typeof(ChatApplication)
+                    .Assembly.FullName
             });
 
         builder.WebHost.UseUrls(urls:appUrl);
         builder.Logging.ClearProviders();
+
         builder.Configuration.AddInMemoryCollection(
-initialData:            new Dictionary<string, string?>
+initialData: new Dictionary<string, string?>
             {
                 ["EventingChat:AppName"] = appName,
                 ["EventingChat:RemoteHubUrl"] = remoteHubUrl
@@ -83,11 +85,11 @@ initialData:            new Dictionary<string, string?>
             .Build();
 
         hubConnection.On<ChatMessage>(
-methodName:            "chatReceived",
-handler:            message =>
+methodName: "chatReceived",
+handler: message =>
             {
                 if (message.Text == expectedText)
-                    completionSource.TrySetResult(message);
+                    completionSource.TrySetResult(result:message);
             });
 
         await hubConnection.StartAsync();
@@ -102,8 +104,8 @@ handler:            message =>
         string text)
     {
         using HttpResponseMessage response = await httpClient.PostAsJsonAsync(
-requestUri:            $"{appUrl}/Api/Chat",
-value:            new ChatMessageRequest
+requestUri: $"{appUrl}/Api/Chat",
+value: new ChatMessageRequest
             {
                 User = user,
                 Text = text
@@ -116,10 +118,11 @@ value:            new ChatMessageRequest
         TaskCompletionSource<ChatMessage> completionSource)
     {
         Task completedTask = await Task.WhenAny(
-task1:            completionSource.Task,
-task2:            Task.Delay(TimeSpan.FromSeconds(10)));
+task1: completionSource.Task,
+task2: Task.Delay(delay:TimeSpan.FromSeconds(seconds:10)));
 
-        completedTask.Should().BeSameAs(expected:completionSource.Task);
+        completedTask.Should()
+            .BeSameAs(expected:completionSource.Task);
 
         return await completionSource.Task;
     }
@@ -147,7 +150,9 @@ task2:            Task.Delay(TimeSpan.FromSeconds(10)));
     {
         using TcpListener listener = new(IPAddress.Loopback, 0);
         listener.Start();
-        int port = ((IPEndPoint)listener.LocalEndpoint).Port;
+
+        int port = ((IPEndPoint)listener.LocalEndpoint)
+            .Port;
 
         return $"http://127.0.0.1:{port}";
     }

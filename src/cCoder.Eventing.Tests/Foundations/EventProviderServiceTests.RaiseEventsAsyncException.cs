@@ -15,7 +15,10 @@ public partial class EventProviderServiceTests
     [Fact]
     public async Task ShouldRethrowOnRaiseEventsAsyncIfProviderFails()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject>[] inputMessages =
         [
             new()
@@ -24,24 +27,30 @@ public partial class EventProviderServiceTests
                 Data = new FakeObject()
             }
         ];
+
         Exception innerException = new("Provider failure");
 
         IEventProviderService eventProviderService = CreateEventProviderService(
-eventProviders:            [],
-bulkEventProviders:            [
+eventProviders: [],
+bulkEventProviders: [
                 new BulkEventProvider<FakeObject>
                 {
                     Events = [inputName],
-                    Handler = (_, _) => ValueTask.FromException(innerException)
+                    Handler = (_, _) => ValueTask.FromException(exception:innerException)
                 }
             ]);
+
+        // When
 
         Func<Task> raiseEventsAsyncTask = async () =>
             await eventProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
+        // Then
+
         Exception actualException =
             await Assert.ThrowsAsync<Exception>(testCode:raiseEventsAsyncTask);
 
-        actualException.Should().BeSameAs(expected:innerException);
+        actualException.Should()
+            .BeSameAs(expected:innerException);
     }
 }

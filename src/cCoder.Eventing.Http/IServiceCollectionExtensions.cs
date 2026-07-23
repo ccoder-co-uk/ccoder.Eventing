@@ -23,7 +23,9 @@ public static partial class IServiceCollectionExtensions
         Action<HttpEventingOptions> configure = null)
     {
         AddHttpEventing(services:services, configure:configure);
-        services.AddControllers().AddHttpEventingControllers();
+
+        services.AddControllers()
+            .AddHttpEventingControllers();
     }
 
     public static void AddHttpEventing(
@@ -48,6 +50,7 @@ public static partial class IServiceCollectionExtensions
         services.TryAddSingleton<IHttpEventDispatcher, HttpEventDispatcher>();
         services.TryAddTransient<IHttpEventService, HttpEventService>();
         services.TryAddTransient<IHttpEventProcessingService, HttpEventProcessingService>();
+
         services.TryAddSingleton<IHttpEventHub>(implementationFactory:serviceProvider =>
             new HttpEventHub(serviceProvider.GetRequiredService<IHttpEventProcessingService>()));
 

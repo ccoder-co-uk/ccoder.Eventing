@@ -13,27 +13,33 @@ public partial class ServiceBusServiceTests
     [Fact]
     public void ShouldListenToEvent()
     {
+        // Given
+
         string inputName = "event-name";
         Mock<ServiceBusProcessor> serviceBusProcessorMock = new();
 
         serviceBusBrokerMock
-            .Setup(broker => broker.CreateProcessor(inputName))
+            .Setup(expression:broker => broker.CreateProcessor(name:inputName))
             .Returns(value:serviceBusProcessorMock.Object);
 
         serviceBusBrokerMock
-            .Setup(broker => broker.StartProcessorAsync(inputName))
+            .Setup(expression:broker => broker.StartProcessorAsync(name:inputName))
             .Returns(value:ValueTask.CompletedTask);
 
+        // When
+
         serviceBusService.ListenToEvent<FakeObject>(
-name:            inputName,
-handler:            (_, _) => ValueTask.CompletedTask);
+name: inputName,
+handler: (_, _) => ValueTask.CompletedTask);
+
+        // Then
 
         serviceBusBrokerMock.Verify(
-expression:            broker => broker.CreateProcessor(inputName),
-times:            Times.Once);
+expression: broker => broker.CreateProcessor(name:inputName),
+times: Times.Once);
 
         serviceBusBrokerMock.Verify(
-expression:            broker => broker.StartProcessorAsync(inputName),
-times:            Times.Once);
+expression: broker => broker.StartProcessorAsync(name:inputName),
+times: Times.Once);
     }
 }

@@ -28,7 +28,8 @@ public class BulkEventProvider<T> : BulkEventProvider
         if (Handler is null)
         {
             throw new InvalidOperationException(
-                $"You must provide a handler for bulk event providers of type {typeof(T).Name}.");
+                $"You must provide a handler for bulk event providers of type {typeof(T)
+                    .Name}.");
         }
 
         return Handler(arg1:serviceProvider, arg2:(EventMessage<T>[])messages);

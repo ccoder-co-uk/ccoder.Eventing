@@ -13,37 +13,51 @@ public partial class EventServiceProviderServiceTests
     [Fact]
     public void ShouldListenToEvent()
     {
+        // Given
+
         string inputName = "event-name";
+
         Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
+            .Setup(expression:broker => broker.GetService<IEventProcessingService<FakeObject>>())
             .Returns(value:eventProcessingServiceMock.Object);
+
+        // When
 
         eventServiceProviderService.ListenToEvent(name:inputName, handler:inputHandler);
 
+        // Then
+
         eventProcessingServiceMock.Verify(
-expression:            service => service.ListenToEvent(inputName, inputHandler),
-times:            Times.Once);
+expression: service => service.ListenToEvent(name:inputName, handler:inputHandler),
+times: Times.Once);
     }
 
     [Fact]
     public void ShouldOnlyResolveProcessingServiceOnceForType()
     {
+        // Given
+
         string inputName = "event-name";
+
         Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
+            .Setup(expression:broker => broker.GetService<IEventProcessingService<FakeObject>>())
             .Returns(value:eventProcessingServiceMock.Object);
 
         eventServiceProviderService.ListenToEvent(name:inputName, handler:inputHandler);
+        // When
+
         eventServiceProviderService.ListenToEvent(name:inputName, handler:inputHandler);
 
+        // Then
+
         serviceProviderBrokerMock.Verify(
-expression:            broker => broker.GetService<IEventProcessingService<FakeObject>>(),
-times:            Times.Once);
+expression: broker => broker.GetService<IEventProcessingService<FakeObject>>(),
+times: Times.Once);
     }
 }

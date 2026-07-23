@@ -15,22 +15,26 @@ public partial class EventServiceTests
     [Fact]
     public async Task ShouldRaiseEventAsync()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = Mock.Of<IEventAuthInfo>(),
             Data = new FakeObject()
         };
+
         IServiceProvider scopedServiceProvider = Mock.Of<IServiceProvider>();
         Mock<IServiceScope> serviceScopeMock = new();
         List<FakeObject> actualMessages = [];
 
         serviceScopeMock
-            .SetupGet(scope => scope.ServiceProvider)
+            .SetupGet(expression:scope => scope.ServiceProvider)
             .Returns(value:scopedServiceProvider);
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetScopeForEvent(inputMessage))
+            .Setup(expression:broker => broker.GetScopeForEvent(message:inputMessage))
             .Returns(value:serviceScopeMock.Object);
 
         IEnumerable<Func<IServiceProvider, FakeObject, ValueTask>> handlers =
@@ -48,100 +52,129 @@ public partial class EventServiceTests
         ];
 
         eventBrokerMock
-            .Setup(broker => broker.GetHandlers(inputName))
+            .Setup(expression:broker => broker.GetHandlers(name:inputName))
             .Returns(value:handlers);
+
+        // When
 
         await eventService.RaiseEventAsync(name:inputName, message:inputMessage);
 
-        actualMessages.Should().HaveCount(expected:2);
-        actualMessages.Should().OnlyContain(predicate:message => message == inputMessage.Data);
+        // Then
+
+        actualMessages.Should()
+            .HaveCount(expected:2);
+
+        actualMessages.Should()
+            .OnlyContain(predicate:message => message == inputMessage.Data);
 
         eventBrokerMock.Verify(
-expression:            broker => broker.GetHandlers(inputName),
-times:            Times.Once);
+expression: broker => broker.GetHandlers(name:inputName),
+times: Times.Once);
     }
 
     [Fact]
     public async Task ShouldRaiseEventAsyncWhenNoHandlersExist()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = Mock.Of<IEventAuthInfo>(),
             Data = new FakeObject()
         };
+
         Mock<IServiceScope> serviceScopeMock = new();
 
         serviceScopeMock
-            .SetupGet(scope => scope.ServiceProvider)
+            .SetupGet(expression:scope => scope.ServiceProvider)
             .Returns(value:Mock.Of<IServiceProvider>());
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetScopeForEvent(inputMessage))
+            .Setup(expression:broker => broker.GetScopeForEvent(message:inputMessage))
             .Returns(value:serviceScopeMock.Object);
 
         eventBrokerMock
-            .Setup(broker => broker.GetHandlers(inputName))
+            .Setup(expression:broker => broker.GetHandlers(name:inputName))
             .Returns(value:Array.Empty<Func<IServiceProvider, FakeObject, ValueTask>>());
+
+        // When
 
         Func<Task> raiseEventAsyncTask = async () =>
             await eventService.RaiseEventAsync(name:inputName, message:inputMessage);
 
-        await raiseEventAsyncTask.Should().NotThrowAsync();
+        // Then
+
+        await raiseEventAsyncTask.Should()
+            .NotThrowAsync();
     }
 
     [Fact]
     public async Task ShouldThrowWrappedExceptionOnRaiseEventAsyncIfBrokerFails()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = Mock.Of<IEventAuthInfo>(),
             Data = new FakeObject()
         };
+
         Exception innerException = new("Broker failure");
         Mock<IServiceScope> serviceScopeMock = new();
 
         serviceScopeMock
-            .SetupGet(scope => scope.ServiceProvider)
+            .SetupGet(expression:scope => scope.ServiceProvider)
             .Returns(value:Mock.Of<IServiceProvider>());
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetScopeForEvent(inputMessage))
+            .Setup(expression:broker => broker.GetScopeForEvent(message:inputMessage))
             .Returns(value:serviceScopeMock.Object);
 
         eventBrokerMock
-            .Setup(broker => broker.GetHandlers(inputName))
+            .Setup(expression:broker => broker.GetHandlers(name:inputName))
             .Throws(exception:innerException);
+
+        // When
 
         Func<Task> raiseEventAsyncTask = async () =>
             await eventService.RaiseEventAsync(name:inputName, message:inputMessage);
 
+        // Then
+
         Exception actualException =
             await Assert.ThrowsAsync<Exception>(testCode:raiseEventAsyncTask);
 
-        actualException.Should().BeSameAs(expected:innerException);
+        actualException.Should()
+            .BeSameAs(expected:innerException);
     }
 
     [Fact]
     public async Task ShouldThrowWrappedExceptionOnRaiseEventAsyncIfHandlerFails()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = Mock.Of<IEventAuthInfo>(),
             Data = new FakeObject()
         };
+
         Exception innerException = new("Handler failure");
         Mock<IServiceScope> serviceScopeMock = new();
         IServiceProvider scopedServiceProvider = Mock.Of<IServiceProvider>();
 
         serviceScopeMock
-            .SetupGet(scope => scope.ServiceProvider)
+            .SetupGet(expression:scope => scope.ServiceProvider)
             .Returns(value:scopedServiceProvider);
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetScopeForEvent(inputMessage))
+            .Setup(expression:broker => broker.GetScopeForEvent(message:inputMessage))
             .Returns(value:serviceScopeMock.Object);
 
         IEnumerable<Func<IServiceProvider, FakeObject, ValueTask>> handlers =
@@ -150,15 +183,20 @@ times:            Times.Once);
         ];
 
         eventBrokerMock
-            .Setup(broker => broker.GetHandlers(inputName))
+            .Setup(expression:broker => broker.GetHandlers(name:inputName))
             .Returns(value:handlers);
+
+        // When
 
         Func<Task> raiseEventAsyncTask = async () =>
             await eventService.RaiseEventAsync(name:inputName, message:inputMessage);
 
+        // Then
+
         Exception actualException =
             await Assert.ThrowsAsync<Exception>(testCode:raiseEventAsyncTask);
 
-        actualException.Should().BeSameAs(expected:innerException);
+        actualException.Should()
+            .BeSameAs(expected:innerException);
     }
 }

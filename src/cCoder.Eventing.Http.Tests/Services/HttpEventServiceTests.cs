@@ -18,7 +18,10 @@ public class HttpEventServiceTests
     [Fact]
     public async Task ShouldSerializeEventPayloadForTransport()
     {
+        // Given
+
         string inputName = "fake-event";
+
         EventMessage<FakePayload> inputMessage = new()
         {
             AuthInfo = new EventAuthInfo { SSOUserId = "user-123" },
@@ -29,11 +32,11 @@ public class HttpEventServiceTests
         Mock<IHttpEventBroker> httpEventBrokerMock = new();
 
         httpEventBrokerMock
-            .Setup(broker => broker.SendAsync(
+            .Setup(expression:broker => broker.SendAsync(
                 It.IsAny<HttpEventMessage>(),
                 It.IsAny<CancellationToken>()))
             .Callback<HttpEventMessage, CancellationToken>(
-                (message, _) => actualMessage = message)
+action: (message, _) => actualMessage = message)
             .Returns(value:ValueTask.CompletedTask);
 
         IHttpEventService httpEventService = new HttpEventService(
@@ -43,11 +46,22 @@ public class HttpEventServiceTests
             new HttpEventingOptions(),
             Mock.Of<ILogger<HttpEventService>>());
 
+        // When
+
         await httpEventService.RaiseEventAsync(name:inputName, message:inputMessage);
 
-        actualMessage.Should().NotBeNull();
-        actualMessage.EventName.Should().Be(expected:inputName);
-        actualMessage.SSOUserId.Should().Be(expected:inputMessage.AuthInfo.SSOUserId);
-        actualMessage.Data.Should().Contain(expected:"\"value\":\"hello\"");
+        // Then
+
+        actualMessage.Should()
+            .NotBeNull();
+
+        actualMessage.EventName.Should()
+            .Be(expected:inputName);
+
+        actualMessage.SSOUserId.Should()
+            .Be(expected:inputMessage.AuthInfo.SSOUserId);
+
+        actualMessage.Data.Should()
+            .Contain(expected:"\"value\":\"hello\"");
     }
 }

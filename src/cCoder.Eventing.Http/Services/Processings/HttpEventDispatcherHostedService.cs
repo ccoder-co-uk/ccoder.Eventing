@@ -25,11 +25,11 @@ internal class HttpEventDispatcherHostedService(
             await concurrencyGate.WaitAsync(cancellationToken:stoppingToken);
 
             _ = Task.Run(
-function:                async () =>
+function: async () =>
                 {
                     try
                     {
-                        await eventDispatcher.DispatchAsync(message, stoppingToken);
+                        await eventDispatcher.DispatchAsync(message:message, cancellationToken:stoppingToken);
                     }
                     catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
                     {
@@ -48,7 +48,7 @@ function:                async () =>
                         concurrencyGate.Release();
                     }
                 },
-cancellationToken:                stoppingToken);
+cancellationToken: stoppingToken);
         }
     }
 

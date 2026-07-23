@@ -14,7 +14,10 @@ public partial class ServiceBusProcessingServiceTests
     [Fact]
     public async Task ShouldRaiseEventsAsync()
     {
+        // Given
+
         string inputName = "event-name";
+
         ServiceBusEventMessage<FakeObject>[] inputMessages =
         [
             new ServiceBusEventMessage<FakeObject>
@@ -29,17 +32,24 @@ public partial class ServiceBusProcessingServiceTests
             }
         ];
 
+        // When
+
         await serviceBusProcessingService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
+        // Then
+
         serviceBusServiceMock.Verify(
-expression:            service => service.RaiseEventAsync(inputName, It.IsAny<ServiceBusEventMessage<FakeObject>>()),
-times:            Times.Exactly(inputMessages.Length));
+expression: service => service.RaiseEventAsync(name:inputName, eventMessage:It.IsAny<ServiceBusEventMessage<FakeObject>>()),
+times: Times.Exactly(callCount:inputMessages.Length));
     }
 
     [Fact]
     public async Task ShouldThrowOnRaiseEventsAsyncWhenMessageIsInvalid()
     {
+        // Given
+
         string inputName = "event-name";
+
         ServiceBusEventMessage<FakeObject>[] inputMessages =
         [
             new ServiceBusEventMessage<FakeObject>
@@ -54,13 +64,18 @@ times:            Times.Exactly(inputMessages.Length));
             }
         ];
 
+        // When
+
         Func<Task> raiseEventsAsyncTask = async () =>
             await serviceBusProcessingService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
-        await raiseEventsAsyncTask.Should().ThrowAsync<InvalidOperationException>();
+        // Then
+
+        await raiseEventsAsyncTask.Should()
+            .ThrowAsync<InvalidOperationException>();
 
         serviceBusServiceMock.Verify(
-expression:            service => service.RaiseEventAsync(inputName, It.IsAny<ServiceBusEventMessage<FakeObject>>()),
-times:            Times.Once);
+expression: service => service.RaiseEventAsync(name:inputName, eventMessage:It.IsAny<ServiceBusEventMessage<FakeObject>>()),
+times: Times.Once);
     }
 }

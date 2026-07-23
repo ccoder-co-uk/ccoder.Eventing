@@ -15,7 +15,10 @@ public partial class EventProviderServiceTests
     [Fact]
     public async Task ShouldRaiseEventsAsyncAndReturnTrueWhenMatchingBulkProviderExists()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject>[] inputMessages =
         [
             new()
@@ -24,12 +27,13 @@ public partial class EventProviderServiceTests
                 Data = new FakeObject()
             }
         ];
+
         EventMessage<FakeObject>[] actualMessages = null;
         IServiceProvider actualServiceProvider = null;
 
         IEventProviderService eventProviderService = CreateEventProviderService(
-eventProviders:            [],
-bulkEventProviders:            [
+eventProviders: [],
+bulkEventProviders: [
                 new BulkEventProvider<FakeObject>
                 {
                     Events = [inputName],
@@ -42,21 +46,33 @@ bulkEventProviders:            [
                 }
             ]);
 
+        // When
+
         bool handled = await eventProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
-        handled.Should().BeTrue();
-        actualMessages.Should().BeSameAs(expected:inputMessages);
-        actualServiceProvider.Should().BeSameAs(expected:scopedServiceProviderMock.Object);
+        // Then
+
+        handled.Should()
+            .BeTrue();
+
+        actualMessages.Should()
+            .BeSameAs(expected:inputMessages);
+
+        actualServiceProvider.Should()
+            .BeSameAs(expected:scopedServiceProviderMock.Object);
 
         serviceProviderBrokerMock.Verify(
-expression:            broker => broker.GetScopeForEvent(inputMessages[0]),
-times:            Times.Once);
+expression: broker => broker.GetScopeForEvent(message:inputMessages[0]),
+times: Times.Once);
     }
 
     [Fact]
     public async Task ShouldRaiseEventsAsyncForEveryMatchingBulkProvider()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject>[] inputMessages =
         [
             new()
@@ -65,11 +81,12 @@ times:            Times.Once);
                 Data = new FakeObject()
             }
         ];
+
         int callCount = 0;
 
         IEventProviderService eventProviderService = CreateEventProviderService(
-eventProviders:            [],
-bulkEventProviders:            [
+eventProviders: [],
+bulkEventProviders: [
                 new BulkEventProvider<FakeObject>
                 {
                     Events = [inputName],
@@ -90,16 +107,26 @@ bulkEventProviders:            [
                 }
             ]);
 
+        // When
+
         bool handled = await eventProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
-        handled.Should().BeTrue();
-        callCount.Should().Be(expected:2);
+        // Then
+
+        handled.Should()
+            .BeTrue();
+
+        callCount.Should()
+            .Be(expected:2);
     }
 
     [Fact]
     public async Task ShouldReturnFalseWhenNoMatchingBulkProviderExists()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject>[] inputMessages =
         [
             new()
@@ -110,8 +137,8 @@ bulkEventProviders:            [
         ];
 
         IEventProviderService eventProviderService = CreateEventProviderService(
-eventProviders:            [],
-bulkEventProviders:            [
+eventProviders: [],
+bulkEventProviders: [
                 new BulkEventProvider<string>
                 {
                     Events = [inputName],
@@ -119,12 +146,17 @@ bulkEventProviders:            [
                 }
             ]);
 
+        // When
+
         bool handled = await eventProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
-        handled.Should().BeFalse();
+        // Then
+
+        handled.Should()
+            .BeFalse();
 
         serviceProviderBrokerMock.Verify(
-expression:            broker => broker.GetScopeForEvent(It.IsAny<EventMessage>()),
-times:            Times.Never);
+expression: broker => broker.GetScopeForEvent(message:It.IsAny<EventMessage>()),
+times: Times.Never);
     }
 }

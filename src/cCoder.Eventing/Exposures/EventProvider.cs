@@ -84,7 +84,8 @@ public class EventProvider<T> : EventProvider
         if (SendHandler is null)
         {
             throw new InvalidOperationException(
-                $"You must provide a send handler for event providers of type {typeof(T).Name}.");
+                $"You must provide a send handler for event providers of type {typeof(T)
+                    .Name}.");
         }
 
         return SendHandler(arg1:serviceProvider, arg2:eventName, arg3:(EventMessage<T>)message);
@@ -98,7 +99,8 @@ public class EventProvider<T> : EventProvider
         if (ReceiveHandler is null)
         {
             throw new InvalidOperationException(
-                $"You must provide a receive handler for event providers of type {typeof(T).Name}.");
+                $"You must provide a receive handler for event providers of type {typeof(T)
+                    .Name}.");
         }
 
         return ReceiveHandler(arg1:serviceProvider, arg2:eventName, arg3:(EventMessage<T>)message);

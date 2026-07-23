@@ -14,19 +14,26 @@ public partial class EventAuthorizationServiceTests
     [Fact]
     public void ShouldReturnEventAuthInfo()
     {
+        // Given
+
         IEventAuthInfo expectedEventAuthInfo = Mock.Of<IEventAuthInfo>();
 
         eventAuthorizationBrokerMock
-            .Setup(broker => broker.GetEventAuthInfo())
+            .Setup(expression:broker => broker.GetEventAuthInfo())
             .Returns(value:expectedEventAuthInfo);
+
+        // When
 
         IEventAuthInfo actualEventAuthInfo =
             eventAuthorizationService.GetEventAuthInfo();
 
-        actualEventAuthInfo.Should().BeSameAs(expected:expectedEventAuthInfo);
+        // Then
+
+        actualEventAuthInfo.Should()
+            .BeSameAs(expected:expectedEventAuthInfo);
 
         eventAuthorizationBrokerMock.Verify(
-expression:            broker => broker.GetEventAuthInfo(),
-times:            Times.Once);
+expression: broker => broker.GetEventAuthInfo(),
+times: Times.Once);
     }
 }

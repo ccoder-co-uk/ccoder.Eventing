@@ -23,7 +23,7 @@ internal class HttpEventDispatcher(
 {
     private static readonly MethodInfo CreateMessageMethod =
         typeof(HttpEventDispatcher)
-            .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
+            .GetMethods(bindingAttr:BindingFlags.NonPublic | BindingFlags.Static)
             .Single(predicate:method =>
                 method.Name == nameof(CreateMessage) &&
                 method.IsGenericMethodDefinition);
@@ -42,8 +42,8 @@ internal class HttpEventDispatcher(
             if (!handledBySubscriptions && !handledByProviders)
             {
                 log.LogWarning(
-message:                    "HTTP event {EventName} was received but no matching handlers were registered.",
-args:                    message.EventName);
+message: "HTTP event {EventName} was received but no matching handlers were registered.",
+args: message.EventName);
             }
         }
         catch (Exception ex)
@@ -80,7 +80,7 @@ args:                    message.EventName);
     private async ValueTask<bool> DispatchToProvidersAsync(HttpEventMessage message)
     {
         EventProvider[] matchingProviders = eventProviders
-            .Where(predicate:provider => provider.CanReceive(message.EventName))
+            .Where(predicate:provider => provider.CanReceive(name:message.EventName))
             .ToArray();
 
         foreach (EventProvider provider in matchingProviders)
@@ -92,9 +92,9 @@ args:                    message.EventName);
                 serviceProviderBroker.GetScopeForEvent(message:eventMessage);
 
             await provider.ReceiveAsync(
-serviceProvider:                scope.ServiceProvider,
-eventName:                message.EventName,
-message:                eventMessage);
+serviceProvider: scope.ServiceProvider,
+eventName: message.EventName,
+message: eventMessage);
         }
 
         return matchingProviders.Length > 0;
@@ -102,16 +102,16 @@ message:                eventMessage);
 
     private object Deserialize(HttpEventMessage message, Type dataType) =>
         JsonSerializer.Deserialize(
-json:            message.Data,
-returnType:            dataType,
-options:            options.JsonSerializerOptions);
+json: message.Data,
+returnType: dataType,
+options: options.JsonSerializerOptions);
 
     private static EventMessage CreateMessage(
         Type dataType,
         object data,
         HttpEventMessage message) =>
             (EventMessage)CreateMessageMethod
-                .MakeGenericMethod(dataType)
+                .MakeGenericMethod(typeArguments:dataType)
                 .Invoke(obj:null, parameters:[data, message]);
 
     private static EventMessage<T> CreateMessage<T>(

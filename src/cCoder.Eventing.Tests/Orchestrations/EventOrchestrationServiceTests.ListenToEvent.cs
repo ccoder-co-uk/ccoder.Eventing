@@ -15,23 +15,33 @@ public partial class EventOrchestrationServiceTests
     [Fact]
     public void ShouldListenToEvent()
     {
+        // Given
+
         string inputName = "event-name";
+
         Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
 
+        // When
+
         eventOrchestrationService.ListenToEvent(name:inputName, handler:inputHandler);
 
+        // Then
+
         eventServiceProviderServiceMock.Verify(
-expression:            service => service.ListenToEvent(inputName, inputHandler),
-times:            Times.Once);
+expression: service => service.ListenToEvent(name:inputName, handler:inputHandler),
+times: Times.Once);
     }
 
     [Fact]
     public async Task ShouldListenToEventWithHandlingService()
     {
+        // Given
+
         string inputName = "event-name";
         FakeObject inputMessage = new() { Name = "test" };
         Mock<IHandlingService> handlingServiceMock = new();
+
         IServiceProvider inputServiceProvider = new ServiceCollection()
             .AddSingleton(implementationInstance:handlingServiceMock.Object)
             .BuildServiceProvider();
@@ -41,25 +51,32 @@ times:            Times.Once);
         FakeObject actualMessage = null;
 
         eventServiceProviderServiceMock
-            .Setup(service => service.ListenToEvent(
-                inputName,
-                It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
+            .Setup(expression:service => service.ListenToEvent(
+name: inputName,
+handler: It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
             .Callback<string, Func<IServiceProvider, FakeObject, ValueTask>>(
-action:                (_, handler) => internalHandler = handler);
+action: (_, handler) => internalHandler = handler);
 
         eventOrchestrationService.ListenToEvent<FakeObject, IHandlingService>(
-name:            inputName,
-handler:            (handlingService, message) =>
+name: inputName,
+handler: (handlingService, message) =>
             {
                 actualHandlingService = handlingService;
                 actualMessage = message;
                 return ValueTask.CompletedTask;
             });
 
+        // When
+
         await internalHandler(arg1:inputServiceProvider, arg2:inputMessage);
 
-        actualHandlingService.Should().BeSameAs(expected:handlingServiceMock.Object);
-        actualMessage.Should().BeSameAs(expected:inputMessage);
+        // Then
+
+        actualHandlingService.Should()
+            .BeSameAs(expected:handlingServiceMock.Object);
+
+        actualMessage.Should()
+            .BeSameAs(expected:inputMessage);
     }
 
     public interface IHandlingService;

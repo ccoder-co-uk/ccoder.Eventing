@@ -23,13 +23,13 @@ internal class HttpEventBroker(
             ValidateOptions(options:options);
 
             HttpClient httpClient = httpClientFactory.CreateClient(
-name:                HttpEventingOptions.HttpClientName);
+name: HttpEventingOptions.HttpClientName);
 
             using HttpResponseMessage response = await httpClient.PostAsJsonAsync(
-requestUri:                options.HubUrl,
-value:                message,
-options:                options.JsonSerializerOptions,
-cancellationToken:                cancellationToken);
+requestUri: options.HubUrl,
+value: message,
+options: options.JsonSerializerOptions,
+cancellationToken: cancellationToken);
 
             response.EnsureSuccessStatusCode();
         }

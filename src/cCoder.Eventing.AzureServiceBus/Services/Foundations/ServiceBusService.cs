@@ -61,7 +61,8 @@ internal sealed partial class ServiceBusService(
                 ServiceBusMessage message = new()
                 {
                     Body = new BinaryData(eventMessage),
-                    MessageId = $"{eventMessage.AuthInfo.SSOUserId}_{typeof(T).Name}_{Guid.NewGuid()}"
+                    MessageId = $"{eventMessage.AuthInfo.SSOUserId}_{typeof(T)
+                        .Name}_{Guid.NewGuid()}"
                 };
 
                 await serviceBusBroker.SendMessageAsync(name:name, message:message);

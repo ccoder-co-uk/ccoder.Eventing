@@ -12,6 +12,8 @@ public partial class ChatEventTests
     [Fact]
     public async Task ShouldSendChatEventFromApp2ToApp1()
     {
+        // Given
+
         string app1Url = GetFreeLocalUrl();
         string app2Url = GetFreeLocalUrl();
         string messageText = $"App2 integration message {Guid.NewGuid()}";
@@ -19,16 +21,16 @@ public partial class ChatEventTests
         TaskCompletionSource<ChatMessage> app2ReceivedMessage = new();
 
         await StartChatApplicationAsync(
-appDirectory:            "Eventing.App1",
-appName:            "Eventing.App1",
-appUrl:            app1Url,
-remoteHubUrl:            $"{app2Url}/Api/Eventing/Http");
+appDirectory: "Eventing.App1",
+appName: "Eventing.App1",
+appUrl: app1Url,
+remoteHubUrl: $"{app2Url}/Api/Eventing/Http");
 
         await StartChatApplicationAsync(
-appDirectory:            "Eventing.App2",
-appName:            "Eventing.App2",
-appUrl:            app2Url,
-remoteHubUrl:            $"{app1Url}/Api/Eventing/Http");
+appDirectory: "Eventing.App2",
+appName: "Eventing.App2",
+appUrl: app2Url,
+remoteHubUrl: $"{app1Url}/Api/Eventing/Http");
 
         await ConnectToChatHubAsync(appUrl:app1Url, completionSource:app1ReceivedMessage, expectedText:messageText);
         await ConnectToChatHubAsync(appUrl:app2Url, completionSource:app2ReceivedMessage, expectedText:messageText);
@@ -38,12 +40,23 @@ remoteHubUrl:            $"{app1Url}/Api/Eventing/Http");
         ChatMessage app1Message =
             await WaitForMessageAsync(completionSource:app1ReceivedMessage);
 
+        // When
+
         ChatMessage app2Message =
             await WaitForMessageAsync(completionSource:app2ReceivedMessage);
 
-        app1Message.Text.Should().Be(expected:messageText);
-        app2Message.Text.Should().Be(expected:messageText);
-        app1Message.SourceApp.Should().Be(expected:"Eventing.App2");
-        app2Message.SourceApp.Should().Be(expected:"Eventing.App2");
+        // Then
+
+        app1Message.Text.Should()
+            .Be(expected:messageText);
+
+        app2Message.Text.Should()
+            .Be(expected:messageText);
+
+        app1Message.SourceApp.Should()
+            .Be(expected:"Eventing.App2");
+
+        app2Message.SourceApp.Should()
+            .Be(expected:"Eventing.App2");
     }
 }
