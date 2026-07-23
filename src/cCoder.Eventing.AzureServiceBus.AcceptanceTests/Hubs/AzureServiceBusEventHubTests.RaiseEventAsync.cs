@@ -15,6 +15,7 @@ public partial class AzureServiceBusEventHubTests
     public async Task ShouldRaiseEventAsyncThroughHubAndPopulateScopedAuthInfo()
     {
         (ServiceProvider serviceProvider, string queueName) = CreateServiceProvider();
+
         await using (serviceProvider)
         {
             IAzureServiceBusEventHub eventHub =

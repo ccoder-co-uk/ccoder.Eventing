@@ -4,6 +4,7 @@
 
 using cCoder.Eventing.AzureServiceBus.Services.Processings;
 using cCoder.Eventing.AzureServiceBus.Models;
+using cCoder.Eventing.AzureServiceBus.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -60,7 +61,7 @@ eventMessage: It.IsAny<ServiceBusEventMessage<FakeObject>>()))
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]
@@ -79,7 +80,7 @@ eventMessage: It.IsAny<ServiceBusEventMessage<FakeObject>>()))
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]
@@ -99,7 +100,7 @@ eventMessage: It.IsAny<ServiceBusEventMessage<FakeObject>>()))
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceDependencyException>();
     }
 
     [Fact]
@@ -145,7 +146,7 @@ times: Times.Once);
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]
@@ -161,7 +162,7 @@ times: Times.Once);
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]
@@ -183,7 +184,7 @@ times: Times.Once);
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceDependencyException>();
     }
 
     [Fact]
@@ -205,6 +206,6 @@ times: Times.Once);
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceDependencyException>();
     }
 }

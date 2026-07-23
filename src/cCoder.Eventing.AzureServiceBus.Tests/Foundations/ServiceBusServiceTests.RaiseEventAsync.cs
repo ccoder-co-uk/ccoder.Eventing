@@ -4,6 +4,7 @@
 
 using Azure.Messaging.ServiceBus;
 using cCoder.Eventing.AzureServiceBus.Models;
+using cCoder.Eventing.AzureServiceBus.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -79,10 +80,10 @@ times: Times.Once);
 
         // Then
 
-        Exception actualException =
-            await Assert.ThrowsAsync<Exception>(testCode:raiseEventAsyncTask);
+        ServiceException actualException =
+            await Assert.ThrowsAsync<ServiceException>(testCode:raiseEventAsyncTask);
 
-        actualException.Should()
+        actualException.InnerException.Should()
             .BeSameAs(expected:serviceBusException);
     }
 
@@ -113,13 +114,13 @@ times: Times.Once);
 
         // Then
 
-        Exception actualException =
-            await Assert.ThrowsAsync<Exception>(testCode:raiseEventAsyncTask);
-
-        actualException.Should()
-            .BeSameAs(expected:serviceBusException);
+        ServiceException actualException =
+            await Assert.ThrowsAsync<ServiceException>(testCode:raiseEventAsyncTask);
 
         actualException.InnerException.Should()
+            .BeSameAs(expected:serviceBusException);
+
+        actualException.InnerException!.InnerException.Should()
             .BeSameAs(expected:innerException);
     }
 }

@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.AzureServiceBus.Models;
+using cCoder.Eventing.AzureServiceBus.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -72,7 +73,7 @@ times: Times.Exactly(callCount:inputMessages.Length));
         // Then
 
         await raiseEventsAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceDependencyException>();
 
         serviceBusServiceMock.Verify(
 expression: service => service.RaiseEventAsync(name:inputName, eventMessage:It.IsAny<ServiceBusEventMessage<FakeObject>>()),

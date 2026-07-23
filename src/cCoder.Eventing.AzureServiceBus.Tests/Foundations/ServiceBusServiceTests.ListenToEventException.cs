@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using Azure.Messaging.ServiceBus;
+using cCoder.Eventing.AzureServiceBus.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -32,12 +33,12 @@ handler: (_, _) => ValueTask.CompletedTask);
 
         // Then
 
-        Exception actualException =
+        ServiceException actualException =
             listenToEventAction.Should()
-                .Throw<Exception>()
+                .Throw<ServiceException>()
                 .Which;
 
-        actualException.Should()
+        actualException.InnerException.Should()
             .BeSameAs(expected:innerException);
     }
 
@@ -67,12 +68,12 @@ handler: (_, _) => ValueTask.CompletedTask);
 
         // Then
 
-        Exception actualException =
+        ServiceException actualException =
             listenToEventAction.Should()
-                .Throw<Exception>()
+                .Throw<ServiceException>()
                 .Which;
 
-        actualException.Should()
+        actualException.InnerException.Should()
             .BeSameAs(expected:innerException);
     }
 }
