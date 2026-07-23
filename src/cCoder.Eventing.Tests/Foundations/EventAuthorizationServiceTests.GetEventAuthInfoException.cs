@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Eventing.Models.Exceptions;
 using FluentAssertions;
 using Xunit;
 
@@ -26,12 +27,12 @@ public partial class EventAuthorizationServiceTests
 
         // Then
 
-        Exception actualException =
+        ServiceException actualException =
             getEventAuthInfoAction.Should()
-                .Throw<Exception>()
+                .Throw<ServiceException>()
                 .Which;
 
-        actualException.Should()
+        actualException.InnerException.Should()
             .BeSameAs(expected:innerException);
     }
 }

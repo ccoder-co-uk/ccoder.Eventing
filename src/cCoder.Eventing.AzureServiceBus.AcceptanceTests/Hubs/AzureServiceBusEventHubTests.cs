@@ -14,11 +14,9 @@ public partial class AzureServiceBusEventHubTests
 {
     private static readonly TimeSpan RecordWaitTimeout = TimeSpan.FromSeconds(seconds:15);
 
-    private const string ConnectionStringEnvironmentVariable =
-        "EVENT_LIBRARY_AZURE_SERVICE_BUS_CONNECTION_STRING";
+    private const string ConnectionStringEnvironmentVariable = "EVENT_LIBRARY_AZURE_SERVICE_BUS_CONNECTION_STRING";
 
-    private const string QueueNameEnvironmentVariable =
-        "EVENT_LIBRARY_AZURE_SERVICE_BUS_QUEUE_NAME";
+    private const string QueueNameEnvironmentVariable = "EVENT_LIBRARY_AZURE_SERVICE_BUS_QUEUE_NAME";
 
     private static async Task<EventRecord> WaitForSingleRecordAsync(
         TestEventHandlingBroker broker)

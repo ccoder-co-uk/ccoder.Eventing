@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Models;
+using cCoder.Eventing.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -30,7 +31,7 @@ public partial class EventServiceProviderServiceTests
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]
@@ -46,7 +47,7 @@ public partial class EventServiceProviderServiceTests
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]
@@ -68,7 +69,7 @@ public partial class EventServiceProviderServiceTests
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceDependencyException>();
     }
 
     [Fact]
@@ -90,6 +91,6 @@ public partial class EventServiceProviderServiceTests
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceDependencyException>();
     }
 }

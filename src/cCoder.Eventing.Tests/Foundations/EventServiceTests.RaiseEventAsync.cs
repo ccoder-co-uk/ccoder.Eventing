@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Models;
+using cCoder.Eventing.Models.Exceptions;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -145,10 +146,10 @@ times: Times.Once);
 
         // Then
 
-        Exception actualException =
-            await Assert.ThrowsAsync<Exception>(testCode:raiseEventAsyncTask);
+        ServiceException actualException =
+            await Assert.ThrowsAsync<ServiceException>(testCode:raiseEventAsyncTask);
 
-        actualException.Should()
+        actualException.InnerException.Should()
             .BeSameAs(expected:innerException);
     }
 
@@ -193,10 +194,10 @@ times: Times.Once);
 
         // Then
 
-        Exception actualException =
-            await Assert.ThrowsAsync<Exception>(testCode:raiseEventAsyncTask);
+        ServiceException actualException =
+            await Assert.ThrowsAsync<ServiceException>(testCode:raiseEventAsyncTask);
 
-        actualException.Should()
+        actualException.InnerException.Should()
             .BeSameAs(expected:innerException);
     }
 }

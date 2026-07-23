@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Models;
+using cCoder.Eventing.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -36,7 +37,7 @@ times: Times.Once);
     }
 
     [Fact]
-    public async Task ShouldRaiseEventAsyncWhenMessageIsNull()
+    public async Task ShouldThrowValidationExceptionWhenMessageIsNull()
     {
         // Given
 
@@ -44,13 +45,13 @@ times: Times.Once);
 
         // When
 
-        await eventProcessingService.RaiseEventAsync(name:inputName, data:null);
+        Func<Task> raiseEventAsync = async () =>
+            await eventProcessingService.RaiseEventAsync(name:inputName, data:null);
 
         // Then
 
-        eventServiceMock.Verify(
-expression: service => service.RaiseEventAsync(name:inputName, message:null),
-times: Times.Once);
+        await raiseEventAsync.Should()
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]

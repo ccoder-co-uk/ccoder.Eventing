@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Models;
+using cCoder.Eventing.Models.Exceptions;
 using cCoder.Eventing.Services.Foundations;
 using FluentAssertions;
 using Moq;
@@ -33,7 +34,7 @@ public partial class EventProviderServiceTests
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]
@@ -51,7 +52,7 @@ public partial class EventProviderServiceTests
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]
@@ -75,7 +76,7 @@ public partial class EventProviderServiceTests
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceDependencyException>();
     }
 
     [Fact]
@@ -99,7 +100,7 @@ public partial class EventProviderServiceTests
         // Then
 
         await raiseEventAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceDependencyException>();
     }
 
     [Fact]
@@ -117,7 +118,7 @@ public partial class EventProviderServiceTests
         // Then
 
         await raiseEventsAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]
@@ -144,7 +145,7 @@ public partial class EventProviderServiceTests
         // Then
 
         await raiseEventsAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]
@@ -171,6 +172,6 @@ public partial class EventProviderServiceTests
         // Then
 
         await raiseEventsAsyncTask.Should()
-            .ThrowAsync<InvalidOperationException>();
+            .ThrowAsync<ServiceDependencyException>();
     }
 }

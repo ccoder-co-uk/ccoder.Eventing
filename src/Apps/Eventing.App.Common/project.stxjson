@@ -1,0 +1,171 @@
+{
+  "Classes": [
+    {
+      "Name": "cCoder.Eventing.Apps.Controllers.ChatController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Post",
+          "Inputs": [
+            {
+              "Name": "newRequest",
+              "Type": "cCoder.Eventing.Apps.Models.ChatMessageRequest"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Dependencies.ChatApplication",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Configure",
+          "Inputs": [
+            {
+              "Name": "builder",
+              "Type": "WebApplicationBuilder"
+            }
+          ],
+          "ReturnType": "WebApplicationBuilder"
+        },
+        {
+          "Name": "Start",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
+            }
+          ],
+          "ReturnType": "WebApplication"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Dependencies.ChatHub",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Dependencies.ChatOrchestrationService",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ReceiveAsync",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Apps.Models.ChatMessage"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "SendAsync",
+          "Inputs": [
+            {
+              "Name": "request",
+              "Type": "cCoder.Eventing.Apps.Models.ChatMessageRequest"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Models.ChatConfiguration",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "AppName",
+          "Type": "System.String"
+        },
+        {
+          "Name": "RemoteHubUrl",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Models.ChatEventNames",
+      "StandardElementType": "Model",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Models.ChatMessage",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "CreatedOn",
+          "Type": "System.DateTimeOffset"
+        },
+        {
+          "Name": "Id",
+          "Type": "System.Guid"
+        },
+        {
+          "Name": "SourceApp",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Text",
+          "Type": "System.String"
+        },
+        {
+          "Name": "User",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Models.ChatMessageRequest",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Text",
+          "Type": "System.String"
+        },
+        {
+          "Name": "User",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    }
+  ],
+  "Links": [
+    {
+      "FromType": "cCoder.Eventing.Apps.Controllers.ChatController",
+      "ToType": "cCoder.Eventing.Apps.Dependencies.ChatOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Eventing.Apps.Dependencies.ChatOrchestrationService",
+      "ToType": "cCoder.Eventing.Apps.Models.ChatConfiguration"
+    }
+  ],
+  "AnalysisItems": [
+    {
+      "Code": "STXAPI001",
+      "Description": "An API controller must have exactly one business dependency.",
+      "Severity": "Warning",
+      "Type": "cCoder.Eventing.Apps.Controllers.ChatController",
+      "LineNumber": 11
+    }
+  ]
+}

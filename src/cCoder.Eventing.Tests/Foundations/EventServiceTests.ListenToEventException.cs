@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Eventing.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -32,12 +33,12 @@ public partial class EventServiceTests
 
         // Then
 
-        Exception actualException =
+        ServiceException actualException =
             listenToEventAction.Should()
-                .Throw<Exception>()
+                .Throw<ServiceException>()
                 .Which;
 
-        actualException.Should()
+        actualException.InnerException.Should()
             .BeSameAs(expected:innerException);
     }
 }

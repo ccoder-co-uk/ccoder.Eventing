@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Models;
+using cCoder.Eventing.Models.Exceptions;
 using cCoder.Eventing.Services.Foundations;
 using FluentAssertions;
 using Moq;
@@ -41,10 +42,10 @@ eventProviders: new EventProvider<FakeObject>
 
         // Then
 
-        Exception actualException =
-            await Assert.ThrowsAsync<Exception>(testCode:raiseEventAsyncTask);
+        ServiceException actualException =
+            await Assert.ThrowsAsync<ServiceException>(testCode:raiseEventAsyncTask);
 
-        actualException.Should()
+        actualException.InnerException.Should()
             .BeSameAs(expected:innerException);
     }
 }
