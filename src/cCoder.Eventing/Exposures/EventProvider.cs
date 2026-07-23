@@ -20,7 +20,7 @@ public abstract class EventProvider
         IServiceProvider serviceProvider,
         string eventName,
         EventMessage message) =>
-            HandleReceiveAsync(serviceProvider:serviceProvider, eventName:eventName, message:message);
+        HandleReceiveAsync(serviceProvider:serviceProvider, eventName:eventName, message:message);
 
     internal bool CanSend<T>(string name) =>
         Events?.Contains(value:name, comparer:StringComparer.Ordinal) == true &&
@@ -64,7 +64,9 @@ public class EventProvider<T> : EventProvider
             handler = value;
 
             if (value is not null && SendHandler is null)
+            {
                 SendHandler = (serviceProvider, _, message) => value(arg1:serviceProvider, arg2:message);
+            }
         }
     }
 

@@ -3,60 +3,70 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Brokers;
+using cCoder.Eventing.Dependencies;
 using cCoder.Eventing.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace cCoder.Eventing.Services.Foundations;
 
-internal class EventService<T>(
+internal sealed partial class EventService<T>(
         IServiceProviderBroker serviceProviderBroker,
         ILogger<EventService<T>> log) 
             : IEventService<T>
 {
-    public void ListenToEvent(string name, Func<IServiceProvider, T, ValueTask> handler)
-    {
-        try
+    public void ListenToEvent(
+        string name,
+        Func<IServiceProvider, T, ValueTask> handler) =>
+        TryCatch(operation: () =>
         {
-            serviceProviderBroker.GetService<IEventBroker<T>>()
-                .ListenToEvent(name:name, handler:handler);
-        }
-        catch (Exception ex)
-        {
-            log.LogError(
-                ex,
-                "Exception thrown whilst listening to {Name} event\n{Message}\n{StackTrace}",
-                name,
-                ex.Message,
-                ex.StackTrace);
+            Validate(inputs: [name, handler]);
 
-            throw;
-        }
-    }
+            try
+            {
+                serviceProviderBroker
+                    .GetService<IEventBroker<T>>()
+                    .ListenToEvent(name:name, handler:handler);
+            }
+            catch (Exception ex)
+            {
+                log.LogError(
+                    exception: ex,
+                    message: "Exception thrown whilst listening to {Name} event\n{Message}\n{StackTrace}",
+                    args: [name, ex.Message, ex.StackTrace]);
 
-    public async ValueTask RaiseEventAsync(string name, EventMessage<T> message)
-    {
-        try
+                throw;
+            }
+        });
+
+    public ValueTask RaiseEventAsync(
+        string name,
+        EventMessage<T> message) =>
+        TryCatch(operation: async () =>
         {
+            Validate(inputs: [name, message]);
+
+            try
+            {
             using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message:message);
 
             IEnumerable<Func<IServiceProvider, T, ValueTask>> handlers =
                 serviceProviderBroker.GetService<IEventBroker<T>>()
                     .GetHandlers(name:name);
 
-            foreach (Func<IServiceProvider, T, ValueTask> handler in handlers)
-                await handler.Invoke(arg1:scope.ServiceProvider, arg2:message.Data);
-        }
-        catch (Exception ex)
-        {
-            log.LogError(
-                ex,
-                "Exception thrown whilst raising {Name} event\n{Message}\n{StackTrace}",
-                name,
-                ex.Message,
-                ex.StackTrace);
+                await EventDispatchDependency.HandleHandlersAsync(
+                    handlers: handlers,
+                    serviceProvider: scope.ServiceProvider,
+                    message: message.Data);
+            }
+            catch (Exception ex)
+            {
+                log.LogError(
+                    exception: ex,
+                    message: "Exception thrown whilst raising {Name} event\n{Message}\n{StackTrace}",
+                    args: [name, ex.Message, ex.StackTrace]);
 
-            throw;
-        }
-    }
+                throw;
+            }
+        });
 }

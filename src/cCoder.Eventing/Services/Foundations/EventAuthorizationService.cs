@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace cCoder.Eventing.Services.Foundations;
 
-internal class EventAuthorizationService : IEventAuthorizationService
+internal sealed partial class EventAuthorizationService : IEventAuthorizationService
 {
     private readonly IEventAuthorizationBroker authInfoBroker;
     private readonly ILogger<EventAuthorizationService> log;
@@ -21,20 +21,21 @@ internal class EventAuthorizationService : IEventAuthorizationService
         this.log = log;
     }
 
-    public IEventAuthInfo GetEventAuthInfo()
-    {
-        try
+    public IEventAuthInfo GetEventAuthInfo() =>
+        TryCatch(operation: () =>
         {
-            return authInfoBroker.GetEventAuthInfo();
-        }
-        catch (Exception ex)
-        {
-            log.LogError(
-                exception: ex,
-                message: "Exception thrown whilst getting event auth info\n{Message}\n{StackTrace}",
-                args: [ex.Message, ex.StackTrace]);
+            try
+            {
+                return authInfoBroker.GetEventAuthInfo();
+            }
+            catch (Exception ex)
+            {
+                log.LogError(
+                    exception: ex,
+                    message: "Exception thrown whilst getting event auth info\n{Message}\n{StackTrace}",
+                    args: [ex.Message, ex.StackTrace]);
 
-            throw;
-        }
-    }
+                throw;
+            }
+        });
 }

@@ -4,7 +4,7 @@
 
 using cCoder.Eventing.Brokers;
 
-namespace cCoder.Eventing.Brokers;
+namespace cCoder.Eventing.Dependencies;
 
 internal class EventBroker<T> : IEventBroker<T>
 {

@@ -3,9 +3,10 @@
 // ---------------------------------------------------------------
 
 using Azure.Messaging.ServiceBus;
+using cCoder.Eventing.AzureServiceBus.Brokers;
 using cCoder.Eventing.AzureServiceBus.Models;
 
-namespace cCoder.Eventing.AzureServiceBus.Brokers;
+namespace cCoder.Eventing.AzureServiceBus.Dependencies;
 
 internal class ServiceBusBroker : IServiceBusBroker
 {
@@ -96,7 +97,10 @@ internal class ServiceBusBroker : IServiceBusBroker
     {
         foreach (KeyValuePair<string, ServiceBusSender> sender in senders)
         {
-            sender.Value.DisposeAsync().AsTask().Wait();
+            sender.Value
+                .DisposeAsync()
+                .AsTask()
+                .Wait();
         }
     }
 }

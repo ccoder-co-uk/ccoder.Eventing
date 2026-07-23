@@ -2,9 +2,10 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Eventing.Brokers;
 using cCoder.Eventing.Models;
 
-namespace cCoder.Eventing.Brokers;
+namespace cCoder.Eventing.Dependencies;
 
 internal class EventAuthorizationBroker : IEventAuthorizationBroker
 {

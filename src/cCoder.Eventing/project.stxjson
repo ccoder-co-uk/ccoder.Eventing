@@ -1,0 +1,775 @@
+{
+  "Classes": [
+    {
+      "Name": "cCoder.Eventing.Brokers.ServiceProviderBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetScopeForEvent",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage"
+            }
+          ],
+          "ReturnType": "Microsoft.Extensions.DependencyInjection.IServiceScope"
+        },
+        {
+          "Name": "GetService",
+          "Inputs": [],
+          "ReturnType": "T"
+        },
+        {
+          "Name": "GetService",
+          "Inputs": [
+            {
+              "Name": "type",
+              "Type": "System.Type"
+            }
+          ],
+          "ReturnType": "System.Object"
+        },
+        {
+          "Name": "GetServiceProvider",
+          "Inputs": [],
+          "ReturnType": "System.IServiceProvider"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Dependencies.EventAuthorizationBroker",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetEventAuthInfo",
+          "Inputs": [],
+          "ReturnType": "cCoder.Eventing.Models.IEventAuthInfo"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Dependencies.EventBroker\u003CT\u003E",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetHandlers",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Collections.Generic.IEnumerable\u003CSystem.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E\u003E"
+        },
+        {
+          "Name": "ListenToEvent",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Dependencies.EventDispatchDependency",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.EventHub",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ListenToEvent",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "ListenToEvent",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "RaiseEventAsync",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaiseEventsAsync",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "messages",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.IServiceCollectionExtensions",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddBulkEventProviders",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "bulkEventProviders",
+              "Type": "cCoder.Eventing.Models.BulkEventProvider[]"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddEventProviders",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "eventProviders",
+              "Type": "cCoder.Eventing.Models.EventProvider[]"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddEventing",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddEventing",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "configure",
+              "Type": "System.Action\u003CcCoder.Eventing.Models.EventingConfiguration\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddEventing",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "eventingConfiguration",
+              "Type": "cCoder.Eventing.Models.EventingConfiguration"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddEventingForType",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddEventingHostedServices",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "configure",
+              "Type": "System.Action\u003CcCoder.Eventing.Models.EventingConfiguration\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddEventingWeb",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "configure",
+              "Type": "System.Action\u003CcCoder.Eventing.Models.EventingConfiguration\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Models.BulkEventProvider",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "Events",
+          "Type": "System.String[]"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Models.BulkEventProvider\u003CT\u003E",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "Handler",
+          "Type": "System.Func\u003CSystem.IServiceProvider, cCoder.Eventing.Models.EventMessage\u003CT\u003E[], System.Threading.Tasks.ValueTask\u003E"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Models.EventAuthInfo",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "SSOUserId",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Models.EventMessage",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "AuthInfo",
+          "Type": "cCoder.Eventing.Models.IEventAuthInfo"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Models.EventMessage\u003CT\u003E",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Data",
+          "Type": "T"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Models.EventProvider",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "DataType",
+          "Type": "System.Type"
+        },
+        {
+          "Name": "Events",
+          "Type": "System.String[]"
+        }
+      ],
+      "Methods": [
+        {
+          "Name": "CanReceive",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Boolean"
+        },
+        {
+          "Name": "ReceiveAsync",
+          "Inputs": [
+            {
+              "Name": "serviceProvider",
+              "Type": "System.IServiceProvider"
+            },
+            {
+              "Name": "eventName",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Models.EventProvider\u003CT\u003E",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "Handler",
+          "Type": "System.Func\u003CSystem.IServiceProvider, cCoder.Eventing.Models.EventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E"
+        },
+        {
+          "Name": "ReceiveHandler",
+          "Type": "System.Func\u003CSystem.IServiceProvider, System.String, cCoder.Eventing.Models.EventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E"
+        },
+        {
+          "Name": "SendHandler",
+          "Type": "System.Func\u003CSystem.IServiceProvider, System.String, cCoder.Eventing.Models.EventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Models.EventingConfiguration",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "BulkEventProviders",
+          "Type": "cCoder.Eventing.Models.BulkEventProvider[]"
+        },
+        {
+          "Name": "EventProviders",
+          "Type": "cCoder.Eventing.Models.EventProvider[]"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
+      "StandardElementType": "Model",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Models.Exceptions.ServiceException",
+      "StandardElementType": "Model",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Models.Exceptions.ServiceValidationException",
+      "StandardElementType": "Model",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Services.Foundations.EventAuthorizationService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetEventAuthInfo",
+          "Inputs": [],
+          "ReturnType": "cCoder.Eventing.Models.IEventAuthInfo"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Services.Foundations.EventProviderService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "RaiseEventAsync",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Boolean\u003E"
+        },
+        {
+          "Name": "RaiseEventsAsync",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "messages",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Boolean\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Services.Foundations.EventService\u003CT\u003E",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ListenToEvent",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "RaiseEventAsync",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Services.Foundations.EventServiceProviderService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ListenToEvent",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "RaiseEventAsync",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaiseEventsAsync",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "messages",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService",
+      "StandardElementType": "OrchestrationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ListenToEvent",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "ListenToEvent",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CTHandlingService, TMessage, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "RaiseEventAsync",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaiseEventsAsync",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "messages",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Services.Processings.EventProcessingService\u003CT\u003E",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ListenToEvent",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "RaiseEventAsync",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Services.Processings.ServiceCollectionProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddBulkEventProviders",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "newBulkEventProviders",
+              "Type": "cCoder.Eventing.Models.BulkEventProvider[]"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddConfiguredEventingConfiguration",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "newConfigure",
+              "Type": "System.Action\u003CcCoder.Eventing.Models.EventingConfiguration\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddEventProviders",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "newEventProviders",
+              "Type": "cCoder.Eventing.Models.EventProvider[]"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddEventingConfiguration",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "newEventingConfiguration",
+              "Type": "cCoder.Eventing.Models.EventingConfiguration"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddEventingForType",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.WebApplicationExtensions",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "StartEventingHostedServices",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
+            }
+          ],
+          "ReturnType": "WebApplication"
+        },
+        {
+          "Name": "StartEventingWeb",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
+            }
+          ],
+          "ReturnType": "WebApplication"
+        }
+      ]
+    }
+  ],
+  "Links": [
+    {
+      "FromType": "cCoder.Eventing.EventHub",
+      "ToType": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Foundations.EventAuthorizationService",
+      "ToType": "cCoder.Eventing.Dependencies.EventAuthorizationBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Foundations.EventProviderService",
+      "ToType": "cCoder.Eventing.Brokers.ServiceProviderBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Foundations.EventService\u003CT\u003E",
+      "ToType": "cCoder.Eventing.Brokers.ServiceProviderBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Foundations.EventServiceProviderService",
+      "ToType": "cCoder.Eventing.Brokers.ServiceProviderBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService",
+      "ToType": "cCoder.Eventing.Services.Foundations.EventProviderService"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService",
+      "ToType": "cCoder.Eventing.Services.Foundations.EventServiceProviderService"
+    }
+  ],
+  "AnalysisItems": []
+}

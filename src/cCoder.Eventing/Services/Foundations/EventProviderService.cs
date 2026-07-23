@@ -3,27 +3,33 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Brokers;
+using cCoder.Eventing.Dependencies;
 using cCoder.Eventing.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace cCoder.Eventing.Services.Foundations;
 
-internal class EventProviderService(
+internal sealed partial class EventProviderService(
         IServiceProviderBroker serviceProviderBroker,
         IEnumerable<EventProvider> eventProviders,
         IEnumerable<BulkEventProvider> bulkEventProviders,
         ILogger<EventProviderService> log)
             : IEventProviderService
 {
-    public async ValueTask<bool> RaiseEventAsync<T>(string name, EventMessage<T> message)
-    {
-        try
+    public ValueTask<bool> RaiseEventAsync<T>(
+        string name,
+        EventMessage<T> message) =>
+        TryCatch<bool>(operation: async () =>
         {
+            Validate(inputs: [name, message]);
+
+            try
+            {
             ValidateRequest(name:name, message:message);
 
             EventProvider[] matchingProviders = eventProviders
-                .Where(predicate:provider => provider.CanSend<T>(name))
+                .Where(predicate:provider => provider.CanSend<T>(name:name))
                 .ToArray();
 
             if (matchingProviders.Length == 0)
@@ -33,32 +39,38 @@ internal class EventProviderService(
 
             using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message:message);
 
-            foreach (EventProvider provider in matchingProviders)
-            {
-                await provider.HandleSendAsync(serviceProvider:scope.ServiceProvider, eventName:name, message:message);
-            }
+            await EventDispatchDependency.HandleSendAsync(
+                providers: matchingProviders,
+                serviceProvider: scope.ServiceProvider,
+                eventName: name,
+                message: message);
 
             return true;
-        }
-        catch (Exception ex)
-        {
-            log.LogError(
-                exception: ex,
-                message: "Exception thrown whilst raising {Name} event provider\n{Message}\n{StackTrace}",
-                args: [name, ex.Message, ex.StackTrace]);
+            }
+            catch (Exception ex)
+            {
+                log.LogError(
+                    exception: ex,
+                    message: "Exception thrown whilst raising {Name} event provider\n{Message}\n{StackTrace}",
+                    args: [name, ex.Message, ex.StackTrace]);
 
-            throw;
-        }
-    }
+                throw;
+            }
+        });
 
-    public async ValueTask<bool> RaiseEventsAsync<T>(string name, EventMessage<T>[] messages)
-    {
-        try
+    public ValueTask<bool> RaiseEventsAsync<T>(
+        string name,
+        EventMessage<T>[] messages) =>
+        TryCatch<bool>(operation: async () =>
         {
+            Validate(inputs: [name, messages]);
+
+            try
+            {
             ValidateRequest(name:name, messages:messages);
 
             BulkEventProvider[] matchingProviders = bulkEventProviders
-                .Where(predicate:provider => provider.CanHandle<T>(name))
+                .Where(predicate:provider => provider.CanHandle<T>(name:name))
                 .ToArray();
 
             if (matchingProviders.Length == 0 || messages.Length == 0)
@@ -68,23 +80,23 @@ internal class EventProviderService(
 
             using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message:messages[0]);
 
-            foreach (BulkEventProvider provider in matchingProviders)
-            {
-                await provider.HandleAsync(serviceProvider:scope.ServiceProvider, messages:messages);
-            }
+            await EventDispatchDependency.HandleBulkAsync(
+                providers: matchingProviders,
+                serviceProvider: scope.ServiceProvider,
+                messages: messages);
 
             return true;
-        }
-        catch (Exception ex)
-        {
-            log.LogError(
-                exception: ex,
-                message: "Exception thrown whilst raising {Name} bulk event provider\n{Message}\n{StackTrace}",
-                args: [name, ex.Message, ex.StackTrace]);
+            }
+            catch (Exception ex)
+            {
+                log.LogError(
+                    exception: ex,
+                    message: "Exception thrown whilst raising {Name} bulk event provider\n{Message}\n{StackTrace}",
+                    args: [name, ex.Message, ex.StackTrace]);
 
-            throw;
-        }
-    }
+                throw;
+            }
+        });
 
     private static void ValidateRequest<T>(string name, EventMessage<T> message)
     {
@@ -121,9 +133,10 @@ internal class EventProviderService(
             throw new InvalidOperationException("You must provide a message collection when raising events.");
         }
 
-        foreach (EventMessage<T> message in messages)
-        {
-            ValidateRequest(name:name, message:message);
-        }
+        Array.ForEach(
+            array: messages,
+            action: message => ValidateRequest(
+                name: name,
+                message: message));
     }
 }

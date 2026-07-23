@@ -10,70 +10,80 @@ using Microsoft.Extensions.Logging;
 
 namespace cCoder.Eventing.AzureServiceBus.Services.Foundations;
 
-internal class ServiceBusService(
+internal sealed partial class ServiceBusService(
         IServiceBusBroker serviceBusBroker,
         IServiceProviderBroker serviceProviderBroker,
         ILogger<ServiceBusService> log) : IServiceBusService
 {
-    public void ListenToEvent<T>(string name, Func<IServiceProvider, T, ValueTask> handler)
-    {
-        try
+    public void ListenToEvent<T>(
+        string name,
+        Func<IServiceProvider, T, ValueTask> handler) =>
+        TryCatch(operation: () =>
         {
-            ServiceBusProcessor processor = serviceBusBroker.CreateProcessor(name:name);
+            Validate(inputs: [name, handler]);
 
-            processor.ProcessMessageAsync += (ProcessMessageEventArgs messageDetails) =>
-                HandleServiceBusMessage(serviceProviderBroker:serviceProviderBroker, handler:handler, messageDetails:messageDetails);
-
-            processor.ProcessErrorAsync += (ProcessErrorEventArgs problemDetails) =>
-                HandleServiceBusError(name:name, problemDetails:problemDetails);
-
-            serviceBusBroker
-                .StartProcessorAsync(name:name)
-                .AsTask()
-                .GetAwaiter()
-                .GetResult();
-        }
-        catch (Exception ex)
-        {
-            log.LogError(
-                exception: ex,
-                message: "Exception thrown whilst listening to {Name} event:\n{Message}\n{StackTrace}",
-                args: [name, ex.Message, ex.StackTrace]);
-
-            throw;
-        }
-    }
-
-    public async ValueTask RaiseEventAsync<T>(string name, ServiceBusEventMessage<T> eventMessage)
-    {
-        try
-        {
-            ServiceBusMessage message = new()
+            try
             {
-                Body = new BinaryData(eventMessage),
-                MessageId = $"{eventMessage.AuthInfo.SSOUserId}_{typeof(T).Name}_{Guid.NewGuid()}"
-            };
+                ServiceBusProcessor processor = serviceBusBroker.CreateProcessor(name:name);
 
-            await serviceBusBroker.SendMessageAsync(name:name, message:message);
-        }
-        catch (Exception ex)
-        {
-            log.LogError(
-                exception: ex,
-                message: "Exception thrown whilst raising {Name} event:\n{Message}\n{StackTrace}",
-                args: [name, ex.Message, ex.StackTrace]);
+                processor.ProcessMessageAsync += (ProcessMessageEventArgs messageDetails) =>
+                    HandleServiceBusMessage(serviceProviderBroker:serviceProviderBroker, handler:handler, messageDetails:messageDetails);
 
-            if (ex.InnerException is not null)
+                processor.ProcessErrorAsync += (ProcessErrorEventArgs problemDetails) =>
+                    HandleServiceBusError(name:name, problemDetails:problemDetails);
+
+                serviceBusBroker
+                    .StartProcessorAsync(name:name)
+                    .AsTask()
+                    .GetAwaiter()
+                    .GetResult();
+            }
+            catch (Exception ex)
             {
                 log.LogError(
-                    exception: ex.InnerException,
-                    message: "Inner Exception:\n{Message}\n{StackTrace}",
-                    args: [ex.InnerException.Message, ex.InnerException.StackTrace]);
-            }
+                    exception: ex,
+                    message: "Exception thrown whilst listening to {Name} event:\n{Message}\n{StackTrace}",
+                    args: [name, ex.Message, ex.StackTrace]);
 
-            throw;
-        }
-    }
+                throw;
+            }
+        });
+
+    public ValueTask RaiseEventAsync<T>(
+        string name,
+        ServiceBusEventMessage<T> eventMessage) =>
+        TryCatch(operation: async () =>
+        {
+            Validate(inputs: [name, eventMessage]);
+
+            try
+            {
+                ServiceBusMessage message = new()
+                {
+                    Body = new BinaryData(eventMessage),
+                    MessageId = $"{eventMessage.AuthInfo.SSOUserId}_{typeof(T).Name}_{Guid.NewGuid()}"
+                };
+
+                await serviceBusBroker.SendMessageAsync(name:name, message:message);
+            }
+            catch (Exception ex)
+            {
+                log.LogError(
+                    exception: ex,
+                    message: "Exception thrown whilst raising {Name} event:\n{Message}\n{StackTrace}",
+                    args: [name, ex.Message, ex.StackTrace]);
+
+                if (ex.InnerException is not null)
+                {
+                    log.LogError(
+                        exception: ex.InnerException,
+                        message: "Inner Exception:\n{Message}\n{StackTrace}",
+                        args: [ex.InnerException.Message, ex.InnerException.StackTrace]);
+                }
+
+                throw;
+            }
+        });
 
     async Task HandleServiceBusMessage<T>(
         IServiceProviderBroker serviceProviderBroker,
