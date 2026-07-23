@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.AcceptanceTests.Brokers;
 using cCoder.Eventing.AcceptanceTests.Models;
 using cCoder.Eventing.Models;

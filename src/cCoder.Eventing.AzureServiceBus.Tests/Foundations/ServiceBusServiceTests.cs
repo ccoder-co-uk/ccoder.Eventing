@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.AzureServiceBus.Brokers;
 using cCoder.Eventing.AzureServiceBus.Services.Foundations;
 using Microsoft.Extensions.Logging;

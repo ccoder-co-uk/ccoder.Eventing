@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 namespace cCoder.Eventing.AzureServiceBus.Models;
 
 public class ServiceBusEventMessage<T> : ServiceBusEventMessage

@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Http.Models;
 using cCoder.Eventing.Http.Services.Processings;
 using cCoder.Eventing.Models;

@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Services.Foundations;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;

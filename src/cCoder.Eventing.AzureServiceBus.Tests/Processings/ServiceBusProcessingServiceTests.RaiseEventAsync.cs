@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.AzureServiceBus.Services.Processings;
 using cCoder.Eventing.AzureServiceBus.Models;
 using FluentAssertions;

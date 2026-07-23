@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Apps.Models;
 using cCoder.Eventing.Apps.Services;
 using Microsoft.AspNetCore.Mvc;

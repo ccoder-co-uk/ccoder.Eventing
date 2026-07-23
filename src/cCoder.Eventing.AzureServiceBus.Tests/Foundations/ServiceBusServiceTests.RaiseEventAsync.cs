@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using Azure.Messaging.ServiceBus;
 using cCoder.Eventing.AzureServiceBus.Models;
 using FluentAssertions;
