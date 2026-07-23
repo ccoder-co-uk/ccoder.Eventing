@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using Azure.Messaging.ServiceBus;
 using Moq;
 using Xunit;
@@ -9,27 +13,33 @@ public partial class ServiceBusServiceTests
     [Fact]
     public void ShouldListenToEvent()
     {
+        // Given
+
         string inputName = "event-name";
         Mock<ServiceBusProcessor> serviceBusProcessorMock = new();
 
         serviceBusBrokerMock
-            .Setup(broker => broker.CreateProcessor(inputName))
-            .Returns(serviceBusProcessorMock.Object);
+            .Setup(expression:broker => broker.CreateProcessor(name:inputName))
+            .Returns(value:serviceBusProcessorMock.Object);
 
         serviceBusBrokerMock
-            .Setup(broker => broker.StartProcessorAsync(inputName))
-            .Returns(ValueTask.CompletedTask);
+            .Setup(expression:broker => broker.StartProcessorAsync(name:inputName))
+            .Returns(value:ValueTask.CompletedTask);
+
+        // When
 
         serviceBusService.ListenToEvent<FakeObject>(
-            inputName,
-            (_, _) => ValueTask.CompletedTask);
+name: inputName,
+handler: (_, _) => ValueTask.CompletedTask);
+
+        // Then
 
         serviceBusBrokerMock.Verify(
-            broker => broker.CreateProcessor(inputName),
-            Times.Once);
+expression: broker => broker.CreateProcessor(name:inputName),
+times: Times.Once);
 
         serviceBusBrokerMock.Verify(
-            broker => broker.StartProcessorAsync(inputName),
-            Times.Once);
+expression: broker => broker.StartProcessorAsync(name:inputName),
+times: Times.Once);
     }
 }

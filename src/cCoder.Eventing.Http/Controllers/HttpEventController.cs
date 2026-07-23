@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Http.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +14,13 @@ public class HttpEventController(IHttpEventHub httpEventHub) : ControllerBase
 {
     [HttpPost]
     public async ValueTask<IActionResult> Post(
-        HttpEventMessage message,
+        HttpEventMessage newMessage,
         CancellationToken cancellationToken)
     {
-        await httpEventHub.ReceiveEventAsync(message, cancellationToken);
+        await httpEventHub.ReceiveEventAsync(
+            message: newMessage,
+            cancellationToken: cancellationToken);
+
         return Accepted();
     }
 }

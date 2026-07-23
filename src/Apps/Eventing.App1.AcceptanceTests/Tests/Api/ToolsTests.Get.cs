@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using FluentAssertions;
 
 namespace Eventing.App1.AcceptanceTests.Tests.Api;
@@ -7,12 +11,20 @@ public partial class ToolsTests
     [Fact]
     public async Task ShouldReturnToolingUi()
     {
+        // Given
+
+        // When
+
         HttpResponseMessage response =
-            await fixture.Client.GetAsync("/tools/index.html");
+            await fixture.Client.GetAsync(requestUri:"/tools/index.html");
+
+        string content = await response.Content.ReadAsStringAsync();
+
+        // Then
 
         response.EnsureSuccessStatusCode();
 
-        string content = await response.Content.ReadAsStringAsync();
-        content.Should().Contain("Eventing Chat");
+        content.Should()
+            .Contain(expected:"Eventing Chat");
     }
 }

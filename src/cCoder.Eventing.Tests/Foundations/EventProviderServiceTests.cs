@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Brokers;
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Services.Foundations;
@@ -23,12 +27,12 @@ public partial class EventProviderServiceTests
         scopedServiceProviderMock = new Mock<IServiceProvider>();
 
         serviceScopeMock
-            .SetupGet(scope => scope.ServiceProvider)
-            .Returns(scopedServiceProviderMock.Object);
+            .SetupGet(expression:scope => scope.ServiceProvider)
+            .Returns(value:scopedServiceProviderMock.Object);
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetScopeForEvent(It.IsAny<EventMessage>()))
-            .Returns(serviceScopeMock.Object);
+            .Setup(expression:broker => broker.GetScopeForEvent(message:It.IsAny<EventMessage>()))
+            .Returns(value:serviceScopeMock.Object);
     }
 
     private IEventProviderService CreateEventProviderService(params EventProvider[] eventProviders) =>

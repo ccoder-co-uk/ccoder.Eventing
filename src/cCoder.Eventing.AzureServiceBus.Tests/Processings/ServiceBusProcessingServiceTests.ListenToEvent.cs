@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.AzureServiceBus.Models;
 using Moq;
 using Xunit;
@@ -9,19 +13,26 @@ public partial class ServiceBusProcessingServiceTests
     [Fact]
     public void ShouldListenToEvent()
     {
+        // Given
+
         string inputName = "event-name";
+
         Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
 
         serviceBusServiceMock
-            .Setup(service => service.ListenToEvent(
-                inputName,
-                inputHandler));
+            .Setup(expression:service => service.ListenToEvent(
+name: inputName,
+handler: inputHandler));
 
-        serviceBusProcessingService.ListenToEvent(inputName, inputHandler);
+        // When
+
+        serviceBusProcessingService.ListenToEvent(name:inputName, handler:inputHandler);
+
+        // Then
 
         serviceBusServiceMock.Verify(
-            service => service.ListenToEvent(inputName, inputHandler),
-            Times.Once);
+expression: service => service.ListenToEvent(name:inputName, handler:inputHandler),
+times: Times.Once);
     }
 }

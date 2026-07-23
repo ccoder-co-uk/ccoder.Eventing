@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Services.Foundations;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,25 +15,35 @@ public partial class EventOrchestrationServiceTests
     [Fact]
     public void ShouldListenToEvent()
     {
+        // Given
+
         string inputName = "event-name";
+
         Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
 
-        eventOrchestrationService.ListenToEvent(inputName, inputHandler);
+        // When
+
+        eventOrchestrationService.ListenToEvent(name:inputName, handler:inputHandler);
+
+        // Then
 
         eventServiceProviderServiceMock.Verify(
-            service => service.ListenToEvent(inputName, inputHandler),
-            Times.Once);
+expression: service => service.ListenToEvent(name:inputName, handler:inputHandler),
+times: Times.Once);
     }
 
     [Fact]
     public async Task ShouldListenToEventWithHandlingService()
     {
+        // Given
+
         string inputName = "event-name";
         FakeObject inputMessage = new() { Name = "test" };
         Mock<IHandlingService> handlingServiceMock = new();
+
         IServiceProvider inputServiceProvider = new ServiceCollection()
-            .AddSingleton(handlingServiceMock.Object)
+            .AddSingleton(implementationInstance:handlingServiceMock.Object)
             .BuildServiceProvider();
 
         Func<IServiceProvider, FakeObject, ValueTask> internalHandler = null;
@@ -37,25 +51,32 @@ public partial class EventOrchestrationServiceTests
         FakeObject actualMessage = null;
 
         eventServiceProviderServiceMock
-            .Setup(service => service.ListenToEvent(
-                inputName,
-                It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
+            .Setup(expression:service => service.ListenToEvent(
+name: inputName,
+handler: It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
             .Callback<string, Func<IServiceProvider, FakeObject, ValueTask>>(
-                (_, handler) => internalHandler = handler);
+action: (_, handler) => internalHandler = handler);
 
         eventOrchestrationService.ListenToEvent<FakeObject, IHandlingService>(
-            inputName,
-            (handlingService, message) =>
+name: inputName,
+handler: (handlingService, message) =>
             {
                 actualHandlingService = handlingService;
                 actualMessage = message;
                 return ValueTask.CompletedTask;
             });
 
-        await internalHandler(inputServiceProvider, inputMessage);
+        // When
 
-        actualHandlingService.Should().BeSameAs(handlingServiceMock.Object);
-        actualMessage.Should().BeSameAs(inputMessage);
+        await internalHandler(arg1:inputServiceProvider, arg2:inputMessage);
+
+        // Then
+
+        actualHandlingService.Should()
+            .BeSameAs(expected:handlingServiceMock.Object);
+
+        actualMessage.Should()
+            .BeSameAs(expected:inputMessage);
     }
 
     public interface IHandlingService;

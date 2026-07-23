@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Services.Processings;
 using FluentAssertions;
@@ -11,7 +15,10 @@ public partial class EventServiceProviderServiceTests
     [Fact]
     public async Task ShouldRaiseEventAsync()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = Mock.Of<IEventAuthInfo>(),
@@ -19,31 +26,43 @@ public partial class EventServiceProviderServiceTests
         };
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
-            .Returns(eventProcessingServiceMock.Object);
+            .Setup(expression:broker => broker.GetService<IEventProcessingService<FakeObject>>())
+            .Returns(value:eventProcessingServiceMock.Object);
 
-        eventServiceProviderService.ListenToEvent<FakeObject>(inputName, (_, _) => ValueTask.CompletedTask);
+        eventServiceProviderService.ListenToEvent<FakeObject>(name:inputName, handler:(_, _) => ValueTask.CompletedTask);
 
-        await eventServiceProviderService.RaiseEventAsync(inputName, inputMessage);
+        // When
+
+        await eventServiceProviderService.RaiseEventAsync(name:inputName, message:inputMessage);
+
+        // Then
 
         eventProcessingServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessage),
-            Times.Once);
+expression: service => service.RaiseEventAsync(name:inputName, data:inputMessage),
+times: Times.Once);
     }
 
     [Fact]
     public async Task ShouldNotThrowWhenNoHandlerIsConfigured()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = Mock.Of<IEventAuthInfo>(),
             Data = new FakeObject()
         };
 
-        Func<Task> raiseEventAsyncTask = async () =>
-            await eventServiceProviderService.RaiseEventAsync(inputName, inputMessage);
+        // When
 
-        await raiseEventAsyncTask.Should().NotThrowAsync();
+        Func<Task> raiseEventAsyncTask = async () =>
+            await eventServiceProviderService.RaiseEventAsync(name:inputName, message:inputMessage);
+
+        // Then
+
+        await raiseEventAsyncTask.Should()
+            .NotThrowAsync();
     }
 }

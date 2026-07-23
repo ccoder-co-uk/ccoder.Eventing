@@ -1,5 +1,10 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using Azure.Messaging.ServiceBus;
 using cCoder.Eventing.AzureServiceBus.Models;
+using cCoder.Eventing.AzureServiceBus.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -11,8 +16,11 @@ public partial class ServiceBusServiceTests
     [Fact]
     public async Task ShouldRaiseEventAsync()
     {
+        // Given
+
         string inputName = "event-name";
         ServiceBusMessage actualMessage = null;
+
         ServiceBusEventMessage<FakeObject> inputEventMessage = new()
         {
             AuthInfo = new ServiceBusEventAuthInfo { SSOUserId = "user" },
@@ -20,27 +28,39 @@ public partial class ServiceBusServiceTests
         };
 
         serviceBusBrokerMock
-            .Setup(broker => broker.SendMessageAsync(
-                inputName,
-                It.IsAny<ServiceBusMessage>()))
-            .Callback<string, ServiceBusMessage>((_, message) => actualMessage = message)
-            .Returns(ValueTask.CompletedTask);
+            .Setup(expression:broker => broker.SendMessageAsync(
+name: inputName,
+message: It.IsAny<ServiceBusMessage>()))
+            .Callback<string, ServiceBusMessage>(action:(_, message) => actualMessage = message)
+            .Returns(value:ValueTask.CompletedTask);
 
-        await serviceBusService.RaiseEventAsync(inputName, inputEventMessage);
+        // When
 
-        actualMessage.Should().NotBeNull();
-        actualMessage.MessageId.Should().Contain("user");
-        actualMessage.MessageId.Should().Contain(nameof(FakeObject));
+        await serviceBusService.RaiseEventAsync(name:inputName, eventMessage:inputEventMessage);
+
+        // Then
+
+        actualMessage.Should()
+            .NotBeNull();
+
+        actualMessage.MessageId.Should()
+            .Contain(expected:"user");
+
+        actualMessage.MessageId.Should()
+            .Contain(expected:nameof(FakeObject));
 
         serviceBusBrokerMock.Verify(
-            broker => broker.SendMessageAsync(inputName, It.IsAny<ServiceBusMessage>()),
-            Times.Once);
+expression: broker => broker.SendMessageAsync(name:inputName, message:It.IsAny<ServiceBusMessage>()),
+times: Times.Once);
     }
 
     [Fact]
     public async Task ShouldRethrowOnRaiseEventAsyncWhenBrokerFails()
     {
+        // Given
+
         string inputName = "event-name";
+
         ServiceBusEventMessage<FakeObject> inputEventMessage = new()
         {
             AuthInfo = new ServiceBusEventAuthInfo { SSOUserId = "user" },
@@ -50,22 +70,30 @@ public partial class ServiceBusServiceTests
         Exception serviceBusException = new("Broker failure");
 
         serviceBusBrokerMock
-            .Setup(broker => broker.SendMessageAsync(inputName, It.IsAny<ServiceBusMessage>()))
-            .Returns(new ValueTask(Task.FromException(serviceBusException)));
+            .Setup(expression:broker => broker.SendMessageAsync(name:inputName, message:It.IsAny<ServiceBusMessage>()))
+            .Returns(value:new ValueTask(Task.FromException(exception:serviceBusException)));
+
+        // When
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await serviceBusService.RaiseEventAsync(inputName, inputEventMessage);
+            await serviceBusService.RaiseEventAsync(name:inputName, eventMessage:inputEventMessage);
 
-        Exception actualException =
-            await Assert.ThrowsAsync<Exception>(raiseEventAsyncTask);
+        // Then
 
-        actualException.Should().BeSameAs(serviceBusException);
+        ServiceException actualException =
+            await Assert.ThrowsAsync<ServiceException>(testCode:raiseEventAsyncTask);
+
+        actualException.InnerException.Should()
+            .BeSameAs(expected:serviceBusException);
     }
 
     [Fact]
     public async Task ShouldRethrowOnRaiseEventAsyncWhenBrokerFailsWithInnerException()
     {
+        // Given
+
         string inputName = "event-name";
+
         ServiceBusEventMessage<FakeObject> inputEventMessage = new()
         {
             AuthInfo = new ServiceBusEventAuthInfo { SSOUserId = "user" },
@@ -76,16 +104,23 @@ public partial class ServiceBusServiceTests
         Exception serviceBusException = new("Broker failure", innerException);
 
         serviceBusBrokerMock
-            .Setup(broker => broker.SendMessageAsync(inputName, It.IsAny<ServiceBusMessage>()))
-            .Returns(new ValueTask(Task.FromException(serviceBusException)));
+            .Setup(expression:broker => broker.SendMessageAsync(name:inputName, message:It.IsAny<ServiceBusMessage>()))
+            .Returns(value:new ValueTask(Task.FromException(exception:serviceBusException)));
+
+        // When
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await serviceBusService.RaiseEventAsync(inputName, inputEventMessage);
+            await serviceBusService.RaiseEventAsync(name:inputName, eventMessage:inputEventMessage);
 
-        Exception actualException =
-            await Assert.ThrowsAsync<Exception>(raiseEventAsyncTask);
+        // Then
 
-        actualException.Should().BeSameAs(serviceBusException);
-        actualException.InnerException.Should().BeSameAs(innerException);
+        ServiceException actualException =
+            await Assert.ThrowsAsync<ServiceException>(testCode:raiseEventAsyncTask);
+
+        actualException.InnerException.Should()
+            .BeSameAs(expected:serviceBusException);
+
+        actualException.InnerException!.InnerException.Should()
+            .BeSameAs(expected:innerException);
     }
 }

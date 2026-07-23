@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.AzureServiceBus.AcceptanceTests.Models;
 
 namespace cCoder.Eventing.AzureServiceBus.AcceptanceTests.Brokers;
@@ -21,7 +25,7 @@ internal sealed class TestEventHandlingBroker
     {
         lock (records)
         {
-            records.Add(record);
+            records.Add(item:record);
         }
     }
 }

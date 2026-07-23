@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Brokers;
 using FluentAssertions;
 using Moq;
@@ -10,18 +14,25 @@ public partial class EventServiceTests
     [Fact]
     public void ShouldListenToEvent()
     {
+        // Given
+
         string inputName = "event-name";
+
         Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
 
-        eventService.ListenToEvent(inputName, inputHandler);
+        // When
+
+        eventService.ListenToEvent(name:inputName, handler:inputHandler);
+
+        // Then
 
         serviceProviderBrokerMock.Verify(
-            broker => broker.GetService<IEventBroker<FakeObject>>(),
-            Times.Once);
+expression: broker => broker.GetService<IEventBroker<FakeObject>>(),
+times: Times.Once);
 
         eventBrokerMock.Verify(
-            broker => broker.ListenToEvent(inputName, inputHandler),
-            Times.Once);
+expression: broker => broker.ListenToEvent(name:inputName, handler:inputHandler),
+times: Times.Once);
     }
 }

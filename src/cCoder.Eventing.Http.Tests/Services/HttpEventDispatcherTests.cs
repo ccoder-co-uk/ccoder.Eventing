@@ -1,4 +1,9 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Brokers;
+using cCoder.Eventing.Http.Dependencies;
 using cCoder.Eventing.Http.Models;
 using cCoder.Eventing.Http.Services.Foundations;
 using cCoder.Eventing.Http.Services.Processings;
@@ -11,26 +16,29 @@ using Xunit;
 
 namespace cCoder.Eventing.Http.Tests.Services;
 
-public class HttpEventDispatcherTests
+public partial class HttpEventDispatcherTests
 {
     private readonly Mock<IServiceProviderBroker> serviceProviderBrokerMock = new();
     private readonly Mock<IServiceScope> serviceScopeMock = new();
-    private readonly IServiceProvider scopedServiceProvider = new ServiceCollection().BuildServiceProvider();
+    private readonly IServiceProvider scopedServiceProvider = new ServiceCollection()
+        .BuildServiceProvider();
 
     public HttpEventDispatcherTests()
     {
         serviceScopeMock
-            .SetupGet(scope => scope.ServiceProvider)
-            .Returns(scopedServiceProvider);
+            .SetupGet(expression:scope => scope.ServiceProvider)
+            .Returns(value:scopedServiceProvider);
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetScopeForEvent(It.IsAny<EventMessage>()))
-            .Returns(serviceScopeMock.Object);
+            .Setup(expression:broker => broker.GetScopeForEvent(message:It.IsAny<EventMessage>()))
+            .Returns(value:serviceScopeMock.Object);
     }
 
     [Fact]
     public async Task ShouldDispatchIncomingHttpMessageToRegisteredProvider()
     {
+        // Given
+
         string inputName = "fake-event";
         EventMessage<FakePayload> actualMessage = null;
 
@@ -45,56 +53,76 @@ public class HttpEventDispatcherTests
         };
 
         IHttpEventDispatcher dispatcher = CreateDispatcher(
-            new HttpEventHandlerRegistry(),
-            eventProvider);
+eventHandlerRegistry: new HttpEventHandlerRegistry(),
+eventProviders: eventProvider);
 
-        await dispatcher.DispatchAsync(new HttpEventMessage
+        await dispatcher.DispatchAsync(message:new HttpEventMessage
         {
             EventName = inputName,
             SSOUserId = "user-123",
             Data = "{\"value\":\"hello\"}"
+        // When
+
         });
 
-        actualMessage.Should().NotBeNull();
-        actualMessage.AuthInfo.SSOUserId.Should().Be("user-123");
-        actualMessage.Data.Value.Should().Be("hello");
+        // Then
+
+        actualMessage.Should()
+            .NotBeNull();
+
+        actualMessage.AuthInfo.SSOUserId.Should()
+            .Be(expected:"user-123");
+
+        actualMessage.Data.Value.Should()
+            .Be(expected:"hello");
     }
 
     [Fact]
     public async Task ShouldDispatchIncomingHttpMessageToRegisteredSubscription()
     {
+        // Given
+
         string inputName = "fake-event";
         FakePayload actualPayload = null;
         IServiceProvider actualServiceProvider = null;
         HttpEventHandlerRegistry eventHandlerRegistry = new();
 
         eventHandlerRegistry.ListenToEvent<FakePayload>(
-            inputName,
-            (serviceProvider, payload) =>
+name: inputName,
+handler: (serviceProvider, payload) =>
             {
                 actualServiceProvider = serviceProvider;
                 actualPayload = payload;
                 return ValueTask.CompletedTask;
             });
 
-        IHttpEventDispatcher dispatcher = CreateDispatcher(eventHandlerRegistry);
+        IHttpEventDispatcher dispatcher = CreateDispatcher(eventHandlerRegistry:eventHandlerRegistry);
 
-        await dispatcher.DispatchAsync(new HttpEventMessage
+        await dispatcher.DispatchAsync(message:new HttpEventMessage
         {
             EventName = inputName,
             SSOUserId = "user-123",
             Data = "{\"value\":\"hello\"}"
+        // When
+
         });
 
-        actualServiceProvider.Should().BeSameAs(scopedServiceProvider);
-        actualPayload.Should().NotBeNull();
-        actualPayload.Value.Should().Be("hello");
+        // Then
+
+        actualServiceProvider.Should()
+            .BeSameAs(expected:scopedServiceProvider);
+
+        actualPayload.Should()
+            .NotBeNull();
+
+        actualPayload.Value.Should()
+            .Be(expected:"hello");
     }
 
     private IHttpEventDispatcher CreateDispatcher(
         IHttpEventHandlerRegistry eventHandlerRegistry,
         params EventProvider[] eventProviders) =>
-            new HttpEventDispatcher(
+        new HttpEventDispatcher(
                 serviceProviderBrokerMock.Object,
                 eventHandlerRegistry,
                 eventProviders,

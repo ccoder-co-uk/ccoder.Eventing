@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Models;
 using FluentAssertions;
 using Moq;
@@ -10,6 +14,8 @@ public partial class EventProcessingServiceTests
     [Fact]
     public async Task ShouldListenToEvent()
     {
+        // Given
+
         string inputName = "event-name";
         IServiceProvider inputServiceProvider = Mock.Of<IServiceProvider>();
         FakeObject inputData = new() { Name = "test" };
@@ -17,50 +23,62 @@ public partial class EventProcessingServiceTests
         FakeObject actualData = null;
 
         eventServiceMock
-            .Setup(service => service.ListenToEvent(
-                inputName,
-                It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
+            .Setup(expression:service => service.ListenToEvent(
+name: inputName,
+handler: It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
             .Callback<string, Func<IServiceProvider, FakeObject, ValueTask>>(
-                (_, handler) => forwardedHandler = handler);
+action: (_, handler) => forwardedHandler = handler);
 
         eventProcessingService.ListenToEvent(
-            inputName,
-            (_, data) =>
+name: inputName,
+handler: (_, data) =>
             {
                 actualData = data;
                 return ValueTask.CompletedTask;
             });
 
-        await forwardedHandler(inputServiceProvider, inputData);
+        // When
 
-        actualData.Should().BeSameAs(inputData);
+        await forwardedHandler(arg1:inputServiceProvider, arg2:inputData);
+
+        // Then
+
+        actualData.Should()
+            .BeSameAs(expected:inputData);
     }
 
     [Fact]
     public async Task ShouldListenToEventAndSkipNullMessages()
     {
+        // Given
+
         string inputName = "event-name";
         IServiceProvider inputServiceProvider = Mock.Of<IServiceProvider>();
         Func<IServiceProvider, FakeObject, ValueTask> forwardedHandler = null;
         bool handlerWasCalled = false;
 
         eventServiceMock
-            .Setup(service => service.ListenToEvent(
-                inputName,
-                It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
+            .Setup(expression:service => service.ListenToEvent(
+name: inputName,
+handler: It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
             .Callback<string, Func<IServiceProvider, FakeObject, ValueTask>>(
-                (_, handler) => forwardedHandler = handler);
+action: (_, handler) => forwardedHandler = handler);
 
         eventProcessingService.ListenToEvent(
-            inputName,
-            (_, _) =>
+name: inputName,
+handler: (_, _) =>
             {
                 handlerWasCalled = true;
                 return ValueTask.CompletedTask;
             });
 
-        await forwardedHandler(inputServiceProvider, null);
+        // When
 
-        handlerWasCalled.Should().BeFalse();
+        await forwardedHandler(arg1:inputServiceProvider, arg2:null);
+
+        // Then
+
+        handlerWasCalled.Should()
+            .BeFalse();
     }
 }

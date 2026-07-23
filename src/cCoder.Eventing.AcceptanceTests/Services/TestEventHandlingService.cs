@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.AcceptanceTests.Brokers;
 using cCoder.Eventing.AcceptanceTests.Models;
 using cCoder.Eventing.Models;
@@ -10,7 +14,7 @@ internal sealed class TestEventHandlingService(
 {
     public ValueTask HandleAsync(TestPayload payload)
     {
-        state.Records.Add(new EventRecord
+        state.Records.Add(item:new EventRecord
         {
             PayloadValue = payload.Value,
             UserId = authInfo.SSOUserId

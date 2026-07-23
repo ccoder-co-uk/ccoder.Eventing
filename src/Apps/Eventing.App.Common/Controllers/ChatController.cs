@@ -1,5 +1,9 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Apps.Models;
-using cCoder.Eventing.Apps.Services;
+using cCoder.Eventing.Apps.Services.Orchestrations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cCoder.Eventing.Apps.Controllers;
@@ -10,22 +14,26 @@ public class ChatController(IChatOrchestrationService chatOrchestrationService) 
 {
     [HttpPost]
     public async ValueTask<IActionResult> Post(
-        ChatMessageRequest request,
+        ChatMessageRequest newRequest,
         CancellationToken cancellationToken)
     {
         try
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            {
+                return BadRequest(modelState:ModelState);
+            }
 
             ChatMessage message =
-                await chatOrchestrationService.SendAsync(request, cancellationToken);
+                await chatOrchestrationService.SendAsync(
+                    request:newRequest,
+                    cancellationToken:cancellationToken);
 
-            return Accepted(message);
+            return Accepted(value:message);
         }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            return BadRequest(error:ex.Message);
         }
     }
 }

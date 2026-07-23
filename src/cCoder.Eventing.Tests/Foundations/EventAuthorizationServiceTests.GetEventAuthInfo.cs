@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Models;
 using FluentAssertions;
 using Moq;
@@ -10,19 +14,26 @@ public partial class EventAuthorizationServiceTests
     [Fact]
     public void ShouldReturnEventAuthInfo()
     {
+        // Given
+
         IEventAuthInfo expectedEventAuthInfo = Mock.Of<IEventAuthInfo>();
 
         eventAuthorizationBrokerMock
-            .Setup(broker => broker.GetEventAuthInfo())
-            .Returns(expectedEventAuthInfo);
+            .Setup(expression:broker => broker.GetEventAuthInfo())
+            .Returns(value:expectedEventAuthInfo);
+
+        // When
 
         IEventAuthInfo actualEventAuthInfo =
             eventAuthorizationService.GetEventAuthInfo();
 
-        actualEventAuthInfo.Should().BeSameAs(expectedEventAuthInfo);
+        // Then
+
+        actualEventAuthInfo.Should()
+            .BeSameAs(expected:expectedEventAuthInfo);
 
         eventAuthorizationBrokerMock.Verify(
-            broker => broker.GetEventAuthInfo(),
-            Times.Once);
+expression: broker => broker.GetEventAuthInfo(),
+times: Times.Once);
     }
 }

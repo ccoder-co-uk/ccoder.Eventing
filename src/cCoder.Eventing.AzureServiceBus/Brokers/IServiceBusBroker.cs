@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using Azure.Messaging.ServiceBus;
 
 namespace cCoder.Eventing.AzureServiceBus.Brokers;

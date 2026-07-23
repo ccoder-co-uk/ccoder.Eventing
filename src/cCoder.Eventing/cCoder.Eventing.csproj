@@ -30,5 +30,9 @@
 	<ItemGroup>
 		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="cCoder.CodeAnalysis" Version="2026.7.23.1409" />
+	</ItemGroup>
 	
 </Project>

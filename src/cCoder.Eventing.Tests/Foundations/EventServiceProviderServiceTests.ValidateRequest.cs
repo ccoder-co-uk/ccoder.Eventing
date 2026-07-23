@@ -1,4 +1,9 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Models;
+using cCoder.Eventing.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -10,54 +15,82 @@ public partial class EventServiceProviderServiceTests
     [Fact]
     public async Task ShouldThrowOnRaiseEventAsyncIfNameIsNull()
     {
+        // Given
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = Mock.Of<IEventAuthInfo>(),
             Data = new FakeObject()
         };
 
-        Func<Task> raiseEventAsyncTask = async () =>
-            await eventServiceProviderService.RaiseEventAsync(null, inputMessage);
+        // When
 
-        await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
+        Func<Task> raiseEventAsyncTask = async () =>
+            await eventServiceProviderService.RaiseEventAsync(name:null, message:inputMessage);
+
+        // Then
+
+        await raiseEventAsyncTask.Should()
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]
     public async Task ShouldThrowOnRaiseEventAsyncIfMessageIsNull()
     {
-        Func<Task> raiseEventAsyncTask = async () =>
-            await eventServiceProviderService.RaiseEventAsync<FakeObject>("event-name", null);
+        // Given
 
-        await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
+        // When
+
+        Func<Task> raiseEventAsyncTask = async () =>
+            await eventServiceProviderService.RaiseEventAsync<FakeObject>(name:"event-name", message:null);
+
+        // Then
+
+        await raiseEventAsyncTask.Should()
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]
     public async Task ShouldThrowOnRaiseEventAsyncIfDataIsNull()
     {
+        // Given
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = Mock.Of<IEventAuthInfo>(),
             Data = null
         };
 
-        Func<Task> raiseEventAsyncTask = async () =>
-            await eventServiceProviderService.RaiseEventAsync("event-name", inputMessage);
+        // When
 
-        await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
+        Func<Task> raiseEventAsyncTask = async () =>
+            await eventServiceProviderService.RaiseEventAsync(name:"event-name", message:inputMessage);
+
+        // Then
+
+        await raiseEventAsyncTask.Should()
+            .ThrowAsync<ServiceDependencyException>();
     }
 
     [Fact]
     public async Task ShouldThrowOnRaiseEventAsyncIfAuthInfoIsNull()
     {
+        // Given
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = null,
             Data = new FakeObject()
         };
 
-        Func<Task> raiseEventAsyncTask = async () =>
-            await eventServiceProviderService.RaiseEventAsync("event-name", inputMessage);
+        // When
 
-        await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
+        Func<Task> raiseEventAsyncTask = async () =>
+            await eventServiceProviderService.RaiseEventAsync(name:"event-name", message:inputMessage);
+
+        // Then
+
+        await raiseEventAsyncTask.Should()
+            .ThrowAsync<ServiceDependencyException>();
     }
 }

@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.AzureServiceBus.AcceptanceTests.Brokers;
 using cCoder.Eventing.AzureServiceBus.AcceptanceTests.Models;
 using cCoder.Eventing.AzureServiceBus.AcceptanceTests.Services;
@@ -11,10 +15,12 @@ public partial class AzureServiceBusEventHubTests
     public async Task ShouldRaiseEventsAsyncThroughHubAndPopulateScopedAuthInfo()
     {
         (ServiceProvider serviceProvider, string queueName) = CreateServiceProvider();
+
         await using (serviceProvider)
         {
             IAzureServiceBusEventHub eventHub =
                 serviceProvider.GetRequiredService<IAzureServiceBusEventHub>();
+
             TestEventHandlingBroker broker =
                 serviceProvider.GetRequiredService<TestEventHandlingBroker>();
 
@@ -24,29 +30,29 @@ public partial class AzureServiceBusEventHubTests
             string userIdTwo = $"user-{Guid.NewGuid():N}";
 
             eventHub.ListenToEvent<TestPayload>(
-                queueName,
-                (scopedProvider, payload) =>
+name: queueName,
+handler: (scopedProvider, payload) =>
                 {
                     TestEventHandlingService handlingService =
                         scopedProvider.GetRequiredService<TestEventHandlingService>();
 
-                    return handlingService.HandleAsync(payload);
+                    return handlingService.HandleAsync(payload:payload);
                 });
 
             await eventHub.RaiseEventsAsync(
-                queueName,
-                [
-                    CreateMessage(payloadValueOne, userIdOne),
-                    CreateMessage(payloadValueTwo, userIdTwo)
+name: queueName,
+messages: [
+                    CreateMessage(payloadValue:payloadValueOne, userId:userIdOne),
+                    CreateMessage(payloadValue:payloadValueTwo, userId:userIdTwo)
                 ]);
 
-            IList<EventRecord> receivedRecords = await WaitForRecordsAsync(broker, 2);
+            IList<EventRecord> receivedRecords = await WaitForRecordsAsync(broker:broker, expectedCount:2);
 
-            Assert.Contains(receivedRecords, record =>
+            Assert.Contains(collection:receivedRecords, filter:record =>
                 record.PayloadValue == payloadValueOne &&
                 record.UserId == userIdOne);
 
-            Assert.Contains(receivedRecords, record =>
+            Assert.Contains(collection:receivedRecords, filter:record =>
                 record.PayloadValue == payloadValueTwo &&
                 record.UserId == userIdTwo);
         }

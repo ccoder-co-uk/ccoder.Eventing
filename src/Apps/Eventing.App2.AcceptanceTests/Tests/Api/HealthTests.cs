@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using Eventing.App2.AcceptanceTests.Infrastructure;
 
 namespace Eventing.App2.AcceptanceTests.Tests.Api;

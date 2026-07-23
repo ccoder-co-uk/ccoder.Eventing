@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Services.Processings;
 using Moq;
 using Xunit;
@@ -9,37 +13,51 @@ public partial class EventServiceProviderServiceTests
     [Fact]
     public void ShouldListenToEvent()
     {
+        // Given
+
         string inputName = "event-name";
+
         Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
-            .Returns(eventProcessingServiceMock.Object);
+            .Setup(expression:broker => broker.GetService<IEventProcessingService<FakeObject>>())
+            .Returns(value:eventProcessingServiceMock.Object);
 
-        eventServiceProviderService.ListenToEvent(inputName, inputHandler);
+        // When
+
+        eventServiceProviderService.ListenToEvent(name:inputName, handler:inputHandler);
+
+        // Then
 
         eventProcessingServiceMock.Verify(
-            service => service.ListenToEvent(inputName, inputHandler),
-            Times.Once);
+expression: service => service.ListenToEvent(name:inputName, handler:inputHandler),
+times: Times.Once);
     }
 
     [Fact]
     public void ShouldOnlyResolveProcessingServiceOnceForType()
     {
+        // Given
+
         string inputName = "event-name";
+
         Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
-            .Returns(eventProcessingServiceMock.Object);
+            .Setup(expression:broker => broker.GetService<IEventProcessingService<FakeObject>>())
+            .Returns(value:eventProcessingServiceMock.Object);
 
-        eventServiceProviderService.ListenToEvent(inputName, inputHandler);
-        eventServiceProviderService.ListenToEvent(inputName, inputHandler);
+        eventServiceProviderService.ListenToEvent(name:inputName, handler:inputHandler);
+        // When
+
+        eventServiceProviderService.ListenToEvent(name:inputName, handler:inputHandler);
+
+        // Then
 
         serviceProviderBrokerMock.Verify(
-            broker => broker.GetService<IEventProcessingService<FakeObject>>(),
-            Times.Once);
+expression: broker => broker.GetService<IEventProcessingService<FakeObject>>(),
+times: Times.Once);
     }
 }

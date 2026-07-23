@@ -1,3 +1,8 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using cCoder.Eventing.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -10,25 +15,36 @@ public partial class EventServiceProviderServiceTests
     [Fact]
     public void ShouldRethrowOnListenToEventIfProcessingServiceFails()
     {
+        // Given
+
         string inputName = "event-name";
+
         Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
+
         Exception innerException = new("Processing failure");
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
-            .Returns(eventProcessingServiceMock.Object);
+            .Setup(expression:broker => broker.GetService<IEventProcessingService<FakeObject>>())
+            .Returns(value:eventProcessingServiceMock.Object);
 
         eventProcessingServiceMock
-            .Setup(service => service.ListenToEvent(inputName, inputHandler))
-            .Throws(innerException);
+            .Setup(expression:service => service.ListenToEvent(name:inputName, handler:inputHandler))
+            .Throws(exception:innerException);
+
+        // When
 
         Action listenToEventAction = () =>
-            eventServiceProviderService.ListenToEvent(inputName, inputHandler);
+            eventServiceProviderService.ListenToEvent(name:inputName, handler:inputHandler);
 
-        Exception actualException =
-            listenToEventAction.Should().Throw<Exception>().Which;
+        // Then
 
-        actualException.Should().BeSameAs(innerException);
+        ServiceException actualException =
+            listenToEventAction.Should()
+                .Throw<ServiceException>()
+                .Which;
+
+        actualException.InnerException.Should()
+            .BeSameAs(expected:innerException);
     }
 }

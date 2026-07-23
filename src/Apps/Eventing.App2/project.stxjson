@@ -1,0 +1,23 @@
+{
+  "Classes": [
+    {
+      "Name": "Eventing.App2.Program",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Main",
+          "Inputs": [
+            {
+              "Name": "args",
+              "Type": "System.String[]"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    }
+  ],
+  "Links": [],
+  "AnalysisItems": []
+}

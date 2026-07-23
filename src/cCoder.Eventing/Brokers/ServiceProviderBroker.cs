@@ -1,3 +1,8 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using cCoder.Eventing.Dependencies;
 using cCoder.Eventing.Models;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -26,5 +31,5 @@ internal class ServiceProviderBroker(IServiceProvider serviceProvider)
         serviceProvider.GetService<T>();
 
     public object GetService(Type type) => 
-        serviceProvider.GetService(type);
+        serviceProvider.GetService(serviceType:type);
 }

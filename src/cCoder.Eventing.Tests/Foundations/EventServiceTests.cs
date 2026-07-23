@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Brokers;
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Services.Foundations;
@@ -21,8 +25,8 @@ public partial class EventServiceTests
         loggerMock = new Mock<ILogger<EventService<FakeObject>>>();
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetService<IEventBroker<FakeObject>>())
-            .Returns(eventBrokerMock.Object);
+            .Setup(expression:broker => broker.GetService<IEventBroker<FakeObject>>())
+            .Returns(value:eventBrokerMock.Object);
 
         eventService = new EventService<FakeObject>(serviceProviderBrokerMock.Object, loggerMock.Object);
     }

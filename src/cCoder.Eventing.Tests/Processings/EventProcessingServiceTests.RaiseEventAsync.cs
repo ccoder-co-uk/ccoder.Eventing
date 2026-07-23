@@ -1,4 +1,9 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Models;
+using cCoder.Eventing.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -10,46 +15,66 @@ public partial class EventProcessingServiceTests
     [Fact]
     public async Task ShouldRaiseEventAsync()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = Mock.Of<IEventAuthInfo>(),
             Data = new FakeObject { Name = "test" }
         };
 
-        await eventProcessingService.RaiseEventAsync(inputName, inputMessage);
+        // When
+
+        await eventProcessingService.RaiseEventAsync(name:inputName, data:inputMessage);
+
+        // Then
 
         eventServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessage),
-            Times.Once);
+expression: service => service.RaiseEventAsync(name:inputName, message:inputMessage),
+times: Times.Once);
     }
 
     [Fact]
-    public async Task ShouldRaiseEventAsyncWhenMessageIsNull()
+    public async Task ShouldThrowValidationExceptionWhenMessageIsNull()
     {
+        // Given
+
         string inputName = "event-name";
 
-        await eventProcessingService.RaiseEventAsync(inputName, null);
+        // When
 
-        eventServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, null),
-            Times.Once);
+        Func<Task> raiseEventAsync = async () =>
+            await eventProcessingService.RaiseEventAsync(name:inputName, data:null);
+
+        // Then
+
+        await raiseEventAsync.Should()
+            .ThrowAsync<ServiceValidationException>();
     }
 
     [Fact]
     public async Task ShouldRaiseEventAsyncWhenAuthInfoIsNull()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = null,
             Data = new FakeObject { Name = "test" }
         };
 
-        await eventProcessingService.RaiseEventAsync(inputName, inputMessage);
+        // When
+
+        await eventProcessingService.RaiseEventAsync(name:inputName, data:inputMessage);
+
+        // Then
 
         eventServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessage),
-            Times.Once);
+expression: service => service.RaiseEventAsync(name:inputName, message:inputMessage),
+times: Times.Once);
     }
 }

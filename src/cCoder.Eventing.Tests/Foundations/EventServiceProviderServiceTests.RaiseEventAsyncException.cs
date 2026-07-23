@@ -1,4 +1,9 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Models;
+using cCoder.Eventing.Models.Exceptions;
 using cCoder.Eventing.Services.Processings;
 using FluentAssertions;
 using Moq;
@@ -11,37 +16,49 @@ public partial class EventServiceProviderServiceTests
     [Fact]
     public async Task ShouldRethrowOnRaiseEventAsyncIfProcessingServiceFails()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = Mock.Of<IEventAuthInfo>(),
             Data = new FakeObject()
         };
+
         Exception innerException = new("Processing failure");
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
-            .Returns(eventProcessingServiceMock.Object);
+            .Setup(expression:broker => broker.GetService<IEventProcessingService<FakeObject>>())
+            .Returns(value:eventProcessingServiceMock.Object);
 
-        eventServiceProviderService.ListenToEvent<FakeObject>(inputName, (_, _) => ValueTask.CompletedTask);
+        eventServiceProviderService.ListenToEvent<FakeObject>(name:inputName, handler:(_, _) => ValueTask.CompletedTask);
 
         eventProcessingServiceMock
-            .Setup(service => service.RaiseEventAsync(inputName, inputMessage))
-            .Returns(new ValueTask(Task.FromException(innerException)));
+            .Setup(expression:service => service.RaiseEventAsync(name:inputName, data:inputMessage))
+            .Returns(value:new ValueTask(Task.FromException(exception:innerException)));
+
+        // When
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await eventServiceProviderService.RaiseEventAsync(inputName, inputMessage);
+            await eventServiceProviderService.RaiseEventAsync(name:inputName, message:inputMessage);
 
-        Exception actualException =
-            await Assert.ThrowsAsync<Exception>(raiseEventAsyncTask);
+        // Then
 
-        actualException.Should().BeSameAs(innerException);
+        ServiceException actualException =
+            await Assert.ThrowsAsync<ServiceException>(testCode:raiseEventAsyncTask);
+
+        actualException.InnerException.Should()
+            .BeSameAs(expected:innerException);
     }
 
     [Fact]
     public async Task ShouldRethrowOnRaiseEventsAsyncIfProcessingServiceFails()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject>[] inputMessages =
         [
             new()
@@ -50,24 +67,30 @@ public partial class EventServiceProviderServiceTests
                 Data = new FakeObject()
             }
         ];
+
         Exception innerException = new("Processing failure");
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
-            .Returns(eventProcessingServiceMock.Object);
+            .Setup(expression:broker => broker.GetService<IEventProcessingService<FakeObject>>())
+            .Returns(value:eventProcessingServiceMock.Object);
 
-        eventServiceProviderService.ListenToEvent<FakeObject>(inputName, (_, _) => ValueTask.CompletedTask);
+        eventServiceProviderService.ListenToEvent<FakeObject>(name:inputName, handler:(_, _) => ValueTask.CompletedTask);
 
         eventProcessingServiceMock
-            .Setup(service => service.RaiseEventAsync(inputName, inputMessages[0]))
-            .Returns(new ValueTask(Task.FromException(innerException)));
+            .Setup(expression:service => service.RaiseEventAsync(name:inputName, data:inputMessages[0]))
+            .Returns(value:new ValueTask(Task.FromException(exception:innerException)));
+
+        // When
 
         Func<Task> raiseEventsAsyncTask = async () =>
-            await eventServiceProviderService.RaiseEventsAsync(inputName, inputMessages);
+            await eventServiceProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
-        Exception actualException =
-            await Assert.ThrowsAsync<Exception>(raiseEventsAsyncTask);
+        // Then
 
-        actualException.Should().BeSameAs(innerException);
+        ServiceException actualException =
+            await Assert.ThrowsAsync<ServiceException>(testCode:raiseEventsAsyncTask);
+
+        actualException.InnerException.Should()
+            .BeSameAs(expected:innerException);
     }
 }

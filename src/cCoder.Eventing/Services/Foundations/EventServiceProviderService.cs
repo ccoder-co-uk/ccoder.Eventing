@@ -1,11 +1,16 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Brokers;
+using cCoder.Eventing.Dependencies;
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Services.Processings;
 using Microsoft.Extensions.Logging;
 
 namespace cCoder.Eventing.Services.Foundations;
 
-internal class EventServiceProviderService : IEventServiceProviderService
+internal sealed partial class EventServiceProviderService : IEventServiceProviderService
 {
     private readonly List<object> services = [];
     private readonly IServiceProviderBroker serviceProviderBroker;
@@ -19,80 +24,102 @@ internal class EventServiceProviderService : IEventServiceProviderService
         this.log = log;
     }
 
-    public void ListenToEvent<T>(string name, Func<IServiceProvider, T, ValueTask> handler)
-    {
-        try
+    public void ListenToEvent<T>(
+        string name,
+        Func<IServiceProvider, T, ValueTask> handler) =>
+        TryCatch(operation: () =>
         {
-            IEventProcessingService<T> typedEventService = GetEventService<T>();
+            Validate(inputs: [name, handler]);
 
-            if (typedEventService is null)
+            try
             {
-                typedEventService = serviceProviderBroker.GetService<IEventProcessingService<T>>();
-                services.Add(typedEventService);
+                IEventProcessingService<T> typedEventService = GetEventService<T>();
+
+                if (typedEventService is null)
+                {
+                    typedEventService = serviceProviderBroker.GetService<IEventProcessingService<T>>();
+                    services.Add(item:typedEventService);
+                }
+
+                typedEventService.ListenToEvent(name:name, handler:handler);
             }
-
-            typedEventService.ListenToEvent(name, handler);
-        }
-        catch (Exception ex)
-        {
-            log.LogError(
-                ex,
-                "Exception thrown whilst listening to {Name} event\n{Message}\n{StackTrace}",
-                name,
-                ex.Message,
-                ex.StackTrace);
-
-            throw;
-        }
-    }
-
-    public async ValueTask RaiseEventAsync<T>(string name, EventMessage<T> message)
-    {
-        try
-        {
-            ValidateRequest(name, message);
-
-            IEventProcessingService<T> service = GetEventService<T>();
-
-            if (service is null)
+            catch (Exception ex)
             {
-                log.LogWarning("{Name} event was raised, but no handler was configured for it", name);
-                return;
+                log.LogError(
+                    exception: ex,
+                    message: "Exception thrown whilst listening to {Name} event\n{Message}\n{StackTrace}",
+                    args: [name, ex.Message, ex.StackTrace]);
+
+                throw;
             }
+        });
 
-            await service.RaiseEventAsync(name, message);
-        }
-        catch (Exception ex)
+    public ValueTask RaiseEventAsync<T>(
+        string name,
+        EventMessage<T> message) =>
+        TryCatch(operation: async () =>
         {
-            log.LogError(
-                ex,
-                "Exception thrown whilst raising {Name} event\n{Message}\n{StackTrace}",
-                name,
-                ex.Message,
-                ex.StackTrace);
+            Validate(inputs: [name, message]);
 
-            throw;
-        }
-    }
+            try
+            {
+                await RaiseEventInternalAsync(name:name, message:message);
+            }
+            catch (Exception ex)
+            {
+                log.LogError(
+                    exception: ex,
+                    message: "Exception thrown whilst raising {Name} event\n{Message}\n{StackTrace}",
+                    args: [name, ex.Message, ex.StackTrace]);
 
-    public async ValueTask RaiseEventsAsync<T>(string name, EventMessage<T>[] messages)
+                throw;
+            }
+        });
+
+    public ValueTask RaiseEventsAsync<T>(
+        string name,
+        EventMessage<T>[] messages) =>
+        TryCatch(operation: async () =>
+        {
+            Validate(inputs: [name, messages]);
+
+            try
+            {
+                await EventDispatchDependency.HandleMessagesAsync(
+                    messages: messages,
+                    handler: message => RaiseEventInternalAsync(
+                        name: name,
+                        message: message));
+            }
+            catch (Exception ex)
+            {
+                log.LogError(
+                    exception: ex,
+                    message: "Exception thrown whilst raising {Name} events\n{Message}\n{StackTrace}",
+                    args: [name, ex.Message, ex.StackTrace]);
+
+                throw;
+            }
+        });
+
+    private async ValueTask RaiseEventInternalAsync<T>(
+        string name,
+        EventMessage<T> message)
     {
-        try
-        {
-            foreach (EventMessage<T> message in messages)
-                await RaiseEventAsync(name, message);
-        }
-        catch (Exception ex)
-        {
-            log.LogError(
-                ex,
-                "Exception thrown whilst raising {Name} events\n{Message}\n{StackTrace}",
-                name,
-                ex.Message,
-                ex.StackTrace);
+        ValidateRequest(name:name, message:message);
 
-            throw;
+        IEventProcessingService<T> service = GetEventService<T>();
+
+        if (service is null)
+        {
+            log.LogWarning(
+                message: "{Name} event was raised, but no handler was configured for it",
+                args: name);
+
+            return;
         }
+
+        await service.RaiseEventAsync(name:name, data:message);
     }
 
     private static void ValidateRequest<T>(string name, EventMessage<T> message)
@@ -119,5 +146,7 @@ internal class EventServiceProviderService : IEventServiceProviderService
     }
 
     private IEventProcessingService<T> GetEventService<T>() =>
-        services.OfType<IEventProcessingService<T>>().SingleOrDefault();
+        services
+            .OfType<IEventProcessingService<T>>()
+            .SingleOrDefault();
 }

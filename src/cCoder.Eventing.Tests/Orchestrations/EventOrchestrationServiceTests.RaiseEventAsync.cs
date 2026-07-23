@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Models;
 using Moq;
 using Xunit;
@@ -9,7 +13,10 @@ public partial class EventOrchestrationServiceTests
     [Fact]
     public async Task ShouldRaiseEventAsync()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = Mock.Of<IEventAuthInfo>(),
@@ -17,24 +24,31 @@ public partial class EventOrchestrationServiceTests
         };
 
         eventProviderServiceMock
-            .Setup(service => service.RaiseEventAsync(inputName, inputMessage))
-            .ReturnsAsync(false);
+            .Setup(expression:service => service.RaiseEventAsync(name:inputName, message:inputMessage))
+            .ReturnsAsync(value:false);
 
-        await eventOrchestrationService.RaiseEventAsync(inputName, inputMessage);
+        // When
+
+        await eventOrchestrationService.RaiseEventAsync(name:inputName, message:inputMessage);
+
+        // Then
 
         eventProviderServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessage),
-            Times.Once);
+expression: service => service.RaiseEventAsync(name:inputName, message:inputMessage),
+times: Times.Once);
 
         eventServiceProviderServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessage),
-            Times.Once);
+expression: service => service.RaiseEventAsync(name:inputName, message:inputMessage),
+times: Times.Once);
     }
 
     [Fact]
     public async Task ShouldNotRaiseEventAsyncInternallyWhenExternalProviderHandlesIt()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject> inputMessage = new()
         {
             AuthInfo = Mock.Of<IEventAuthInfo>(),
@@ -42,20 +56,27 @@ public partial class EventOrchestrationServiceTests
         };
 
         eventProviderServiceMock
-            .Setup(service => service.RaiseEventAsync(inputName, inputMessage))
-            .ReturnsAsync(true);
+            .Setup(expression:service => service.RaiseEventAsync(name:inputName, message:inputMessage))
+            .ReturnsAsync(value:true);
 
-        await eventOrchestrationService.RaiseEventAsync(inputName, inputMessage);
+        // When
+
+        await eventOrchestrationService.RaiseEventAsync(name:inputName, message:inputMessage);
+
+        // Then
 
         eventServiceProviderServiceMock.Verify(
-            service => service.RaiseEventAsync(It.IsAny<string>(), It.IsAny<EventMessage<FakeObject>>()),
-            Times.Never);
+expression: service => service.RaiseEventAsync(name:It.IsAny<string>(), message:It.IsAny<EventMessage<FakeObject>>()),
+times: Times.Never);
     }
 
     [Fact]
     public async Task ShouldRaiseEventsAsync()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject>[] inputMessages =
         [
             new()
@@ -66,24 +87,31 @@ public partial class EventOrchestrationServiceTests
         ];
 
         eventProviderServiceMock
-            .Setup(service => service.RaiseEventsAsync(inputName, inputMessages))
-            .ReturnsAsync(false);
+            .Setup(expression:service => service.RaiseEventsAsync(name:inputName, messages:inputMessages))
+            .ReturnsAsync(value:false);
 
-        await eventOrchestrationService.RaiseEventsAsync(inputName, inputMessages);
+        // When
+
+        await eventOrchestrationService.RaiseEventsAsync(name:inputName, messages:inputMessages);
+
+        // Then
 
         eventProviderServiceMock.Verify(
-            service => service.RaiseEventsAsync(inputName, inputMessages),
-            Times.Once);
+expression: service => service.RaiseEventsAsync(name:inputName, messages:inputMessages),
+times: Times.Once);
 
         eventServiceProviderServiceMock.Verify(
-            service => service.RaiseEventsAsync(inputName, inputMessages),
-            Times.Once);
+expression: service => service.RaiseEventsAsync(name:inputName, messages:inputMessages),
+times: Times.Once);
     }
 
     [Fact]
     public async Task ShouldNotRaiseEventsAsyncInternallyWhenExternalBulkProviderHandlesIt()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject>[] inputMessages =
         [
             new()
@@ -94,13 +122,17 @@ public partial class EventOrchestrationServiceTests
         ];
 
         eventProviderServiceMock
-            .Setup(service => service.RaiseEventsAsync(inputName, inputMessages))
-            .ReturnsAsync(true);
+            .Setup(expression:service => service.RaiseEventsAsync(name:inputName, messages:inputMessages))
+            .ReturnsAsync(value:true);
 
-        await eventOrchestrationService.RaiseEventsAsync(inputName, inputMessages);
+        // When
+
+        await eventOrchestrationService.RaiseEventsAsync(name:inputName, messages:inputMessages);
+
+        // Then
 
         eventServiceProviderServiceMock.Verify(
-            service => service.RaiseEventsAsync(It.IsAny<string>(), It.IsAny<EventMessage<FakeObject>[]>()),
-            Times.Never);
+expression: service => service.RaiseEventsAsync(name:It.IsAny<string>(), messages:It.IsAny<EventMessage<FakeObject>[]>()),
+times: Times.Never);
     }
 }

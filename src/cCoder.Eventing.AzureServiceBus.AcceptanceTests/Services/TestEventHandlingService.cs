@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.AzureServiceBus.AcceptanceTests.Brokers;
 using cCoder.Eventing.AzureServiceBus.AcceptanceTests.Models;
 using cCoder.Eventing.AzureServiceBus.Models;
@@ -10,7 +14,7 @@ internal sealed class TestEventHandlingService(
 {
     public ValueTask HandleAsync(TestPayload payload)
     {
-        broker.AddRecord(new EventRecord
+        broker.AddRecord(record:new EventRecord
         {
             PayloadValue = payload.Value,
             UserId = authInfo.SSOUserId

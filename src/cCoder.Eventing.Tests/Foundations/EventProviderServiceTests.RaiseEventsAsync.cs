@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Services.Foundations;
 using FluentAssertions;
@@ -11,7 +15,10 @@ public partial class EventProviderServiceTests
     [Fact]
     public async Task ShouldRaiseEventsAsyncAndReturnTrueWhenMatchingBulkProviderExists()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject>[] inputMessages =
         [
             new()
@@ -20,12 +27,13 @@ public partial class EventProviderServiceTests
                 Data = new FakeObject()
             }
         ];
+
         EventMessage<FakeObject>[] actualMessages = null;
         IServiceProvider actualServiceProvider = null;
 
         IEventProviderService eventProviderService = CreateEventProviderService(
-            [],
-            [
+eventProviders: [],
+bulkEventProviders: [
                 new BulkEventProvider<FakeObject>
                 {
                     Events = [inputName],
@@ -38,21 +46,33 @@ public partial class EventProviderServiceTests
                 }
             ]);
 
-        bool handled = await eventProviderService.RaiseEventsAsync(inputName, inputMessages);
+        // When
 
-        handled.Should().BeTrue();
-        actualMessages.Should().BeSameAs(inputMessages);
-        actualServiceProvider.Should().BeSameAs(scopedServiceProviderMock.Object);
+        bool handled = await eventProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
+
+        // Then
+
+        handled.Should()
+            .BeTrue();
+
+        actualMessages.Should()
+            .BeSameAs(expected:inputMessages);
+
+        actualServiceProvider.Should()
+            .BeSameAs(expected:scopedServiceProviderMock.Object);
 
         serviceProviderBrokerMock.Verify(
-            broker => broker.GetScopeForEvent(inputMessages[0]),
-            Times.Once);
+expression: broker => broker.GetScopeForEvent(message:inputMessages[0]),
+times: Times.Once);
     }
 
     [Fact]
     public async Task ShouldRaiseEventsAsyncForEveryMatchingBulkProvider()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject>[] inputMessages =
         [
             new()
@@ -61,11 +81,12 @@ public partial class EventProviderServiceTests
                 Data = new FakeObject()
             }
         ];
+
         int callCount = 0;
 
         IEventProviderService eventProviderService = CreateEventProviderService(
-            [],
-            [
+eventProviders: [],
+bulkEventProviders: [
                 new BulkEventProvider<FakeObject>
                 {
                     Events = [inputName],
@@ -86,16 +107,26 @@ public partial class EventProviderServiceTests
                 }
             ]);
 
-        bool handled = await eventProviderService.RaiseEventsAsync(inputName, inputMessages);
+        // When
 
-        handled.Should().BeTrue();
-        callCount.Should().Be(2);
+        bool handled = await eventProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
+
+        // Then
+
+        handled.Should()
+            .BeTrue();
+
+        callCount.Should()
+            .Be(expected:2);
     }
 
     [Fact]
     public async Task ShouldReturnFalseWhenNoMatchingBulkProviderExists()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject>[] inputMessages =
         [
             new()
@@ -106,8 +137,8 @@ public partial class EventProviderServiceTests
         ];
 
         IEventProviderService eventProviderService = CreateEventProviderService(
-            [],
-            [
+eventProviders: [],
+bulkEventProviders: [
                 new BulkEventProvider<string>
                 {
                     Events = [inputName],
@@ -115,12 +146,17 @@ public partial class EventProviderServiceTests
                 }
             ]);
 
-        bool handled = await eventProviderService.RaiseEventsAsync(inputName, inputMessages);
+        // When
 
-        handled.Should().BeFalse();
+        bool handled = await eventProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
+
+        // Then
+
+        handled.Should()
+            .BeFalse();
 
         serviceProviderBrokerMock.Verify(
-            broker => broker.GetScopeForEvent(It.IsAny<EventMessage>()),
-            Times.Never);
+expression: broker => broker.GetScopeForEvent(message:It.IsAny<EventMessage>()),
+times: Times.Never);
     }
 }

@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing;
 using cCoder.Eventing.AcceptanceTests.Brokers;
 using cCoder.Eventing.AcceptanceTests.Models;
@@ -11,26 +15,32 @@ public partial class EventHubTests
     [Fact]
     public async Task ShouldRaiseEventsAsyncThroughHubAndPopulateScopedAuthInfo()
     {
+        // Given
+
         using ServiceProvider serviceProvider = CreateServiceProvider();
         IEventHub eventHub = serviceProvider.GetRequiredService<IEventHub>();
 
         eventHub.ListenToEvent<TestPayload, TestEventHandlingService>(
-            EventName,
-            (handlingService, message) => handlingService.HandleAsync(message));
+name: EventName,
+handler: (handlingService, message) => handlingService.HandleAsync(payload:message));
 
         await eventHub.RaiseEventsAsync(
-            EventName,
-            [
-                CreateMessage("payload-one", "event-user-one"),
-                CreateMessage("payload-two", "event-user-two")
+name: EventName,
+messages: [
+                CreateMessage(payloadValue:"payload-one", userId:"event-user-one"),
+                CreateMessage(payloadValue:"payload-two", userId:"event-user-two")
             ]);
+
+        // When
 
         TestEventHandlingBroker state = serviceProvider.GetRequiredService<TestEventHandlingBroker>();
 
-        Assert.Equal(2, state.Records.Count);
-        Assert.Equal("payload-one", state.Records[0].PayloadValue);
-        Assert.Equal("event-user-one", state.Records[0].UserId);
-        Assert.Equal("payload-two", state.Records[1].PayloadValue);
-        Assert.Equal("event-user-two", state.Records[1].UserId);
+        // Then
+
+        Assert.Equal(expected:2, actual:state.Records.Count);
+        Assert.Equal(expected:"payload-one", actual:state.Records[0].PayloadValue);
+        Assert.Equal(expected:"event-user-one", actual:state.Records[0].UserId);
+        Assert.Equal(expected:"payload-two", actual:state.Records[1].PayloadValue);
+        Assert.Equal(expected:"event-user-two", actual:state.Records[1].UserId);
     }
 }

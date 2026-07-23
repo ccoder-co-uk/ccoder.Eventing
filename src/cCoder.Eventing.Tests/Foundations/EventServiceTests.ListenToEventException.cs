@@ -1,3 +1,8 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using cCoder.Eventing.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -9,20 +14,31 @@ public partial class EventServiceTests
     [Fact]
     public void ShouldRethrowOnListenToEventIfBrokerFails()
     {
+        // Given
+
         string inputName = "event-name";
+
         Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
+
         Exception innerException = new("Broker failure");
 
         eventBrokerMock
-            .Setup(broker => broker.ListenToEvent(inputName, inputHandler))
-            .Throws(innerException);
+            .Setup(expression:broker => broker.ListenToEvent(name:inputName, handler:inputHandler))
+            .Throws(exception:innerException);
 
-        Action listenToEventAction = () => eventService.ListenToEvent(inputName, inputHandler);
+        // When
 
-        Exception actualException =
-            listenToEventAction.Should().Throw<Exception>().Which;
+        Action listenToEventAction = () => eventService.ListenToEvent(name:inputName, handler:inputHandler);
 
-        actualException.Should().BeSameAs(innerException);
+        // Then
+
+        ServiceException actualException =
+            listenToEventAction.Should()
+                .Throw<ServiceException>()
+                .Which;
+
+        actualException.InnerException.Should()
+            .BeSameAs(expected:innerException);
     }
 }

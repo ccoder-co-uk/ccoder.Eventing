@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing;
 using cCoder.Eventing.AcceptanceTests.Brokers;
 using cCoder.Eventing.AcceptanceTests.Models;
@@ -11,21 +15,27 @@ public partial class EventHubTests
     [Fact]
     public async Task ShouldRaiseEventAsyncThroughHubAndPopulateScopedAuthInfo()
     {
+        // Given
+
         using ServiceProvider serviceProvider = CreateServiceProvider();
         IEventHub eventHub = serviceProvider.GetRequiredService<IEventHub>();
 
         eventHub.ListenToEvent<TestPayload, TestEventHandlingService>(
-            EventName,
-            (handlingService, message) => handlingService.HandleAsync(message));
+name: EventName,
+handler: (handlingService, message) => handlingService.HandleAsync(payload:message));
 
         await eventHub.RaiseEventAsync(
-            EventName,
-            CreateMessage("payload-value", "event-user"));
+name: EventName,
+message: CreateMessage(payloadValue:"payload-value", userId:"event-user"));
+
+        // When
 
         TestEventHandlingBroker state = serviceProvider.GetRequiredService<TestEventHandlingBroker>();
 
-        Assert.Single(state.Records);
-        Assert.Equal("payload-value", state.Records[0].PayloadValue);
-        Assert.Equal("event-user", state.Records[0].UserId);
+        // Then
+
+        Assert.Single(collection:state.Records);
+        Assert.Equal(expected:"payload-value", actual:state.Records[0].PayloadValue);
+        Assert.Equal(expected:"event-user", actual:state.Records[0].UserId);
     }
 }

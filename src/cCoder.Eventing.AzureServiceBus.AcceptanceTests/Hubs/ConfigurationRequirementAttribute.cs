@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 namespace cCoder.Eventing.AzureServiceBus.AcceptanceTests.Hubs;
 
 internal sealed class ConfigurationRequirementAttribute : FactAttribute
@@ -10,8 +14,8 @@ internal sealed class ConfigurationRequirementAttribute : FactAttribute
 
     public ConfigurationRequirementAttribute()
     {
-        if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(ConnectionStringEnvironmentVariable)) ||
-            string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(QueueNameEnvironmentVariable)))
+        if (string.IsNullOrWhiteSpace(value:Environment.GetEnvironmentVariable(variable:ConnectionStringEnvironmentVariable)) ||
+            string.IsNullOrWhiteSpace(value:Environment.GetEnvironmentVariable(variable:QueueNameEnvironmentVariable)))
         {
             Skip =
                 $"Set {ConnectionStringEnvironmentVariable} and {QueueNameEnvironmentVariable} to run Azure Service Bus acceptance tests.";

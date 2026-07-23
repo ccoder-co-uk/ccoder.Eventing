@@ -1,4 +1,9 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Models;
+using cCoder.Eventing.Models.Exceptions;
 using cCoder.Eventing.Services.Foundations;
 using FluentAssertions;
 using Moq;
@@ -11,7 +16,10 @@ public partial class EventProviderServiceTests
     [Fact]
     public async Task ShouldRethrowOnRaiseEventsAsyncIfProviderFails()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject>[] inputMessages =
         [
             new()
@@ -20,24 +28,30 @@ public partial class EventProviderServiceTests
                 Data = new FakeObject()
             }
         ];
+
         Exception innerException = new("Provider failure");
 
         IEventProviderService eventProviderService = CreateEventProviderService(
-            [],
-            [
+eventProviders: [],
+bulkEventProviders: [
                 new BulkEventProvider<FakeObject>
                 {
                     Events = [inputName],
-                    Handler = (_, _) => ValueTask.FromException(innerException)
+                    Handler = (_, _) => ValueTask.FromException(exception:innerException)
                 }
             ]);
 
+        // When
+
         Func<Task> raiseEventsAsyncTask = async () =>
-            await eventProviderService.RaiseEventsAsync(inputName, inputMessages);
+            await eventProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
-        Exception actualException =
-            await Assert.ThrowsAsync<Exception>(raiseEventsAsyncTask);
+        // Then
 
-        actualException.Should().BeSameAs(innerException);
+        ServiceException actualException =
+            await Assert.ThrowsAsync<ServiceException>(testCode:raiseEventsAsyncTask);
+
+        actualException.InnerException.Should()
+            .BeSameAs(expected:innerException);
     }
 }

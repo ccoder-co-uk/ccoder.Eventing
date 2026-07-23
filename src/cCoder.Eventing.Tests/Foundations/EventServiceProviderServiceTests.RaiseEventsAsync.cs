@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Services.Processings;
 using Moq;
@@ -10,7 +14,10 @@ public partial class EventServiceProviderServiceTests
     [Fact]
     public async Task ShouldRaiseEventsAsync()
     {
+        // Given
+
         string inputName = "event-name";
+
         EventMessage<FakeObject>[] inputMessages =
         [
             new()
@@ -26,19 +33,23 @@ public partial class EventServiceProviderServiceTests
         ];
 
         serviceProviderBrokerMock
-            .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
-            .Returns(eventProcessingServiceMock.Object);
+            .Setup(expression:broker => broker.GetService<IEventProcessingService<FakeObject>>())
+            .Returns(value:eventProcessingServiceMock.Object);
 
-        eventServiceProviderService.ListenToEvent<FakeObject>(inputName, (_, _) => ValueTask.CompletedTask);
+        eventServiceProviderService.ListenToEvent<FakeObject>(name:inputName, handler:(_, _) => ValueTask.CompletedTask);
 
-        await eventServiceProviderService.RaiseEventsAsync(inputName, inputMessages);
+        // When
+
+        await eventServiceProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
+
+        // Then
 
         eventProcessingServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessages[0]),
-            Times.Once);
+expression: service => service.RaiseEventAsync(name:inputName, data:inputMessages[0]),
+times: Times.Once);
 
         eventProcessingServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessages[1]),
-            Times.Once);
+expression: service => service.RaiseEventAsync(name:inputName, data:inputMessages[1]),
+times: Times.Once);
     }
 }

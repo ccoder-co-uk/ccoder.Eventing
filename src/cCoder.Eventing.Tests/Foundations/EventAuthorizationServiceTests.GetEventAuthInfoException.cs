@@ -1,3 +1,8 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using cCoder.Eventing.Models.Exceptions;
 using FluentAssertions;
 using Xunit;
 
@@ -8,17 +13,26 @@ public partial class EventAuthorizationServiceTests
     [Fact]
     public void ShouldThrowWrappedExceptionOnGetEventAuthInfoIfBrokerFails()
     {
+        // Given
+
         Exception innerException = new("Broker failure");
 
         eventAuthorizationBrokerMock
-            .Setup(broker => broker.GetEventAuthInfo())
-            .Throws(innerException);
+            .Setup(expression:broker => broker.GetEventAuthInfo())
+            .Throws(exception:innerException);
+
+        // When
 
         Action getEventAuthInfoAction = () => eventAuthorizationService.GetEventAuthInfo();
 
-        Exception actualException =
-            getEventAuthInfoAction.Should().Throw<Exception>().Which;
+        // Then
 
-        actualException.Should().BeSameAs(innerException);
+        ServiceException actualException =
+            getEventAuthInfoAction.Should()
+                .Throw<ServiceException>()
+                .Which;
+
+        actualException.InnerException.Should()
+            .BeSameAs(expected:innerException);
     }
 }

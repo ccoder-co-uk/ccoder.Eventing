@@ -1,4 +1,9 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Eventing.AzureServiceBus.Models;
+using cCoder.Eventing.AzureServiceBus.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -10,7 +15,10 @@ public partial class ServiceBusProcessingServiceTests
     [Fact]
     public async Task ShouldRaiseEventsAsync()
     {
+        // Given
+
         string inputName = "event-name";
+
         ServiceBusEventMessage<FakeObject>[] inputMessages =
         [
             new ServiceBusEventMessage<FakeObject>
@@ -25,17 +33,24 @@ public partial class ServiceBusProcessingServiceTests
             }
         ];
 
-        await serviceBusProcessingService.RaiseEventsAsync(inputName, inputMessages);
+        // When
+
+        await serviceBusProcessingService.RaiseEventsAsync(name:inputName, messages:inputMessages);
+
+        // Then
 
         serviceBusServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, It.IsAny<ServiceBusEventMessage<FakeObject>>()),
-            Times.Exactly(inputMessages.Length));
+expression: service => service.RaiseEventAsync(name:inputName, eventMessage:It.IsAny<ServiceBusEventMessage<FakeObject>>()),
+times: Times.Exactly(callCount:inputMessages.Length));
     }
 
     [Fact]
     public async Task ShouldThrowOnRaiseEventsAsyncWhenMessageIsInvalid()
     {
+        // Given
+
         string inputName = "event-name";
+
         ServiceBusEventMessage<FakeObject>[] inputMessages =
         [
             new ServiceBusEventMessage<FakeObject>
@@ -50,13 +65,18 @@ public partial class ServiceBusProcessingServiceTests
             }
         ];
 
-        Func<Task> raiseEventsAsyncTask = async () =>
-            await serviceBusProcessingService.RaiseEventsAsync(inputName, inputMessages);
+        // When
 
-        await raiseEventsAsyncTask.Should().ThrowAsync<InvalidOperationException>();
+        Func<Task> raiseEventsAsyncTask = async () =>
+            await serviceBusProcessingService.RaiseEventsAsync(name:inputName, messages:inputMessages);
+
+        // Then
+
+        await raiseEventsAsyncTask.Should()
+            .ThrowAsync<ServiceDependencyException>();
 
         serviceBusServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, It.IsAny<ServiceBusEventMessage<FakeObject>>()),
-            Times.Once);
+expression: service => service.RaiseEventAsync(name:inputName, eventMessage:It.IsAny<ServiceBusEventMessage<FakeObject>>()),
+times: Times.Once);
     }
 }

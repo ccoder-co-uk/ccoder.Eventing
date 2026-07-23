@@ -1,3 +1,8 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using cCoder.Eventing.AzureServiceBus.Dependencies;
 using cCoder.Eventing.AzureServiceBus.Models;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,5 +30,5 @@ internal class ServiceProviderBroker(IServiceProvider serviceProvider) : IServic
         serviceProvider.GetService<T>();
 
     public object GetService(Type type) =>
-        serviceProvider.GetService(type);
+        serviceProvider.GetService(serviceType:type);
 }
