@@ -11,12 +11,18 @@ public partial class ToolsTests
     [Fact]
     public async Task ShouldReturnToolingUi()
     {
+        // Given
+
+        // When
+
         HttpResponseMessage response =
             await fixture.Client.GetAsync(requestUri:"/tools/index.html");
 
-        response.EnsureSuccessStatusCode();
-
         string content = await response.Content.ReadAsStringAsync();
+
+        // Then
+
+        response.EnsureSuccessStatusCode();
 
         content.Should()
             .Contain(expected:"Eventing Chat");

@@ -11,12 +11,18 @@ public partial class HealthTests
     [Fact]
     public async Task ShouldReturnOk()
     {
+        // Given
+
+        // When
+
         HttpResponseMessage response =
             await fixture.Client.GetAsync(requestUri:"/Health");
 
-        response.EnsureSuccessStatusCode();
-
         string content = await response.Content.ReadAsStringAsync();
+
+        // Then
+
+        response.EnsureSuccessStatusCode();
 
         content.Should()
             .Contain(expected:"OK");
