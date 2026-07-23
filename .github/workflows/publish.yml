@@ -21,16 +21,11 @@ defaults:
 
 jobs:
   build-test-pack:
-    runs-on: windows-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 10.x
 
       - name: Create version number
         id: version
