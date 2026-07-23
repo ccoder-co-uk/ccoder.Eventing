@@ -43,11 +43,9 @@ internal class EventProviderService(
         catch (Exception ex)
         {
             log.LogError(
-                ex,
-                "Exception thrown whilst raising {Name} event provider\n{Message}\n{StackTrace}",
-                name,
-                ex.Message,
-                ex.StackTrace);
+                exception: ex,
+                message: "Exception thrown whilst raising {Name} event provider\n{Message}\n{StackTrace}",
+                args: [name, ex.Message, ex.StackTrace]);
 
             throw;
         }
@@ -80,11 +78,9 @@ internal class EventProviderService(
         catch (Exception ex)
         {
             log.LogError(
-                ex,
-                "Exception thrown whilst raising {Name} bulk event provider\n{Message}\n{StackTrace}",
-                name,
-                ex.Message,
-                ex.StackTrace);
+                exception: ex,
+                message: "Exception thrown whilst raising {Name} bulk event provider\n{Message}\n{StackTrace}",
+                args: [name, ex.Message, ex.StackTrace]);
 
             throw;
         }

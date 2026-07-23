@@ -36,11 +36,9 @@ internal class ServiceBusService(
         catch (Exception ex)
         {
             log.LogError(
-                ex,
-                "Exception thrown whilst listening to {Name} event:\n{Message}\n{StackTrace}",
-                name,
-                ex.Message,
-                ex.StackTrace);
+                exception: ex,
+                message: "Exception thrown whilst listening to {Name} event:\n{Message}\n{StackTrace}",
+                args: [name, ex.Message, ex.StackTrace]);
 
             throw;
         }
@@ -61,19 +59,16 @@ internal class ServiceBusService(
         catch (Exception ex)
         {
             log.LogError(
-                ex,
-                "Exception thrown whilst raising {Name} event:\n{Message}\n{StackTrace}",
-                name,
-                ex.Message,
-                ex.StackTrace);
+                exception: ex,
+                message: "Exception thrown whilst raising {Name} event:\n{Message}\n{StackTrace}",
+                args: [name, ex.Message, ex.StackTrace]);
 
             if (ex.InnerException is not null)
             {
                 log.LogError(
-                    ex.InnerException,
-                    "Inner Exception:\n{Message}\n{StackTrace}",
-                    ex.InnerException.Message,
-                    ex.InnerException.StackTrace);
+                    exception: ex.InnerException,
+                    message: "Inner Exception:\n{Message}\n{StackTrace}",
+                    args: [ex.InnerException.Message, ex.InnerException.StackTrace]);
             }
 
             throw;
@@ -100,10 +95,9 @@ internal class ServiceBusService(
         catch (Exception ex)
         {
             log.LogError(
-                ex,
-                "Exception thrown whilst handling service bus message\n{Message}\n{StackTrace}",
-                ex.Message,
-                ex.StackTrace);
+                exception: ex,
+                message: "Exception thrown whilst handling service bus message\n{Message}\n{StackTrace}",
+                args: [ex.Message, ex.StackTrace]);
 
             throw;
         }
@@ -112,11 +106,9 @@ internal class ServiceBusService(
     Task HandleServiceBusError(string name, ProcessErrorEventArgs problemDetails)
     {
         log.LogError(
-            problemDetails.Exception,
-            "Exception thrown whilst listening to {Name} event:\n{Message}\n{StackTrace}",
-            name,
-            problemDetails.Exception.Message,
-            problemDetails.Exception.StackTrace);
+            exception: problemDetails.Exception,
+            message: "Exception thrown whilst listening to {Name} event:\n{Message}\n{StackTrace}",
+            args: [name, problemDetails.Exception.Message, problemDetails.Exception.StackTrace]);
 
         return Task.CompletedTask;
     }

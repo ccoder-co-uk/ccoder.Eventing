@@ -71,10 +71,12 @@ internal class ServiceBusBroker : IServiceBusBroker
             }
 
             receivers[name] = serviceBusClient.CreateProcessor(
-queueName:                name,
-options:                new ServiceBusProcessorOptions
+                queueName: name,
+                options: new ServiceBusProcessorOptions
                 {
-                    MaxConcurrentCalls = Math.Max(1, configuration.MaxConcurrency)
+                    MaxConcurrentCalls = Math.Max(
+                        val1: 1,
+                        val2: configuration.MaxConcurrency)
                 });
 
             return receivers[name];

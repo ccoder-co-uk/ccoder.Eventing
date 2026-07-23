@@ -30,10 +30,9 @@ internal class EventAuthorizationService : IEventAuthorizationService
         catch (Exception ex)
         {
             log.LogError(
-                ex,
-                "Exception thrown whilst getting event auth info\n{Message}\n{StackTrace}",
-                ex.Message,
-                ex.StackTrace);
+                exception: ex,
+                message: "Exception thrown whilst getting event auth info\n{Message}\n{StackTrace}",
+                args: [ex.Message, ex.StackTrace]);
 
             throw;
         }

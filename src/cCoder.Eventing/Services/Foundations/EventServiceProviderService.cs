@@ -40,11 +40,9 @@ internal class EventServiceProviderService : IEventServiceProviderService
         catch (Exception ex)
         {
             log.LogError(
-                ex,
-                "Exception thrown whilst listening to {Name} event\n{Message}\n{StackTrace}",
-                name,
-                ex.Message,
-                ex.StackTrace);
+                exception: ex,
+                message: "Exception thrown whilst listening to {Name} event\n{Message}\n{StackTrace}",
+                args: [name, ex.Message, ex.StackTrace]);
 
             throw;
         }
@@ -69,11 +67,9 @@ internal class EventServiceProviderService : IEventServiceProviderService
         catch (Exception ex)
         {
             log.LogError(
-                ex,
-                "Exception thrown whilst raising {Name} event\n{Message}\n{StackTrace}",
-                name,
-                ex.Message,
-                ex.StackTrace);
+                exception: ex,
+                message: "Exception thrown whilst raising {Name} event\n{Message}\n{StackTrace}",
+                args: [name, ex.Message, ex.StackTrace]);
 
             throw;
         }
@@ -89,11 +85,9 @@ internal class EventServiceProviderService : IEventServiceProviderService
         catch (Exception ex)
         {
             log.LogError(
-                ex,
-                "Exception thrown whilst raising {Name} events\n{Message}\n{StackTrace}",
-                name,
-                ex.Message,
-                ex.StackTrace);
+                exception: ex,
+                message: "Exception thrown whilst raising {Name} events\n{Message}\n{StackTrace}",
+                args: [name, ex.Message, ex.StackTrace]);
 
             throw;
         }
