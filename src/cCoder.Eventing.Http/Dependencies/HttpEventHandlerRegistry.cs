@@ -3,8 +3,9 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Http.Models;
+using cCoder.Eventing.Http.Services.Foundations;
 
-namespace cCoder.Eventing.Http.Services.Foundations;
+namespace cCoder.Eventing.Http.Dependencies;
 
 internal class HttpEventHandlerRegistry : IHttpEventHandlerRegistry
 {
@@ -15,10 +16,14 @@ internal class HttpEventHandlerRegistry : IHttpEventHandlerRegistry
         Func<IServiceProvider, T, ValueTask> handler)
     {
         if (string.IsNullOrWhiteSpace(value:name))
+        {
             throw new InvalidOperationException("You must provide an event name when listening for events.");
+        }
 
         if (handler is null)
+        {
             throw new InvalidOperationException("You must provide a handler when listening for events.");
+        }
 
         lock (subscriptions)
         {

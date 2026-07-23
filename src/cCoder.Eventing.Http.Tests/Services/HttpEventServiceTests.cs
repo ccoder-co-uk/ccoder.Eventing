@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Http.Brokers;
+using cCoder.Eventing.Http.Dependencies;
 using cCoder.Eventing.Http.Models;
 using cCoder.Eventing.Http.Services.Foundations;
 using cCoder.Eventing.Models;
@@ -13,7 +14,7 @@ using Xunit;
 
 namespace cCoder.Eventing.Http.Tests.Services;
 
-public class HttpEventServiceTests
+public partial class HttpEventServiceTests
 {
     [Fact]
     public async Task ShouldSerializeEventPayloadForTransport()
@@ -33,8 +34,8 @@ public class HttpEventServiceTests
 
         httpEventBrokerMock
             .Setup(expression:broker => broker.SendAsync(
-                It.IsAny<HttpEventMessage>(),
-                It.IsAny<CancellationToken>()))
+message: It.IsAny<HttpEventMessage>(),
+cancellationToken: It.IsAny<CancellationToken>()))
             .Callback<HttpEventMessage, CancellationToken>(
 action: (message, _) => actualMessage = message)
             .Returns(value:ValueTask.CompletedTask);

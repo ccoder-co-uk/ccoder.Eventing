@@ -14,10 +14,13 @@ public class HttpEventController(IHttpEventHub httpEventHub) : ControllerBase
 {
     [HttpPost]
     public async ValueTask<IActionResult> Post(
-        HttpEventMessage message,
+        HttpEventMessage newMessage,
         CancellationToken cancellationToken)
     {
-        await httpEventHub.ReceiveEventAsync(message:message, cancellationToken:cancellationToken);
+        await httpEventHub.ReceiveEventAsync(
+            message: newMessage,
+            cancellationToken: cancellationToken);
+
         return Accepted();
     }
 }

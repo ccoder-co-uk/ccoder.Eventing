@@ -2,9 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Eventing.Apps.Hubs;
+using cCoder.Eventing.Apps.Dependencies;
 using cCoder.Eventing.Apps.Models;
-using cCoder.Eventing.Apps.Services;
+using cCoder.Eventing.Apps.Services.Orchestrations;
 using cCoder.Eventing.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace cCoder.Eventing.Apps;
+namespace cCoder.Eventing.Apps.Dependencies;
 
 public static class ChatApplication
 {
@@ -86,21 +86,28 @@ path3: "Eventing.App.Common",
 path4: "wwwroot"));
 
         if (Directory.Exists(path:sharedWebRoot))
+        {
             return sharedWebRoot;
+        }
 
         DirectoryInfo? directory = new(contentRootPath);
 
         while (directory is not null)
         {
             string candidate = Path.Combine(
-                directory.FullName,
-                "src",
-                "Apps",
-                "Eventing.App.Common",
-                "wwwroot");
+                paths:
+                [
+                    directory.FullName,
+                    "src",
+                    "Apps",
+                    "Eventing.App.Common",
+                    "wwwroot"
+                ]);
 
             if (Directory.Exists(path:candidate))
+            {
                 return candidate;
+            }
 
             directory = directory.Parent;
         }

@@ -4,10 +4,11 @@
 
 using cCoder.Eventing.Http.Models;
 using cCoder.Eventing.Http.Services.Foundations;
+using cCoder.Eventing.Http.Services.Processings;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace cCoder.Eventing.Http.Services.Processings;
+namespace cCoder.Eventing.Http.Dependencies;
 
 internal class HttpEventDispatcherHostedService(
         IHttpEventQueue eventQueue,
@@ -33,15 +34,13 @@ function: async () =>
                     }
                     catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
                     {
-                        // The host is shutting down; no further handling is required.
                     }
                     catch (Exception ex)
                     {
                         log.LogError(
-                            ex,
-                            "Exception thrown whilst processing queued HTTP event {EventName}: {Message}",
-                            message.EventName,
-                            ex.Message);
+                            exception: ex,
+                            message: "Exception thrown whilst processing queued HTTP event {EventName}: {Message}",
+                            args: [message.EventName, ex.Message]);
                     }
                     finally
                     {

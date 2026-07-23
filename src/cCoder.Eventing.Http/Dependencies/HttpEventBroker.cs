@@ -3,10 +3,11 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Http.Models;
+using cCoder.Eventing.Http.Brokers;
 using Microsoft.Extensions.Logging;
 using System.Net.Http.Json;
 
-namespace cCoder.Eventing.Http.Brokers;
+namespace cCoder.Eventing.Http.Dependencies;
 
 internal class HttpEventBroker(
         IHttpClientFactory httpClientFactory,
@@ -36,10 +37,9 @@ cancellationToken: cancellationToken);
         catch (Exception ex)
         {
             log.LogError(
-                ex,
-                "Exception thrown whilst sending HTTP event {EventName}: {Message}",
-                message?.EventName,
-                ex.Message);
+                exception: ex,
+                message: "Exception thrown whilst sending HTTP event {EventName}: {Message}",
+                args: [message?.EventName, ex.Message]);
 
             throw;
         }

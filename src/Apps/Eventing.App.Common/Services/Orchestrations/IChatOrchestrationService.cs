@@ -4,7 +4,7 @@
 
 using cCoder.Eventing.Apps.Models;
 
-namespace cCoder.Eventing.Apps.Services;
+namespace cCoder.Eventing.Apps.Services.Orchestrations;
 
 public interface IChatOrchestrationService
 {

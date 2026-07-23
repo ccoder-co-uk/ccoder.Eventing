@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Apps.Models;
-using cCoder.Eventing.Apps.Services;
+using cCoder.Eventing.Apps.Services.Orchestrations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cCoder.Eventing.Apps.Controllers;
@@ -14,16 +14,20 @@ public class ChatController(IChatOrchestrationService chatOrchestrationService) 
 {
     [HttpPost]
     public async ValueTask<IActionResult> Post(
-        ChatMessageRequest request,
+        ChatMessageRequest newRequest,
         CancellationToken cancellationToken)
     {
         try
         {
             if (!ModelState.IsValid)
+            {
                 return BadRequest(modelState:ModelState);
+            }
 
             ChatMessage message =
-                await chatOrchestrationService.SendAsync(request:request, cancellationToken:cancellationToken);
+                await chatOrchestrationService.SendAsync(
+                    request:newRequest,
+                    cancellationToken:cancellationToken);
 
             return Accepted(value:message);
         }

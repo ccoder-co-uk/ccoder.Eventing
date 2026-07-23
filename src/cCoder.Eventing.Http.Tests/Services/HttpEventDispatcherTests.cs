@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Brokers;
+using cCoder.Eventing.Http.Dependencies;
 using cCoder.Eventing.Http.Models;
 using cCoder.Eventing.Http.Services.Foundations;
 using cCoder.Eventing.Http.Services.Processings;
@@ -15,7 +16,7 @@ using Xunit;
 
 namespace cCoder.Eventing.Http.Tests.Services;
 
-public class HttpEventDispatcherTests
+public partial class HttpEventDispatcherTests
 {
     private readonly Mock<IServiceProviderBroker> serviceProviderBrokerMock = new();
     private readonly Mock<IServiceScope> serviceScopeMock = new();
@@ -121,7 +122,7 @@ handler: (serviceProvider, payload) =>
     private IHttpEventDispatcher CreateDispatcher(
         IHttpEventHandlerRegistry eventHandlerRegistry,
         params EventProvider[] eventProviders) =>
-            new HttpEventDispatcher(
+        new HttpEventDispatcher(
                 serviceProviderBrokerMock.Object,
                 eventHandlerRegistry,
                 eventProviders,

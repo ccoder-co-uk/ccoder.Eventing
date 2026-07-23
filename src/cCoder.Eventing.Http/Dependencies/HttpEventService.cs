@@ -4,11 +4,12 @@
 
 using cCoder.Eventing.Http.Brokers;
 using cCoder.Eventing.Http.Models;
+using cCoder.Eventing.Http.Services.Foundations;
 using cCoder.Eventing.Models;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace cCoder.Eventing.Http.Services.Foundations;
+namespace cCoder.Eventing.Http.Dependencies;
 
 internal class HttpEventService(
         IHttpEventBroker httpEventBroker,
@@ -21,7 +22,7 @@ internal class HttpEventService(
     public void ListenToEvent<T>(
         string name,
         Func<IServiceProvider, T, ValueTask> handler) =>
-            eventHandlerRegistry.ListenToEvent(name:name, handler:handler);
+        eventHandlerRegistry.ListenToEvent(name:name, handler:handler);
 
     public async ValueTask RaiseEventAsync<T>(
         string name,
@@ -46,10 +47,9 @@ options: options.JsonSerializerOptions)
         catch (Exception ex)
         {
             log.LogError(
-                ex,
-                "Exception thrown whilst raising HTTP event {EventName}: {Message}",
-                name,
-                ex.Message);
+                exception: ex,
+                message: "Exception thrown whilst raising HTTP event {EventName}: {Message}",
+                args: [name, ex.Message]);
 
             throw;
         }
@@ -68,27 +68,41 @@ options: options.JsonSerializerOptions)
         EventMessage<T> message)
     {
         if (string.IsNullOrWhiteSpace(value:name))
+        {
             throw new InvalidOperationException("You must provide an event name when raising events.");
+        }
 
         if (message is null)
+        {
             throw new InvalidOperationException("You must provide a message when raising events.");
+        }
 
         if (message.Data is null)
+        {
             throw new InvalidOperationException("You must provide some message data when raising events.");
+        }
 
         if (message.AuthInfo is null)
+        {
             throw new InvalidOperationException("You must provide some message auth information when raising events.");
+        }
     }
 
     private static void ValidateRequest(HttpEventMessage message)
     {
         if (message is null)
+        {
             throw new InvalidOperationException("You must provide a message when receiving events.");
+        }
 
         if (string.IsNullOrWhiteSpace(value:message.EventName))
+        {
             throw new InvalidOperationException("You must provide an event name when receiving events.");
+        }
 
         if (string.IsNullOrWhiteSpace(value:message.Data))
+        {
             throw new InvalidOperationException("You must provide message data when receiving events.");
+        }
     }
 }

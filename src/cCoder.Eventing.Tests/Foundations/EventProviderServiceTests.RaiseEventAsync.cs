@@ -76,7 +76,9 @@ times: Times.Once);
         int callCount = 0;
 
         IEventProviderService eventProviderService = CreateEventProviderService(
-            new EventProvider<FakeObject>
+            eventProviders:
+            [
+                new EventProvider<FakeObject>
             {
                 Events = [inputName],
                 SendHandler = (_, _, _) =>
@@ -85,15 +87,16 @@ times: Times.Once);
                     return ValueTask.CompletedTask;
                 }
             },
-            new EventProvider<FakeObject>
-            {
+                new EventProvider<FakeObject>
+                {
                 Events = [inputName],
                 SendHandler = (_, _, _) =>
                 {
                     callCount++;
                     return ValueTask.CompletedTask;
                 }
-            });
+                }
+            ]);
 
         // When
 

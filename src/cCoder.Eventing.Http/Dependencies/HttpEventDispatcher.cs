@@ -5,13 +5,14 @@
 using cCoder.Eventing.Brokers;
 using cCoder.Eventing.Http.Models;
 using cCoder.Eventing.Http.Services.Foundations;
+using cCoder.Eventing.Http.Services.Processings;
 using cCoder.Eventing.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 using System.Text.Json;
 
-namespace cCoder.Eventing.Http.Services.Processings;
+namespace cCoder.Eventing.Http.Dependencies;
 
 internal class HttpEventDispatcher(
         IServiceProviderBroker serviceProviderBroker,
@@ -49,10 +50,9 @@ args: message.EventName);
         catch (Exception ex)
         {
             log.LogError(
-                ex,
-                "Exception thrown whilst dispatching HTTP event {EventName}: {Message}",
-                message?.EventName,
-                ex.Message);
+                exception: ex,
+                message: "Exception thrown whilst dispatching HTTP event {EventName}: {Message}",
+                args: [message?.EventName, ex.Message]);
 
             throw;
         }
@@ -110,14 +110,14 @@ options: options.JsonSerializerOptions);
         Type dataType,
         object data,
         HttpEventMessage message) =>
-            (EventMessage)CreateMessageMethod
+        (EventMessage)CreateMessageMethod
                 .MakeGenericMethod(typeArguments:dataType)
                 .Invoke(obj:null, parameters:[data, message]);
 
     private static EventMessage<T> CreateMessage<T>(
         object data,
         HttpEventMessage message) =>
-            new()
+        new()
             {
                 AuthInfo = new EventAuthInfo { SSOUserId = message.SSOUserId },
                 Data = (T)data

@@ -3,9 +3,10 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Http.Models;
+using cCoder.Eventing.Http.Services.Foundations;
 using System.Threading.Channels;
 
-namespace cCoder.Eventing.Http.Services.Foundations;
+namespace cCoder.Eventing.Http.Dependencies;
 
 internal class HttpEventQueue : IHttpEventQueue
 {
@@ -20,9 +21,9 @@ options: new UnboundedChannelOptions
     public ValueTask EnqueueAsync(
         HttpEventMessage message,
         CancellationToken cancellationToken = default) =>
-            channel.Writer.WriteAsync(item:message, cancellationToken:cancellationToken);
+        channel.Writer.WriteAsync(item:message, cancellationToken:cancellationToken);
 
     public IAsyncEnumerable<HttpEventMessage> ReadAllAsync(
         CancellationToken cancellationToken = default) =>
-            channel.Reader.ReadAllAsync(cancellationToken:cancellationToken);
+        channel.Reader.ReadAllAsync(cancellationToken:cancellationToken);
 }

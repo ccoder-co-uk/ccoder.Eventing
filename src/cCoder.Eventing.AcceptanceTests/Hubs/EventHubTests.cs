@@ -30,7 +30,8 @@ public partial class EventHubTests
 
     private static EventMessage<TestPayload> CreateMessage(
         string payloadValue, 
-        string userId) => new()
+        string userId) =>
+        new()
     {
         Data = new TestPayload { Value = payloadValue },
         AuthInfo = new EventAuthInfo { SSOUserId = userId }

@@ -26,8 +26,8 @@ public partial class ServiceBusProcessingServiceTests
 
         serviceBusServiceMock
             .Setup(expression:service => service.RaiseEventAsync(
-                inputName,
-                It.IsAny<ServiceBusEventMessage<FakeObject>>()))
+name: inputName,
+eventMessage: It.IsAny<ServiceBusEventMessage<FakeObject>>()))
             .Callback<string, ServiceBusEventMessage<FakeObject>>(action:(_, message) => actualMessage = message)
             .Returns(value:ValueTask.CompletedTask);
 

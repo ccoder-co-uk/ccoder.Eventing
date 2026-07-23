@@ -28,8 +28,8 @@ public partial class ServiceBusServiceTests
 
         serviceBusBrokerMock
             .Setup(expression:broker => broker.SendMessageAsync(
-                inputName,
-                It.IsAny<ServiceBusMessage>()))
+name: inputName,
+message: It.IsAny<ServiceBusMessage>()))
             .Callback<string, ServiceBusMessage>(action:(_, message) => actualMessage = message)
             .Returns(value:ValueTask.CompletedTask);
 

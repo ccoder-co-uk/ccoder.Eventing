@@ -2,13 +2,13 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Eventing.Apps.Hubs;
 using cCoder.Eventing.Apps.Models;
+using cCoder.Eventing.Apps.Services.Orchestrations;
 using cCoder.Eventing.Http;
 using cCoder.Eventing.Models;
 using Microsoft.AspNetCore.SignalR;
 
-namespace cCoder.Eventing.Apps.Services;
+namespace cCoder.Eventing.Apps.Dependencies;
 
 internal class ChatOrchestrationService(
         IEventHub eventHub,
@@ -47,7 +47,9 @@ internal class ChatOrchestrationService(
     public async ValueTask ReceiveAsync(ChatMessage message)
     {
         if (message is null)
+        {
             return;
+        }
 
         await chatHub.Clients.All.SendAsync(
 method: "chatReceived",
@@ -57,9 +59,13 @@ arg1: message);
     private static void ValidateRequest(ChatMessageRequest request)
     {
         if (request is null)
+        {
             throw new InvalidOperationException("You must provide a chat message.");
+        }
 
         if (string.IsNullOrWhiteSpace(value:request.Text))
+        {
             throw new InvalidOperationException("You must provide chat message text.");
+        }
     }
 }

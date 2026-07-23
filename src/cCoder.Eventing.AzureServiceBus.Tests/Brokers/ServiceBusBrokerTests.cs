@@ -12,7 +12,7 @@ using Xunit;
 
 namespace cCoder.Eventing.AzureServiceBus.Tests.Brokers;
 
-public sealed class ServiceBusBrokerTests
+public sealed partial class ServiceBusBrokerTests
 {
     [Fact]
     public void CreateProcessor_ShouldApplyConfiguredMaxConcurrency()
@@ -26,8 +26,8 @@ public sealed class ServiceBusBrokerTests
 
         clientMock
             .Setup(expression:client => client.CreateProcessor(
-                inputName,
-                It.IsAny<ServiceBusProcessorOptions>()))
+queueName: inputName,
+options: It.IsAny<ServiceBusProcessorOptions>()))
             .Callback<string, ServiceBusProcessorOptions>(action:(_, options) => actualOptions = options)
             .Returns(value:processorMock.Object);
 
@@ -66,8 +66,8 @@ public sealed class ServiceBusBrokerTests
 
         clientMock
             .Setup(expression:client => client.CreateProcessor(
-                inputName,
-                It.IsAny<ServiceBusProcessorOptions>()))
+queueName: inputName,
+options: It.IsAny<ServiceBusProcessorOptions>()))
             .Callback<string, ServiceBusProcessorOptions>(action:(_, options) => actualOptions = options)
             .Returns(value:processorMock.Object);
 
