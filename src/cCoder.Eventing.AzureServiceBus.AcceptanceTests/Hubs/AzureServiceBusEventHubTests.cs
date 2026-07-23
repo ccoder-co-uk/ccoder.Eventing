@@ -12,7 +12,7 @@ namespace cCoder.Eventing.AzureServiceBus.AcceptanceTests.Hubs;
 
 public partial class AzureServiceBusEventHubTests
 {
-    private static readonly TimeSpan RecordWaitTimeout = TimeSpan.FromSeconds(15);
+    private static readonly TimeSpan RecordWaitTimeout = TimeSpan.FromSeconds(seconds:15);
 
     private const string ConnectionStringEnvironmentVariable =
         "EVENT_LIBRARY_AZURE_SERVICE_BUS_CONNECTION_STRING";
@@ -23,7 +23,7 @@ public partial class AzureServiceBusEventHubTests
     private static async Task<EventRecord> WaitForSingleRecordAsync(
         TestEventHandlingBroker broker)
     {
-        IList<EventRecord> records = await WaitForRecordsAsync(broker, 1);
+        IList<EventRecord> records = await WaitForRecordsAsync(broker:broker, expectedCount:1);
 
         return records.Single();
     }
@@ -32,7 +32,7 @@ public partial class AzureServiceBusEventHubTests
         TestEventHandlingBroker broker,
         int expectedCount)
     {
-        DateTime timeoutAt = DateTime.UtcNow.Add(RecordWaitTimeout);
+        DateTime timeoutAt = DateTime.UtcNow.Add(value:RecordWaitTimeout);
 
         while (DateTime.UtcNow < timeoutAt)
         {
@@ -41,7 +41,7 @@ public partial class AzureServiceBusEventHubTests
                 return broker.Records.ToArray();
             }
 
-            await Task.Delay(100);
+            await Task.Delay(millisecondsDelay:100);
         }
 
         return broker.Records.ToArray();
@@ -49,13 +49,13 @@ public partial class AzureServiceBusEventHubTests
 
     private static (ServiceProvider ServiceProvider, string QueueName) CreateServiceProvider()
     {
-        string connectionString = Environment.GetEnvironmentVariable(ConnectionStringEnvironmentVariable)!;
-        string queueName = Environment.GetEnvironmentVariable(QueueNameEnvironmentVariable)!;
+        string connectionString = Environment.GetEnvironmentVariable(variable:ConnectionStringEnvironmentVariable)!;
+        string queueName = Environment.GetEnvironmentVariable(variable:QueueNameEnvironmentVariable)!;
 
         ServiceCollection services = new();
 
         services.AddLogging();
-        services.AddAzureServiceBusEventing(connectionString);
+        services.AddAzureServiceBusEventing(serviceBusConnectionString:connectionString);
         services.AddSingleton<TestEventHandlingBroker>();
         services.AddTransient<TestEventHandlingService>();
 

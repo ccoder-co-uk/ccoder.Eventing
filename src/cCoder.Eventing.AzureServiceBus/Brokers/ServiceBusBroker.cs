@@ -28,34 +28,34 @@ internal class ServiceBusBroker : IServiceBusBroker
 
     public async ValueTask SendMessageAsync(string name, ServiceBusMessage message)
     {
-        ServiceBusSender sender = senders.ContainsKey(name)
+        ServiceBusSender sender = senders.ContainsKey(key:name)
             ? senders[name]
-            : CreateNewSender(name);
+            : CreateNewSender(name:name);
 
-        await sender.SendMessageAsync(message);
+        await sender.SendMessageAsync(message:message);
     }
 
     public ServiceBusProcessor CreateProcessor(string name)
     {
-        ServiceBusProcessor receiver = receivers.ContainsKey(name)
+        ServiceBusProcessor receiver = receivers.ContainsKey(key:name)
             ? receivers[name]
-            : CreateServiceBusProcessor(name);
+            : CreateServiceBusProcessor(name:name);
 
         return receiver;
     }
 
     public async ValueTask StartProcessorAsync(string name)
     {
-        ServiceBusProcessor receiver = CreateProcessor(name);
+        ServiceBusProcessor receiver = CreateProcessor(name:name);
 
         lock (receivers)
         {
-            if (startedReceivers.Contains(name))
+            if (startedReceivers.Contains(item:name))
             {
                 return;
             }
 
-            startedReceivers.Add(name);
+            startedReceivers.Add(item:name);
         }
 
         await receiver.StartProcessingAsync();
@@ -65,14 +65,14 @@ internal class ServiceBusBroker : IServiceBusBroker
     {
         lock (receivers)
         {
-            if (receivers.ContainsKey(name))
+            if (receivers.ContainsKey(key:name))
             {
                 return receivers[name];
             }
 
             receivers[name] = serviceBusClient.CreateProcessor(
-                name,
-                new ServiceBusProcessorOptions
+queueName:                name,
+options:                new ServiceBusProcessorOptions
                 {
                     MaxConcurrentCalls = Math.Max(1, configuration.MaxConcurrency)
                 });
@@ -85,7 +85,7 @@ internal class ServiceBusBroker : IServiceBusBroker
     {
         lock (senders)
         {
-            senders[name] = serviceBusClient.CreateSender(name);
+            senders[name] = serviceBusClient.CreateSender(queueOrTopicName:name);
             return senders[name];
         }
     }

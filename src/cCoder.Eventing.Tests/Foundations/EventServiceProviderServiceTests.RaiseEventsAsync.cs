@@ -31,18 +31,18 @@ public partial class EventServiceProviderServiceTests
 
         serviceProviderBrokerMock
             .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
-            .Returns(eventProcessingServiceMock.Object);
+            .Returns(value:eventProcessingServiceMock.Object);
 
-        eventServiceProviderService.ListenToEvent<FakeObject>(inputName, (_, _) => ValueTask.CompletedTask);
+        eventServiceProviderService.ListenToEvent<FakeObject>(name:inputName, handler:(_, _) => ValueTask.CompletedTask);
 
-        await eventServiceProviderService.RaiseEventsAsync(inputName, inputMessages);
-
-        eventProcessingServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessages[0]),
-            Times.Once);
+        await eventServiceProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
         eventProcessingServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessages[1]),
-            Times.Once);
+expression:            service => service.RaiseEventAsync(inputName, inputMessages[0]),
+times:            Times.Once);
+
+        eventProcessingServiceMock.Verify(
+expression:            service => service.RaiseEventAsync(inputName, inputMessages[1]),
+times:            Times.Once);
     }
 }

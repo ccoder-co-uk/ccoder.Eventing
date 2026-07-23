@@ -27,38 +27,38 @@ public partial class EventServiceTests
 
         serviceScopeMock
             .SetupGet(scope => scope.ServiceProvider)
-            .Returns(scopedServiceProvider);
+            .Returns(value:scopedServiceProvider);
 
         serviceProviderBrokerMock
             .Setup(broker => broker.GetScopeForEvent(inputMessage))
-            .Returns(serviceScopeMock.Object);
+            .Returns(value:serviceScopeMock.Object);
 
         IEnumerable<Func<IServiceProvider, FakeObject, ValueTask>> handlers =
         [
             (_, message) =>
             {
-                actualMessages.Add(message);
+                actualMessages.Add(item:message);
                 return ValueTask.CompletedTask;
             },
             (_, message) =>
             {
-                actualMessages.Add(message);
+                actualMessages.Add(item:message);
                 return ValueTask.CompletedTask;
             }
         ];
 
         eventBrokerMock
             .Setup(broker => broker.GetHandlers(inputName))
-            .Returns(handlers);
+            .Returns(value:handlers);
 
-        await eventService.RaiseEventAsync(inputName, inputMessage);
+        await eventService.RaiseEventAsync(name:inputName, message:inputMessage);
 
-        actualMessages.Should().HaveCount(2);
-        actualMessages.Should().OnlyContain(message => message == inputMessage.Data);
+        actualMessages.Should().HaveCount(expected:2);
+        actualMessages.Should().OnlyContain(predicate:message => message == inputMessage.Data);
 
         eventBrokerMock.Verify(
-            broker => broker.GetHandlers(inputName),
-            Times.Once);
+expression:            broker => broker.GetHandlers(inputName),
+times:            Times.Once);
     }
 
     [Fact]
@@ -74,18 +74,18 @@ public partial class EventServiceTests
 
         serviceScopeMock
             .SetupGet(scope => scope.ServiceProvider)
-            .Returns(Mock.Of<IServiceProvider>());
+            .Returns(value:Mock.Of<IServiceProvider>());
 
         serviceProviderBrokerMock
             .Setup(broker => broker.GetScopeForEvent(inputMessage))
-            .Returns(serviceScopeMock.Object);
+            .Returns(value:serviceScopeMock.Object);
 
         eventBrokerMock
             .Setup(broker => broker.GetHandlers(inputName))
-            .Returns(Array.Empty<Func<IServiceProvider, FakeObject, ValueTask>>());
+            .Returns(value:Array.Empty<Func<IServiceProvider, FakeObject, ValueTask>>());
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await eventService.RaiseEventAsync(inputName, inputMessage);
+            await eventService.RaiseEventAsync(name:inputName, message:inputMessage);
 
         await raiseEventAsyncTask.Should().NotThrowAsync();
     }
@@ -104,23 +104,23 @@ public partial class EventServiceTests
 
         serviceScopeMock
             .SetupGet(scope => scope.ServiceProvider)
-            .Returns(Mock.Of<IServiceProvider>());
+            .Returns(value:Mock.Of<IServiceProvider>());
 
         serviceProviderBrokerMock
             .Setup(broker => broker.GetScopeForEvent(inputMessage))
-            .Returns(serviceScopeMock.Object);
+            .Returns(value:serviceScopeMock.Object);
 
         eventBrokerMock
             .Setup(broker => broker.GetHandlers(inputName))
-            .Throws(innerException);
+            .Throws(exception:innerException);
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await eventService.RaiseEventAsync(inputName, inputMessage);
+            await eventService.RaiseEventAsync(name:inputName, message:inputMessage);
 
         Exception actualException =
-            await Assert.ThrowsAsync<Exception>(raiseEventAsyncTask);
+            await Assert.ThrowsAsync<Exception>(testCode:raiseEventAsyncTask);
 
-        actualException.Should().BeSameAs(innerException);
+        actualException.Should().BeSameAs(expected:innerException);
     }
 
     [Fact]
@@ -138,11 +138,11 @@ public partial class EventServiceTests
 
         serviceScopeMock
             .SetupGet(scope => scope.ServiceProvider)
-            .Returns(scopedServiceProvider);
+            .Returns(value:scopedServiceProvider);
 
         serviceProviderBrokerMock
             .Setup(broker => broker.GetScopeForEvent(inputMessage))
-            .Returns(serviceScopeMock.Object);
+            .Returns(value:serviceScopeMock.Object);
 
         IEnumerable<Func<IServiceProvider, FakeObject, ValueTask>> handlers =
         [
@@ -151,14 +151,14 @@ public partial class EventServiceTests
 
         eventBrokerMock
             .Setup(broker => broker.GetHandlers(inputName))
-            .Returns(handlers);
+            .Returns(value:handlers);
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await eventService.RaiseEventAsync(inputName, inputMessage);
+            await eventService.RaiseEventAsync(name:inputName, message:inputMessage);
 
         Exception actualException =
-            await Assert.ThrowsAsync<Exception>(raiseEventAsyncTask);
+            await Assert.ThrowsAsync<Exception>(testCode:raiseEventAsyncTask);
 
-        actualException.Should().BeSameAs(innerException);
+        actualException.Should().BeSameAs(expected:innerException);
     }
 }

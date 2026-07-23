@@ -16,13 +16,13 @@ public static partial class IServiceCollectionExtensions
     public static void AddHttpEventingWeb(
         this IServiceCollection services,
         Action<HttpEventingOptions> configure = null) =>
-        AddHttpEventing(services, configure);
+        AddHttpEventing(services:services, configure:configure);
 
     public static void AddHttpEventingHostedServices(
         this IServiceCollection services,
         Action<HttpEventingOptions> configure = null)
     {
-        AddHttpEventing(services, configure);
+        AddHttpEventing(services:services, configure:configure);
         services.AddControllers().AddHttpEventingControllers();
     }
 
@@ -31,16 +31,16 @@ public static partial class IServiceCollectionExtensions
         Action<HttpEventingOptions> configure = null)
     {
         HttpEventingOptions options = new();
-        configure?.Invoke(options);
-        RegisterHttpEventing(services, options);
+        configure?.Invoke(obj:options);
+        RegisterHttpEventing(services:services, options:options);
     }
 
     private static void RegisterHttpEventing(
         IServiceCollection services,
         HttpEventingOptions options)
     {
-        services.TryAddSingleton(options);
-        services.AddHttpClient(HttpEventingOptions.HttpClientName);
+        services.TryAddSingleton(instance:options);
+        services.AddHttpClient(name:HttpEventingOptions.HttpClientName);
 
         services.TryAddSingleton<IHttpEventQueue, HttpEventQueue>();
         services.TryAddSingleton<IHttpEventHandlerRegistry, HttpEventHandlerRegistry>();
@@ -48,7 +48,7 @@ public static partial class IServiceCollectionExtensions
         services.TryAddSingleton<IHttpEventDispatcher, HttpEventDispatcher>();
         services.TryAddTransient<IHttpEventService, HttpEventService>();
         services.TryAddTransient<IHttpEventProcessingService, HttpEventProcessingService>();
-        services.TryAddSingleton<IHttpEventHub>(serviceProvider =>
+        services.TryAddSingleton<IHttpEventHub>(implementationFactory:serviceProvider =>
             new HttpEventHub(serviceProvider.GetRequiredService<IHttpEventProcessingService>()));
 
         services.AddHostedService<HttpEventDispatcherHostedService>();

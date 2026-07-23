@@ -28,8 +28,8 @@ public partial class EventProviderServiceTests
         IServiceProvider actualServiceProvider = null;
 
         IEventProviderService eventProviderService = CreateEventProviderService(
-            [],
-            [
+eventProviders:            [],
+bulkEventProviders:            [
                 new BulkEventProvider<FakeObject>
                 {
                     Events = [inputName],
@@ -42,15 +42,15 @@ public partial class EventProviderServiceTests
                 }
             ]);
 
-        bool handled = await eventProviderService.RaiseEventsAsync(inputName, inputMessages);
+        bool handled = await eventProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
         handled.Should().BeTrue();
-        actualMessages.Should().BeSameAs(inputMessages);
-        actualServiceProvider.Should().BeSameAs(scopedServiceProviderMock.Object);
+        actualMessages.Should().BeSameAs(expected:inputMessages);
+        actualServiceProvider.Should().BeSameAs(expected:scopedServiceProviderMock.Object);
 
         serviceProviderBrokerMock.Verify(
-            broker => broker.GetScopeForEvent(inputMessages[0]),
-            Times.Once);
+expression:            broker => broker.GetScopeForEvent(inputMessages[0]),
+times:            Times.Once);
     }
 
     [Fact]
@@ -68,8 +68,8 @@ public partial class EventProviderServiceTests
         int callCount = 0;
 
         IEventProviderService eventProviderService = CreateEventProviderService(
-            [],
-            [
+eventProviders:            [],
+bulkEventProviders:            [
                 new BulkEventProvider<FakeObject>
                 {
                     Events = [inputName],
@@ -90,10 +90,10 @@ public partial class EventProviderServiceTests
                 }
             ]);
 
-        bool handled = await eventProviderService.RaiseEventsAsync(inputName, inputMessages);
+        bool handled = await eventProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
         handled.Should().BeTrue();
-        callCount.Should().Be(2);
+        callCount.Should().Be(expected:2);
     }
 
     [Fact]
@@ -110,8 +110,8 @@ public partial class EventProviderServiceTests
         ];
 
         IEventProviderService eventProviderService = CreateEventProviderService(
-            [],
-            [
+eventProviders:            [],
+bulkEventProviders:            [
                 new BulkEventProvider<string>
                 {
                     Events = [inputName],
@@ -119,12 +119,12 @@ public partial class EventProviderServiceTests
                 }
             ]);
 
-        bool handled = await eventProviderService.RaiseEventsAsync(inputName, inputMessages);
+        bool handled = await eventProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
         handled.Should().BeFalse();
 
         serviceProviderBrokerMock.Verify(
-            broker => broker.GetScopeForEvent(It.IsAny<EventMessage>()),
-            Times.Never);
+expression:            broker => broker.GetScopeForEvent(It.IsAny<EventMessage>()),
+times:            Times.Never);
     }
 }

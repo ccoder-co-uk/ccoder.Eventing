@@ -22,17 +22,17 @@ public partial class EventOrchestrationServiceTests
 
         eventProviderServiceMock
             .Setup(service => service.RaiseEventAsync(inputName, inputMessage))
-            .ReturnsAsync(false);
+            .ReturnsAsync(value:false);
 
-        await eventOrchestrationService.RaiseEventAsync(inputName, inputMessage);
+        await eventOrchestrationService.RaiseEventAsync(name:inputName, message:inputMessage);
 
         eventProviderServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessage),
-            Times.Once);
+expression:            service => service.RaiseEventAsync(inputName, inputMessage),
+times:            Times.Once);
 
         eventServiceProviderServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessage),
-            Times.Once);
+expression:            service => service.RaiseEventAsync(inputName, inputMessage),
+times:            Times.Once);
     }
 
     [Fact]
@@ -47,13 +47,13 @@ public partial class EventOrchestrationServiceTests
 
         eventProviderServiceMock
             .Setup(service => service.RaiseEventAsync(inputName, inputMessage))
-            .ReturnsAsync(true);
+            .ReturnsAsync(value:true);
 
-        await eventOrchestrationService.RaiseEventAsync(inputName, inputMessage);
+        await eventOrchestrationService.RaiseEventAsync(name:inputName, message:inputMessage);
 
         eventServiceProviderServiceMock.Verify(
-            service => service.RaiseEventAsync(It.IsAny<string>(), It.IsAny<EventMessage<FakeObject>>()),
-            Times.Never);
+expression:            service => service.RaiseEventAsync(It.IsAny<string>(), It.IsAny<EventMessage<FakeObject>>()),
+times:            Times.Never);
     }
 
     [Fact]
@@ -71,17 +71,17 @@ public partial class EventOrchestrationServiceTests
 
         eventProviderServiceMock
             .Setup(service => service.RaiseEventsAsync(inputName, inputMessages))
-            .ReturnsAsync(false);
+            .ReturnsAsync(value:false);
 
-        await eventOrchestrationService.RaiseEventsAsync(inputName, inputMessages);
+        await eventOrchestrationService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
         eventProviderServiceMock.Verify(
-            service => service.RaiseEventsAsync(inputName, inputMessages),
-            Times.Once);
+expression:            service => service.RaiseEventsAsync(inputName, inputMessages),
+times:            Times.Once);
 
         eventServiceProviderServiceMock.Verify(
-            service => service.RaiseEventsAsync(inputName, inputMessages),
-            Times.Once);
+expression:            service => service.RaiseEventsAsync(inputName, inputMessages),
+times:            Times.Once);
     }
 
     [Fact]
@@ -99,12 +99,12 @@ public partial class EventOrchestrationServiceTests
 
         eventProviderServiceMock
             .Setup(service => service.RaiseEventsAsync(inputName, inputMessages))
-            .ReturnsAsync(true);
+            .ReturnsAsync(value:true);
 
-        await eventOrchestrationService.RaiseEventsAsync(inputName, inputMessages);
+        await eventOrchestrationService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
         eventServiceProviderServiceMock.Verify(
-            service => service.RaiseEventsAsync(It.IsAny<string>(), It.IsAny<EventMessage<FakeObject>[]>()),
-            Times.Never);
+expression:            service => service.RaiseEventsAsync(It.IsAny<string>(), It.IsAny<EventMessage<FakeObject>[]>()),
+times:            Times.Never);
     }
 }

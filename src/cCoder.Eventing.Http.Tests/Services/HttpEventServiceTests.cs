@@ -34,7 +34,7 @@ public class HttpEventServiceTests
                 It.IsAny<CancellationToken>()))
             .Callback<HttpEventMessage, CancellationToken>(
                 (message, _) => actualMessage = message)
-            .Returns(ValueTask.CompletedTask);
+            .Returns(value:ValueTask.CompletedTask);
 
         IHttpEventService httpEventService = new HttpEventService(
             httpEventBrokerMock.Object,
@@ -43,11 +43,11 @@ public class HttpEventServiceTests
             new HttpEventingOptions(),
             Mock.Of<ILogger<HttpEventService>>());
 
-        await httpEventService.RaiseEventAsync(inputName, inputMessage);
+        await httpEventService.RaiseEventAsync(name:inputName, message:inputMessage);
 
         actualMessage.Should().NotBeNull();
-        actualMessage.EventName.Should().Be(inputName);
-        actualMessage.SSOUserId.Should().Be(inputMessage.AuthInfo.SSOUserId);
-        actualMessage.Data.Should().Contain("\"value\":\"hello\"");
+        actualMessage.EventName.Should().Be(expected:inputName);
+        actualMessage.SSOUserId.Should().Be(expected:inputMessage.AuthInfo.SSOUserId);
+        actualMessage.Data.Should().Contain(expected:"\"value\":\"hello\"");
     }
 }

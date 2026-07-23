@@ -21,11 +21,11 @@ public partial class EventProcessingServiceTests
             Data = new FakeObject { Name = "test" }
         };
 
-        await eventProcessingService.RaiseEventAsync(inputName, inputMessage);
+        await eventProcessingService.RaiseEventAsync(name:inputName, data:inputMessage);
 
         eventServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessage),
-            Times.Once);
+expression:            service => service.RaiseEventAsync(inputName, inputMessage),
+times:            Times.Once);
     }
 
     [Fact]
@@ -33,11 +33,11 @@ public partial class EventProcessingServiceTests
     {
         string inputName = "event-name";
 
-        await eventProcessingService.RaiseEventAsync(inputName, null);
+        await eventProcessingService.RaiseEventAsync(name:inputName, data:null);
 
         eventServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, null),
-            Times.Once);
+expression:            service => service.RaiseEventAsync(inputName, null),
+times:            Times.Once);
     }
 
     [Fact]
@@ -50,10 +50,10 @@ public partial class EventProcessingServiceTests
             Data = new FakeObject { Name = "test" }
         };
 
-        await eventProcessingService.RaiseEventAsync(inputName, inputMessage);
+        await eventProcessingService.RaiseEventAsync(name:inputName, data:inputMessage);
 
         eventServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessage),
-            Times.Once);
+expression:            service => service.RaiseEventAsync(inputName, inputMessage),
+times:            Times.Once);
     }
 }

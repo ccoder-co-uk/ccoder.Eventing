@@ -14,7 +14,7 @@ internal class HttpEventHandlerRegistry : IHttpEventHandlerRegistry
         string name,
         Func<IServiceProvider, T, ValueTask> handler)
     {
-        if (string.IsNullOrWhiteSpace(name))
+        if (string.IsNullOrWhiteSpace(value:name))
             throw new InvalidOperationException("You must provide an event name when listening for events.");
 
         if (handler is null)
@@ -22,7 +22,7 @@ internal class HttpEventHandlerRegistry : IHttpEventHandlerRegistry
 
         lock (subscriptions)
         {
-            subscriptions.Add(new HttpEventSubscription
+            subscriptions.Add(item:new HttpEventSubscription
             {
                 EventName = name,
                 DataType = typeof(T),
@@ -36,7 +36,7 @@ internal class HttpEventHandlerRegistry : IHttpEventHandlerRegistry
         lock (subscriptions)
         {
             return subscriptions
-                .Where(subscription => subscription.EventName == name)
+                .Where(predicate:subscription => subscription.EventName == name)
                 .ToArray();
         }
     }

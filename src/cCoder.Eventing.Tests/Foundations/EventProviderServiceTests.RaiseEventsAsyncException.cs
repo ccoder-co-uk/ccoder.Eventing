@@ -27,8 +27,8 @@ public partial class EventProviderServiceTests
         Exception innerException = new("Provider failure");
 
         IEventProviderService eventProviderService = CreateEventProviderService(
-            [],
-            [
+eventProviders:            [],
+bulkEventProviders:            [
                 new BulkEventProvider<FakeObject>
                 {
                     Events = [inputName],
@@ -37,11 +37,11 @@ public partial class EventProviderServiceTests
             ]);
 
         Func<Task> raiseEventsAsyncTask = async () =>
-            await eventProviderService.RaiseEventsAsync(inputName, inputMessages);
+            await eventProviderService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
         Exception actualException =
-            await Assert.ThrowsAsync<Exception>(raiseEventsAsyncTask);
+            await Assert.ThrowsAsync<Exception>(testCode:raiseEventsAsyncTask);
 
-        actualException.Should().BeSameAs(innerException);
+        actualException.Should().BeSameAs(expected:innerException);
     }
 }

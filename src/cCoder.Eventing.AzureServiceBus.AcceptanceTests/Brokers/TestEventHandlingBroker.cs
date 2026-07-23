@@ -25,7 +25,7 @@ internal sealed class TestEventHandlingBroker
     {
         lock (records)
         {
-            records.Add(record);
+            records.Add(item:record);
         }
     }
 }

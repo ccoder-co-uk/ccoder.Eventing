@@ -25,19 +25,19 @@ public partial class EventProcessingServiceTests
                 inputName,
                 It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
             .Callback<string, Func<IServiceProvider, FakeObject, ValueTask>>(
-                (_, handler) => forwardedHandler = handler);
+action:                (_, handler) => forwardedHandler = handler);
 
         eventProcessingService.ListenToEvent(
-            inputName,
-            (_, data) =>
+name:            inputName,
+handler:            (_, data) =>
             {
                 actualData = data;
                 return ValueTask.CompletedTask;
             });
 
-        await forwardedHandler(inputServiceProvider, inputData);
+        await forwardedHandler(arg1:inputServiceProvider, arg2:inputData);
 
-        actualData.Should().BeSameAs(inputData);
+        actualData.Should().BeSameAs(expected:inputData);
     }
 
     [Fact]
@@ -53,17 +53,17 @@ public partial class EventProcessingServiceTests
                 inputName,
                 It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
             .Callback<string, Func<IServiceProvider, FakeObject, ValueTask>>(
-                (_, handler) => forwardedHandler = handler);
+action:                (_, handler) => forwardedHandler = handler);
 
         eventProcessingService.ListenToEvent(
-            inputName,
-            (_, _) =>
+name:            inputName,
+handler:            (_, _) =>
             {
                 handlerWasCalled = true;
                 return ValueTask.CompletedTask;
             });
 
-        await forwardedHandler(inputServiceProvider, null);
+        await forwardedHandler(arg1:inputServiceProvider, arg2:null);
 
         handlerWasCalled.Should().BeFalse();
     }

@@ -26,7 +26,7 @@ public partial class EventServiceTests
 
         serviceProviderBrokerMock
             .Setup(broker => broker.GetService<IEventBroker<FakeObject>>())
-            .Returns(eventBrokerMock.Object);
+            .Returns(value:eventBrokerMock.Object);
 
         eventService = new EventService<FakeObject>(serviceProviderBrokerMock.Object, loggerMock.Object);
     }

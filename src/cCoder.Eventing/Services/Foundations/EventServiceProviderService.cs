@@ -32,10 +32,10 @@ internal class EventServiceProviderService : IEventServiceProviderService
             if (typedEventService is null)
             {
                 typedEventService = serviceProviderBroker.GetService<IEventProcessingService<T>>();
-                services.Add(typedEventService);
+                services.Add(item:typedEventService);
             }
 
-            typedEventService.ListenToEvent(name, handler);
+            typedEventService.ListenToEvent(name:name, handler:handler);
         }
         catch (Exception ex)
         {
@@ -54,17 +54,17 @@ internal class EventServiceProviderService : IEventServiceProviderService
     {
         try
         {
-            ValidateRequest(name, message);
+            ValidateRequest(name:name, message:message);
 
             IEventProcessingService<T> service = GetEventService<T>();
 
             if (service is null)
             {
-                log.LogWarning("{Name} event was raised, but no handler was configured for it", name);
+                log.LogWarning(message:"{Name} event was raised, but no handler was configured for it", args:name);
                 return;
             }
 
-            await service.RaiseEventAsync(name, message);
+            await service.RaiseEventAsync(name:name, data:message);
         }
         catch (Exception ex)
         {
@@ -84,7 +84,7 @@ internal class EventServiceProviderService : IEventServiceProviderService
         try
         {
             foreach (EventMessage<T> message in messages)
-                await RaiseEventAsync(name, message);
+                await RaiseEventAsync(name:name, message:message);
         }
         catch (Exception ex)
         {

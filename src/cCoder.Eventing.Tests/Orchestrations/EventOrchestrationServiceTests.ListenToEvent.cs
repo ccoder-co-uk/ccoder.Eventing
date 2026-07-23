@@ -19,11 +19,11 @@ public partial class EventOrchestrationServiceTests
         Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
 
-        eventOrchestrationService.ListenToEvent(inputName, inputHandler);
+        eventOrchestrationService.ListenToEvent(name:inputName, handler:inputHandler);
 
         eventServiceProviderServiceMock.Verify(
-            service => service.ListenToEvent(inputName, inputHandler),
-            Times.Once);
+expression:            service => service.ListenToEvent(inputName, inputHandler),
+times:            Times.Once);
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public partial class EventOrchestrationServiceTests
         FakeObject inputMessage = new() { Name = "test" };
         Mock<IHandlingService> handlingServiceMock = new();
         IServiceProvider inputServiceProvider = new ServiceCollection()
-            .AddSingleton(handlingServiceMock.Object)
+            .AddSingleton(implementationInstance:handlingServiceMock.Object)
             .BuildServiceProvider();
 
         Func<IServiceProvider, FakeObject, ValueTask> internalHandler = null;
@@ -45,21 +45,21 @@ public partial class EventOrchestrationServiceTests
                 inputName,
                 It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
             .Callback<string, Func<IServiceProvider, FakeObject, ValueTask>>(
-                (_, handler) => internalHandler = handler);
+action:                (_, handler) => internalHandler = handler);
 
         eventOrchestrationService.ListenToEvent<FakeObject, IHandlingService>(
-            inputName,
-            (handlingService, message) =>
+name:            inputName,
+handler:            (handlingService, message) =>
             {
                 actualHandlingService = handlingService;
                 actualMessage = message;
                 return ValueTask.CompletedTask;
             });
 
-        await internalHandler(inputServiceProvider, inputMessage);
+        await internalHandler(arg1:inputServiceProvider, arg2:inputMessage);
 
-        actualHandlingService.Should().BeSameAs(handlingServiceMock.Object);
-        actualMessage.Should().BeSameAs(inputMessage);
+        actualHandlingService.Should().BeSameAs(expected:handlingServiceMock.Object);
+        actualMessage.Should().BeSameAs(expected:inputMessage);
     }
 
     public interface IHandlingService;

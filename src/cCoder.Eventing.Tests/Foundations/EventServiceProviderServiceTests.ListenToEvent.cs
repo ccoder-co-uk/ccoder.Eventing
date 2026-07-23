@@ -19,13 +19,13 @@ public partial class EventServiceProviderServiceTests
 
         serviceProviderBrokerMock
             .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
-            .Returns(eventProcessingServiceMock.Object);
+            .Returns(value:eventProcessingServiceMock.Object);
 
-        eventServiceProviderService.ListenToEvent(inputName, inputHandler);
+        eventServiceProviderService.ListenToEvent(name:inputName, handler:inputHandler);
 
         eventProcessingServiceMock.Verify(
-            service => service.ListenToEvent(inputName, inputHandler),
-            Times.Once);
+expression:            service => service.ListenToEvent(inputName, inputHandler),
+times:            Times.Once);
     }
 
     [Fact]
@@ -37,13 +37,13 @@ public partial class EventServiceProviderServiceTests
 
         serviceProviderBrokerMock
             .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
-            .Returns(eventProcessingServiceMock.Object);
+            .Returns(value:eventProcessingServiceMock.Object);
 
-        eventServiceProviderService.ListenToEvent(inputName, inputHandler);
-        eventServiceProviderService.ListenToEvent(inputName, inputHandler);
+        eventServiceProviderService.ListenToEvent(name:inputName, handler:inputHandler);
+        eventServiceProviderService.ListenToEvent(name:inputName, handler:inputHandler);
 
         serviceProviderBrokerMock.Verify(
-            broker => broker.GetService<IEventProcessingService<FakeObject>>(),
-            Times.Once);
+expression:            broker => broker.GetService<IEventProcessingService<FakeObject>>(),
+times:            Times.Once);
     }
 }

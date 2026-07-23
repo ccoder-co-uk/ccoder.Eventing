@@ -28,8 +28,8 @@ public partial class AzureServiceBusEventHubTests
             string userIdTwo = $"user-{Guid.NewGuid():N}";
 
             eventHub.ListenToEvent<TestPayload>(
-                queueName,
-                (scopedProvider, payload) =>
+name:                queueName,
+handler:                (scopedProvider, payload) =>
                 {
                     TestEventHandlingService handlingService =
                         scopedProvider.GetRequiredService<TestEventHandlingService>();
@@ -38,19 +38,19 @@ public partial class AzureServiceBusEventHubTests
                 });
 
             await eventHub.RaiseEventsAsync(
-                queueName,
-                [
+name:                queueName,
+messages:                [
                     CreateMessage(payloadValueOne, userIdOne),
                     CreateMessage(payloadValueTwo, userIdTwo)
                 ]);
 
-            IList<EventRecord> receivedRecords = await WaitForRecordsAsync(broker, 2);
+            IList<EventRecord> receivedRecords = await WaitForRecordsAsync(broker:broker, expectedCount:2);
 
-            Assert.Contains(receivedRecords, record =>
+            Assert.Contains(collection:receivedRecords, filter:record =>
                 record.PayloadValue == payloadValueOne &&
                 record.UserId == userIdOne);
 
-            Assert.Contains(receivedRecords, record =>
+            Assert.Contains(collection:receivedRecords, filter:record =>
                 record.PayloadValue == payloadValueTwo &&
                 record.UserId == userIdTwo);
         }

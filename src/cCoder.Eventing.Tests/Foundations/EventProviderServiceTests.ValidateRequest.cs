@@ -24,7 +24,7 @@ public partial class EventProviderServiceTests
         IEventProviderService eventProviderService = CreateEventProviderService();
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await eventProviderService.RaiseEventAsync(null, inputMessage);
+            await eventProviderService.RaiseEventAsync(name:null, message:inputMessage);
 
         await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }
@@ -35,7 +35,7 @@ public partial class EventProviderServiceTests
         IEventProviderService eventProviderService = CreateEventProviderService();
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await eventProviderService.RaiseEventAsync<FakeObject>("event-name", null);
+            await eventProviderService.RaiseEventAsync<FakeObject>(name:"event-name", message:null);
 
         await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }
@@ -52,7 +52,7 @@ public partial class EventProviderServiceTests
         IEventProviderService eventProviderService = CreateEventProviderService();
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await eventProviderService.RaiseEventAsync("event-name", inputMessage);
+            await eventProviderService.RaiseEventAsync(name:"event-name", message:inputMessage);
 
         await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }
@@ -69,7 +69,7 @@ public partial class EventProviderServiceTests
         IEventProviderService eventProviderService = CreateEventProviderService();
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await eventProviderService.RaiseEventAsync("event-name", inputMessage);
+            await eventProviderService.RaiseEventAsync(name:"event-name", message:inputMessage);
 
         await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }
@@ -80,7 +80,7 @@ public partial class EventProviderServiceTests
         IEventProviderService eventProviderService = CreateEventProviderService();
 
         Func<Task> raiseEventsAsyncTask = async () =>
-            await eventProviderService.RaiseEventsAsync<FakeObject>("event-name", null);
+            await eventProviderService.RaiseEventsAsync<FakeObject>(name:"event-name", messages:null);
 
         await raiseEventsAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }
@@ -100,7 +100,7 @@ public partial class EventProviderServiceTests
         IEventProviderService eventProviderService = CreateEventProviderService();
 
         Func<Task> raiseEventsAsyncTask = async () =>
-            await eventProviderService.RaiseEventsAsync(null, inputMessages);
+            await eventProviderService.RaiseEventsAsync(name:null, messages:inputMessages);
 
         await raiseEventsAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }
@@ -120,7 +120,7 @@ public partial class EventProviderServiceTests
         IEventProviderService eventProviderService = CreateEventProviderService();
 
         Func<Task> raiseEventsAsyncTask = async () =>
-            await eventProviderService.RaiseEventsAsync("event-name", inputMessages);
+            await eventProviderService.RaiseEventsAsync(name:"event-name", messages:inputMessages);
 
         await raiseEventsAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }

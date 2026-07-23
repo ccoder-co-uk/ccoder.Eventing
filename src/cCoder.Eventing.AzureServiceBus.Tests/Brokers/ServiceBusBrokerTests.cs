@@ -26,7 +26,7 @@ public sealed class ServiceBusBrokerTests
                 inputName,
                 It.IsAny<ServiceBusProcessorOptions>()))
             .Callback<string, ServiceBusProcessorOptions>((_, options) => actualOptions = options)
-            .Returns(processorMock.Object);
+            .Returns(value:processorMock.Object);
 
         ServiceBusBroker broker = new(
             clientMock.Object,
@@ -35,11 +35,11 @@ public sealed class ServiceBusBrokerTests
                 MaxConcurrency = 4
             });
 
-        ServiceBusProcessor actualProcessor = broker.CreateProcessor(inputName);
+        ServiceBusProcessor actualProcessor = broker.CreateProcessor(name:inputName);
 
-        actualProcessor.Should().BeSameAs(processorMock.Object);
+        actualProcessor.Should().BeSameAs(expected:processorMock.Object);
         actualOptions.Should().NotBeNull();
-        actualOptions.MaxConcurrentCalls.Should().Be(4);
+        actualOptions.MaxConcurrentCalls.Should().Be(expected:4);
     }
 
     [Fact]
@@ -55,7 +55,7 @@ public sealed class ServiceBusBrokerTests
                 inputName,
                 It.IsAny<ServiceBusProcessorOptions>()))
             .Callback<string, ServiceBusProcessorOptions>((_, options) => actualOptions = options)
-            .Returns(processorMock.Object);
+            .Returns(value:processorMock.Object);
 
         ServiceBusBroker broker = new(
             clientMock.Object,
@@ -64,9 +64,9 @@ public sealed class ServiceBusBrokerTests
                 MaxConcurrency = 0
             });
 
-        broker.CreateProcessor(inputName);
+        broker.CreateProcessor(name:inputName);
 
         actualOptions.Should().NotBeNull();
-        actualOptions.MaxConcurrentCalls.Should().Be(1);
+        actualOptions.MaxConcurrentCalls.Should().Be(expected:1);
     }
 }

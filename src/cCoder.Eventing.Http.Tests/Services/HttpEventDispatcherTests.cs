@@ -25,11 +25,11 @@ public class HttpEventDispatcherTests
     {
         serviceScopeMock
             .SetupGet(scope => scope.ServiceProvider)
-            .Returns(scopedServiceProvider);
+            .Returns(value:scopedServiceProvider);
 
         serviceProviderBrokerMock
             .Setup(broker => broker.GetScopeForEvent(It.IsAny<EventMessage>()))
-            .Returns(serviceScopeMock.Object);
+            .Returns(value:serviceScopeMock.Object);
     }
 
     [Fact]
@@ -49,10 +49,10 @@ public class HttpEventDispatcherTests
         };
 
         IHttpEventDispatcher dispatcher = CreateDispatcher(
-            new HttpEventHandlerRegistry(),
-            eventProvider);
+eventHandlerRegistry:            new HttpEventHandlerRegistry(),
+eventProviders:            eventProvider);
 
-        await dispatcher.DispatchAsync(new HttpEventMessage
+        await dispatcher.DispatchAsync(message:new HttpEventMessage
         {
             EventName = inputName,
             SSOUserId = "user-123",
@@ -60,8 +60,8 @@ public class HttpEventDispatcherTests
         });
 
         actualMessage.Should().NotBeNull();
-        actualMessage.AuthInfo.SSOUserId.Should().Be("user-123");
-        actualMessage.Data.Value.Should().Be("hello");
+        actualMessage.AuthInfo.SSOUserId.Should().Be(expected:"user-123");
+        actualMessage.Data.Value.Should().Be(expected:"hello");
     }
 
     [Fact]
@@ -73,26 +73,26 @@ public class HttpEventDispatcherTests
         HttpEventHandlerRegistry eventHandlerRegistry = new();
 
         eventHandlerRegistry.ListenToEvent<FakePayload>(
-            inputName,
-            (serviceProvider, payload) =>
+name:            inputName,
+handler:            (serviceProvider, payload) =>
             {
                 actualServiceProvider = serviceProvider;
                 actualPayload = payload;
                 return ValueTask.CompletedTask;
             });
 
-        IHttpEventDispatcher dispatcher = CreateDispatcher(eventHandlerRegistry);
+        IHttpEventDispatcher dispatcher = CreateDispatcher(eventHandlerRegistry:eventHandlerRegistry);
 
-        await dispatcher.DispatchAsync(new HttpEventMessage
+        await dispatcher.DispatchAsync(message:new HttpEventMessage
         {
             EventName = inputName,
             SSOUserId = "user-123",
             Data = "{\"value\":\"hello\"}"
         });
 
-        actualServiceProvider.Should().BeSameAs(scopedServiceProvider);
+        actualServiceProvider.Should().BeSameAs(expected:scopedServiceProvider);
         actualPayload.Should().NotBeNull();
-        actualPayload.Value.Should().Be("hello");
+        actualPayload.Value.Should().Be(expected:"hello");
     }
 
     private IHttpEventDispatcher CreateDispatcher(

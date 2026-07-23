@@ -20,10 +20,10 @@ internal class EventProviderService(
     {
         try
         {
-            ValidateRequest(name, message);
+            ValidateRequest(name:name, message:message);
 
             EventProvider[] matchingProviders = eventProviders
-                .Where(provider => provider.CanSend<T>(name))
+                .Where(predicate:provider => provider.CanSend<T>(name))
                 .ToArray();
 
             if (matchingProviders.Length == 0)
@@ -31,11 +31,11 @@ internal class EventProviderService(
                 return false;
             }
 
-            using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message);
+            using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message:message);
 
             foreach (EventProvider provider in matchingProviders)
             {
-                await provider.HandleSendAsync(scope.ServiceProvider, name, message);
+                await provider.HandleSendAsync(serviceProvider:scope.ServiceProvider, eventName:name, message:message);
             }
 
             return true;
@@ -57,10 +57,10 @@ internal class EventProviderService(
     {
         try
         {
-            ValidateRequest(name, messages);
+            ValidateRequest(name:name, messages:messages);
 
             BulkEventProvider[] matchingProviders = bulkEventProviders
-                .Where(provider => provider.CanHandle<T>(name))
+                .Where(predicate:provider => provider.CanHandle<T>(name))
                 .ToArray();
 
             if (matchingProviders.Length == 0 || messages.Length == 0)
@@ -68,11 +68,11 @@ internal class EventProviderService(
                 return false;
             }
 
-            using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(messages[0]);
+            using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message:messages[0]);
 
             foreach (BulkEventProvider provider in matchingProviders)
             {
-                await provider.HandleAsync(scope.ServiceProvider, messages);
+                await provider.HandleAsync(serviceProvider:scope.ServiceProvider, messages:messages);
             }
 
             return true;
@@ -127,7 +127,7 @@ internal class EventProviderService(
 
         foreach (EventMessage<T> message in messages)
         {
-            ValidateRequest(name, message);
+            ValidateRequest(name:name, message:message);
         }
     }
 }

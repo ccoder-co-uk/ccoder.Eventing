@@ -24,7 +24,7 @@ internal class HttpEventDispatcher(
     private static readonly MethodInfo CreateMessageMethod =
         typeof(HttpEventDispatcher)
             .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
-            .Single(method =>
+            .Single(predicate:method =>
                 method.Name == nameof(CreateMessage) &&
                 method.IsGenericMethodDefinition);
 
@@ -36,14 +36,14 @@ internal class HttpEventDispatcher(
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            bool handledBySubscriptions = await DispatchToSubscriptionsAsync(message);
-            bool handledByProviders = await DispatchToProvidersAsync(message);
+            bool handledBySubscriptions = await DispatchToSubscriptionsAsync(message:message);
+            bool handledByProviders = await DispatchToProvidersAsync(message:message);
 
             if (!handledBySubscriptions && !handledByProviders)
             {
                 log.LogWarning(
-                    "HTTP event {EventName} was received but no matching handlers were registered.",
-                    message.EventName);
+message:                    "HTTP event {EventName} was received but no matching handlers were registered.",
+args:                    message.EventName);
             }
         }
         catch (Exception ex)
@@ -61,17 +61,17 @@ internal class HttpEventDispatcher(
     private async ValueTask<bool> DispatchToSubscriptionsAsync(HttpEventMessage message)
     {
         IReadOnlyCollection<HttpEventSubscription> subscriptions =
-            eventHandlerRegistry.GetSubscriptions(message.EventName);
+            eventHandlerRegistry.GetSubscriptions(name:message.EventName);
 
         foreach (HttpEventSubscription subscription in subscriptions)
         {
-            object data = Deserialize(message, subscription.DataType);
-            EventMessage eventMessage = CreateMessage(subscription.DataType, data, message);
+            object data = Deserialize(message:message, dataType:subscription.DataType);
+            EventMessage eventMessage = CreateMessage(dataType:subscription.DataType, data:data, message:message);
 
             using IServiceScope scope =
-                serviceProviderBroker.GetScopeForEvent(eventMessage);
+                serviceProviderBroker.GetScopeForEvent(message:eventMessage);
 
-            await subscription.Handler(scope.ServiceProvider, data);
+            await subscription.Handler(arg1:scope.ServiceProvider, arg2:data);
         }
 
         return subscriptions.Count > 0;
@@ -80,21 +80,21 @@ internal class HttpEventDispatcher(
     private async ValueTask<bool> DispatchToProvidersAsync(HttpEventMessage message)
     {
         EventProvider[] matchingProviders = eventProviders
-            .Where(provider => provider.CanReceive(message.EventName))
+            .Where(predicate:provider => provider.CanReceive(message.EventName))
             .ToArray();
 
         foreach (EventProvider provider in matchingProviders)
         {
-            object data = Deserialize(message, provider.DataType);
-            EventMessage eventMessage = CreateMessage(provider.DataType, data, message);
+            object data = Deserialize(message:message, dataType:provider.DataType);
+            EventMessage eventMessage = CreateMessage(dataType:provider.DataType, data:data, message:message);
 
             using IServiceScope scope =
-                serviceProviderBroker.GetScopeForEvent(eventMessage);
+                serviceProviderBroker.GetScopeForEvent(message:eventMessage);
 
             await provider.ReceiveAsync(
-                scope.ServiceProvider,
-                message.EventName,
-                eventMessage);
+serviceProvider:                scope.ServiceProvider,
+eventName:                message.EventName,
+message:                eventMessage);
         }
 
         return matchingProviders.Length > 0;
@@ -102,9 +102,9 @@ internal class HttpEventDispatcher(
 
     private object Deserialize(HttpEventMessage message, Type dataType) =>
         JsonSerializer.Deserialize(
-            message.Data,
-            dataType,
-            options.JsonSerializerOptions);
+json:            message.Data,
+returnType:            dataType,
+options:            options.JsonSerializerOptions);
 
     private static EventMessage CreateMessage(
         Type dataType,
@@ -112,7 +112,7 @@ internal class HttpEventDispatcher(
         HttpEventMessage message) =>
             (EventMessage)CreateMessageMethod
                 .MakeGenericMethod(dataType)
-                .Invoke(null, [data, message]);
+                .Invoke(obj:null, parameters:[data, message]);
 
     private static EventMessage<T> CreateMessage<T>(
         object data,

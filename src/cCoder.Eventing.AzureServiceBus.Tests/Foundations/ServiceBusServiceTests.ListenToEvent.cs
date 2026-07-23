@@ -18,22 +18,22 @@ public partial class ServiceBusServiceTests
 
         serviceBusBrokerMock
             .Setup(broker => broker.CreateProcessor(inputName))
-            .Returns(serviceBusProcessorMock.Object);
+            .Returns(value:serviceBusProcessorMock.Object);
 
         serviceBusBrokerMock
             .Setup(broker => broker.StartProcessorAsync(inputName))
-            .Returns(ValueTask.CompletedTask);
+            .Returns(value:ValueTask.CompletedTask);
 
         serviceBusService.ListenToEvent<FakeObject>(
-            inputName,
-            (_, _) => ValueTask.CompletedTask);
+name:            inputName,
+handler:            (_, _) => ValueTask.CompletedTask);
 
         serviceBusBrokerMock.Verify(
-            broker => broker.CreateProcessor(inputName),
-            Times.Once);
+expression:            broker => broker.CreateProcessor(inputName),
+times:            Times.Once);
 
         serviceBusBrokerMock.Verify(
-            broker => broker.StartProcessorAsync(inputName),
-            Times.Once);
+expression:            broker => broker.StartProcessorAsync(inputName),
+times:            Times.Once);
     }
 }

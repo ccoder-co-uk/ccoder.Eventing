@@ -18,14 +18,14 @@ public partial class EventServiceTests
         Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
 
-        eventService.ListenToEvent(inputName, inputHandler);
+        eventService.ListenToEvent(name:inputName, handler:inputHandler);
 
         serviceProviderBrokerMock.Verify(
-            broker => broker.GetService<IEventBroker<FakeObject>>(),
-            Times.Once);
+expression:            broker => broker.GetService<IEventBroker<FakeObject>>(),
+times:            Times.Once);
 
         eventBrokerMock.Verify(
-            broker => broker.ListenToEvent(inputName, inputHandler),
-            Times.Once);
+expression:            broker => broker.ListenToEvent(inputName, inputHandler),
+times:            Times.Once);
     }
 }

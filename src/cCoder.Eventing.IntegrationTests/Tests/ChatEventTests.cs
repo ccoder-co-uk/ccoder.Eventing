@@ -47,28 +47,28 @@ public partial class ChatEventTests : IAsyncLifetime
         string remoteHubUrl)
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(
-            new WebApplicationOptions
+options:            new WebApplicationOptions
             {
                 ContentRootPath = GetAppContentRoot(appDirectory),
                 ApplicationName = typeof(ChatApplication).Assembly.FullName
             });
 
-        builder.WebHost.UseUrls(appUrl);
+        builder.WebHost.UseUrls(urls:appUrl);
         builder.Logging.ClearProviders();
         builder.Configuration.AddInMemoryCollection(
-            new Dictionary<string, string?>
+initialData:            new Dictionary<string, string?>
             {
                 ["EventingChat:AppName"] = appName,
                 ["EventingChat:RemoteHubUrl"] = remoteHubUrl
             });
 
-        ChatApplication.Configure(builder);
+        ChatApplication.Configure(builder:builder);
 
         WebApplication app = builder.Build();
-        ChatApplication.Start(app);
+        ChatApplication.Start(app:app);
         await app.StartAsync();
 
-        applications.Add(app);
+        applications.Add(item:app);
 
         return app;
     }
@@ -79,19 +79,19 @@ public partial class ChatEventTests : IAsyncLifetime
         string expectedText)
     {
         HubConnection hubConnection = new HubConnectionBuilder()
-            .WithUrl($"{appUrl}/Api/Hubs/Chat")
+            .WithUrl(url:$"{appUrl}/Api/Hubs/Chat")
             .Build();
 
         hubConnection.On<ChatMessage>(
-            "chatReceived",
-            message =>
+methodName:            "chatReceived",
+handler:            message =>
             {
                 if (message.Text == expectedText)
                     completionSource.TrySetResult(message);
             });
 
         await hubConnection.StartAsync();
-        hubConnections.Add(hubConnection);
+        hubConnections.Add(item:hubConnection);
 
         return hubConnection;
     }
@@ -102,8 +102,8 @@ public partial class ChatEventTests : IAsyncLifetime
         string text)
     {
         using HttpResponseMessage response = await httpClient.PostAsJsonAsync(
-            $"{appUrl}/Api/Chat",
-            new ChatMessageRequest
+requestUri:            $"{appUrl}/Api/Chat",
+value:            new ChatMessageRequest
             {
                 User = user,
                 Text = text
@@ -116,10 +116,10 @@ public partial class ChatEventTests : IAsyncLifetime
         TaskCompletionSource<ChatMessage> completionSource)
     {
         Task completedTask = await Task.WhenAny(
-            completionSource.Task,
-            Task.Delay(TimeSpan.FromSeconds(10)));
+task1:            completionSource.Task,
+task2:            Task.Delay(TimeSpan.FromSeconds(10)));
 
-        completedTask.Should().BeSameAs(completionSource.Task);
+        completedTask.Should().BeSameAs(expected:completionSource.Task);
 
         return await completionSource.Task;
     }
@@ -131,9 +131,9 @@ public partial class ChatEventTests : IAsyncLifetime
         while (directory is not null)
         {
             string candidate =
-                Path.Combine(directory.FullName, "src", "Apps", appDirectory);
+                Path.Combine(path1:directory.FullName, path2:"src", path3:"Apps", path4:appDirectory);
 
-            if (Directory.Exists(candidate))
+            if (Directory.Exists(path:candidate))
                 return candidate;
 
             directory = directory.Parent;

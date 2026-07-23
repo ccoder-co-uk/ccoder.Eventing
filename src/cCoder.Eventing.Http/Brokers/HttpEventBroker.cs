@@ -20,16 +20,16 @@ internal class HttpEventBroker(
     {
         try
         {
-            ValidateOptions(options);
+            ValidateOptions(options:options);
 
             HttpClient httpClient = httpClientFactory.CreateClient(
-                HttpEventingOptions.HttpClientName);
+name:                HttpEventingOptions.HttpClientName);
 
             using HttpResponseMessage response = await httpClient.PostAsJsonAsync(
-                options.HubUrl,
-                message,
-                options.JsonSerializerOptions,
-                cancellationToken);
+requestUri:                options.HubUrl,
+value:                message,
+options:                options.JsonSerializerOptions,
+cancellationToken:                cancellationToken);
 
             response.EnsureSuccessStatusCode();
         }
@@ -47,7 +47,7 @@ internal class HttpEventBroker(
 
     private static void ValidateOptions(HttpEventingOptions options)
     {
-        if (string.IsNullOrWhiteSpace(options?.HubUrl))
+        if (string.IsNullOrWhiteSpace(value:options?.HubUrl))
         {
             throw new InvalidOperationException(
                 "You must provide an HTTP event hub URL before sending events.");

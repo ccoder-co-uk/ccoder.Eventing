@@ -13,22 +13,22 @@ public abstract class EventProvider
     public Type DataType => MessageType;
 
     public bool CanReceive(string name) =>
-        Events?.Contains(name, StringComparer.Ordinal) == true &&
+        Events?.Contains(value:name, comparer:StringComparer.Ordinal) == true &&
         HasReceiveHandler;
 
     public ValueTask ReceiveAsync(
         IServiceProvider serviceProvider,
         string eventName,
         EventMessage message) =>
-            HandleReceiveAsync(serviceProvider, eventName, message);
+            HandleReceiveAsync(serviceProvider:serviceProvider, eventName:eventName, message:message);
 
     internal bool CanSend<T>(string name) =>
-        Events?.Contains(name, StringComparer.Ordinal) == true &&
+        Events?.Contains(value:name, comparer:StringComparer.Ordinal) == true &&
         MessageType == typeof(T) &&
         HasSendHandler;
 
     internal bool CanReceive<T>(string name) =>
-        Events?.Contains(name, StringComparer.Ordinal) == true &&
+        Events?.Contains(value:name, comparer:StringComparer.Ordinal) == true &&
         MessageType == typeof(T) &&
         HasReceiveHandler;
 
@@ -64,7 +64,7 @@ public class EventProvider<T> : EventProvider
             handler = value;
 
             if (value is not null && SendHandler is null)
-                SendHandler = (serviceProvider, _, message) => value(serviceProvider, message);
+                SendHandler = (serviceProvider, _, message) => value(arg1:serviceProvider, arg2:message);
         }
     }
 
@@ -85,7 +85,7 @@ public class EventProvider<T> : EventProvider
                 $"You must provide a send handler for event providers of type {typeof(T).Name}.");
         }
 
-        return SendHandler(serviceProvider, eventName, (EventMessage<T>)message);
+        return SendHandler(arg1:serviceProvider, arg2:eventName, arg3:(EventMessage<T>)message);
     }
 
     internal override ValueTask HandleReceiveAsync(
@@ -99,6 +99,6 @@ public class EventProvider<T> : EventProvider
                 $"You must provide a receive handler for event providers of type {typeof(T).Name}.");
         }
 
-        return ReceiveHandler(serviceProvider, eventName, (EventMessage<T>)message);
+        return ReceiveHandler(arg1:serviceProvider, arg2:eventName, arg3:(EventMessage<T>)message);
     }
 }

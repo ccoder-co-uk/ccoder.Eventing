@@ -19,27 +19,27 @@ public partial class ServiceBusProcessingServiceTests
         FakeObject inputData = new() { Name = "test" };
         ServiceBusEventMessage<FakeObject> actualMessage = null;
 
-        eventAuthInfoMock.SetupGet(auth => auth.SSOUserId).Returns("user");
+        eventAuthInfoMock.SetupGet(auth => auth.SSOUserId).Returns(value:"user");
 
         serviceBusServiceMock
             .Setup(service => service.RaiseEventAsync(
                 inputName,
                 It.IsAny<ServiceBusEventMessage<FakeObject>>()))
             .Callback<string, ServiceBusEventMessage<FakeObject>>((_, message) => actualMessage = message)
-            .Returns(ValueTask.CompletedTask);
+            .Returns(value:ValueTask.CompletedTask);
 
-        await serviceBusProcessingService.RaiseEventAsync(inputName, inputData);
+        await serviceBusProcessingService.RaiseEventAsync(name:inputName, data:inputData);
 
         actualMessage.Should().NotBeNull();
-        actualMessage.Data.Should().BeSameAs(inputData);
-        actualMessage.AuthInfo.SSOUserId.Should().Be("user");
+        actualMessage.Data.Should().BeSameAs(expected:inputData);
+        actualMessage.AuthInfo.SSOUserId.Should().Be(expected:"user");
     }
 
     [Fact]
     public async Task ShouldThrowOnRaiseEventAsyncWithDataIfNameIsNull()
     {
         Func<Task> raiseEventAsyncTask = async () =>
-            await serviceBusProcessingService.RaiseEventAsync(null, new FakeObject());
+            await serviceBusProcessingService.RaiseEventAsync(name:null, data:new FakeObject());
 
         await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }
@@ -47,10 +47,10 @@ public partial class ServiceBusProcessingServiceTests
     [Fact]
     public async Task ShouldThrowOnRaiseEventAsyncWithDataIfDataIsNull()
     {
-        eventAuthInfoMock.SetupGet(auth => auth.SSOUserId).Returns("user");
+        eventAuthInfoMock.SetupGet(auth => auth.SSOUserId).Returns(value:"user");
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await serviceBusProcessingService.RaiseEventAsync("event-name", default(FakeObject));
+            await serviceBusProcessingService.RaiseEventAsync(name:"event-name", data:default(FakeObject));
 
         await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }
@@ -63,7 +63,7 @@ public partial class ServiceBusProcessingServiceTests
             serviceBusServiceMock.Object);
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await serviceBusProcessingServiceWithNullAuth.RaiseEventAsync("event-name", new FakeObject());
+            await serviceBusProcessingServiceWithNullAuth.RaiseEventAsync(name:"event-name", data:new FakeObject());
 
         await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }
@@ -78,11 +78,11 @@ public partial class ServiceBusProcessingServiceTests
             Data = new FakeObject()
         };
 
-        await serviceBusProcessingService.RaiseEventAsync(inputName, inputMessage);
+        await serviceBusProcessingService.RaiseEventAsync(name:inputName, message:inputMessage);
 
         serviceBusServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessage),
-            Times.Once);
+expression:            service => service.RaiseEventAsync(inputName, inputMessage),
+times:            Times.Once);
     }
 
     [Fact]
@@ -95,7 +95,7 @@ public partial class ServiceBusProcessingServiceTests
         };
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await serviceBusProcessingService.RaiseEventAsync(null, inputMessage);
+            await serviceBusProcessingService.RaiseEventAsync(name:null, message:inputMessage);
 
         await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }
@@ -104,7 +104,7 @@ public partial class ServiceBusProcessingServiceTests
     public async Task ShouldThrowOnRaiseEventAsyncWithMessageIfMessageIsNull()
     {
         Func<Task> raiseEventAsyncTask = async () =>
-            await serviceBusProcessingService.RaiseEventAsync("event-name", default(FakeObject));
+            await serviceBusProcessingService.RaiseEventAsync(name:"event-name", data:default(FakeObject));
 
         await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }
@@ -119,7 +119,7 @@ public partial class ServiceBusProcessingServiceTests
         };
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await serviceBusProcessingService.RaiseEventAsync("event-name", inputMessage);
+            await serviceBusProcessingService.RaiseEventAsync(name:"event-name", message:inputMessage);
 
         await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }
@@ -134,7 +134,7 @@ public partial class ServiceBusProcessingServiceTests
         };
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await serviceBusProcessingService.RaiseEventAsync("event-name", inputMessage);
+            await serviceBusProcessingService.RaiseEventAsync(name:"event-name", message:inputMessage);
 
         await raiseEventAsyncTask.Should().ThrowAsync<InvalidOperationException>();
     }

@@ -16,13 +16,13 @@ public partial class EventAuthorizationServiceTests
 
         eventAuthorizationBrokerMock
             .Setup(broker => broker.GetEventAuthInfo())
-            .Throws(innerException);
+            .Throws(exception:innerException);
 
         Action getEventAuthInfoAction = () => eventAuthorizationService.GetEventAuthInfo();
 
         Exception actualException =
             getEventAuthInfoAction.Should().Throw<Exception>().Which;
 
-        actualException.Should().BeSameAs(innerException);
+        actualException.Should().BeSameAs(expected:innerException);
     }
 }

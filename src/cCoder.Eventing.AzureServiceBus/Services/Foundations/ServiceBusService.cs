@@ -19,16 +19,16 @@ internal class ServiceBusService(
     {
         try
         {
-            ServiceBusProcessor processor = serviceBusBroker.CreateProcessor(name);
+            ServiceBusProcessor processor = serviceBusBroker.CreateProcessor(name:name);
 
             processor.ProcessMessageAsync += (ProcessMessageEventArgs messageDetails) =>
-                HandleServiceBusMessage(serviceProviderBroker, handler, messageDetails);
+                HandleServiceBusMessage(serviceProviderBroker:serviceProviderBroker, handler:handler, messageDetails:messageDetails);
 
             processor.ProcessErrorAsync += (ProcessErrorEventArgs problemDetails) =>
-                HandleServiceBusError(name, problemDetails);
+                HandleServiceBusError(name:name, problemDetails:problemDetails);
 
             serviceBusBroker
-                .StartProcessorAsync(name)
+                .StartProcessorAsync(name:name)
                 .AsTask()
                 .GetAwaiter()
                 .GetResult();
@@ -56,7 +56,7 @@ internal class ServiceBusService(
                 MessageId = $"{eventMessage.AuthInfo.SSOUserId}_{typeof(T).Name}_{Guid.NewGuid()}"
             };
 
-            await serviceBusBroker.SendMessageAsync(name, message);
+            await serviceBusBroker.SendMessageAsync(name:name, message:message);
         }
         catch (Exception ex)
         {
@@ -93,9 +93,9 @@ internal class ServiceBusService(
                 .ToObjectFromJson<ServiceBusEventMessage<T>>();
 
             using IServiceScope scope = serviceProviderBroker
-                .GetScopeForEvent(message);
+                .GetScopeForEvent(message:message);
 
-            await handler(scope.ServiceProvider, message.Data);
+            await handler(arg1:scope.ServiceProvider, arg2:message.Data);
         }
         catch (Exception ex)
         {

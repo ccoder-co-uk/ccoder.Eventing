@@ -18,14 +18,14 @@ public partial class ServiceBusProcessingServiceTests
             (_, _) => ValueTask.CompletedTask;
 
         serviceBusServiceMock
-            .Setup(service => service.ListenToEvent(
+            .Setup(expression:service => service.ListenToEvent(
                 inputName,
                 inputHandler));
 
-        serviceBusProcessingService.ListenToEvent(inputName, inputHandler);
+        serviceBusProcessingService.ListenToEvent(name:inputName, handler:inputHandler);
 
         serviceBusServiceMock.Verify(
-            service => service.ListenToEvent(inputName, inputHandler),
-            Times.Once);
+expression:            service => service.ListenToEvent(inputName, inputHandler),
+times:            Times.Once);
     }
 }

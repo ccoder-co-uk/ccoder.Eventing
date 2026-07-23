@@ -18,15 +18,15 @@ public partial class EventAuthorizationServiceTests
 
         eventAuthorizationBrokerMock
             .Setup(broker => broker.GetEventAuthInfo())
-            .Returns(expectedEventAuthInfo);
+            .Returns(value:expectedEventAuthInfo);
 
         IEventAuthInfo actualEventAuthInfo =
             eventAuthorizationService.GetEventAuthInfo();
 
-        actualEventAuthInfo.Should().BeSameAs(expectedEventAuthInfo);
+        actualEventAuthInfo.Should().BeSameAs(expected:expectedEventAuthInfo);
 
         eventAuthorizationBrokerMock.Verify(
-            broker => broker.GetEventAuthInfo(),
-            Times.Once);
+expression:            broker => broker.GetEventAuthInfo(),
+times:            Times.Once);
     }
 }

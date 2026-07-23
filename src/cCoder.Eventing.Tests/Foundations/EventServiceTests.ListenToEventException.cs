@@ -20,13 +20,13 @@ public partial class EventServiceTests
 
         eventBrokerMock
             .Setup(broker => broker.ListenToEvent(inputName, inputHandler))
-            .Throws(innerException);
+            .Throws(exception:innerException);
 
-        Action listenToEventAction = () => eventService.ListenToEvent(inputName, inputHandler);
+        Action listenToEventAction = () => eventService.ListenToEvent(name:inputName, handler:inputHandler);
 
         Exception actualException =
             listenToEventAction.Should().Throw<Exception>().Which;
 
-        actualException.Should().BeSameAs(innerException);
+        actualException.Should().BeSameAs(expected:innerException);
     }
 }

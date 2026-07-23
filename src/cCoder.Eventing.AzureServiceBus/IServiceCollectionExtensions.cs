@@ -16,20 +16,20 @@ public static partial class IServiceCollectionExtensions
     public static void AddAzureServiceBusEventingWeb(
         this IServiceCollection services,
         Action<AzureServiceBusEventingConfiguration> configure = null) =>
-        AddAzureServiceBusEventing(services, configure);
+        AddAzureServiceBusEventing(services:services, configure:configure);
 
     public static void AddAzureServiceBusEventingHostedServices(
         this IServiceCollection services,
         Action<AzureServiceBusEventingConfiguration> configure = null) =>
-        AddAzureServiceBusEventing(services, configure);
+        AddAzureServiceBusEventing(services:services, configure:configure);
 
     public static void AddAzureServiceBusEventing(
         this IServiceCollection services,
         Action<AzureServiceBusEventingConfiguration> configure)
     {
         AzureServiceBusEventingConfiguration configuration = new();
-        configure?.Invoke(configuration);
-        RegisterAzureServiceBusEventing(services, configuration);
+        configure?.Invoke(obj:configuration);
+        RegisterAzureServiceBusEventing(services:services, configuration:configuration);
     }
 
     public static void AddAzureServiceBusEventing(
@@ -37,29 +37,29 @@ public static partial class IServiceCollectionExtensions
         string serviceBusConnectionString)
     {
         AddAzureServiceBusEventing(
-            services,
-            configuration => configuration.ConnectionString = serviceBusConnectionString);
+services:            services,
+configure:            configuration => configuration.ConnectionString = serviceBusConnectionString);
     }
 
     private static void RegisterAzureServiceBusEventing(
         IServiceCollection services,
         AzureServiceBusEventingConfiguration configuration)
     {
-        services.AddSingleton(configuration);
-        services.AddSingleton(_ => new ServiceBusClient(configuration.ConnectionString));
+        services.AddSingleton(implementationInstance:configuration);
+        services.AddSingleton(implementationFactory:_ => new ServiceBusClient(configuration.ConnectionString));
 
         services.AddScoped<IServiceBusEventAuthorizationBroker, ServiceBusEventAuthorizationBroker>();
-        services.AddTransient(serviceProvider =>
+        services.AddTransient(implementationFactory:serviceProvider =>
             serviceProvider.GetRequiredService<IServiceBusEventAuthorizationBroker>().GetEventAuthInfo());
 
-        services.AddTransient<Func<IServiceBusEventAuthInfo>>(serviceProvider =>
+        services.AddTransient<Func<IServiceBusEventAuthInfo>>(implementationFactory:serviceProvider =>
             () => serviceProvider.GetRequiredService<IServiceBusEventAuthInfo>());
 
         services.AddSingleton<IServiceBusBroker, ServiceBusBroker>();
         services.AddTransient<IServiceProviderBroker, ServiceProviderBroker>();
         services.AddTransient<IServiceBusService, ServiceBusService>();
         services.AddTransient<IServiceBusProcessingService, ServiceBusProcessingService>();
-        services.AddSingleton<IAzureServiceBusEventHub>(serviceProvider =>
+        services.AddSingleton<IAzureServiceBusEventHub>(implementationFactory:serviceProvider =>
             new AzureServiceBusEventHub(serviceProvider.GetRequiredService<IServiceBusProcessingService>()));
     }
 }

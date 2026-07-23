@@ -17,7 +17,7 @@ public class HttpEventController(IHttpEventHub httpEventHub) : ControllerBase
         HttpEventMessage message,
         CancellationToken cancellationToken)
     {
-        await httpEventHub.ReceiveEventAsync(message, cancellationToken);
+        await httpEventHub.ReceiveEventAsync(message:message, cancellationToken:cancellationToken);
         return Accepted();
     }
 }

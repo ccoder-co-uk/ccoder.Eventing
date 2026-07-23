@@ -20,16 +20,16 @@ public class ChatController(IChatOrchestrationService chatOrchestrationService) 
         try
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return BadRequest(modelState:ModelState);
 
             ChatMessage message =
-                await chatOrchestrationService.SendAsync(request, cancellationToken);
+                await chatOrchestrationService.SendAsync(request:request, cancellationToken:cancellationToken);
 
-            return Accepted(message);
+            return Accepted(value:message);
         }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            return BadRequest(error:ex.Message);
         }
     }
 }

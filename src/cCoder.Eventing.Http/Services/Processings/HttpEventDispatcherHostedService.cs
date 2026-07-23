@@ -20,12 +20,12 @@ internal class HttpEventDispatcherHostedService(
     {
         using SemaphoreSlim concurrencyGate = new(GetMaxConcurrency());
 
-        await foreach (HttpEventMessage message in eventQueue.ReadAllAsync(stoppingToken))
+        await foreach (HttpEventMessage message in eventQueue.ReadAllAsync(cancellationToken:stoppingToken))
         {
-            await concurrencyGate.WaitAsync(stoppingToken);
+            await concurrencyGate.WaitAsync(cancellationToken:stoppingToken);
 
             _ = Task.Run(
-                async () =>
+function:                async () =>
                 {
                     try
                     {
@@ -48,10 +48,10 @@ internal class HttpEventDispatcherHostedService(
                         concurrencyGate.Release();
                     }
                 },
-                stoppingToken);
+cancellationToken:                stoppingToken);
         }
     }
 
     private int GetMaxConcurrency() =>
-        Math.Max(1, options.MaxConcurrency);
+        Math.Max(val1:1, val2:options.MaxConcurrency);
 }

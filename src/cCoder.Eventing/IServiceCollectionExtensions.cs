@@ -14,25 +14,25 @@ namespace cCoder.Eventing;
 public static partial class IServiceCollectionExtensions
 {
     public static void AddEventing(this IServiceCollection services) =>
-        AddEventing(services, static _ => { });
+        AddEventing(services:services, configure:static _ => { });
 
     public static void AddEventingWeb(
         this IServiceCollection services,
         Action<EventingConfiguration> configure = null) =>
-        AddEventing(services, configure);
+        AddEventing(services:services, configure:configure);
 
     public static void AddEventingHostedServices(
         this IServiceCollection services,
         Action<EventingConfiguration> configure = null) =>
-        AddEventing(services, configure);
+        AddEventing(services:services, configure:configure);
 
     public static void AddEventing(
         this IServiceCollection services,
         Action<EventingConfiguration> configure)
     {
         EventingConfiguration configuration = new();
-        configure?.Invoke(configuration);
-        RegisterEventing(services, configuration);
+        configure?.Invoke(obj:configuration);
+        RegisterEventing(services:services, configuration:configuration);
     }
 
     public static void AddEventing(
@@ -40,18 +40,18 @@ public static partial class IServiceCollectionExtensions
         EventingConfiguration eventingConfiguration)
     {
         EventingConfiguration configuration = eventingConfiguration ?? new EventingConfiguration();
-        RegisterEventing(services, configuration);
+        RegisterEventing(services:services, configuration:configuration);
     }
 
     private static void RegisterEventing(
         IServiceCollection services,
         EventingConfiguration configuration)
     {
-        services.AddSingleton(configuration);
-        services.AddEventProviders(configuration.EventProviders);
-        services.AddBulkEventProviders(configuration.BulkEventProviders);
+        services.AddSingleton(implementationInstance:configuration);
+        services.AddEventProviders(eventProviders:configuration.EventProviders);
+        services.AddBulkEventProviders(bulkEventProviders:configuration.BulkEventProviders);
         services.AddScoped<IEventAuthorizationBroker, EventAuthorizationBroker>();
-        services.AddTransient(serviceProvider =>
+        services.AddTransient(implementationFactory:serviceProvider =>
             serviceProvider.GetRequiredService<IEventAuthorizationBroker>().GetEventAuthInfo());
 
         services.AddTransient<IServiceProviderBroker, ServiceProviderBroker>();
@@ -59,7 +59,7 @@ public static partial class IServiceCollectionExtensions
         services.AddSingleton<IEventProviderService, EventProviderService>();
         services.AddSingleton<IEventServiceProviderService, EventServiceProviderService>();
         services.AddSingleton<IEventOrchestrationService, EventOrchestrationService>();
-        services.AddSingleton<IEventHub>(serviceProvider =>
+        services.AddSingleton<IEventHub>(implementationFactory:serviceProvider =>
             new EventHub(serviceProvider.GetRequiredService<IEventOrchestrationService>()));
     }
 
@@ -70,7 +70,7 @@ public static partial class IServiceCollectionExtensions
         foreach (EventProvider eventProvider in eventProviders ?? [])
         {
             if (eventProvider is not null)
-                services.AddSingleton(eventProvider);
+                services.AddSingleton(implementationInstance:eventProvider);
         }
     }
 
@@ -81,7 +81,7 @@ public static partial class IServiceCollectionExtensions
         foreach (BulkEventProvider bulkEventProvider in bulkEventProviders ?? [])
         {
             if (bulkEventProvider is not null)
-                services.AddSingleton(bulkEventProvider);
+                services.AddSingleton(implementationInstance:bulkEventProvider);
         }
     }
 

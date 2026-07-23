@@ -13,7 +13,7 @@ internal class ServiceBusProcessingService(
             : IServiceBusProcessingService
 {
     public void ListenToEvent<T>(string name, Func<IServiceProvider, T, ValueTask> handler) =>
-        serviceBusService.ListenToEvent<T>(name, handler);
+        serviceBusService.ListenToEvent<T>(name:name, handler:handler);
 
     public async ValueTask RaiseEventAsync<T>(string name, T data)
     {
@@ -26,21 +26,21 @@ internal class ServiceBusProcessingService(
             Data = data
         };
 
-        ValidateRequest(name, eventMessage);
-        await serviceBusService.RaiseEventAsync(name, eventMessage);
+        ValidateRequest(name:name, message:eventMessage);
+        await serviceBusService.RaiseEventAsync(name:name, eventMessage:eventMessage);
     }
 
     public async ValueTask RaiseEventAsync<T>(string name, ServiceBusEventMessage<T> message)
     {
-        ValidateRequest(name, message);
-        await serviceBusService.RaiseEventAsync(name, message);
+        ValidateRequest(name:name, message:message);
+        await serviceBusService.RaiseEventAsync(name:name, eventMessage:message);
     }
 
     public async ValueTask RaiseEventsAsync<T>(string name, ServiceBusEventMessage<T>[] messages)
     {
         foreach (ServiceBusEventMessage<T> message in messages)
         {
-            await RaiseEventAsync(name, message);
+            await RaiseEventAsync(name:name, message:message);
         }
     }
 

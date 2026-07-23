@@ -19,17 +19,17 @@ public partial class ServiceBusServiceTests
 
         serviceBusBrokerMock
             .Setup(broker => broker.CreateProcessor(inputName))
-            .Throws(innerException);
+            .Throws(exception:innerException);
 
         Action listenToEventAction = () =>
             serviceBusService.ListenToEvent<FakeObject>(
-                inputName,
-                (_, _) => ValueTask.CompletedTask);
+name:                inputName,
+handler:                (_, _) => ValueTask.CompletedTask);
 
         Exception actualException =
             listenToEventAction.Should().Throw<Exception>().Which;
 
-        actualException.Should().BeSameAs(innerException);
+        actualException.Should().BeSameAs(expected:innerException);
     }
 
     [Fact]
@@ -41,20 +41,20 @@ public partial class ServiceBusServiceTests
 
         serviceBusBrokerMock
             .Setup(broker => broker.CreateProcessor(inputName))
-            .Returns(serviceBusProcessorMock.Object);
+            .Returns(value:serviceBusProcessorMock.Object);
 
         serviceBusBrokerMock
             .Setup(broker => broker.StartProcessorAsync(inputName))
-            .Returns(ValueTask.FromException(innerException));
+            .Returns(value:ValueTask.FromException(innerException));
 
         Action listenToEventAction = () =>
             serviceBusService.ListenToEvent<FakeObject>(
-                inputName,
-                (_, _) => ValueTask.CompletedTask);
+name:                inputName,
+handler:                (_, _) => ValueTask.CompletedTask);
 
         Exception actualException =
             listenToEventAction.Should().Throw<Exception>().Which;
 
-        actualException.Should().BeSameAs(innerException);
+        actualException.Should().BeSameAs(expected:innerException);
     }
 }

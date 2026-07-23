@@ -13,16 +13,16 @@ internal class EventBroker<T> : IEventBroker<T>
 
     public IEnumerable<Func<IServiceProvider, T, ValueTask>> GetHandlers(string name)
     {
-        functionBindings.TryGetValue(name, out ICollection<Func<IServiceProvider, T, ValueTask>> value);
-        return value ?? SetupEventForListening(name);
+        functionBindings.TryGetValue(key:name, value:out ICollection<Func<IServiceProvider, T, ValueTask>> value);
+        return value ?? SetupEventForListening(name:name);
     }
 
     public void ListenToEvent(string name, Func<IServiceProvider, T, ValueTask> handler)
     {
         ICollection<Func<IServiceProvider, T, ValueTask>> handlerSet =
-            GetHandlers(name) as ICollection<Func<IServiceProvider, T, ValueTask>>;
+            GetHandlers(name:name) as ICollection<Func<IServiceProvider, T, ValueTask>>;
 
-        handlerSet.Add(handler);
+        handlerSet.Add(item:handler);
         functionBindings[name] = handlerSet;
     }
 
@@ -30,11 +30,11 @@ internal class EventBroker<T> : IEventBroker<T>
     {
         lock (functionBindings)
         {
-            functionBindings.TryGetValue(name, out ICollection<Func<IServiceProvider, T, ValueTask>> value);
+            functionBindings.TryGetValue(key:name, value:out ICollection<Func<IServiceProvider, T, ValueTask>> value);
 
             if (value is null)
             {
-                functionBindings.Add(name, new List<Func<IServiceProvider, T, ValueTask>>());
+                functionBindings.Add(key:name, value:new List<Func<IServiceProvider, T, ValueTask>>());
             }
 
             return functionBindings[name];

@@ -28,11 +28,11 @@ public partial class EventProviderServiceTests
 
         serviceScopeMock
             .SetupGet(scope => scope.ServiceProvider)
-            .Returns(scopedServiceProviderMock.Object);
+            .Returns(value:scopedServiceProviderMock.Object);
 
         serviceProviderBrokerMock
             .Setup(broker => broker.GetScopeForEvent(It.IsAny<EventMessage>()))
-            .Returns(serviceScopeMock.Object);
+            .Returns(value:serviceScopeMock.Object);
     }
 
     private IEventProviderService CreateEventProviderService(params EventProvider[] eventProviders) =>

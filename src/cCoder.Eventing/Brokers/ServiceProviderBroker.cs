@@ -30,5 +30,5 @@ internal class ServiceProviderBroker(IServiceProvider serviceProvider)
         serviceProvider.GetService<T>();
 
     public object GetService(Type type) => 
-        serviceProvider.GetService(type);
+        serviceProvider.GetService(serviceType:type);
 }

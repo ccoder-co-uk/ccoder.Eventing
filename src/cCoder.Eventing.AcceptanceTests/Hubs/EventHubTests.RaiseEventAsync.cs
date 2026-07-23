@@ -19,17 +19,17 @@ public partial class EventHubTests
         IEventHub eventHub = serviceProvider.GetRequiredService<IEventHub>();
 
         eventHub.ListenToEvent<TestPayload, TestEventHandlingService>(
-            EventName,
-            (handlingService, message) => handlingService.HandleAsync(message));
+name:            EventName,
+handler:            (handlingService, message) => handlingService.HandleAsync(message));
 
         await eventHub.RaiseEventAsync(
-            EventName,
-            CreateMessage("payload-value", "event-user"));
+name:            EventName,
+message:            CreateMessage("payload-value", "event-user"));
 
         TestEventHandlingBroker state = serviceProvider.GetRequiredService<TestEventHandlingBroker>();
 
-        Assert.Single(state.Records);
-        Assert.Equal("payload-value", state.Records[0].PayloadValue);
-        Assert.Equal("event-user", state.Records[0].UserId);
+        Assert.Single(collection:state.Records);
+        Assert.Equal(expected:"payload-value", actual:state.Records[0].PayloadValue);
+        Assert.Equal(expected:"event-user", actual:state.Records[0].UserId);
     }
 }

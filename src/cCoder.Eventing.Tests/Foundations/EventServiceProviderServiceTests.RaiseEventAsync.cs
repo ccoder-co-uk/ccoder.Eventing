@@ -24,15 +24,15 @@ public partial class EventServiceProviderServiceTests
 
         serviceProviderBrokerMock
             .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
-            .Returns(eventProcessingServiceMock.Object);
+            .Returns(value:eventProcessingServiceMock.Object);
 
-        eventServiceProviderService.ListenToEvent<FakeObject>(inputName, (_, _) => ValueTask.CompletedTask);
+        eventServiceProviderService.ListenToEvent<FakeObject>(name:inputName, handler:(_, _) => ValueTask.CompletedTask);
 
-        await eventServiceProviderService.RaiseEventAsync(inputName, inputMessage);
+        await eventServiceProviderService.RaiseEventAsync(name:inputName, message:inputMessage);
 
         eventProcessingServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, inputMessage),
-            Times.Once);
+expression:            service => service.RaiseEventAsync(inputName, inputMessage),
+times:            Times.Once);
     }
 
     [Fact]
@@ -46,7 +46,7 @@ public partial class EventServiceProviderServiceTests
         };
 
         Func<Task> raiseEventAsyncTask = async () =>
-            await eventServiceProviderService.RaiseEventAsync(inputName, inputMessage);
+            await eventServiceProviderService.RaiseEventAsync(name:inputName, message:inputMessage);
 
         await raiseEventAsyncTask.Should().NotThrowAsync();
     }

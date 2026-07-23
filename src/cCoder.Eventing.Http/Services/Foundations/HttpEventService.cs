@@ -21,7 +21,7 @@ internal class HttpEventService(
     public void ListenToEvent<T>(
         string name,
         Func<IServiceProvider, T, ValueTask> handler) =>
-            eventHandlerRegistry.ListenToEvent(name, handler);
+            eventHandlerRegistry.ListenToEvent(name:name, handler:handler);
 
     public async ValueTask RaiseEventAsync<T>(
         string name,
@@ -30,18 +30,18 @@ internal class HttpEventService(
     {
         try
         {
-            ValidateRequest(name, message);
+            ValidateRequest(name:name, message:message);
 
             HttpEventMessage httpEventMessage = new()
             {
                 EventName = name,
                 SSOUserId = message.AuthInfo.SSOUserId,
                 Data = JsonSerializer.Serialize(
-                    message.Data,
-                    options.JsonSerializerOptions)
+value:                    message.Data,
+options:                    options.JsonSerializerOptions)
             };
 
-            await httpEventBroker.SendAsync(httpEventMessage, cancellationToken);
+            await httpEventBroker.SendAsync(message:httpEventMessage, cancellationToken:cancellationToken);
         }
         catch (Exception ex)
         {
@@ -59,15 +59,15 @@ internal class HttpEventService(
         HttpEventMessage message,
         CancellationToken cancellationToken = default)
     {
-        ValidateRequest(message);
-        await httpEventQueue.EnqueueAsync(message, cancellationToken);
+        ValidateRequest(message:message);
+        await httpEventQueue.EnqueueAsync(message:message, cancellationToken:cancellationToken);
     }
 
     private static void ValidateRequest<T>(
         string name,
         EventMessage<T> message)
     {
-        if (string.IsNullOrWhiteSpace(name))
+        if (string.IsNullOrWhiteSpace(value:name))
             throw new InvalidOperationException("You must provide an event name when raising events.");
 
         if (message is null)
@@ -85,10 +85,10 @@ internal class HttpEventService(
         if (message is null)
             throw new InvalidOperationException("You must provide a message when receiving events.");
 
-        if (string.IsNullOrWhiteSpace(message.EventName))
+        if (string.IsNullOrWhiteSpace(value:message.EventName))
             throw new InvalidOperationException("You must provide an event name when receiving events.");
 
-        if (string.IsNullOrWhiteSpace(message.Data))
+        if (string.IsNullOrWhiteSpace(value:message.Data))
             throw new InvalidOperationException("You must provide message data when receiving events.");
     }
 }

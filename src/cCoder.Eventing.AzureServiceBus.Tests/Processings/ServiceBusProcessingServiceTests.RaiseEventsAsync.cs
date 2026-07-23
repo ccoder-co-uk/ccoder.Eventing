@@ -29,11 +29,11 @@ public partial class ServiceBusProcessingServiceTests
             }
         ];
 
-        await serviceBusProcessingService.RaiseEventsAsync(inputName, inputMessages);
+        await serviceBusProcessingService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
         serviceBusServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, It.IsAny<ServiceBusEventMessage<FakeObject>>()),
-            Times.Exactly(inputMessages.Length));
+expression:            service => service.RaiseEventAsync(inputName, It.IsAny<ServiceBusEventMessage<FakeObject>>()),
+times:            Times.Exactly(inputMessages.Length));
     }
 
     [Fact]
@@ -55,12 +55,12 @@ public partial class ServiceBusProcessingServiceTests
         ];
 
         Func<Task> raiseEventsAsyncTask = async () =>
-            await serviceBusProcessingService.RaiseEventsAsync(inputName, inputMessages);
+            await serviceBusProcessingService.RaiseEventsAsync(name:inputName, messages:inputMessages);
 
         await raiseEventsAsyncTask.Should().ThrowAsync<InvalidOperationException>();
 
         serviceBusServiceMock.Verify(
-            service => service.RaiseEventAsync(inputName, It.IsAny<ServiceBusEventMessage<FakeObject>>()),
-            Times.Once);
+expression:            service => service.RaiseEventAsync(inputName, It.IsAny<ServiceBusEventMessage<FakeObject>>()),
+times:            Times.Once);
     }
 }

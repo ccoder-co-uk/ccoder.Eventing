@@ -21,18 +21,18 @@ public partial class EventServiceProviderServiceTests
 
         serviceProviderBrokerMock
             .Setup(broker => broker.GetService<IEventProcessingService<FakeObject>>())
-            .Returns(eventProcessingServiceMock.Object);
+            .Returns(value:eventProcessingServiceMock.Object);
 
         eventProcessingServiceMock
             .Setup(service => service.ListenToEvent(inputName, inputHandler))
-            .Throws(innerException);
+            .Throws(exception:innerException);
 
         Action listenToEventAction = () =>
-            eventServiceProviderService.ListenToEvent(inputName, inputHandler);
+            eventServiceProviderService.ListenToEvent(name:inputName, handler:inputHandler);
 
         Exception actualException =
             listenToEventAction.Should().Throw<Exception>().Which;
 
-        actualException.Should().BeSameAs(innerException);
+        actualException.Should().BeSameAs(expected:innerException);
     }
 }

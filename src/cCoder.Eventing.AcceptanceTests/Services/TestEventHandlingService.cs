@@ -14,7 +14,7 @@ internal sealed class TestEventHandlingService(
 {
     public ValueTask HandleAsync(TestPayload payload)
     {
-        state.Records.Add(new EventRecord
+        state.Records.Add(item:new EventRecord
         {
             PayloadValue = payload.Value,
             UserId = authInfo.SSOUserId

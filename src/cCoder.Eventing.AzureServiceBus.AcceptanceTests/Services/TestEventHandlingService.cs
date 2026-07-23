@@ -14,7 +14,7 @@ internal sealed class TestEventHandlingService(
 {
     public ValueTask HandleAsync(TestPayload payload)
     {
-        broker.AddRecord(new EventRecord
+        broker.AddRecord(record:new EventRecord
         {
             PayloadValue = payload.Value,
             UserId = authInfo.SSOUserId
