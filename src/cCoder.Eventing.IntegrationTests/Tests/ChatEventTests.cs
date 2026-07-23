@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Eventing.Apps;
+using cCoder.Eventing.Apps.Dependencies;
 using cCoder.Eventing.Apps.Models;
 using FluentAssertions;
 using Microsoft.AspNetCore.Builder;
@@ -89,7 +89,9 @@ methodName: "chatReceived",
 handler: message =>
             {
                 if (message.Text == expectedText)
+                {
                     completionSource.TrySetResult(result:message);
+                }
             });
 
         await hubConnection.StartAsync();
@@ -137,7 +139,9 @@ task2: Task.Delay(delay:TimeSpan.FromSeconds(seconds:10)));
                 Path.Combine(path1:directory.FullName, path2:"src", path3:"Apps", path4:appDirectory);
 
             if (Directory.Exists(path:candidate))
+            {
                 return candidate;
+            }
 
             directory = directory.Parent;
         }

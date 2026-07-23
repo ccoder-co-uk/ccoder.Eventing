@@ -159,13 +159,5 @@
       "ToType": "cCoder.Eventing.Apps.Models.ChatConfiguration"
     }
   ],
-  "AnalysisItems": [
-    {
-      "Code": "STXAPI001",
-      "Description": "An API controller must have exactly one business dependency.",
-      "Severity": "Warning",
-      "Type": "cCoder.Eventing.Apps.Controllers.ChatController",
-      "LineNumber": 11
-    }
-  ]
+  "AnalysisItems": []
 }
