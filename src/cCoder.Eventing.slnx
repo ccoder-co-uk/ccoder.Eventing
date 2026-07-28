@@ -1,0 +1,29 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Apps/">
+    <Project Path="Apps/Eventing.App.Common/Eventing.App.Common.csproj" />
+    <Project Path="Apps/Eventing.App1.AcceptanceTests/Eventing.App1.AcceptanceTests.csproj" />
+    <Project Path="Apps/Eventing.App1/Eventing.App1.csproj" />
+    <Project Path="Apps/Eventing.App2.AcceptanceTests/Eventing.App2.AcceptanceTests.csproj" />
+    <Project Path="Apps/Eventing.App2/Eventing.App2.csproj" />
+  </Folder>
+  <Folder Name="/AzureServiceBus/">
+    <Project Path="cCoder.Eventing.AzureServiceBus.AcceptanceTests/cCoder.Eventing.AzureServiceBus.AcceptanceTests.csproj" />
+    <Project Path="cCoder.Eventing.AzureServiceBus.Tests/cCoder.Eventing.AzureServiceBus.Tests.csproj" />
+    <Project Path="cCoder.Eventing.AzureServiceBus/cCoder.Eventing.AzureServiceBus.csproj" />
+  </Folder>
+  <Folder Name="/Http/">
+    <Project Path="cCoder.Eventing.Http.Tests/cCoder.Eventing.Http.Tests.csproj" />
+    <Project Path="cCoder.Eventing.Http/cCoder.Eventing.Http.csproj" />
+  </Folder>
+  <Folder Name="/Internal/">
+    <Project Path="cCoder.Eventing.AcceptanceTests/cCoder.Eventing.AcceptanceTests.csproj" />
+    <Project Path="cCoder.Eventing.Tests/cCoder.Eventing.Tests.csproj" />
+    <Project Path="cCoder.Eventing/cCoder.Eventing.csproj" />
+  </Folder>
+  <Project Path="cCoder.Eventing.IntegrationTests/cCoder.Eventing.IntegrationTests.csproj" />
+</Solution>
