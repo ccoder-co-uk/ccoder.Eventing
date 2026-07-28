@@ -23,8 +23,9 @@ public partial class ServiceBusServiceTests
             .Returns(value:serviceBusProcessorMock.Object);
 
         serviceBusBrokerMock
-            .Setup(expression:broker => broker.StartProcessorAsync(name:inputName))
-            .Returns(value:ValueTask.CompletedTask);
+            .Setup(expression:broker => broker.StartProcessorAsync(
+                processor: serviceBusProcessorMock.Object))
+            .Returns(value: Task.CompletedTask);
 
         // When
 
@@ -39,7 +40,8 @@ expression: broker => broker.CreateProcessor(name:inputName),
 times: Times.Once);
 
         serviceBusBrokerMock.Verify(
-expression: broker => broker.StartProcessorAsync(name:inputName),
+expression: broker => broker.StartProcessorAsync(
+    processor: serviceBusProcessorMock.Object),
 times: Times.Once);
     }
 }

@@ -12,6 +12,7 @@ using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
+using System.Text.Json;
 using Xunit;
 
 namespace cCoder.Eventing.Http.Tests.Services;
@@ -126,6 +127,10 @@ handler: (serviceProvider, payload) =>
                 serviceProviderBrokerMock.Object,
                 eventHandlerRegistry,
                 eventProviders,
-                new HttpEventingOptions(),
+                new HttpEventingOptions
+                {
+                    JsonSerializerOptions =
+                        new JsonSerializerOptions(JsonSerializerDefaults.Web)
+                },
                 Mock.Of<ILogger<HttpEventDispatcher>>());
 }

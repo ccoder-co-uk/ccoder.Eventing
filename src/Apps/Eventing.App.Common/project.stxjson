@@ -22,33 +22,6 @@
       ]
     },
     {
-      "Name": "cCoder.Eventing.Apps.Dependencies.ChatApplication",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "Configure",
-          "Inputs": [
-            {
-              "Name": "builder",
-              "Type": "WebApplicationBuilder"
-            }
-          ],
-          "ReturnType": "WebApplicationBuilder"
-        },
-        {
-          "Name": "Start",
-          "Inputs": [
-            {
-              "Name": "app",
-              "Type": "WebApplication"
-            }
-          ],
-          "ReturnType": "WebApplication"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Eventing.Apps.Dependencies.ChatHub",
       "StandardElementType": "Dependency",
       "Properties": [],
@@ -56,7 +29,7 @@
     },
     {
       "Name": "cCoder.Eventing.Apps.Dependencies.ChatOrchestrationService",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Unknown",
       "Properties": [],
       "Methods": [
         {
@@ -86,19 +59,29 @@
       ]
     },
     {
-      "Name": "cCoder.Eventing.Apps.Models.ChatConfiguration",
-      "StandardElementType": "Model",
-      "Properties": [
+      "Name": "cCoder.Eventing.Apps.IServiceCollectionExtensions",
+      "StandardElementType": "App",
+      "Properties": [],
+      "Methods": [
         {
-          "Name": "AppName",
-          "Type": "System.String"
-        },
-        {
-          "Name": "RemoteHubUrl",
-          "Type": "System.String"
+          "Name": "AddEventingAppCommon",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "applicationConfiguration",
+              "Type": "Microsoft.Extensions.Configuration.IConfiguration"
+            },
+            {
+              "Name": "configure",
+              "Type": "System.Action\u003CcCoder.Eventing.Apps.Models.EventingAppCommonConfiguration\u003E?"
+            }
+          ],
+          "ReturnType": "System.Void"
         }
-      ],
-      "Methods": []
+      ]
     },
     {
       "Name": "cCoder.Eventing.Apps.Models.ChatEventNames",
@@ -147,6 +130,38 @@
         }
       ],
       "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Models.EventingAppCommonConfiguration",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "AppName",
+          "Type": "System.String"
+        },
+        {
+          "Name": "RemoteHubUrl",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.WebApplicationExtensions",
+      "StandardElementType": "App",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "StartEventingChat",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
+            }
+          ],
+          "ReturnType": "WebApplication"
+        }
+      ]
     }
   ],
   "Links": [
@@ -156,7 +171,7 @@
     },
     {
       "FromType": "cCoder.Eventing.Apps.Dependencies.ChatOrchestrationService",
-      "ToType": "cCoder.Eventing.Apps.Models.ChatConfiguration"
+      "ToType": "cCoder.Eventing.Apps.Models.EventingAppCommonConfiguration"
     }
   ],
   "AnalysisItems": []

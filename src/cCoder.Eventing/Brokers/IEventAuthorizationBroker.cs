@@ -8,5 +8,7 @@ namespace cCoder.Eventing.Brokers;
 
 internal interface IEventAuthorizationBroker
 {
+    void SetEventMessage(EventMessage message);
+
     IEventAuthInfo GetEventAuthInfo();
 }

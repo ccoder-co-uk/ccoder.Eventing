@@ -2,7 +2,7 @@
   "Classes": [
     {
       "Name": "Eventing.App1.Program",
-      "StandardElementType": "Exposure",
+      "StandardElementType": "App",
       "Properties": [],
       "Methods": [
         {

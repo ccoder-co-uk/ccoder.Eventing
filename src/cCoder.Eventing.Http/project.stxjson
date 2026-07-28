@@ -23,7 +23,7 @@
     },
     {
       "Name": "cCoder.Eventing.Http.Dependencies.HttpEventBroker",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Unknown",
       "Properties": [],
       "Methods": [
         {
@@ -44,7 +44,7 @@
     },
     {
       "Name": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Unknown",
       "Properties": [],
       "Methods": [
         {
@@ -71,7 +71,7 @@
     },
     {
       "Name": "cCoder.Eventing.Http.Dependencies.HttpEventHandlerRegistry",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Unknown",
       "Properties": [],
       "Methods": [
         {
@@ -102,7 +102,7 @@
     },
     {
       "Name": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingService",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Unknown",
       "Properties": [],
       "Methods": [
         {
@@ -173,7 +173,7 @@
     },
     {
       "Name": "cCoder.Eventing.Http.Dependencies.HttpEventQueue",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Unknown",
       "Properties": [],
       "Methods": [
         {
@@ -204,7 +204,7 @@
     },
     {
       "Name": "cCoder.Eventing.Http.Dependencies.HttpEventService",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Unknown",
       "Properties": [],
       "Methods": [
         {
@@ -254,12 +254,6 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         }
       ]
-    },
-    {
-      "Name": "cCoder.Eventing.Http.Dependencies.ServiceCollectionDependency",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
     },
     {
       "Name": "cCoder.Eventing.Http.HttpEventHub",
@@ -333,12 +327,29 @@
       ]
     },
     {
-      "Name": "cCoder.Eventing.Http.IServiceCollectionExtensions",
+      "Name": "cCoder.Eventing.Http.IMvcBuilderExtensions",
       "StandardElementType": "Exposure",
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddHttpEventing",
+          "Name": "AddHttpEventingControllers",
+          "Inputs": [
+            {
+              "Name": "builder",
+              "Type": "IMvcBuilder"
+            }
+          ],
+          "ReturnType": "IMvcBuilder"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Http.IServiceCollectionExtensions",
+      "StandardElementType": "App",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddHttpEventingHostedServices",
           "Inputs": [
             {
               "Name": "services",
@@ -352,17 +363,21 @@
           "ReturnType": "System.Void"
         },
         {
-          "Name": "AddHttpEventingControllers",
+          "Name": "AddHttpEventingHostedServices",
           "Inputs": [
             {
-              "Name": "builder",
-              "Type": "IMvcBuilder"
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "configuration",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventingOptions"
             }
           ],
-          "ReturnType": "IMvcBuilder"
+          "ReturnType": "System.Void"
         },
         {
-          "Name": "AddHttpEventingHostedServices",
+          "Name": "AddHttpEventingWeb",
           "Inputs": [
             {
               "Name": "services",
@@ -383,8 +398,8 @@
               "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
             },
             {
-              "Name": "configure",
-              "Type": "System.Action\u003CcCoder.Eventing.Http.Models.HttpEventingOptions\u003E"
+              "Name": "configuration",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventingOptions"
             }
           ],
           "ReturnType": "System.Void"
@@ -447,33 +462,6 @@
         }
       ],
       "Methods": []
-    },
-    {
-      "Name": "cCoder.Eventing.Http.WebApplicationExtensions",
-      "StandardElementType": "Exposure",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "StartHttpEventingHostedServices",
-          "Inputs": [
-            {
-              "Name": "app",
-              "Type": "WebApplication"
-            }
-          ],
-          "ReturnType": "WebApplication"
-        },
-        {
-          "Name": "StartHttpEventingWeb",
-          "Inputs": [
-            {
-              "Name": "app",
-              "Type": "WebApplication"
-            }
-          ],
-          "ReturnType": "WebApplication"
-        }
-      ]
     }
   ],
   "Links": [

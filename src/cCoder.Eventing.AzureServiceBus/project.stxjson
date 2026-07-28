@@ -50,6 +50,79 @@
       ]
     },
     {
+      "Name": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "CreateProcessor",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "ServiceBusProcessor"
+        },
+        {
+          "Name": "CreateSender",
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "ServiceBusSender"
+        },
+        {
+          "Name": "SendMessageAsync",
+          "Inputs": [
+            {
+              "Name": "sender",
+              "Type": "ServiceBusSender"
+            },
+            {
+              "Name": "message",
+              "Type": "ServiceBusMessage"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task"
+        },
+        {
+          "Name": "StartProcessorAsync",
+          "Inputs": [
+            {
+              "Name": "processor",
+              "Type": "ServiceBusProcessor"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusEventAuthorizationBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetEventAuthInfo",
+          "Inputs": [],
+          "ReturnType": "cCoder.Eventing.AzureServiceBus.Models.IServiceBusEventAuthInfo"
+        },
+        {
+          "Name": "SetEventMessage",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceProviderBroker",
       "StandardElementType": "Broker",
       "Properties": [],
@@ -87,61 +160,8 @@
       ]
     },
     {
-      "Name": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusBroker",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "CreateProcessor",
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "ServiceBusProcessor"
-        },
-        {
-          "Name": "SendMessageAsync",
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "message",
-              "Type": "ServiceBusMessage"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
-          "Name": "StartProcessorAsync",
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusEventAuthorizationBroker",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "GetEventAuthInfo",
-          "Inputs": [],
-          "ReturnType": "cCoder.Eventing.AzureServiceBus.Models.IServiceBusEventAuthInfo"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions",
-      "StandardElementType": "Exposure",
+      "StandardElementType": "App",
       "Properties": [],
       "Methods": [
         {
@@ -187,6 +207,20 @@
           "ReturnType": "System.Void"
         },
         {
+          "Name": "AddAzureServiceBusEventingHostedServices",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "configuration",
+              "Type": "cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
           "Name": "AddAzureServiceBusEventingWeb",
           "Inputs": [
             {
@@ -196,6 +230,20 @@
             {
               "Name": "configure",
               "Type": "System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddAzureServiceBusEventingWeb",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "configuration",
+              "Type": "cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration"
             }
           ],
           "ReturnType": "System.Void"
@@ -219,19 +267,19 @@
     },
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
-      "StandardElementType": "Model",
+      "StandardElementType": "Dependency",
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException",
-      "StandardElementType": "Model",
+      "StandardElementType": "Dependency",
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceValidationException",
-      "StandardElementType": "Model",
+      "StandardElementType": "Dependency",
       "Properties": [],
       "Methods": []
     },
@@ -365,68 +413,6 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         }
       ]
-    },
-    {
-      "Name": "cCoder.Eventing.AzureServiceBus.Services.Processings.ServiceCollectionProcessingService",
-      "StandardElementType": "ProcessingService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "AddAzureServiceBusEventingConnection",
-          "Inputs": [
-            {
-              "Name": "services",
-              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
-            },
-            {
-              "Name": "serviceBusConnectionString",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "AddConfiguredAzureServiceBusEventingConfiguration",
-          "Inputs": [
-            {
-              "Name": "services",
-              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
-            },
-            {
-              "Name": "newConfigure",
-              "Type": "System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E"
-            }
-          ],
-          "ReturnType": "System.Void"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.AzureServiceBus.WebApplicationExtensions",
-      "StandardElementType": "Exposure",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "StartAzureServiceBusEventingHostedServices",
-          "Inputs": [
-            {
-              "Name": "app",
-              "Type": "WebApplication"
-            }
-          ],
-          "ReturnType": "WebApplication"
-        },
-        {
-          "Name": "StartAzureServiceBusEventingWeb",
-          "Inputs": [
-            {
-              "Name": "app",
-              "Type": "WebApplication"
-            }
-          ],
-          "ReturnType": "WebApplication"
-        }
-      ]
     }
   ],
   "Links": [
@@ -435,16 +421,16 @@
       "ToType": "cCoder.Eventing.AzureServiceBus.Services.Processings.ServiceBusProcessingService"
     },
     {
-      "FromType": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusBroker",
+      "FromType": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusBroker",
       "ToType": "cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration"
     },
     {
       "FromType": "cCoder.Eventing.AzureServiceBus.Services.Foundations.ServiceBusService",
-      "ToType": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceProviderBroker"
+      "ToType": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusBroker"
     },
     {
       "FromType": "cCoder.Eventing.AzureServiceBus.Services.Foundations.ServiceBusService",
-      "ToType": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusBroker"
+      "ToType": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceProviderBroker"
     },
     {
       "FromType": "cCoder.Eventing.AzureServiceBus.Services.Processings.ServiceBusProcessingService",

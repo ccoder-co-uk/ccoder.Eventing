@@ -8,5 +8,7 @@ namespace cCoder.Eventing.AzureServiceBus.Brokers;
 
 internal interface IServiceBusEventAuthorizationBroker
 {
+    void SetEventMessage(ServiceBusEventMessage message);
+
     IServiceBusEventAuthInfo GetEventAuthInfo();
 }

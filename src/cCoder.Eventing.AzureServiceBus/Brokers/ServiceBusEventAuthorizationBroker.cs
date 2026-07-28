@@ -2,15 +2,17 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Eventing.AzureServiceBus.Brokers;
 using cCoder.Eventing.AzureServiceBus.Models;
 
-namespace cCoder.Eventing.AzureServiceBus.Dependencies;
+namespace cCoder.Eventing.AzureServiceBus.Brokers;
 
 internal class ServiceBusEventAuthorizationBroker : IServiceBusEventAuthorizationBroker
 {
-    internal ServiceBusEventMessage Message { get; set; }
+    private ServiceBusEventMessage message;
+
+    public void SetEventMessage(ServiceBusEventMessage message) =>
+        this.message = message;
 
     public IServiceBusEventAuthInfo GetEventAuthInfo() =>
-        Message?.AuthInfo;
+        message?.AuthInfo;
 }

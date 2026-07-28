@@ -14,7 +14,7 @@ internal class ChatOrchestrationService(
         IEventHub eventHub,
         IHttpEventHub httpEventHub,
         IHubContext<ChatHub> chatHub,
-        ChatConfiguration configuration)
+        EventingAppCommonConfiguration configuration)
             : IChatOrchestrationService
 {
     public async ValueTask<ChatMessage> SendAsync(

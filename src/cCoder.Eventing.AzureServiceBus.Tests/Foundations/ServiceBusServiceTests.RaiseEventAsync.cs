@@ -20,6 +20,7 @@ public partial class ServiceBusServiceTests
 
         string inputName = "event-name";
         ServiceBusMessage actualMessage = null;
+        Mock<ServiceBusSender> serviceBusSenderMock = new();
 
         ServiceBusEventMessage<FakeObject> inputEventMessage = new()
         {
@@ -28,11 +29,16 @@ public partial class ServiceBusServiceTests
         };
 
         serviceBusBrokerMock
+            .Setup(expression: broker => broker.CreateSender(name: inputName))
+            .Returns(value: serviceBusSenderMock.Object);
+
+        serviceBusBrokerMock
             .Setup(expression:broker => broker.SendMessageAsync(
-name: inputName,
+sender: serviceBusSenderMock.Object,
 message: It.IsAny<ServiceBusMessage>()))
-            .Callback<string, ServiceBusMessage>(action:(_, message) => actualMessage = message)
-            .Returns(value:ValueTask.CompletedTask);
+            .Callback<ServiceBusSender, ServiceBusMessage>(
+                action: (_, message) => actualMessage = message)
+            .Returns(value: Task.CompletedTask);
 
         // When
 
@@ -50,7 +56,9 @@ message: It.IsAny<ServiceBusMessage>()))
             .Contain(expected:nameof(FakeObject));
 
         serviceBusBrokerMock.Verify(
-expression: broker => broker.SendMessageAsync(name:inputName, message:It.IsAny<ServiceBusMessage>()),
+expression: broker => broker.SendMessageAsync(
+    sender: serviceBusSenderMock.Object,
+    message: It.IsAny<ServiceBusMessage>()),
 times: Times.Once);
     }
 
@@ -60,6 +68,7 @@ times: Times.Once);
         // Given
 
         string inputName = "event-name";
+        Mock<ServiceBusSender> serviceBusSenderMock = new();
 
         ServiceBusEventMessage<FakeObject> inputEventMessage = new()
         {
@@ -70,8 +79,14 @@ times: Times.Once);
         Exception serviceBusException = new("Broker failure");
 
         serviceBusBrokerMock
-            .Setup(expression:broker => broker.SendMessageAsync(name:inputName, message:It.IsAny<ServiceBusMessage>()))
-            .Returns(value:new ValueTask(Task.FromException(exception:serviceBusException)));
+            .Setup(expression: broker => broker.CreateSender(name: inputName))
+            .Returns(value: serviceBusSenderMock.Object);
+
+        serviceBusBrokerMock
+            .Setup(expression: broker => broker.SendMessageAsync(
+                sender: serviceBusSenderMock.Object,
+                message: It.IsAny<ServiceBusMessage>()))
+            .Returns(value: Task.FromException(exception: serviceBusException));
 
         // When
 
@@ -93,6 +108,7 @@ times: Times.Once);
         // Given
 
         string inputName = "event-name";
+        Mock<ServiceBusSender> serviceBusSenderMock = new();
 
         ServiceBusEventMessage<FakeObject> inputEventMessage = new()
         {
@@ -104,8 +120,14 @@ times: Times.Once);
         Exception serviceBusException = new("Broker failure", innerException);
 
         serviceBusBrokerMock
-            .Setup(expression:broker => broker.SendMessageAsync(name:inputName, message:It.IsAny<ServiceBusMessage>()))
-            .Returns(value:new ValueTask(Task.FromException(exception:serviceBusException)));
+            .Setup(expression: broker => broker.CreateSender(name: inputName))
+            .Returns(value: serviceBusSenderMock.Object);
+
+        serviceBusBrokerMock
+            .Setup(expression: broker => broker.SendMessageAsync(
+                sender: serviceBusSenderMock.Object,
+                message: It.IsAny<ServiceBusMessage>()))
+            .Returns(value: Task.FromException(exception: serviceBusException));
 
         // When
 

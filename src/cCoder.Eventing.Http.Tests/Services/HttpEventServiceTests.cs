@@ -10,6 +10,7 @@ using cCoder.Eventing.Models;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
+using System.Text.Json;
 using Xunit;
 
 namespace cCoder.Eventing.Http.Tests.Services;
@@ -44,7 +45,11 @@ action: (message, _) => actualMessage = message)
             httpEventBrokerMock.Object,
             new HttpEventQueue(),
             new HttpEventHandlerRegistry(),
-            new HttpEventingOptions(),
+            new HttpEventingOptions
+            {
+                JsonSerializerOptions =
+                    new JsonSerializerOptions(JsonSerializerDefaults.Web)
+            },
             Mock.Of<ILogger<HttpEventService>>());
 
         // When

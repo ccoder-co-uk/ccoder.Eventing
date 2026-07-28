@@ -2,7 +2,6 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Eventing.Dependencies;
 using cCoder.Eventing.Models;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,11 +14,10 @@ internal class ServiceProviderBroker(IServiceProvider serviceProvider)
     {
         IServiceScope scope = serviceProvider.CreateScope();
 
-        EventAuthorizationBroker authBroker =
-            scope.ServiceProvider.GetService<IEventAuthorizationBroker>() 
-                as EventAuthorizationBroker;
+        IEventAuthorizationBroker authBroker =
+            scope.ServiceProvider.GetService<IEventAuthorizationBroker>();
 
-        authBroker.Message = message;
+        authBroker.SetEventMessage(message: message);
 
         return scope;
     }
@@ -29,6 +27,11 @@ internal class ServiceProviderBroker(IServiceProvider serviceProvider)
 
     public T GetService<T>() => 
         serviceProvider.GetService<T>();
+
+    public T[] GetServices<T>() =>
+        serviceProvider
+            .GetServices<T>()
+            .ToArray();
 
     public object GetService(Type type) => 
         serviceProvider.GetService(serviceType:type);

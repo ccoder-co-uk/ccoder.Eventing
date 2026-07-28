@@ -35,19 +35,36 @@ public partial class EventProviderServiceTests
             .Returns(value:serviceScopeMock.Object);
     }
 
-    private IEventProviderService CreateEventProviderService(params EventProvider[] eventProviders) =>
-        new EventProviderService(
-            serviceProviderBrokerMock.Object,
-            eventProviders,
-            [],
-            loggerMock.Object);
+    private IEventProviderService CreateEventProviderService(
+        params EventProvider[] eventProviders)
+    {
+        serviceProviderBrokerMock
+            .Setup(expression: broker => broker.GetServices<EventProvider>())
+            .Returns(value: eventProviders);
+
+        serviceProviderBrokerMock
+            .Setup(expression: broker => broker.GetServices<BulkEventProvider>())
+            .Returns(value: []);
+
+        return new EventProviderService(
+            serviceProviderBroker: serviceProviderBrokerMock.Object,
+            log: loggerMock.Object);
+    }
 
     private IEventProviderService CreateEventProviderService(
         EventProvider[] eventProviders,
-        BulkEventProvider[] bulkEventProviders) =>
-        new EventProviderService(
-            serviceProviderBrokerMock.Object,
-            eventProviders,
-            bulkEventProviders,
-            loggerMock.Object);
+        BulkEventProvider[] bulkEventProviders)
+    {
+        serviceProviderBrokerMock
+            .Setup(expression: broker => broker.GetServices<EventProvider>())
+            .Returns(value: eventProviders);
+
+        serviceProviderBrokerMock
+            .Setup(expression: broker => broker.GetServices<BulkEventProvider>())
+            .Returns(value: bulkEventProviders);
+
+        return new EventProviderService(
+            serviceProviderBroker: serviceProviderBrokerMock.Object,
+            log: loggerMock.Object);
+    }
 }

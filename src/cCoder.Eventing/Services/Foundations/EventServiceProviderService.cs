@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Brokers;
-using cCoder.Eventing.Dependencies;
+using cCoder.Eventing.Extensions;
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Services.Processings;
 using Microsoft.Extensions.Logging;
@@ -85,7 +85,7 @@ internal sealed partial class EventServiceProviderService : IEventServiceProvide
 
             try
             {
-                await EventDispatchDependency.HandleMessagesAsync(
+                await EventDispatchExtensions.HandleMessagesAsync(
                     messages: messages,
                     handler: message => RaiseEventInternalAsync(
                         name: name,

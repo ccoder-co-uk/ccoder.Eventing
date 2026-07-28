@@ -12,8 +12,7 @@ public class HttpEventingOptions
 
     public string HubUrl { get; set; }
 
-    public int MaxConcurrency { get; set; } = 1;
+    public int MaxConcurrency { get; set; }
 
-    public JsonSerializerOptions JsonSerializerOptions { get; set; } =
-        new(JsonSerializerDefaults.Web);
+    public JsonSerializerOptions JsonSerializerOptions { get; set; }
 }
