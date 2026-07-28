@@ -2,15 +2,17 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Eventing.Brokers;
 using cCoder.Eventing.Models;
 
-namespace cCoder.Eventing.Dependencies;
+namespace cCoder.Eventing.Brokers;
 
 internal class EventAuthorizationBroker : IEventAuthorizationBroker
 {
-    internal EventMessage Message { get; set; }
+    private EventMessage message;
+
+    public void SetEventMessage(EventMessage message) =>
+        this.message = message;
 
     public IEventAuthInfo GetEventAuthInfo() =>
-        Message?.AuthInfo;
+        message?.AuthInfo;
 }

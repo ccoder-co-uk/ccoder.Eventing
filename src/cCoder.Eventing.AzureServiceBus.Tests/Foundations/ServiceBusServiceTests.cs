@@ -22,8 +22,8 @@ public partial class ServiceBusServiceTests
         serviceProviderBrokerMock = new Mock<IServiceProviderBroker>();
         loggerMock = new Mock<ILogger<ServiceBusService>>();
         serviceBusService = new ServiceBusService(
-            serviceBusBrokerMock.Object,
-            serviceProviderBrokerMock.Object,
-            loggerMock.Object);
+            serviceBusBroker: serviceBusBrokerMock.Object,
+            serviceProviderBroker: serviceProviderBrokerMock.Object,
+            log: loggerMock.Object);
     }
 }

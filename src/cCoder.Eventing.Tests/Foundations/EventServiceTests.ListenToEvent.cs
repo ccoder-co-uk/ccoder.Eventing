@@ -2,9 +2,6 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Eventing.Brokers;
-using FluentAssertions;
-using Moq;
 using Xunit;
 
 namespace cCoder.Eventing.Tests.Foundations;
@@ -27,12 +24,8 @@ public partial class EventServiceTests
 
         // Then
 
-        serviceProviderBrokerMock.Verify(
-expression: broker => broker.GetService<IEventBroker<FakeObject>>(),
-times: Times.Once);
-
-        eventBrokerMock.Verify(
-expression: broker => broker.ListenToEvent(name:inputName, handler:inputHandler),
-times: Times.Once);
+        eventService.ListenToEvent(
+            name: inputName,
+            handler: inputHandler);
     }
 }

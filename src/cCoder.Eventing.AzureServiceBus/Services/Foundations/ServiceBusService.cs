@@ -15,6 +15,12 @@ internal sealed partial class ServiceBusService(
         IServiceProviderBroker serviceProviderBroker,
         ILogger<ServiceBusService> log) : IServiceBusService
 {
+    private readonly IDictionary<string, ServiceBusSender> senders =
+        new Dictionary<string, ServiceBusSender>();
+    private readonly IDictionary<string, ServiceBusProcessor> processors =
+        new Dictionary<string, ServiceBusProcessor>();
+    private readonly ISet<string> startedProcessors = new HashSet<string>();
+
     public void ListenToEvent<T>(
         string name,
         Func<IServiceProvider, T, ValueTask> handler) =>
@@ -24,7 +30,7 @@ internal sealed partial class ServiceBusService(
 
             try
             {
-                ServiceBusProcessor processor = serviceBusBroker.CreateProcessor(name:name);
+                ServiceBusProcessor processor = GetOrCreateProcessor(name: name);
 
                 processor.ProcessMessageAsync += (ProcessMessageEventArgs messageDetails) =>
                     HandleServiceBusMessage(serviceProviderBroker:serviceProviderBroker, handler:handler, messageDetails:messageDetails);
@@ -32,11 +38,7 @@ internal sealed partial class ServiceBusService(
                 processor.ProcessErrorAsync += (ProcessErrorEventArgs problemDetails) =>
                     HandleServiceBusError(name:name, problemDetails:problemDetails);
 
-                serviceBusBroker
-                    .StartProcessorAsync(name:name)
-                    .AsTask()
-                    .GetAwaiter()
-                    .GetResult();
+                StartProcessor(name: name, processor: processor);
             }
             catch (Exception ex)
             {
@@ -65,7 +67,11 @@ internal sealed partial class ServiceBusService(
                         .Name}_{Guid.NewGuid()}"
                 };
 
-                await serviceBusBroker.SendMessageAsync(name:name, message:message);
+                ServiceBusSender sender = GetOrCreateSender(name: name);
+
+                await serviceBusBroker.SendMessageAsync(
+                    sender: sender,
+                    message: message);
             }
             catch (Exception ex)
             {
@@ -85,6 +91,56 @@ internal sealed partial class ServiceBusService(
                 throw;
             }
         });
+
+    private ServiceBusSender GetOrCreateSender(string name)
+    {
+        lock (senders)
+        {
+            if (!senders.TryGetValue(key: name, value: out ServiceBusSender sender))
+            {
+                sender = serviceBusBroker.CreateSender(name: name);
+                senders[name] = sender;
+            }
+
+            return sender;
+        }
+    }
+
+    private ServiceBusProcessor GetOrCreateProcessor(string name)
+    {
+        lock (processors)
+        {
+            if (!processors.TryGetValue(
+                key: name,
+                value: out ServiceBusProcessor processor))
+            {
+                processor = serviceBusBroker.CreateProcessor(name: name);
+                processors[name] = processor;
+            }
+
+            return processor;
+        }
+    }
+
+    private void StartProcessor(
+        string name,
+        ServiceBusProcessor processor)
+    {
+        lock (processors)
+        {
+            if (startedProcessors.Contains(item: name))
+            {
+                return;
+            }
+
+            startedProcessors.Add(item: name);
+        }
+
+        serviceBusBroker
+            .StartProcessorAsync(processor: processor)
+            .GetAwaiter()
+            .GetResult();
+    }
 
     async Task HandleServiceBusMessage<T>(
         IServiceProviderBroker serviceProviderBroker,

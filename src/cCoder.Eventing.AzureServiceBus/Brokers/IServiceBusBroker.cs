@@ -8,7 +8,10 @@ namespace cCoder.Eventing.AzureServiceBus.Brokers;
 
 internal interface IServiceBusBroker
 {
+    ServiceBusSender CreateSender(string name);
     ServiceBusProcessor CreateProcessor(string name);
-    ValueTask StartProcessorAsync(string name);
-    ValueTask SendMessageAsync(string name, ServiceBusMessage message);
+    Task SendMessageAsync(
+        ServiceBusSender sender,
+        ServiceBusMessage message);
+    Task StartProcessorAsync(ServiceBusProcessor processor);
 }

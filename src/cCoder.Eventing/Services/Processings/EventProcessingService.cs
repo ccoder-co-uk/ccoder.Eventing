@@ -38,7 +38,13 @@ internal sealed partial class EventProcessingService<T>(
         TryCatch(operation: async () =>
         {
             Validate(inputs: [name, message]);
-            log.LogDebug(message:"Creating event scope for user {UserId}", args:message?.AuthInfo?.SSOUserId);
+
+            log.LogDebug(
+                message: "Creating event scope for user {UserId}",
+                args: message?
+                    .AuthInfo?
+                    .SSOUserId);
+
             await eventService.RaiseEventAsync(name:name, message:message);
         });
 }

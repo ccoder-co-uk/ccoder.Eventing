@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Brokers;
-using cCoder.Eventing.Dependencies;
+using cCoder.Eventing.Extensions;
 using cCoder.Eventing.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -15,6 +15,13 @@ internal sealed partial class EventService<T>(
         ILogger<EventService<T>> log) 
             : IEventService<T>
 {
+    private readonly IDictionary<
+        string,
+        ICollection<Func<IServiceProvider, T, ValueTask>>> handlersByName =
+            new Dictionary<
+                string,
+                ICollection<Func<IServiceProvider, T, ValueTask>>>();
+
     public void ListenToEvent(
         string name,
         Func<IServiceProvider, T, ValueTask> handler) =>
@@ -24,9 +31,8 @@ internal sealed partial class EventService<T>(
 
             try
             {
-                serviceProviderBroker
-                    .GetService<IEventBroker<T>>()
-                    .ListenToEvent(name:name, handler:handler);
+                GetOrCreateHandlers(name: name)
+                    .Add(item: handler);
             }
             catch (Exception ex)
             {
@@ -48,13 +54,13 @@ internal sealed partial class EventService<T>(
 
             try
             {
-            using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message:message);
+                using IServiceScope scope =
+                    serviceProviderBroker.GetScopeForEvent(message: message);
 
-            IEnumerable<Func<IServiceProvider, T, ValueTask>> handlers =
-                serviceProviderBroker.GetService<IEventBroker<T>>()
-                    .GetHandlers(name:name);
+                IEnumerable<Func<IServiceProvider, T, ValueTask>> handlers =
+                    GetOrCreateHandlers(name: name);
 
-                await EventDispatchDependency.HandleHandlersAsync(
+                await EventDispatchExtensions.HandleHandlersAsync(
                     handlers: handlers,
                     serviceProvider: scope.ServiceProvider,
                     message: message.Data);
@@ -69,4 +75,21 @@ internal sealed partial class EventService<T>(
                 throw;
             }
         });
+
+    private ICollection<Func<IServiceProvider, T, ValueTask>> GetOrCreateHandlers(
+        string name)
+    {
+        lock (handlersByName)
+        {
+            if (!handlersByName.TryGetValue(
+                key: name,
+                value: out ICollection<Func<IServiceProvider, T, ValueTask>> handlers))
+            {
+                handlers = new List<Func<IServiceProvider, T, ValueTask>>();
+                handlersByName.Add(key: name, value: handlers);
+            }
+
+            return handlers;
+        }
+    }
 }

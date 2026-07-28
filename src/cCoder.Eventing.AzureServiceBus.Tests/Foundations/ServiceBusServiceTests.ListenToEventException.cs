@@ -56,8 +56,9 @@ handler: (_, _) => ValueTask.CompletedTask);
             .Returns(value:serviceBusProcessorMock.Object);
 
         serviceBusBrokerMock
-            .Setup(expression:broker => broker.StartProcessorAsync(name:inputName))
-            .Returns(value:ValueTask.FromException(exception:innerException));
+            .Setup(expression:broker => broker.StartProcessorAsync(
+                processor: serviceBusProcessorMock.Object))
+            .Returns(value: Task.FromException(exception: innerException));
 
         // When
 

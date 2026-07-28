@@ -89,6 +89,6 @@ The solution contains:
 Run everything with:
 
 ```powershell
-dotnet build src/cCoder.Eventing.sln -c Release -m:1 /p:BuildInParallel=false /p:UseSharedCompilation=false
-dotnet test src/cCoder.Eventing.sln -c Release --no-build -m:1 /p:BuildInParallel=false /p:UseSharedCompilation=false
+dotnet build src/cCoder.Eventing.slnx -c Release -m:1 /p:BuildInParallel=false /p:UseSharedCompilation=false
+dotnet test src/cCoder.Eventing.slnx -c Release --no-build -m:1 /p:BuildInParallel=false /p:UseSharedCompilation=false
 ```

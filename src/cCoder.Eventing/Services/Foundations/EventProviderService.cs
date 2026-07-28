@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Brokers;
-using cCoder.Eventing.Dependencies;
+using cCoder.Eventing.Extensions;
 using cCoder.Eventing.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -12,8 +12,6 @@ namespace cCoder.Eventing.Services.Foundations;
 
 internal sealed partial class EventProviderService(
         IServiceProviderBroker serviceProviderBroker,
-        IEnumerable<EventProvider> eventProviders,
-        IEnumerable<BulkEventProvider> bulkEventProviders,
         ILogger<EventProviderService> log)
             : IEventProviderService
 {
@@ -28,7 +26,8 @@ internal sealed partial class EventProviderService(
             {
             ValidateRequest(name:name, message:message);
 
-            EventProvider[] matchingProviders = eventProviders
+            EventProvider[] matchingProviders = serviceProviderBroker
+                .GetServices<EventProvider>()
                 .Where(predicate:provider => provider.CanSend<T>(name:name))
                 .ToArray();
 
@@ -39,7 +38,7 @@ internal sealed partial class EventProviderService(
 
             using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message:message);
 
-            await EventDispatchDependency.HandleSendAsync(
+            await EventDispatchExtensions.HandleSendAsync(
                 providers: matchingProviders,
                 serviceProvider: scope.ServiceProvider,
                 eventName: name,
@@ -69,7 +68,8 @@ internal sealed partial class EventProviderService(
             {
             ValidateRequest(name:name, messages:messages);
 
-            BulkEventProvider[] matchingProviders = bulkEventProviders
+            BulkEventProvider[] matchingProviders = serviceProviderBroker
+                .GetServices<BulkEventProvider>()
                 .Where(predicate:provider => provider.CanHandle<T>(name:name))
                 .ToArray();
 
@@ -80,7 +80,7 @@ internal sealed partial class EventProviderService(
 
             using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message:messages[0]);
 
-            await EventDispatchDependency.HandleBulkAsync(
+            await EventDispatchExtensions.HandleBulkAsync(
                 providers: matchingProviders,
                 serviceProvider: scope.ServiceProvider,
                 messages: messages);

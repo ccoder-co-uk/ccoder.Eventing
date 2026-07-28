@@ -4,9 +4,9 @@
 
 using cCoder.Eventing.Models;
 
-namespace cCoder.Eventing.Dependencies;
+namespace cCoder.Eventing.Extensions;
 
-internal static class EventDispatchDependency
+internal static class EventDispatchExtensions
 {
     internal static async ValueTask HandleSendAsync<T>(
         EventProvider[] providers,

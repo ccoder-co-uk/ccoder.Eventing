@@ -2,7 +2,6 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Eventing.AzureServiceBus.Dependencies;
 using cCoder.Eventing.AzureServiceBus.Models;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,11 +13,10 @@ internal class ServiceProviderBroker(IServiceProvider serviceProvider) : IServic
     {
         IServiceScope scope = serviceProvider.CreateScope();
 
-        ServiceBusEventAuthorizationBroker authBroker =
-            scope.ServiceProvider.GetService<IServiceBusEventAuthorizationBroker>()
-                as ServiceBusEventAuthorizationBroker;
+        IServiceBusEventAuthorizationBroker authBroker =
+            scope.ServiceProvider.GetService<IServiceBusEventAuthorizationBroker>();
 
-        authBroker.Message = message;
+        authBroker.SetEventMessage(message: message);
 
         return scope;
     }

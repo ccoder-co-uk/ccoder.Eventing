@@ -52,9 +52,10 @@ public partial class EventServiceTests
             }
         ];
 
-        eventBrokerMock
-            .Setup(expression:broker => broker.GetHandlers(name:inputName))
-            .Returns(value:handlers);
+        foreach (Func<IServiceProvider, FakeObject, ValueTask> handler in handlers)
+        {
+            eventService.ListenToEvent(name: inputName, handler: handler);
+        }
 
         // When
 
@@ -68,9 +69,6 @@ public partial class EventServiceTests
         actualMessages.Should()
             .OnlyContain(predicate:message => message == inputMessage.Data);
 
-        eventBrokerMock.Verify(
-expression: broker => broker.GetHandlers(name:inputName),
-times: Times.Once);
     }
 
     [Fact]
@@ -95,10 +93,6 @@ times: Times.Once);
         serviceProviderBrokerMock
             .Setup(expression:broker => broker.GetScopeForEvent(message:inputMessage))
             .Returns(value:serviceScopeMock.Object);
-
-        eventBrokerMock
-            .Setup(expression:broker => broker.GetHandlers(name:inputName))
-            .Returns(value:Array.Empty<Func<IServiceProvider, FakeObject, ValueTask>>());
 
         // When
 
@@ -135,8 +129,9 @@ times: Times.Once);
             .Setup(expression:broker => broker.GetScopeForEvent(message:inputMessage))
             .Returns(value:serviceScopeMock.Object);
 
-        eventBrokerMock
-            .Setup(expression:broker => broker.GetHandlers(name:inputName))
+        serviceProviderBrokerMock
+            .Setup(expression: broker => broker.GetScopeForEvent(
+                message: inputMessage))
             .Throws(exception:innerException);
 
         // When
@@ -183,9 +178,9 @@ times: Times.Once);
             (_, _) => throw innerException
         ];
 
-        eventBrokerMock
-            .Setup(expression:broker => broker.GetHandlers(name:inputName))
-            .Returns(value:handlers);
+        eventService.ListenToEvent(
+            name: inputName,
+            handler: handlers.Single());
 
         // When
 

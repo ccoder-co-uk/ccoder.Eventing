@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Eventing.Apps.Dependencies;
+using cCoder.Eventing.Apps;
 using cCoder.Eventing.Apps.Models;
 using FluentAssertions;
 using Microsoft.AspNetCore.Builder;
@@ -50,7 +50,7 @@ public partial class ChatEventTests : IAsyncLifetime
 options: new WebApplicationOptions
             {
                 ContentRootPath = GetAppContentRoot(appDirectory:appDirectory),
-                ApplicationName = typeof(ChatApplication)
+                ApplicationName = typeof(cCoder.Eventing.Apps.IServiceCollectionExtensions)
                     .Assembly.FullName
             });
 
@@ -64,10 +64,11 @@ initialData: new Dictionary<string, string?>
                 ["EventingChat:RemoteHubUrl"] = remoteHubUrl
             });
 
-        ChatApplication.Configure(builder:builder);
+        builder.Services.AddEventingAppCommon(
+            applicationConfiguration: builder.Configuration);
 
         WebApplication app = builder.Build();
-        ChatApplication.Start(app:app);
+        app.StartEventingChat();
         await app.StartAsync();
 
         applications.Add(item:app);

@@ -1,6 +1,28 @@
 {
   "Classes": [
     {
+      "Name": "cCoder.Eventing.Brokers.EventAuthorizationBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetEventAuthInfo",
+          "Inputs": [],
+          "ReturnType": "cCoder.Eventing.Models.IEventAuthInfo"
+        },
+        {
+          "Name": "SetEventMessage",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.Brokers.ServiceProviderBroker",
       "StandardElementType": "Broker",
       "Properties": [],
@@ -34,57 +56,13 @@
           "Name": "GetServiceProvider",
           "Inputs": [],
           "ReturnType": "System.IServiceProvider"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.Dependencies.EventAuthorizationBroker",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "GetEventAuthInfo",
-          "Inputs": [],
-          "ReturnType": "cCoder.Eventing.Models.IEventAuthInfo"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.Dependencies.EventBroker\u003CT\u003E",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "GetHandlers",
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Collections.Generic.IEnumerable\u003CSystem.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E\u003E"
         },
         {
-          "Name": "ListenToEvent",
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "handler",
-              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
-            }
-          ],
-          "ReturnType": "System.Void"
+          "Name": "GetServices",
+          "Inputs": [],
+          "ReturnType": "T[]"
         }
       ]
-    },
-    {
-      "Name": "cCoder.Eventing.Dependencies.EventDispatchDependency",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": []
     },
     {
       "Name": "cCoder.Eventing.EventHub",
@@ -150,8 +128,14 @@
       ]
     },
     {
-      "Name": "cCoder.Eventing.IServiceCollectionExtensions",
+      "Name": "cCoder.Eventing.Extensions.EventDispatchExtensions",
       "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.IServiceCollectionExtensions",
+      "StandardElementType": "App",
       "Properties": [],
       "Methods": [
         {
@@ -245,6 +229,20 @@
           "ReturnType": "System.Void"
         },
         {
+          "Name": "AddEventingHostedServices",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "configuration",
+              "Type": "cCoder.Eventing.Models.EventingConfiguration"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
           "Name": "AddEventingWeb",
           "Inputs": [
             {
@@ -257,12 +255,26 @@
             }
           ],
           "ReturnType": "System.Void"
+        },
+        {
+          "Name": "AddEventingWeb",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
+            },
+            {
+              "Name": "configuration",
+              "Type": "cCoder.Eventing.Models.EventingConfiguration"
+            }
+          ],
+          "ReturnType": "System.Void"
         }
       ]
     },
     {
       "Name": "cCoder.Eventing.Models.BulkEventProvider",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Exposure",
       "Properties": [
         {
           "Name": "Events",
@@ -273,7 +285,7 @@
     },
     {
       "Name": "cCoder.Eventing.Models.BulkEventProvider\u003CT\u003E",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Exposure",
       "Properties": [
         {
           "Name": "Handler",
@@ -317,7 +329,7 @@
     },
     {
       "Name": "cCoder.Eventing.Models.EventProvider",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Exposure",
       "Properties": [
         {
           "Name": "DataType",
@@ -361,7 +373,7 @@
     },
     {
       "Name": "cCoder.Eventing.Models.EventProvider\u003CT\u003E",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Exposure",
       "Properties": [
         {
           "Name": "Handler",
@@ -407,19 +419,19 @@
     },
     {
       "Name": "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
-      "StandardElementType": "Model",
+      "StandardElementType": "Dependency",
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Eventing.Models.Exceptions.ServiceException",
-      "StandardElementType": "Model",
+      "StandardElementType": "Dependency",
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Eventing.Models.Exceptions.ServiceValidationException",
-      "StandardElementType": "Model",
+      "StandardElementType": "Dependency",
       "Properties": [],
       "Methods": []
     },
@@ -681,106 +693,6 @@
           "ReturnType": "System.Threading.Tasks.ValueTask"
         }
       ]
-    },
-    {
-      "Name": "cCoder.Eventing.Services.Processings.ServiceCollectionProcessingService",
-      "StandardElementType": "ProcessingService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "AddBulkEventProviders",
-          "Inputs": [
-            {
-              "Name": "services",
-              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
-            },
-            {
-              "Name": "newBulkEventProviders",
-              "Type": "cCoder.Eventing.Models.BulkEventProvider[]"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "AddConfiguredEventingConfiguration",
-          "Inputs": [
-            {
-              "Name": "services",
-              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
-            },
-            {
-              "Name": "newConfigure",
-              "Type": "System.Action\u003CcCoder.Eventing.Models.EventingConfiguration\u003E"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "AddEventProviders",
-          "Inputs": [
-            {
-              "Name": "services",
-              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
-            },
-            {
-              "Name": "newEventProviders",
-              "Type": "cCoder.Eventing.Models.EventProvider[]"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "AddEventingConfiguration",
-          "Inputs": [
-            {
-              "Name": "services",
-              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
-            },
-            {
-              "Name": "newEventingConfiguration",
-              "Type": "cCoder.Eventing.Models.EventingConfiguration"
-            }
-          ],
-          "ReturnType": "System.Void"
-        },
-        {
-          "Name": "AddEventingForType",
-          "Inputs": [
-            {
-              "Name": "services",
-              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
-            }
-          ],
-          "ReturnType": "System.Void"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.WebApplicationExtensions",
-      "StandardElementType": "Exposure",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "StartEventingHostedServices",
-          "Inputs": [
-            {
-              "Name": "app",
-              "Type": "WebApplication"
-            }
-          ],
-          "ReturnType": "WebApplication"
-        },
-        {
-          "Name": "StartEventingWeb",
-          "Inputs": [
-            {
-              "Name": "app",
-              "Type": "WebApplication"
-            }
-          ],
-          "ReturnType": "WebApplication"
-        }
-      ]
     }
   ],
   "Links": [
@@ -790,7 +702,7 @@
     },
     {
       "FromType": "cCoder.Eventing.Services.Foundations.EventAuthorizationService",
-      "ToType": "cCoder.Eventing.Dependencies.EventAuthorizationBroker"
+      "ToType": "cCoder.Eventing.Brokers.EventAuthorizationBroker"
     },
     {
       "FromType": "cCoder.Eventing.Services.Foundations.EventProviderService",
