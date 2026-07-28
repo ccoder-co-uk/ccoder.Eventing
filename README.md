@@ -3,6 +3,16 @@
 `cCoder.Eventing` provides lightweight event distribution for cCoder domain
 applications.
 
+## Local Configuration
+
+Configuration binds directly into `EventingConfiguration`. HTTP settings use
+the `Eventing__Http__...` environment-variable prefix and Azure Service Bus
+settings use `Eventing__ServiceBus__...`. Leave provider secrets empty in
+appsettings, define them as user-level or machine-level environment variables,
+restart Visual Studio, and press F5. Runtime event-handler delegates are created
+in `Program.cs` before the Eventing registration call because delegates cannot
+be supplied by the configuration binder.
+
 It contains three packages:
 
 - `cCoder.Eventing` for in-process publish/subscribe through `IEventHub`.

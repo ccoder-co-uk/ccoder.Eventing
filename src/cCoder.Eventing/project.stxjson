@@ -389,6 +389,18 @@
         {
           "Name": "EventProviders",
           "Type": "cCoder.Eventing.Models.EventProvider[]"
+        },
+        {
+          "Name": "Http",
+          "Type": "cCoder.Eventing.Models.HttpEventingConfiguration"
+        },
+        {
+          "Name": "ProviderType",
+          "Type": "System.String"
+        },
+        {
+          "Name": "ServiceBus",
+          "Type": "cCoder.Eventing.Models.ServiceBusEventingConfiguration"
         }
       ],
       "Methods": []
@@ -409,6 +421,36 @@
       "Name": "cCoder.Eventing.Models.Exceptions.ServiceValidationException",
       "StandardElementType": "Model",
       "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Models.HttpEventingConfiguration",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "HubUrl",
+          "Type": "System.String"
+        },
+        {
+          "Name": "MaxConcurrency",
+          "Type": "System.Int32"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Models.ServiceBusEventingConfiguration",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "ConnectionString",
+          "Type": "System.String"
+        },
+        {
+          "Name": "MaxConcurrency",
+          "Type": "System.Int32"
+        }
+      ],
       "Methods": []
     },
     {
