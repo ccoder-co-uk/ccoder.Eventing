@@ -2,16 +2,18 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using Azure.Messaging.ServiceBus;
+using cCoder.Eventing.AzureServiceBus.Models;
 
 namespace cCoder.Eventing.AzureServiceBus.Brokers;
 
 internal interface IServiceBusBroker
 {
-    ServiceBusSender CreateSender(string name);
-    ServiceBusProcessor CreateProcessor(string name);
-    Task SendMessageAsync(
-        ServiceBusSender sender,
-        ServiceBusMessage message);
-    Task StartProcessorAsync(ServiceBusProcessor processor);
+    ValueTask SendAsync<T>(
+        string name,
+        ServiceBusEventMessage<T> eventMessage);
+
+    void Listen<T>(
+        string name,
+        Func<ServiceBusEventMessage<T>, ValueTask> handler,
+        Func<Exception, Task> errorHandler);
 }

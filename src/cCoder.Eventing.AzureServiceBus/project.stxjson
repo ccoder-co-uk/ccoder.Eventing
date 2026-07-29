@@ -55,48 +55,36 @@
       "Properties": [],
       "Methods": [
         {
-          "Name": "CreateProcessor",
+          "Name": "Listen",
           "Inputs": [
             {
               "Name": "name",
               "Type": "System.String"
-            }
-          ],
-          "ReturnType": "ServiceBusProcessor"
-        },
-        {
-          "Name": "CreateSender",
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "ServiceBusSender"
-        },
-        {
-          "Name": "SendMessageAsync",
-          "Inputs": [
-            {
-              "Name": "sender",
-              "Type": "ServiceBusSender"
             },
             {
-              "Name": "message",
-              "Type": "ServiceBusMessage"
+              "Name": "handler",
+              "Type": "System.Func\u003CcCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E"
+            },
+            {
+              "Name": "errorHandler",
+              "Type": "System.Func\u003CSystem.Exception, System.Threading.Tasks.Task\u003E"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.Task"
+          "ReturnType": "System.Void"
         },
         {
-          "Name": "StartProcessorAsync",
+          "Name": "SendAsync",
           "Inputs": [
             {
-              "Name": "processor",
-              "Type": "ServiceBusProcessor"
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "eventMessage",
+              "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.Task"
+          "ReturnType": "System.Threading.Tasks.ValueTask"
         }
       ]
     },
@@ -156,6 +144,18 @@
           "Name": "GetServiceProvider",
           "Inputs": [],
           "ReturnType": "System.IServiceProvider"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "DisposeAsync",
+          "Inputs": [],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
         }
       ]
     },
@@ -422,6 +422,10 @@
     },
     {
       "FromType": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusBroker",
+      "ToType": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency"
+    },
+    {
+      "FromType": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency",
       "ToType": "cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration"
     },
     {

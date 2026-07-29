@@ -2,8 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using Azure.Messaging.ServiceBus;
 using Moq;
+using cCoder.Eventing.AzureServiceBus.Models;
 using Xunit;
 
 namespace cCoder.Eventing.AzureServiceBus.Tests.Foundations;
@@ -16,32 +16,26 @@ public partial class ServiceBusServiceTests
         // Given
 
         string inputName = "event-name";
-        Mock<ServiceBusProcessor> serviceBusProcessorMock = new();
 
         serviceBusBrokerMock
-            .Setup(expression:broker => broker.CreateProcessor(name:inputName))
-            .Returns(value:serviceBusProcessorMock.Object);
-
-        serviceBusBrokerMock
-            .Setup(expression:broker => broker.StartProcessorAsync(
-                processor: serviceBusProcessorMock.Object))
-            .Returns(value: Task.CompletedTask);
+            .Setup(expression: broker => broker.Listen<FakeObject>(
+                name: inputName,
+                handler: It.IsAny<Func<ServiceBusEventMessage<FakeObject>, ValueTask>>(),
+                errorHandler: It.IsAny<Func<Exception, Task>>()));
 
         // When
 
-        serviceBusService.ListenToEvent<FakeObject>(
+        ServiceBusService.ListenToEvent<FakeObject>(
 name: inputName,
 handler: (_, _) => ValueTask.CompletedTask);
 
         // Then
 
         serviceBusBrokerMock.Verify(
-expression: broker => broker.CreateProcessor(name:inputName),
-times: Times.Once);
-
-        serviceBusBrokerMock.Verify(
-expression: broker => broker.StartProcessorAsync(
-    processor: serviceBusProcessorMock.Object),
-times: Times.Once);
+            expression: broker => broker.Listen<FakeObject>(
+                name: inputName,
+                handler: It.IsAny<Func<ServiceBusEventMessage<FakeObject>, ValueTask>>(),
+                errorHandler: It.IsAny<Func<Exception, Task>>()),
+            times: Times.Once);
     }
 }

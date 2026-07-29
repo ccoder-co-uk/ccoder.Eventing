@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Brokers;
-using cCoder.Eventing.Extensions;
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Services.Processings;
 using Microsoft.Extensions.Logging;
@@ -85,11 +84,12 @@ internal sealed partial class EventServiceProviderService : IEventServiceProvide
 
             try
             {
-                await EventDispatchExtensions.HandleMessagesAsync(
-                    messages: messages,
-                    handler: message => RaiseEventInternalAsync(
+                foreach (EventMessage<T> message in messages)
+                {
+                    await RaiseEventInternalAsync(
                         name: name,
-                        message: message));
+                        message: message);
+                }
             }
             catch (Exception ex)
             {

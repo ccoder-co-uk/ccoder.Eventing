@@ -2,33 +2,27 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using Azure.Messaging.ServiceBus;
+using cCoder.Eventing.AzureServiceBus.Dependencies;
 using cCoder.Eventing.AzureServiceBus.Models;
 
 namespace cCoder.Eventing.AzureServiceBus.Brokers;
 
 internal sealed class ServiceBusBroker(
-    ServiceBusClient serviceBusClient,
-    AzureServiceBusEventingConfiguration configuration) : IServiceBusBroker
+    ServiceBusDependency serviceBusDependency) : IServiceBusBroker
 {
-    public ServiceBusSender CreateSender(string name) =>
-        serviceBusClient.CreateSender(queueOrTopicName: name);
+    public ValueTask SendAsync<T>(
+        string name,
+        ServiceBusEventMessage<T> eventMessage) =>
+        serviceBusDependency.SendAsync(
+            name: name,
+            eventMessage: eventMessage);
 
-    public ServiceBusProcessor CreateProcessor(string name) =>
-        serviceBusClient.CreateProcessor(
-            queueName: name,
-            options: new ServiceBusProcessorOptions
-            {
-                MaxConcurrentCalls = Math.Max(
-                    val1: 1,
-                    val2: configuration.MaxConcurrency)
-            });
-
-    public Task SendMessageAsync(
-        ServiceBusSender sender,
-        ServiceBusMessage message) =>
-        sender.SendMessageAsync(message: message);
-
-    public Task StartProcessorAsync(ServiceBusProcessor processor) =>
-        processor.StartProcessingAsync();
+    public void Listen<T>(
+        string name,
+        Func<ServiceBusEventMessage<T>, ValueTask> handler,
+        Func<Exception, Task> errorHandler) =>
+        serviceBusDependency.Listen(
+            name: name,
+            handler: handler,
+            errorHandler: errorHandler);
 }
