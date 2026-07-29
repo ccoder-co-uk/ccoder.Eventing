@@ -82,6 +82,9 @@ The solution contains:
 
 - Unit tests for core, HTTP, and Azure Service Bus eventing.
 - Acceptance tests for core package behavior.
+- Azure Service Bus acceptance tests. Define
+  `Eventing__ServiceBus__ConnectionString` and
+  `Eventing__ServiceBus__AcceptanceQueueName` to enable them.
 - Acceptance tests for `Eventing.App1` and `Eventing.App2` health/UI startup.
 - Integration tests that start both apps, connect SignalR clients to both, send
   a `chat_event`, and assert both app clients receive the message.

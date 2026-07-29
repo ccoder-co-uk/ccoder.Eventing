@@ -14,10 +14,6 @@ public partial class AzureServiceBusEventHubTests
 {
     private static readonly TimeSpan RecordWaitTimeout = TimeSpan.FromSeconds(seconds:15);
 
-    private const string ConnectionStringEnvironmentVariable = "EVENT_LIBRARY_AZURE_SERVICE_BUS_CONNECTION_STRING";
-
-    private const string QueueNameEnvironmentVariable = "EVENT_LIBRARY_AZURE_SERVICE_BUS_QUEUE_NAME";
-
     private static async Task<EventRecord> WaitForSingleRecordAsync(
         TestEventHandlingBroker broker)
     {
@@ -47,17 +43,22 @@ public partial class AzureServiceBusEventHubTests
 
     private static (ServiceProvider ServiceProvider, string QueueName) CreateServiceProvider()
     {
-        string connectionString = Environment.GetEnvironmentVariable(variable:ConnectionStringEnvironmentVariable)!;
-        string queueName = Environment.GetEnvironmentVariable(variable:QueueNameEnvironmentVariable)!;
+        AcceptanceTestConfiguration configuration =
+            AcceptanceTestConfiguration.Load();
 
         ServiceCollection services = new();
 
         services.AddLogging();
-        services.AddAzureServiceBusEventing(serviceBusConnectionString:connectionString);
+
+        services.AddAzureServiceBusEventing(
+            serviceBusConnectionString: configuration.ConnectionString);
+
         services.AddSingleton<TestEventHandlingBroker>();
         services.AddTransient<TestEventHandlingService>();
 
-        return (services.BuildServiceProvider(), queueName);
+        return (
+            services.BuildServiceProvider(),
+            configuration.QueueName);
     }
 
     private static ServiceBusEventMessage<TestPayload> CreateMessage(string payloadValue, string userId) =>
