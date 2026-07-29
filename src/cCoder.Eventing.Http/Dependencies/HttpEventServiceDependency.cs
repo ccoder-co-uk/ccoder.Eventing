@@ -11,12 +11,12 @@ using System.Text.Json;
 
 namespace cCoder.Eventing.Http.Dependencies;
 
-internal class HttpEventService(
+internal class HttpEventServiceDependency(
         IHttpEventBroker httpEventBroker,
         IHttpEventQueue httpEventQueue,
         IHttpEventHandlerRegistry eventHandlerRegistry,
         HttpEventingOptions options,
-        ILogger<HttpEventService> log)
+        ILogger<HttpEventServiceDependency> log)
             : IHttpEventService
 {
     public void ListenToEvent<T>(

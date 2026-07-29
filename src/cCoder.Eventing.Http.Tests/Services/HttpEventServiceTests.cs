@@ -41,7 +41,8 @@ cancellationToken: It.IsAny<CancellationToken>()))
 action: (message, _) => actualMessage = message)
             .Returns(value:ValueTask.CompletedTask);
 
-        IHttpEventService httpEventService = new HttpEventService(
+        IHttpEventService httpEventService =
+            new HttpEventServiceDependency(
             httpEventBrokerMock.Object,
             new HttpEventQueue(),
             new HttpEventHandlerRegistry(),
@@ -50,7 +51,7 @@ action: (message, _) => actualMessage = message)
                 JsonSerializerOptions =
                     new JsonSerializerOptions(JsonSerializerDefaults.Web)
             },
-            Mock.Of<ILogger<HttpEventService>>());
+            Mock.Of<ILogger<HttpEventServiceDependency>>());
 
         // When
 

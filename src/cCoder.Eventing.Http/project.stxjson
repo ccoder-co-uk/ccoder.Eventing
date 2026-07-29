@@ -101,7 +101,7 @@
       ]
     },
     {
-      "Name": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingService",
+      "Name": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingServiceDependency",
       "StandardElementType": "Unknown",
       "Properties": [],
       "Methods": [
@@ -203,7 +203,7 @@
       ]
     },
     {
-      "Name": "cCoder.Eventing.Http.Dependencies.HttpEventService",
+      "Name": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
       "StandardElementType": "Unknown",
       "Properties": [],
       "Methods": [
@@ -494,28 +494,28 @@
       "ToType": "cCoder.Eventing.Http.Models.HttpEventingOptions"
     },
     {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingService",
-      "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventService"
+      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingServiceDependency",
+      "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency"
     },
     {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventService",
+      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
       "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventBroker"
     },
     {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventService",
+      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
       "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventHandlerRegistry"
     },
     {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventService",
+      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
       "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventQueue"
     },
     {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventService",
+      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
       "ToType": "cCoder.Eventing.Http.Models.HttpEventingOptions"
     },
     {
       "FromType": "cCoder.Eventing.Http.HttpEventHub",
-      "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingService"
+      "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingServiceDependency"
     }
   ],
   "AnalysisItems": []

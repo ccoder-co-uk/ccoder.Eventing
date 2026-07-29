@@ -1,6 +1,23 @@
 {
   "Classes": [
     {
+      "Name": "cCoder.Eventing.Apps.Brokers.ChatHubBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "SendChatMessageAsync",
+          "Inputs": [
+            {
+              "Name": "chatMessage",
+              "Type": "cCoder.Eventing.Apps.Models.ChatMessage"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.Apps.Controllers.ChatController",
       "StandardElementType": "Exposure",
       "Properties": [],
@@ -26,37 +43,6 @@
       "StandardElementType": "Dependency",
       "Properties": [],
       "Methods": []
-    },
-    {
-      "Name": "cCoder.Eventing.Apps.Dependencies.ChatOrchestrationService",
-      "StandardElementType": "Unknown",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "ReceiveAsync",
-          "Inputs": [
-            {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Apps.Models.ChatMessage"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
-          "Name": "SendAsync",
-          "Inputs": [
-            {
-              "Name": "request",
-              "Type": "cCoder.Eventing.Apps.Models.ChatMessageRequest"
-            },
-            {
-              "Name": "cancellationToken",
-              "Type": "System.Threading.CancellationToken"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E"
-        }
-      ]
     },
     {
       "Name": "cCoder.Eventing.Apps.IServiceCollectionExtensions",
@@ -147,6 +133,93 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Services.Foundations.ChatEventService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "RaiseChatMessageAsync",
+          "Inputs": [
+            {
+              "Name": "chatMessage",
+              "Type": "cCoder.Eventing.Apps.Models.ChatMessage"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Services.Foundations.ChatNotificationService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "SendChatMessageAsync",
+          "Inputs": [
+            {
+              "Name": "chatMessage",
+              "Type": "cCoder.Eventing.Apps.Models.ChatMessage"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Services.Orchestrations.ChatOrchestrationService",
+      "StandardElementType": "OrchestrationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ReceiveChatMessageAsync",
+          "Inputs": [
+            {
+              "Name": "chatMessage",
+              "Type": "cCoder.Eventing.Apps.Models.ChatMessage"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "SendChatMessageAsync",
+          "Inputs": [
+            {
+              "Name": "newChatMessage",
+              "Type": "cCoder.Eventing.Apps.Models.ChatMessage"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.Apps.WebApplicationExtensions",
       "StandardElementType": "App",
       "Properties": [],
@@ -167,11 +240,23 @@
   "Links": [
     {
       "FromType": "cCoder.Eventing.Apps.Controllers.ChatController",
-      "ToType": "cCoder.Eventing.Apps.Dependencies.ChatOrchestrationService"
+      "ToType": "cCoder.Eventing.Apps.Models.EventingAppCommonConfiguration"
     },
     {
-      "FromType": "cCoder.Eventing.Apps.Dependencies.ChatOrchestrationService",
-      "ToType": "cCoder.Eventing.Apps.Models.EventingAppCommonConfiguration"
+      "FromType": "cCoder.Eventing.Apps.Controllers.ChatController",
+      "ToType": "cCoder.Eventing.Apps.Services.Orchestrations.ChatOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Eventing.Apps.Services.Foundations.ChatNotificationService",
+      "ToType": "cCoder.Eventing.Apps.Brokers.ChatHubBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Apps.Services.Orchestrations.ChatOrchestrationService",
+      "ToType": "cCoder.Eventing.Apps.Services.Foundations.ChatEventService"
+    },
+    {
+      "FromType": "cCoder.Eventing.Apps.Services.Orchestrations.ChatOrchestrationService",
+      "ToType": "cCoder.Eventing.Apps.Services.Foundations.ChatNotificationService"
     }
   ],
   "AnalysisItems": []

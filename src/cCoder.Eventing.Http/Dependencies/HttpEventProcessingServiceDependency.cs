@@ -9,7 +9,8 @@ using cCoder.Eventing.Models;
 
 namespace cCoder.Eventing.Http.Dependencies;
 
-internal class HttpEventProcessingService(IHttpEventService httpEventService)
+internal class HttpEventProcessingServiceDependency(
+    IHttpEventService httpEventService)
     : IHttpEventProcessingService
 {
     public void ListenToEvent<T>(
