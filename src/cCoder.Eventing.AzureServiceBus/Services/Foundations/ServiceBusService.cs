@@ -2,7 +2,6 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using Azure.Messaging.ServiceBus;
 using cCoder.Eventing.AzureServiceBus.Brokers;
 using cCoder.Eventing.AzureServiceBus.Models;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,12 +14,6 @@ internal sealed partial class ServiceBusService(
         IServiceProviderBroker serviceProviderBroker,
         ILogger<ServiceBusService> log) : IServiceBusService
 {
-    private readonly IDictionary<string, ServiceBusSender> senders =
-        new Dictionary<string, ServiceBusSender>();
-    private readonly IDictionary<string, ServiceBusProcessor> processors =
-        new Dictionary<string, ServiceBusProcessor>();
-    private readonly ISet<string> startedProcessors = new HashSet<string>();
-
     public void ListenToEvent<T>(
         string name,
         Func<IServiceProvider, T, ValueTask> handler) =>
@@ -30,15 +23,16 @@ internal sealed partial class ServiceBusService(
 
             try
             {
-                ServiceBusProcessor processor = GetOrCreateProcessor(name: name);
-
-                processor.ProcessMessageAsync += (ProcessMessageEventArgs messageDetails) =>
-                    HandleServiceBusMessage(serviceProviderBroker:serviceProviderBroker, handler:handler, messageDetails:messageDetails);
-
-                processor.ProcessErrorAsync += (ProcessErrorEventArgs problemDetails) =>
-                    HandleServiceBusError(name:name, problemDetails:problemDetails);
-
-                StartProcessor(name: name, processor: processor);
+                serviceBusBroker.Listen<T>(
+                    name: name,
+                    handler: message => HandleServiceBusMessage(
+                        serviceProviderBroker: serviceProviderBroker,
+                        handler: handler,
+                        message: message),
+                    errorHandler: exception =>
+                        HandleServiceBusError(
+                            name: name,
+                            exception: exception));
             }
             catch (Exception ex)
             {
@@ -60,18 +54,9 @@ internal sealed partial class ServiceBusService(
 
             try
             {
-                ServiceBusMessage message = new()
-                {
-                    Body = new BinaryData(eventMessage),
-                    MessageId = $"{eventMessage.AuthInfo.SSOUserId}_{typeof(T)
-                        .Name}_{Guid.NewGuid()}"
-                };
-
-                ServiceBusSender sender = GetOrCreateSender(name: name);
-
-                await serviceBusBroker.SendMessageAsync(
-                    sender: sender,
-                    message: message);
+                await serviceBusBroker.SendAsync(
+                    name: name,
+                    eventMessage: eventMessage);
             }
             catch (Exception ex)
             {
@@ -92,68 +77,13 @@ internal sealed partial class ServiceBusService(
             }
         });
 
-    private ServiceBusSender GetOrCreateSender(string name)
-    {
-        lock (senders)
-        {
-            if (!senders.TryGetValue(key: name, value: out ServiceBusSender sender))
-            {
-                sender = serviceBusBroker.CreateSender(name: name);
-                senders[name] = sender;
-            }
-
-            return sender;
-        }
-    }
-
-    private ServiceBusProcessor GetOrCreateProcessor(string name)
-    {
-        lock (processors)
-        {
-            if (!processors.TryGetValue(
-                key: name,
-                value: out ServiceBusProcessor processor))
-            {
-                processor = serviceBusBroker.CreateProcessor(name: name);
-                processors[name] = processor;
-            }
-
-            return processor;
-        }
-    }
-
-    private void StartProcessor(
-        string name,
-        ServiceBusProcessor processor)
-    {
-        lock (processors)
-        {
-            if (startedProcessors.Contains(item: name))
-            {
-                return;
-            }
-
-            startedProcessors.Add(item: name);
-        }
-
-        serviceBusBroker
-            .StartProcessorAsync(processor: processor)
-            .GetAwaiter()
-            .GetResult();
-    }
-
-    async Task HandleServiceBusMessage<T>(
+    private async ValueTask HandleServiceBusMessage<T>(
         IServiceProviderBroker serviceProviderBroker,
         Func<IServiceProvider, T, ValueTask> handler,
-        ProcessMessageEventArgs messageDetails)
+        ServiceBusEventMessage<T> message)
     {
         try
         {
-            ServiceBusEventMessage<T> message = messageDetails
-                .Message
-                .Body
-                .ToObjectFromJson<ServiceBusEventMessage<T>>();
-
             using IServiceScope scope = serviceProviderBroker
                 .GetScopeForEvent(message:message);
 
@@ -170,12 +100,12 @@ internal sealed partial class ServiceBusService(
         }
     }
 
-    Task HandleServiceBusError(string name, ProcessErrorEventArgs problemDetails)
+    private Task HandleServiceBusError(string name, Exception exception)
     {
         log.LogError(
-            exception: problemDetails.Exception,
+            exception: exception,
             message: "Exception thrown whilst listening to {Name} event:\n{Message}\n{StackTrace}",
-            args: [name, problemDetails.Exception.Message, problemDetails.Exception.StackTrace]);
+            args: [name, exception.Message, exception.StackTrace]);
 
         return Task.CompletedTask;
     }

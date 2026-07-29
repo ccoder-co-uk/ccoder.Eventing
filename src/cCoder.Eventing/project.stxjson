@@ -128,12 +128,6 @@
       ]
     },
     {
-      "Name": "cCoder.Eventing.Extensions.EventDispatchExtensions",
-      "StandardElementType": "Exposure",
-      "Properties": [],
-      "Methods": []
-    },
-    {
       "Name": "cCoder.Eventing.IServiceCollectionExtensions",
       "StandardElementType": "App",
       "Properties": [],

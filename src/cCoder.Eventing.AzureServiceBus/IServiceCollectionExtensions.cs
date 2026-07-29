@@ -2,7 +2,6 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using Azure.Messaging.ServiceBus;
 using cCoder.Eventing.AzureServiceBus.Brokers;
 using cCoder.Eventing.AzureServiceBus.Dependencies;
 using cCoder.Eventing.AzureServiceBus.Models;
@@ -106,8 +105,7 @@ public static class IServiceCollectionExtensions
         this IServiceCollection services,
         AzureServiceBusEventingConfiguration configuration)
     {
-        services.AddSingleton(implementationFactory: _ =>
-            new ServiceBusClient(configuration.ConnectionString));
+        services.AddSingleton<ServiceBusDependency>();
 
         return services;
     }

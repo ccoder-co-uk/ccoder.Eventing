@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Brokers;
-using cCoder.Eventing.Extensions;
 using cCoder.Eventing.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -38,11 +37,13 @@ internal sealed partial class EventProviderService(
 
             using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message:message);
 
-            await EventDispatchExtensions.HandleSendAsync(
-                providers: matchingProviders,
-                serviceProvider: scope.ServiceProvider,
-                eventName: name,
-                message: message);
+            foreach (EventProvider provider in matchingProviders)
+            {
+                await provider.HandleSendAsync(
+                    serviceProvider: scope.ServiceProvider,
+                    eventName: name,
+                    message: message);
+            }
 
             return true;
             }
@@ -80,10 +81,12 @@ internal sealed partial class EventProviderService(
 
             using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message:messages[0]);
 
-            await EventDispatchExtensions.HandleBulkAsync(
-                providers: matchingProviders,
-                serviceProvider: scope.ServiceProvider,
-                messages: messages);
+            foreach (BulkEventProvider provider in matchingProviders)
+            {
+                await provider.HandleAsync(
+                    serviceProvider: scope.ServiceProvider,
+                    messages: messages);
+            }
 
             return true;
             }

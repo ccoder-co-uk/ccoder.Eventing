@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Brokers;
-using cCoder.Eventing.Extensions;
 using cCoder.Eventing.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -60,10 +59,12 @@ internal sealed partial class EventService<T>(
                 IEnumerable<Func<IServiceProvider, T, ValueTask>> handlers =
                     GetOrCreateHandlers(name: name);
 
-                await EventDispatchExtensions.HandleHandlersAsync(
-                    handlers: handlers,
-                    serviceProvider: scope.ServiceProvider,
-                    message: message.Data);
+                foreach (Func<IServiceProvider, T, ValueTask> handler in handlers)
+                {
+                    await handler.Invoke(
+                        arg1: scope.ServiceProvider,
+                        arg2: message.Data);
+                }
             }
             catch (Exception ex)
             {
