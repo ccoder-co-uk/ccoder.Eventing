@@ -10,7 +10,10 @@ namespace cCoder.Eventing.Apps.Controllers;
 
 [ApiController]
 [Route("Api/Chat")]
-public class ChatController(IChatOrchestrationService chatOrchestrationService) : ControllerBase
+public class ChatController(
+    IChatOrchestrationService chatOrchestrationService,
+    EventingAppCommonConfiguration configuration)
+    : ControllerBase
 {
     [HttpPost]
     public async ValueTask<IActionResult> Post(
@@ -25,8 +28,13 @@ public class ChatController(IChatOrchestrationService chatOrchestrationService) 
             }
 
             ChatMessage message =
-                await chatOrchestrationService.SendAsync(
-                    request:newRequest,
+                await chatOrchestrationService.SendChatMessageAsync(
+                    newChatMessage: new ChatMessage
+                    {
+                        User = newRequest.User,
+                        Text = newRequest.Text,
+                        SourceApp = configuration.AppName,
+                    },
                     cancellationToken:cancellationToken);
 
             return Accepted(value:message);

@@ -3,7 +3,9 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Apps.Dependencies;
+using cCoder.Eventing.Apps.Brokers;
 using cCoder.Eventing.Apps.Models;
+using cCoder.Eventing.Apps.Services.Foundations;
 using cCoder.Eventing.Apps.Services.Orchestrations;
 using cCoder.Eventing.Http;
 using Microsoft.Extensions.Configuration;
@@ -48,12 +50,24 @@ public static class IServiceCollectionExtensions
         return services;
     }
 
-    private static IServiceCollection AddBrokers(this IServiceCollection services) =>
-        services;
+    private static IServiceCollection AddBrokers(
+        this IServiceCollection services)
+    {
+        services.AddSingleton<IChatHubBroker, ChatHubBroker>();
+
+        return services;
+    }
 
     private static IServiceCollection AddFoundations(
-        this IServiceCollection services) =>
-        services;
+        this IServiceCollection services)
+    {
+        services.AddSingleton<IChatEventService, ChatEventService>();
+        services.AddSingleton<
+            IChatNotificationService,
+            ChatNotificationService>();
+
+        return services;
+    }
 
     private static IServiceCollection AddProcessings(
         this IServiceCollection services) =>

@@ -95,14 +95,18 @@ public static class IServiceCollectionExtensions
 
     private static IServiceCollection AddFoundations(this IServiceCollection services)
     {
-        services.TryAddTransient<IHttpEventService, HttpEventService>();
+        services.TryAddTransient<
+            IHttpEventService,
+            HttpEventServiceDependency>();
 
         return services;
     }
 
     private static IServiceCollection AddProcessings(this IServiceCollection services)
     {
-        services.TryAddTransient<IHttpEventProcessingService, HttpEventProcessingService>();
+        services.TryAddTransient<
+            IHttpEventProcessingService,
+            HttpEventProcessingServiceDependency>();
 
         return services;
     }

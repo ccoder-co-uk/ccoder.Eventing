@@ -24,14 +24,14 @@ public static class WebApplicationExtensions
         eventHub.ListenToEvent<ChatMessage, IChatOrchestrationService>(
             name: ChatEventNames.ChatEvent,
             handler: static (service, message) =>
-                service.ReceiveAsync(message: message));
+                service.ReceiveChatMessageAsync(chatMessage: message));
 
         httpEventHub.ListenToEvent<ChatMessage>(
             name: ChatEventNames.ChatEvent,
             handler: static (serviceProvider, message) =>
                 serviceProvider
                     .GetRequiredService<IChatOrchestrationService>()
-                    .ReceiveAsync(message: message));
+                    .ReceiveChatMessageAsync(chatMessage: message));
 
         string sharedWebRoot =
             GetSharedWebRoot(contentRootPath: app.Environment.ContentRootPath);
