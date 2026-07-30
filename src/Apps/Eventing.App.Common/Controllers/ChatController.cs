@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Apps.Models;
+using cCoder.Eventing.Apps.Exposures;
 using cCoder.Eventing.Apps.Services.Orchestrations;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,7 @@ namespace cCoder.Eventing.Apps.Controllers;
 [ApiController]
 [Route("Api/Chat")]
 public class ChatController(
-    IChatOrchestrationService chatOrchestrationService,
+    IChatManager chatOrchestrationService,
     EventingAppCommonConfiguration configuration)
     : ControllerBase
 {
