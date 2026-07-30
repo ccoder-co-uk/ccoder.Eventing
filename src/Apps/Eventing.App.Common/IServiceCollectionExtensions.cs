@@ -5,6 +5,7 @@
 using cCoder.Eventing.Apps.Dependencies;
 using cCoder.Eventing.Apps.Brokers;
 using cCoder.Eventing.Apps.Models;
+using cCoder.Eventing.Apps.Exposures;
 using cCoder.Eventing.Apps.Services.Foundations;
 using cCoder.Eventing.Apps.Services.Orchestrations;
 using cCoder.Eventing.Http;
@@ -77,6 +78,7 @@ public static class IServiceCollectionExtensions
         this IServiceCollection services)
     {
         services.AddSingleton<IChatOrchestrationService, ChatOrchestrationService>();
+        services.AddSingleton<IChatManager, ChatOrchestrationService>();
 
         return services;
     }

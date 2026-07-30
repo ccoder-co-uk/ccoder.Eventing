@@ -3,14 +3,8 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Apps.Models;
+using cCoder.Eventing.Apps.Exposures;
 
 namespace cCoder.Eventing.Apps.Services.Orchestrations;
 
-public interface IChatOrchestrationService
-{
-    ValueTask<ChatMessage> SendChatMessageAsync(
-        ChatMessage newChatMessage,
-        CancellationToken cancellationToken = default);
-
-    ValueTask ReceiveChatMessageAsync(ChatMessage chatMessage);
-}
+internal interface IChatOrchestrationService : IChatManager { }
