@@ -25,7 +25,7 @@ public static class IServiceCollectionExtensions
 
         applicationConfiguration
             .GetSection(key: "EventingChat")
-            .Bind(instance: configuration);
+            .Bind(instance: configuration.Eventing);
 
         configure?.Invoke(obj: configuration);
 
@@ -46,7 +46,7 @@ public static class IServiceCollectionExtensions
         services.AddEventingForType<ChatMessage>();
         services.AddHttpEventingWeb(
             configure: options =>
-                options.HubUrl = configuration.RemoteHubUrl);
+                options.HubUrl = configuration.Eventing.RemoteHubUrl);
 
         return services;
     }

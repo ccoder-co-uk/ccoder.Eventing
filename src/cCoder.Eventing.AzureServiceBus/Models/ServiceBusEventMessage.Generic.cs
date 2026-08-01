@@ -2,9 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-namespace cCoder.Eventing.Models;
+namespace cCoder.Eventing.AzureServiceBus.Models;
 
-public abstract class EventMessage
+public class ServiceBusEventMessage<T> : ServiceBusEventMessage
 {
-    public IEventAuthInfo AuthInfo { get; set; }
+    public T Data { get; set; }
 }

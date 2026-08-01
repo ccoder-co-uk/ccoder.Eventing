@@ -2,21 +2,24 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using Eventing.App1.AcceptanceTests.Infrastructure;
 using FluentAssertions;
 
-namespace Eventing.App2.AcceptanceTests.Tests.Api;
+namespace Eventing.App1.AcceptanceTests.Tests.Api;
 
-public partial class HealthTests
+public partial class HealthAcceptanceTests
 {
     [Fact]
     public async Task ShouldReturnOk()
     {
         // Given
 
+        using App1AcceptanceFixture fixture = new();
+
         // When
 
         HttpResponseMessage response =
-            await fixture.Client.GetAsync(requestUri:"/Health");
+            await fixture.Client.GetAsync(requestUri: "/Health");
 
         string content = await response.Content.ReadAsStringAsync();
 
@@ -25,6 +28,6 @@ public partial class HealthTests
         response.EnsureSuccessStatusCode();
 
         content.Should()
-            .Contain(expected:"OK");
+            .Contain(expected: "OK");
     }
 }
