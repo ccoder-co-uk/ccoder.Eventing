@@ -4,7 +4,7 @@
 
 namespace cCoder.Eventing.Models;
 
-public abstract class EventMessage
+public class EventMessage<T> : EventMessage
 {
-    public IEventAuthInfo AuthInfo { get; set; }
+    public T Data { get; set; }
 }

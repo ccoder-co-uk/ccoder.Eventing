@@ -1,12 +1,36 @@
 {
+  "SchemaVersion": 2,
+  "Project": {
+    "Id": "cCoder.Eventing.AzureServiceBus",
+    "Name": "cCoder.Eventing.AzureServiceBus",
+    "AssemblyName": "cCoder.Eventing.AzureServiceBus"
+  },
   "Classes": [
     {
       "Name": "cCoder.Eventing.AzureServiceBus.AzureServiceBusEventHub",
       "StandardElementType": "Exposure",
+      "LineNumber": 10,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus:cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub",
+          "FullName": "cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub",
+          "Name": "IAzureServiceBusEventHub",
+          "Namespace": "cCoder.Eventing.AzureServiceBus",
+          "AssemblyName": "cCoder.Eventing.AzureServiceBus",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.AzureServiceBusEventHub.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "name",
@@ -17,10 +41,44 @@
               "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService",
+              "MethodName": "ListenToEvent",
+              "MethodId": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.AzureServiceBusEventHub.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "name",
@@ -31,10 +89,47 @@
               "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService",
+              "MethodName": "RaiseEventAsync",
+              "MethodId": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.AzureServiceBusEventHub.RaiseEventsAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "name",
@@ -45,17 +140,70 @@
               "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[]"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub.RaiseEventsAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[])"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService",
+              "MethodName": "RaiseEventsAsync",
+              "MethodId": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[])",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusBroker",
       "StandardElementType": "Broker",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus:cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker",
+          "FullName": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker",
+          "Name": "IServiceBusBroker",
+          "Namespace": "cCoder.Eventing.AzureServiceBus.Brokers",
+          "AssemblyName": "cCoder.Eventing.AzureServiceBus",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusBroker.Listen(System.String,System.Func\u003CcCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E,System.Func\u003CSystem.Exception, System.Threading.Tasks.Task\u003E)",
           "Name": "Listen",
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "name",
@@ -70,10 +218,27 @@
               "Type": "System.Func\u003CSystem.Exception, System.Threading.Tasks.Task\u003E"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker.Listen(System.String,System.Func\u003CcCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E,System.Func\u003CSystem.Exception, System.Threading.Tasks.Task\u003E)"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusBroker.SendAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
           "Name": "SendAsync",
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "name",
@@ -84,88 +249,315 @@
               "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker.SendAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusEventAuthorizationBroker",
       "StandardElementType": "Broker",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus:cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusEventAuthorizationBroker",
+          "FullName": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusEventAuthorizationBroker",
+          "Name": "IServiceBusEventAuthorizationBroker",
+          "Namespace": "cCoder.Eventing.AzureServiceBus.Brokers",
+          "AssemblyName": "cCoder.Eventing.AzureServiceBus",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusEventAuthorizationBroker.GetEventAuthInfo()",
           "Name": "GetEventAuthInfo",
+          "LineNumber": 16,
           "Inputs": [],
-          "ReturnType": "cCoder.Eventing.AzureServiceBus.Models.IServiceBusEventAuthInfo"
+          "ReturnType": "cCoder.Eventing.AzureServiceBus.Models.IServiceBusEventAuthInfo",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusEventAuthorizationBroker.GetEventAuthInfo()"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusEventAuthorizationBroker.SetEventMessage(cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage)",
           "Name": "SetEventMessage",
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "message",
               "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusEventAuthorizationBroker.SetEventMessage(cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage)"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceProviderBroker",
       "StandardElementType": "Broker",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus:cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker",
+          "FullName": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker",
+          "Name": "IServiceProviderBroker",
+          "Namespace": "cCoder.Eventing.AzureServiceBus.Brokers",
+          "AssemblyName": "cCoder.Eventing.AzureServiceBus",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceProviderBroker.GetScopeForEvent(cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage)",
           "Name": "GetScopeForEvent",
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "message",
               "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage"
             }
           ],
-          "ReturnType": "Microsoft.Extensions.DependencyInjection.IServiceScope"
+          "ReturnType": "Microsoft.Extensions.DependencyInjection.IServiceScope",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker.GetScopeForEvent(cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions",
+              "MethodName": "CreateScope",
+              "MethodId": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.CreateScope(System.IServiceProvider)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions",
+              "MethodName": "GetService",
+              "MethodId": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService(System.IServiceProvider)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusEventAuthorizationBroker",
+              "MethodName": "SetEventMessage",
+              "MethodId": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusEventAuthorizationBroker.SetEventMessage(cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceProviderBroker.GetService()",
           "Name": "GetService",
+          "LineNumber": 27,
           "Inputs": [],
-          "ReturnType": "T"
+          "ReturnType": "T",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker.GetService()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions",
+              "MethodName": "GetService",
+              "MethodId": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService(System.IServiceProvider)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceProviderBroker.GetService(System.Type)",
           "Name": "GetService",
+          "LineNumber": 30,
           "Inputs": [
             {
               "Name": "type",
               "Type": "System.Type"
             }
           ],
-          "ReturnType": "System.Object"
+          "ReturnType": "System.Object",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker.GetService(System.Type)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.IServiceProvider",
+              "MethodName": "GetService",
+              "MethodId": "System.IServiceProvider.GetService(System.Type)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceProviderBroker.GetServiceProvider()",
           "Name": "GetServiceProvider",
+          "LineNumber": 24,
           "Inputs": [],
-          "ReturnType": "System.IServiceProvider"
+          "ReturnType": "System.IServiceProvider",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker.GetServiceProvider()"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency",
       "StandardElementType": "Dependency",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "System.Private.CoreLib:System.IAsyncDisposable",
+          "FullName": "System.IAsyncDisposable",
+          "Name": "IAsyncDisposable",
+          "Namespace": "System",
+          "AssemblyName": "System.Private.CoreLib",
+          "Kind": "Interface",
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency.DisposeAsync()",
           "Name": "DisposeAsync",
+          "LineNumber": 95,
           "Inputs": [],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "System.IAsyncDisposable.DisposeAsync()"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions",
       "StandardElementType": "App",
+      "LineNumber": 14,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventing(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E)",
           "Name": "AddAzureServiceBusEventing",
+          "LineNumber": 63,
           "Inputs": [
             {
               "Name": "services",
@@ -176,10 +568,33 @@
               "Type": "System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.Action\u003CT\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Action\u003CT\u003E.Invoke(T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventing(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)",
           "Name": "AddAzureServiceBusEventing",
+          "LineNumber": 78,
           "Inputs": [
             {
               "Name": "services",
@@ -190,10 +605,25 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E)",
           "Name": "AddAzureServiceBusEventingHostedServices",
+          "LineNumber": 39,
           "Inputs": [
             {
               "Name": "services",
@@ -204,10 +634,40 @@
               "Type": "System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.Action\u003CT\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Action\u003CT\u003E.Invoke(T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions",
+              "MethodName": "AddAzureServiceBusEventingHostedServices",
+              "MethodId": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration)",
+              "StandardElementType": "App",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration)",
           "Name": "AddAzureServiceBusEventingHostedServices",
+          "LineNumber": 49,
           "Inputs": [
             {
               "Name": "services",
@@ -218,10 +678,33 @@
               "Type": "cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.ArgumentNullException",
+              "MethodName": "ThrowIfNull",
+              "MethodId": "System.ArgumentNullException.ThrowIfNull(System.Object?,System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E)",
           "Name": "AddAzureServiceBusEventingWeb",
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "services",
@@ -232,10 +715,40 @@
               "Type": "System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.Action\u003CT\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Action\u003CT\u003E.Invoke(T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions",
+              "MethodName": "AddAzureServiceBusEventingWeb",
+              "MethodId": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration)",
+              "StandardElementType": "App",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration)",
           "Name": "AddAzureServiceBusEventingWeb",
+          "LineNumber": 25,
           "Inputs": [
             {
               "Name": "services",
@@ -246,13 +759,39 @@
               "Type": "cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.ArgumentNullException",
+              "MethodName": "ThrowIfNull",
+              "MethodId": "System.ArgumentNullException.ThrowIfNull(System.Object?,System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "ConnectionString",
@@ -268,24 +807,82 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
       "StandardElementType": "Dependency",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "System.Private.CoreLib:System.Exception",
+        "FullName": "System.Exception",
+        "Name": "Exception",
+        "Namespace": "System",
+        "AssemblyName": "System.Private.CoreLib",
+        "Kind": "Class",
+        "IsInCurrentProject": false,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException",
       "StandardElementType": "Dependency",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "System.Private.CoreLib:System.Exception",
+        "FullName": "System.Exception",
+        "Name": "Exception",
+        "Namespace": "System",
+        "AssemblyName": "System.Private.CoreLib",
+        "Kind": "Class",
+        "IsInCurrentProject": false,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceValidationException",
       "StandardElementType": "Dependency",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "System.Private.CoreLib:System.Exception",
+        "FullName": "System.Exception",
+        "Name": "Exception",
+        "Namespace": "System",
+        "AssemblyName": "System.Private.CoreLib",
+        "Kind": "Class",
+        "IsInCurrentProject": false,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventAuthInfo",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus:cCoder.Eventing.AzureServiceBus.Models.IServiceBusEventAuthInfo",
+          "FullName": "cCoder.Eventing.AzureServiceBus.Models.IServiceBusEventAuthInfo",
+          "Name": "IServiceBusEventAuthInfo",
+          "Namespace": "cCoder.Eventing.AzureServiceBus.Models",
+          "AssemblyName": "cCoder.Eventing.AzureServiceBus",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Model"
+        }
+      ],
       "Properties": [
         {
           "Name": "SSOUserId",
@@ -297,6 +894,11 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "AuthInfo",
@@ -308,6 +910,20 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E",
       "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "cCoder.Eventing.AzureServiceBus:cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage",
+        "FullName": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage",
+        "Name": "ServiceBusEventMessage",
+        "Namespace": "cCoder.Eventing.AzureServiceBus.Models",
+        "AssemblyName": "cCoder.Eventing.AzureServiceBus",
+        "Kind": "Class",
+        "IsInCurrentProject": true,
+        "StandardElementType": "Model"
+      },
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "Data",
@@ -319,10 +935,28 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Services.Foundations.ServiceBusService",
       "StandardElementType": "FoundationService",
+      "LineNumber": 12,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus:cCoder.Eventing.AzureServiceBus.Services.Foundations.IServiceBusService",
+          "FullName": "cCoder.Eventing.AzureServiceBus.Services.Foundations.IServiceBusService",
+          "Name": "IServiceBusService",
+          "Namespace": "cCoder.Eventing.AzureServiceBus.Services.Foundations",
+          "AssemblyName": "cCoder.Eventing.AzureServiceBus",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "FoundationService"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Services.Foundations.ServiceBusService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "name",
@@ -333,10 +967,52 @@
               "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Services.Foundations.IServiceBusService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
+              "MethodName": "LogError",
+              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker",
+              "MethodName": "Listen",
+              "MethodId": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker.Listen(System.String,System.Func\u003CcCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E,System.Func\u003CSystem.Exception, System.Threading.Tasks.Task\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": true
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Services.Foundations.ServiceBusService.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
+          "LineNumber": 48,
           "Inputs": [
             {
               "Name": "name",
@@ -347,17 +1023,75 @@
               "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Services.Foundations.IServiceBusService.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
+              "MethodName": "LogError",
+              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker",
+              "MethodName": "SendAsync",
+              "MethodId": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker.SendAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": true
         }
       ]
     },
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Services.Processings.ServiceBusProcessingService",
       "StandardElementType": "ProcessingService",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus:cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService",
+          "FullName": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService",
+          "Name": "IServiceBusProcessingService",
+          "Namespace": "cCoder.Eventing.AzureServiceBus.Services.Processings",
+          "AssemblyName": "cCoder.Eventing.AzureServiceBus",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "ProcessingService"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.ServiceBusProcessingService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "name",
@@ -368,10 +1102,45 @@
               "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.AzureServiceBus.Services.Foundations.IServiceBusService",
+              "MethodName": "ListenToEvent",
+              "MethodId": "cCoder.Eventing.AzureServiceBus.Services.Foundations.IServiceBusService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "FoundationService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.ServiceBusProcessingService.RaiseEventAsync(System.String,T)",
           "Name": "RaiseEventAsync",
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "name",
@@ -382,10 +1151,48 @@
               "Type": "T"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.RaiseEventAsync(System.String,T)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Func\u003CTResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CTResult\u003E.Invoke()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.ServiceBusProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
+          "LineNumber": 44,
           "Inputs": [
             {
               "Name": "name",
@@ -396,10 +1203,40 @@
               "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.ServiceBusProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
+          "LineNumber": 53,
           "Inputs": [
             {
               "Name": "name",
@@ -410,7 +1247,583 @@
               "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[]"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[])"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    }
+  ],
+  "Interfaces": [
+    {
+      "Name": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker.Listen(System.String,System.Func\u003CcCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E,System.Func\u003CSystem.Exception, System.Threading.Tasks.Task\u003E)",
+          "Name": "Listen",
+          "LineNumber": 15,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CcCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E"
+            },
+            {
+              "Name": "errorHandler",
+              "Type": "System.Func\u003CSystem.Exception, System.Threading.Tasks.Task\u003E"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker.SendAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
+          "Name": "SendAsync",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "eventMessage",
+              "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusEventAuthorizationBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusEventAuthorizationBroker.GetEventAuthInfo()",
+          "Name": "GetEventAuthInfo",
+          "LineNumber": 13,
+          "Inputs": [],
+          "ReturnType": "cCoder.Eventing.AzureServiceBus.Models.IServiceBusEventAuthInfo",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusEventAuthorizationBroker.SetEventMessage(cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage)",
+          "Name": "SetEventMessage",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker.GetScopeForEvent(cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage)",
+          "Name": "GetScopeForEvent",
+          "LineNumber": 12,
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage"
+            }
+          ],
+          "ReturnType": "Microsoft.Extensions.DependencyInjection.IServiceScope",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker.GetService()",
+          "Name": "GetService",
+          "LineNumber": 14,
+          "Inputs": [],
+          "ReturnType": "T",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker.GetService(System.Type)",
+          "Name": "GetService",
+          "LineNumber": 13,
+          "Inputs": [
+            {
+              "Name": "type",
+              "Type": "System.Type"
+            }
+          ],
+          "ReturnType": "System.Object",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker.GetServiceProvider()",
+          "Name": "GetServiceProvider",
+          "LineNumber": 15,
+          "Inputs": [],
+          "ReturnType": "System.IServiceProvider",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub",
+      "StandardElementType": "Exposure",
+      "LineNumber": 9,
+      "IsPublic": true,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+          "Name": "ListenToEvent",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
+          "Name": "RaiseEventAsync",
+          "LineNumber": 12,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub.RaiseEventsAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[])",
+          "Name": "RaiseEventsAsync",
+          "LineNumber": 13,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "messages",
+              "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[]"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.AzureServiceBus.Models.IServiceBusEventAuthInfo",
+      "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [
+        {
+          "Name": "SSOUserId",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.AzureServiceBus.Services.Foundations.IServiceBusService",
+      "StandardElementType": "FoundationService",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Services.Foundations.IServiceBusService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+          "Name": "ListenToEvent",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Services.Foundations.IServiceBusService.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
+          "Name": "RaiseEventAsync",
+          "LineNumber": 12,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "eventMessage",
+              "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService",
+      "StandardElementType": "ProcessingService",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+          "Name": "ListenToEvent",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.RaiseEventAsync(System.String,T)",
+          "Name": "RaiseEventAsync",
+          "LineNumber": 12,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "data",
+              "Type": "T"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
+          "Name": "RaiseEventAsync",
+          "LineNumber": 13,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[])",
+          "Name": "RaiseEventsAsync",
+          "LineNumber": 14,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "messages",
+              "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[]"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     }

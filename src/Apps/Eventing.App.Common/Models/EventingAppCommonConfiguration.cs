@@ -8,11 +8,8 @@ public class EventingAppCommonConfiguration
 {
     public EventingAppCommonConfiguration()
     {
-        AppName = "Eventing.App";
-        RemoteHubUrl = string.Empty;
+        Eventing = new EventingAppConfiguration();
     }
 
-    public string AppName { get; set; }
-
-    public string RemoteHubUrl { get; set; }
+    public EventingAppConfiguration Eventing { get; set; }
 }

@@ -16,16 +16,13 @@ using System.Net.Sockets;
 
 namespace cCoder.Eventing.IntegrationTests.Tests;
 
-public partial class ChatEventTests : IAsyncLifetime
+public partial class ChatEventIntegrationTests
 {
     private readonly List<WebApplication> applications = [];
     private readonly List<HubConnection> hubConnections = [];
     private readonly HttpClient httpClient = new();
 
-    public Task InitializeAsync() =>
-        Task.CompletedTask;
-
-    public async Task DisposeAsync()
+    private async Task DisposeAsync()
     {
         foreach (HubConnection hubConnection in hubConnections)
         {
@@ -160,5 +157,111 @@ task2: Task.Delay(delay:TimeSpan.FromSeconds(seconds:10)));
             .Port;
 
         return $"http://127.0.0.1:{port}";
+    }
+
+    [Fact]
+    public async Task ShouldSendChatEventFromApp1ToApp2()
+    {
+        // Given
+
+        string app1Url = GetFreeLocalUrl();
+        string app2Url = GetFreeLocalUrl();
+        string messageText = $"App1 integration message {Guid.NewGuid()}";
+        TaskCompletionSource<ChatMessage> app1ReceivedMessage = new();
+        TaskCompletionSource<ChatMessage> app2ReceivedMessage = new();
+
+        await StartChatApplicationAsync(
+appDirectory: "Eventing.App1",
+appName: "Eventing.App1",
+appUrl: app1Url,
+remoteHubUrl: $"{app2Url}/Api/Eventing/Http");
+
+        await StartChatApplicationAsync(
+appDirectory: "Eventing.App2",
+appName: "Eventing.App2",
+appUrl: app2Url,
+remoteHubUrl: $"{app1Url}/Api/Eventing/Http");
+
+        await ConnectToChatHubAsync(appUrl:app1Url, completionSource:app1ReceivedMessage, expectedText:messageText);
+        await ConnectToChatHubAsync(appUrl:app2Url, completionSource:app2ReceivedMessage, expectedText:messageText);
+
+        await SendChatMessageAsync(appUrl:app1Url, user:"Integration", text:messageText);
+
+        ChatMessage app1Message =
+            await WaitForMessageAsync(completionSource:app1ReceivedMessage);
+
+        // When
+
+        ChatMessage app2Message =
+            await WaitForMessageAsync(completionSource:app2ReceivedMessage);
+
+        // Then
+
+        app1Message.Text.Should()
+            .Be(expected:messageText);
+
+        app2Message.Text.Should()
+            .Be(expected:messageText);
+
+        app1Message.SourceApp.Should()
+            .Be(expected:"Eventing.App1");
+
+        app2Message.SourceApp.Should()
+            .Be(expected:"Eventing.App1");
+
+        await DisposeAsync();
+    }
+
+    [Fact]
+    public async Task ShouldSendChatEventFromApp2ToApp1()
+    {
+        // Given
+
+        string app1Url = GetFreeLocalUrl();
+        string app2Url = GetFreeLocalUrl();
+        string messageText = $"App2 integration message {Guid.NewGuid()}";
+        TaskCompletionSource<ChatMessage> app1ReceivedMessage = new();
+        TaskCompletionSource<ChatMessage> app2ReceivedMessage = new();
+
+        await StartChatApplicationAsync(
+appDirectory: "Eventing.App1",
+appName: "Eventing.App1",
+appUrl: app1Url,
+remoteHubUrl: $"{app2Url}/Api/Eventing/Http");
+
+        await StartChatApplicationAsync(
+appDirectory: "Eventing.App2",
+appName: "Eventing.App2",
+appUrl: app2Url,
+remoteHubUrl: $"{app1Url}/Api/Eventing/Http");
+
+        await ConnectToChatHubAsync(appUrl:app1Url, completionSource:app1ReceivedMessage, expectedText:messageText);
+        await ConnectToChatHubAsync(appUrl:app2Url, completionSource:app2ReceivedMessage, expectedText:messageText);
+
+        await SendChatMessageAsync(appUrl:app2Url, user:"Integration", text:messageText);
+
+        ChatMessage app1Message =
+            await WaitForMessageAsync(completionSource:app1ReceivedMessage);
+
+        // When
+
+        ChatMessage app2Message =
+            await WaitForMessageAsync(completionSource:app2ReceivedMessage);
+
+        // Then
+
+        app1Message.Text.Should()
+            .Be(expected:messageText);
+
+        app2Message.Text.Should()
+            .Be(expected:messageText);
+
+        app1Message.SourceApp.Should()
+            .Be(expected:"Eventing.App2");
+
+        app2Message.SourceApp.Should()
+            .Be(expected:"Eventing.App2");
+
+        await DisposeAsync();
     }
 }

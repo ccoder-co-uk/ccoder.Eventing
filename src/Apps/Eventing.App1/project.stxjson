@@ -1,23 +1,50 @@
 {
+  "SchemaVersion": 2,
+  "Project": {
+    "Id": "Eventing.App1",
+    "Name": "Eventing.App1",
+    "AssemblyName": "Eventing.App1"
+  },
   "Classes": [
     {
       "Name": "Eventing.App1.Program",
       "StandardElementType": "App",
+      "LineNumber": 9,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [],
       "Methods": [
         {
+          "Id": "Eventing.App1.Program.Main(System.String[])",
           "Name": "Main",
+          "LineNumber": 11,
           "Inputs": [
             {
               "Name": "args",
               "Type": "System.String[]"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     }
   ],
+  "Interfaces": [],
   "Links": [],
   "AnalysisItems": []
 }

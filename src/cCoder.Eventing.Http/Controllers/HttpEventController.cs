@@ -17,10 +17,21 @@ public class HttpEventController(IHttpEventHub httpEventHub) : ControllerBase
         HttpEventMessage newMessage,
         CancellationToken cancellationToken)
     {
-        await httpEventHub.ReceiveEventAsync(
-            message: newMessage,
-            cancellationToken: cancellationToken);
+        try
+        {
+            await httpEventHub.ReceiveEventAsync(
+                message: newMessage,
+                cancellationToken: cancellationToken);
 
-        return Accepted();
+            return Accepted();
+        }
+        catch (InvalidOperationException)
+        {
+            return BadRequest(error: "The event request is invalid.");
+        }
+        catch (Exception)
+        {
+            return StatusCode(statusCode: 500);
+        }
     }
 }

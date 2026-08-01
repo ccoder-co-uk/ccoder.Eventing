@@ -34,15 +34,19 @@ public class ChatController(
                     {
                         User = newRequest.User,
                         Text = newRequest.Text,
-                        SourceApp = configuration.AppName,
+                        SourceApp = configuration.Eventing.AppName,
                     },
                     cancellationToken:cancellationToken);
 
             return Accepted(value:message);
         }
-        catch (Exception ex)
+        catch (InvalidOperationException)
         {
-            return BadRequest(error:ex.Message);
+            return BadRequest(error: "The chat request is invalid.");
+        }
+        catch (Exception)
+        {
+            return StatusCode(statusCode: 500);
         }
     }
 }
