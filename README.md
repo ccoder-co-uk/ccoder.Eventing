@@ -1,6 +1,6 @@
 # cCoder.Eventing
 
-[View the latest code coverage report](https://ccoder-co-uk.github.io/cCoder.Eventing/)
+[View the latest code coverage report](https://ccoder-co-uk.github.io/ccoder.Eventing/)
 
 `cCoder.Eventing` provides lightweight event distribution for cCoder domain
 applications.
