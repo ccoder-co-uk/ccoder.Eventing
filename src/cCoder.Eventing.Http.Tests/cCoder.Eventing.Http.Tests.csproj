@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Apps\Eventing.App.Common\Eventing.App.Common.csproj" />
     <ProjectReference Include="..\cCoder.Eventing.Http\cCoder.Eventing.Http.csproj" />
   </ItemGroup>
 </Project>
