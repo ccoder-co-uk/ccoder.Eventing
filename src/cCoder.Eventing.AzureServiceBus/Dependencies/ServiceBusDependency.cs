@@ -7,15 +7,29 @@ using cCoder.Eventing.AzureServiceBus.Models;
 
 namespace cCoder.Eventing.AzureServiceBus.Dependencies;
 
-internal sealed class ServiceBusDependency(
-    AzureServiceBusEventingConfiguration configuration) :
-    IAsyncDisposable
+internal sealed class ServiceBusDependency : IAsyncDisposable
 {
-    private readonly ServiceBusClient client =
-        new(connectionString: configuration.ConnectionString);
+    private readonly AzureServiceBusEventingConfiguration configuration;
+    private readonly ServiceBusClient client;
 
     private readonly Dictionary<string, ServiceBusSender> senders = [];
     private readonly Dictionary<string, ServiceBusProcessor> processors = [];
+
+    internal ServiceBusDependency(
+        AzureServiceBusEventingConfiguration configuration)
+        : this(
+            configuration: configuration,
+            client: new ServiceBusClient(
+                connectionString: configuration.ConnectionString))
+    { }
+
+    internal ServiceBusDependency(
+        AzureServiceBusEventingConfiguration configuration,
+        ServiceBusClient client)
+    {
+        this.configuration = configuration;
+        this.client = client;
+    }
 
     internal async ValueTask SendAsync<T>(
         string name,

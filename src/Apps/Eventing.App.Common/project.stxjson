@@ -122,6 +122,15 @@
           ],
           "HttpResponses": [
             {
+              "StatusCode": 202,
+              "ResultMethod": "Accepted",
+              "ExceptionType": "",
+              "IsExceptionPath": false,
+              "IsNullPath": false,
+              "HasBody": true,
+              "ExposesExceptionDetails": false
+            },
+            {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
               "ExceptionType": "",

@@ -62,6 +62,15 @@
           ],
           "HttpResponses": [
             {
+              "StatusCode": 202,
+              "ResultMethod": "Accepted",
+              "ExceptionType": "",
+              "IsExceptionPath": false,
+              "IsNullPath": false,
+              "HasBody": false,
+              "ExposesExceptionDetails": false
+            },
+            {
               "StatusCode": 400,
               "ResultMethod": "BadRequest",
               "ExceptionType": "System.InvalidOperationException",
@@ -91,7 +100,7 @@
     },
     {
       "Name": "cCoder.Eventing.Http.Dependencies.HttpEventBroker",
-      "StandardElementType": "Unknown",
+      "StandardElementType": "Dependency",
       "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Class",
@@ -173,7 +182,7 @@
     },
     {
       "Name": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
-      "StandardElementType": "Unknown",
+      "StandardElementType": "Dependency",
       "LineNumber": 17,
       "IsPublic": false,
       "Kind": "Class",
@@ -269,7 +278,7 @@
     },
     {
       "Name": "cCoder.Eventing.Http.Dependencies.HttpEventHandlerRegistry",
-      "StandardElementType": "Unknown",
+      "StandardElementType": "Dependency",
       "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Class",
@@ -611,7 +620,7 @@
     },
     {
       "Name": "cCoder.Eventing.Http.Dependencies.HttpEventQueue",
-      "StandardElementType": "Unknown",
+      "StandardElementType": "Dependency",
       "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Class",
@@ -708,7 +717,7 @@
     },
     {
       "Name": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
-      "StandardElementType": "Unknown",
+      "StandardElementType": "Dependency",
       "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",

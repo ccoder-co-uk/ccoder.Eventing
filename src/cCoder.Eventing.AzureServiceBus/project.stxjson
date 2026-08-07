@@ -523,7 +523,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency.DisposeAsync()",
           "Name": "DisposeAsync",
-          "LineNumber": 95,
+          "LineNumber": 109,
           "Inputs": [],
           "ReturnType": "System.Threading.Tasks.ValueTask",
           "Implements": [
