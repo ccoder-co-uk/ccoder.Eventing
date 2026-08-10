@@ -180,6 +180,72 @@
       ]
     },
     {
+      "Name": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.LoggingBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus:cCoder.Eventing.AzureServiceBus.Brokers.Loggings.ILoggingBroker",
+          "FullName": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.ILoggingBroker",
+          "Name": "ILoggingBroker",
+          "Namespace": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings",
+          "AssemblyName": "cCoder.Eventing.AzureServiceBus",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.LoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+          "Name": "LogError",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "exception",
+              "Type": "System.Exception"
+            },
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
+              "MethodName": "LogError",
+              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusBroker",
       "StandardElementType": "Broker",
       "LineNumber": 10,
@@ -547,7 +613,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 14,
+      "LineNumber": 15,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -557,7 +623,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventing(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E)",
           "Name": "AddAzureServiceBusEventing",
-          "LineNumber": 63,
+          "LineNumber": 64,
           "Inputs": [
             {
               "Name": "services",
@@ -594,7 +660,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventing(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)",
           "Name": "AddAzureServiceBusEventing",
-          "LineNumber": 78,
+          "LineNumber": 79,
           "Inputs": [
             {
               "Name": "services",
@@ -623,7 +689,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E)",
           "Name": "AddAzureServiceBusEventingHostedServices",
-          "LineNumber": 39,
+          "LineNumber": 40,
           "Inputs": [
             {
               "Name": "services",
@@ -667,7 +733,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration)",
           "Name": "AddAzureServiceBusEventingHostedServices",
-          "LineNumber": 49,
+          "LineNumber": 50,
           "Inputs": [
             {
               "Name": "services",
@@ -704,7 +770,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E)",
           "Name": "AddAzureServiceBusEventingWeb",
-          "LineNumber": 16,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "services",
@@ -748,7 +814,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration)",
           "Name": "AddAzureServiceBusEventingWeb",
-          "LineNumber": 25,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "services",
@@ -973,16 +1039,16 @@
           ],
           "Calls": [
             {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
-              "MethodName": "LogError",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
               "TypeName": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker",
               "MethodName": "Listen",
               "MethodId": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker.Listen(System.String,System.Func\u003CcCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E,System.Func\u003CSystem.Exception, System.Threading.Tasks.Task\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             }
@@ -1029,16 +1095,16 @@
           ],
           "Calls": [
             {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
-              "MethodName": "LogError",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
               "TypeName": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker",
               "MethodName": "SendAsync",
               "MethodId": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker.SendAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             }
@@ -1515,6 +1581,51 @@
       ]
     },
     {
+      "Name": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.ILoggingBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+          "Name": "LogError",
+          "LineNumber": 9,
+          "Inputs": [
+            {
+              "Name": "exception",
+              "Type": "System.Exception"
+            },
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub",
       "StandardElementType": "Exposure",
       "LineNumber": 9,
@@ -1840,6 +1951,10 @@
     {
       "FromType": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency",
       "ToType": "cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration"
+    },
+    {
+      "FromType": "cCoder.Eventing.AzureServiceBus.Services.Foundations.ServiceBusService",
+      "ToType": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.LoggingBroker"
     },
     {
       "FromType": "cCoder.Eventing.AzureServiceBus.Services.Foundations.ServiceBusService",

@@ -79,6 +79,150 @@
       ]
     },
     {
+      "Name": "cCoder.Eventing.Brokers.Loggings.LoggingBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing:cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
+          "FullName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
+          "Name": "ILoggingBroker",
+          "Namespace": "cCoder.Eventing.Brokers.Loggings",
+          "AssemblyName": "cCoder.Eventing",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Brokers.Loggings.LoggingBroker.LogDebug(System.String,System.Object[])",
+          "Name": "LogDebug",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogDebug(System.String,System.Object[])"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
+              "MethodName": "LogDebug",
+              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,System.String?,System.Object?[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Brokers.Loggings.LoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+          "Name": "LogError",
+          "LineNumber": 14,
+          "Inputs": [
+            {
+              "Name": "exception",
+              "Type": "System.Exception"
+            },
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
+              "MethodName": "LogError",
+              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Brokers.Loggings.LoggingBroker.LogWarning(System.String,System.Object[])",
+          "Name": "LogWarning",
+          "LineNumber": 17,
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogWarning(System.String,System.Object[])"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
+              "MethodName": "LogWarning",
+              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,System.String?,System.Object?[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.Brokers.ServiceProviderBroker",
       "StandardElementType": "Broker",
       "LineNumber": 10,
@@ -488,7 +632,7 @@
     {
       "Name": "cCoder.Eventing.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 14,
+      "LineNumber": 15,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -498,7 +642,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddBulkEventProviders(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Models.BulkEventProvider[])",
           "Name": "AddBulkEventProviders",
-          "LineNumber": 108,
+          "LineNumber": 109,
           "Inputs": [
             {
               "Name": "services",
@@ -527,7 +671,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventProviders(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Models.EventProvider[])",
           "Name": "AddEventProviders",
-          "LineNumber": 103,
+          "LineNumber": 104,
           "Inputs": [
             {
               "Name": "services",
@@ -556,7 +700,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventing(Microsoft.Extensions.DependencyInjection.IServiceCollection)",
           "Name": "AddEventing",
-          "LineNumber": 62,
+          "LineNumber": 63,
           "Inputs": [
             {
               "Name": "services",
@@ -581,7 +725,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventing(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.Models.EventingConfiguration\u003E)",
           "Name": "AddEventing",
-          "LineNumber": 74,
+          "LineNumber": 75,
           "Inputs": [
             {
               "Name": "services",
@@ -618,7 +762,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventing(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Models.EventingConfiguration)",
           "Name": "AddEventing",
-          "LineNumber": 89,
+          "LineNumber": 90,
           "Inputs": [
             {
               "Name": "services",
@@ -655,7 +799,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventingForType(Microsoft.Extensions.DependencyInjection.IServiceCollection)",
           "Name": "AddEventingForType",
-          "LineNumber": 113,
+          "LineNumber": 114,
           "Inputs": [
             {
               "Name": "services",
@@ -680,7 +824,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.Models.EventingConfiguration\u003E)",
           "Name": "AddEventingHostedServices",
-          "LineNumber": 39,
+          "LineNumber": 40,
           "Inputs": [
             {
               "Name": "services",
@@ -724,7 +868,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Models.EventingConfiguration)",
           "Name": "AddEventingHostedServices",
-          "LineNumber": 48,
+          "LineNumber": 49,
           "Inputs": [
             {
               "Name": "services",
@@ -761,7 +905,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.Models.EventingConfiguration\u003E)",
           "Name": "AddEventingWeb",
-          "LineNumber": 16,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "services",
@@ -805,7 +949,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Models.EventingConfiguration)",
           "Name": "AddEventingWeb",
-          "LineNumber": 25,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "services",
@@ -1234,16 +1378,16 @@
           ],
           "Calls": [
             {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
-              "MethodName": "LogError",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
               "TypeName": "cCoder.Eventing.Brokers.IEventAuthorizationBroker",
               "MethodName": "GetEventAuthInfo",
               "MethodId": "cCoder.Eventing.Brokers.IEventAuthorizationBroker.GetEventAuthInfo()",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             }
@@ -1311,13 +1455,6 @@
           ],
           "Calls": [
             {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
-              "MethodName": "LogError",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
               "TypeName": "System.Linq.Enumerable",
               "MethodName": "ToArray",
               "MethodId": "System.Linq.Enumerable.ToArray(System.Collections.Generic.IEnumerable\u003CTSource\u003E)",
@@ -1342,6 +1479,13 @@
               "TypeName": "cCoder.Eventing.Brokers.IServiceProviderBroker",
               "MethodName": "GetServices",
               "MethodId": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetServices()",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             }
@@ -1389,13 +1533,6 @@
           ],
           "Calls": [
             {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
-              "MethodName": "LogError",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
               "TypeName": "System.Linq.Enumerable",
               "MethodName": "ToArray",
               "MethodId": "System.Linq.Enumerable.ToArray(System.Collections.Generic.IEnumerable\u003CTSource\u003E)",
@@ -1420,6 +1557,13 @@
               "TypeName": "cCoder.Eventing.Brokers.IServiceProviderBroker",
               "MethodName": "GetServices",
               "MethodId": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetServices()",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             }
@@ -1490,18 +1634,18 @@
           ],
           "Calls": [
             {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
-              "MethodName": "LogError",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
               "TypeName": "System.Collections.Generic.ICollection\u003CT\u003E",
               "MethodName": "Add",
               "MethodId": "System.Collections.Generic.ICollection\u003CT\u003E.Add(T)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             }
           ],
           "PossibleExceptionTypes": [
@@ -1544,13 +1688,6 @@
           ],
           "Calls": [
             {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
-              "MethodName": "LogError",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
               "TypeName": "System.Func\u003CT1, T2, TResult\u003E",
               "MethodName": "Invoke",
               "MethodId": "System.Func\u003CT1, T2, TResult\u003E.Invoke(T1,T2)",
@@ -1561,6 +1698,13 @@
               "TypeName": "cCoder.Eventing.Brokers.IServiceProviderBroker",
               "MethodName": "GetScopeForEvent",
               "MethodId": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetScopeForEvent(cCoder.Eventing.Models.EventMessage)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             }
@@ -1628,13 +1772,6 @@
           ],
           "Calls": [
             {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
-              "MethodName": "LogError",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
               "TypeName": "System.Collections.Generic.List\u003CT\u003E",
               "MethodName": "Add",
               "MethodId": "System.Collections.Generic.List\u003CT\u003E.Add(T)",
@@ -1645,6 +1782,13 @@
               "TypeName": "cCoder.Eventing.Brokers.IServiceProviderBroker",
               "MethodName": "GetService",
               "MethodId": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetService()",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -1696,11 +1840,11 @@
           ],
           "Calls": [
             {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
+              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
               "MethodName": "LogError",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             }
           ],
           "PossibleExceptionTypes": [
@@ -1746,11 +1890,11 @@
           ],
           "Calls": [
             {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
+              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
               "MethodName": "LogError",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             }
           ],
           "PossibleExceptionTypes": [
@@ -2062,18 +2206,18 @@
           ],
           "Calls": [
             {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
-              "MethodName": "LogDebug",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
               "TypeName": "System.Func\u003CT1, T2, TResult\u003E",
               "MethodName": "Invoke",
               "MethodId": "System.Func\u003CT1, T2, TResult\u003E.Invoke(T1,T2)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
+              "MethodName": "LogDebug",
+              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogDebug(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Eventing.Services.Foundations.IEventService\u003CT\u003E",
@@ -2123,11 +2267,11 @@
           ],
           "Calls": [
             {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
+              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
               "MethodName": "LogDebug",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogDebug(System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Eventing.Services.Foundations.IEventService\u003CT\u003E",
@@ -2324,6 +2468,109 @@
           "LineNumber": 15,
           "Inputs": [],
           "ReturnType": "T[]",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogDebug(System.String,System.Object[])",
+          "Name": "LogDebug",
+          "LineNumber": 9,
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+          "Name": "LogError",
+          "LineNumber": 10,
+          "Inputs": [
+            {
+              "Name": "exception",
+              "Type": "System.Exception"
+            },
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogWarning(System.String,System.Object[])",
+          "Name": "LogWarning",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
+            }
+          ],
+          "ReturnType": "System.Void",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -2962,12 +3209,28 @@
       "ToType": "cCoder.Eventing.Brokers.EventAuthorizationBroker"
     },
     {
+      "FromType": "cCoder.Eventing.Services.Foundations.EventAuthorizationService",
+      "ToType": "cCoder.Eventing.Brokers.Loggings.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Foundations.EventProviderService",
+      "ToType": "cCoder.Eventing.Brokers.Loggings.LoggingBroker"
+    },
+    {
       "FromType": "cCoder.Eventing.Services.Foundations.EventProviderService",
       "ToType": "cCoder.Eventing.Brokers.ServiceProviderBroker"
     },
     {
       "FromType": "cCoder.Eventing.Services.Foundations.EventService\u003CT\u003E",
+      "ToType": "cCoder.Eventing.Brokers.Loggings.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Foundations.EventService\u003CT\u003E",
       "ToType": "cCoder.Eventing.Brokers.ServiceProviderBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Foundations.EventServiceProviderService",
+      "ToType": "cCoder.Eventing.Brokers.Loggings.LoggingBroker"
     },
     {
       "FromType": "cCoder.Eventing.Services.Foundations.EventServiceProviderService",
@@ -2980,6 +3243,10 @@
     {
       "FromType": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService",
       "ToType": "cCoder.Eventing.Services.Foundations.EventServiceProviderService"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Processings.EventProcessingService\u003CT\u003E",
+      "ToType": "cCoder.Eventing.Brokers.Loggings.LoggingBroker"
     }
   ],
   "AnalysisItems": []

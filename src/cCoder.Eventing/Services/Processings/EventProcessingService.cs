@@ -4,13 +4,13 @@
 
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Services.Foundations;
-using Microsoft.Extensions.Logging;
+using cCoder.Eventing.Brokers.Loggings;
 
 namespace cCoder.Eventing.Services.Processings;
 
 internal sealed partial class EventProcessingService<T>(
         IEventService<T> eventService,
-        ILogger<EventProcessingService<T>> log) 
+        ILoggingBroker log)
             : IEventProcessingService<T>
 {
     public void ListenToEvent(

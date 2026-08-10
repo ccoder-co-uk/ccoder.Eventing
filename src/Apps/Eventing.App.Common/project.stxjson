@@ -67,7 +67,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Controllers.ChatController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 12,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -86,7 +86,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Controllers.ChatController.Post(cCoder.Eventing.Apps.Models.ChatMessageRequest,System.Threading.CancellationToken)",
           "Name": "Post",
-          "LineNumber": 20,
+          "LineNumber": 22,
           "Inputs": [
             {
               "Name": "newRequest",
@@ -106,6 +106,13 @@
               "MethodId": "cCoder.Eventing.Apps.Exposures.IChatManager.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)",
               "StandardElementType": "Exposure",
               "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
             }
           ],
           "PossibleExceptionTypes": [
@@ -128,7 +135,8 @@
               "IsExceptionPath": false,
               "IsNullPath": false,
               "HasBody": true,
-              "ExposesExceptionDetails": false
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 400,
@@ -137,7 +145,8 @@
               "IsExceptionPath": false,
               "IsNullPath": false,
               "HasBody": true,
-              "ExposesExceptionDetails": false
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 400,
@@ -146,7 +155,8 @@
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
-              "ExposesExceptionDetails": false
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -155,7 +165,8 @@
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": false,
-              "ExposesExceptionDetails": false
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -284,15 +295,15 @@
         },
         {
           "Name": "SourceApp",
-          "Type": "System.String"
+          "Type": "System.String?"
         },
         {
           "Name": "Text",
-          "Type": "System.String"
+          "Type": "System.String?"
         },
         {
           "Name": "User",
-          "Type": "System.String"
+          "Type": "System.String?"
         }
       ],
       "Methods": []
@@ -308,11 +319,11 @@
       "Properties": [
         {
           "Name": "Text",
-          "Type": "System.String"
+          "Type": "System.String?"
         },
         {
           "Name": "User",
-          "Type": "System.String"
+          "Type": "System.String?"
         }
       ],
       "Methods": []

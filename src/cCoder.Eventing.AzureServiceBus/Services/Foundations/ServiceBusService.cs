@@ -5,14 +5,14 @@
 using cCoder.Eventing.AzureServiceBus.Brokers;
 using cCoder.Eventing.AzureServiceBus.Models;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using cCoder.Eventing.AzureServiceBus.Brokers.Loggings;
 
 namespace cCoder.Eventing.AzureServiceBus.Services.Foundations;
 
 internal sealed partial class ServiceBusService(
         IServiceBusBroker serviceBusBroker,
         IServiceProviderBroker serviceProviderBroker,
-        ILogger<ServiceBusService> log) : IServiceBusService
+        ILoggingBroker log) : IServiceBusService
 {
     public void ListenToEvent<T>(
         string name,

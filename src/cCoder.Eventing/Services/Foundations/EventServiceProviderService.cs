@@ -5,7 +5,7 @@
 using cCoder.Eventing.Brokers;
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Services.Processings;
-using Microsoft.Extensions.Logging;
+using cCoder.Eventing.Brokers.Loggings;
 
 namespace cCoder.Eventing.Services.Foundations;
 
@@ -13,11 +13,11 @@ internal sealed partial class EventServiceProviderService : IEventServiceProvide
 {
     private readonly List<object> services = [];
     private readonly IServiceProviderBroker serviceProviderBroker;
-    private readonly ILogger<EventServiceProviderService> log;
+    private readonly ILoggingBroker log;
 
     public EventServiceProviderService(
         IServiceProviderBroker serviceProviderBroker,
-        ILogger<EventServiceProviderService> log)
+        ILoggingBroker log)
     {
         this.serviceProviderBroker = serviceProviderBroker;
         this.log = log;

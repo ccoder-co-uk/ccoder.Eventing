@@ -4,18 +4,18 @@
 
 using cCoder.Eventing.Brokers;
 using cCoder.Eventing.Models;
-using Microsoft.Extensions.Logging;
+using cCoder.Eventing.Brokers.Loggings;
 
 namespace cCoder.Eventing.Services.Foundations;
 
 internal sealed partial class EventAuthorizationService : IEventAuthorizationService
 {
     private readonly IEventAuthorizationBroker authInfoBroker;
-    private readonly ILogger<EventAuthorizationService> log;
+    private readonly ILoggingBroker log;
 
     public EventAuthorizationService(
         IEventAuthorizationBroker authInfoBroker,
-        ILogger<EventAuthorizationService> log)
+        ILoggingBroker log)
     {
         this.authInfoBroker = authInfoBroker;
         this.log = log;

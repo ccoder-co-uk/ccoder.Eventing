@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Brokers;
+using cCoder.Eventing.Brokers.Loggings;
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Services.Foundations;
 using cCoder.Eventing.Services.Orchestrations;
@@ -171,6 +172,7 @@ public static class IServiceCollectionExtensions
 
     private static IServiceCollection AddBrokers(this IServiceCollection services)
     {
+        services.AddSingleton<ILoggingBroker, LoggingBroker>();
         services.AddScoped<IEventAuthorizationBroker, EventAuthorizationBroker>();
         services.AddTransient<IServiceProviderBroker, ServiceProviderBroker>();
 

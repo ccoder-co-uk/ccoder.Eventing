@@ -5,6 +5,7 @@
 using cCoder.Eventing.Apps.Controllers;
 using cCoder.Eventing.Apps.Exposures;
 using cCoder.Eventing.Apps.Models;
+using cCoder.Eventing.Http.Brokers.Loggings;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -119,5 +120,6 @@ public partial class ChatControllerTests
                 {
                     AppName = "Test.App"
                 }
-            });
+            },
+            loggingBroker: Mock.Of<ILoggingBroker>());
 }
