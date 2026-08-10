@@ -7,7 +7,7 @@ using cCoder.Eventing.Models;
 using cCoder.Eventing.Services.Foundations;
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using cCoder.Eventing.Brokers.Loggings;
 using Moq;
 
 namespace cCoder.Eventing.Tests.Foundations;
@@ -15,14 +15,14 @@ namespace cCoder.Eventing.Tests.Foundations;
 public partial class EventProviderServiceTests
 {
     private readonly Mock<IServiceProviderBroker> serviceProviderBrokerMock;
-    private readonly Mock<ILogger<EventProviderService>> loggerMock;
+    private readonly Mock<ILoggingBroker> loggerMock;
     private readonly Mock<IServiceScope> serviceScopeMock;
     private readonly Mock<IServiceProvider> scopedServiceProviderMock;
 
     public EventProviderServiceTests()
     {
         serviceProviderBrokerMock = new Mock<IServiceProviderBroker>();
-        loggerMock = new Mock<ILogger<EventProviderService>>();
+        loggerMock = new Mock<ILoggingBroker>();
         serviceScopeMock = new Mock<IServiceScope>();
         scopedServiceProviderMock = new Mock<IServiceProvider>();
 

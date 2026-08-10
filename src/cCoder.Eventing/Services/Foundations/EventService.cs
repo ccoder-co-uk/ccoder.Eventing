@@ -5,13 +5,13 @@
 using cCoder.Eventing.Brokers;
 using cCoder.Eventing.Models;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using cCoder.Eventing.Brokers.Loggings;
 
 namespace cCoder.Eventing.Services.Foundations;
 
 internal sealed partial class EventService<T>(
         IServiceProviderBroker serviceProviderBroker,
-        ILogger<EventService<T>> log) 
+        ILoggingBroker log)
             : IEventService<T>
 {
     private readonly IDictionary<

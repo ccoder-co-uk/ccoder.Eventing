@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Http.Brokers;
+using cCoder.Eventing.Http.Brokers.Loggings;
 using cCoder.Eventing.Http.Dependencies;
 using cCoder.Eventing.Http.Models;
 using cCoder.Eventing.Http.Services.Foundations;
@@ -85,6 +86,7 @@ public static class IServiceCollectionExtensions
 
     private static IServiceCollection AddBrokers(this IServiceCollection services)
     {
+        services.TryAddSingleton<ILoggingBroker, LoggingBroker>();
         services.TryAddSingleton<IHttpEventQueue, HttpEventQueue>();
         services.TryAddSingleton<IHttpEventHandlerRegistry, HttpEventHandlerRegistry>();
         services.TryAddSingleton<IHttpEventBroker, HttpEventBroker>();

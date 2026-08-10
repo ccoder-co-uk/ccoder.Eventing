@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.AzureServiceBus.Brokers;
+using cCoder.Eventing.AzureServiceBus.Brokers.Loggings;
 using cCoder.Eventing.AzureServiceBus.Dependencies;
 using cCoder.Eventing.AzureServiceBus.Models;
 using cCoder.Eventing.AzureServiceBus.Services.Foundations;
@@ -112,6 +113,7 @@ public static class IServiceCollectionExtensions
 
     private static IServiceCollection AddBrokers(this IServiceCollection services)
     {
+        services.AddSingleton<ILoggingBroker, LoggingBroker>();
         services.AddScoped<
             IServiceBusEventAuthorizationBroker,
             ServiceBusEventAuthorizationBroker>();

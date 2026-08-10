@@ -28,7 +28,7 @@ internal sealed partial class ChatOrchestrationService(
                     ? "Guest"
                     : newChatMessage.User.Trim();
 
-            newChatMessage.Text = newChatMessage.Text.Trim();
+            newChatMessage.Text = newChatMessage.Text!.Trim();
             newChatMessage.CreatedOn = DateTimeOffset.UtcNow;
 
             await chatEventService.RaiseChatMessageAsync(

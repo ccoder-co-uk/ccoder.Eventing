@@ -6,7 +6,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.8.3.1743" />
+    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.8.10.1517" />
     <PackageReference Include="FluentAssertions" Version="8.10.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
     <PackageReference Include="Moq" Version="4.20.72" />

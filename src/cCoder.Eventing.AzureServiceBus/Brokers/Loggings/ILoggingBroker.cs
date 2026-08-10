@@ -2,11 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-namespace cCoder.Eventing.Apps.Models;
+namespace cCoder.Eventing.AzureServiceBus.Brokers.Loggings;
 
-public class ChatMessageRequest
+internal interface ILoggingBroker
 {
-    public string? User { get; set; }
-
-    public string? Text { get; set; }
+    void LogError(Exception exception, string message, params object[] args);
 }

@@ -7,9 +7,75 @@
   },
   "Classes": [
     {
+      "Name": "cCoder.Eventing.Http.Brokers.Loggings.LoggingBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing.Http:cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker",
+          "FullName": "cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker",
+          "Name": "ILoggingBroker",
+          "Namespace": "cCoder.Eventing.Http.Brokers.Loggings",
+          "AssemblyName": "cCoder.Eventing.Http",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.Loggings.LoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+          "Name": "LogError",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "exception",
+              "Type": "System.Exception"
+            },
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])"
+          ],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
+              "MethodName": "LogError",
+              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.Http.Controllers.HttpEventController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 10,
+      "LineNumber": 11,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -28,7 +94,7 @@
         {
           "Id": "cCoder.Eventing.Http.Controllers.HttpEventController.Post(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "Post",
-          "LineNumber": 16,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "newMessage",
@@ -42,6 +108,13 @@
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E",
           "Implements": [],
           "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
             {
               "TypeName": "cCoder.Eventing.Http.IHttpEventHub",
               "MethodName": "ReceiveEventAsync",
@@ -68,7 +141,8 @@
               "IsExceptionPath": false,
               "IsNullPath": false,
               "HasBody": false,
-              "ExposesExceptionDetails": false
+              "ExposesExceptionDetails": false,
+              "LogsException": false
             },
             {
               "StatusCode": 400,
@@ -77,7 +151,8 @@
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": true,
-              "ExposesExceptionDetails": false
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             },
             {
               "StatusCode": 500,
@@ -86,7 +161,8 @@
               "IsExceptionPath": true,
               "IsNullPath": false,
               "HasBody": false,
-              "ExposesExceptionDetails": false
+              "ExposesExceptionDetails": false,
+              "LogsException": true
             }
           ],
           "IsHttpRequestHandler": true,
@@ -1142,7 +1218,7 @@
     {
       "Name": "cCoder.Eventing.Http.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 16,
+      "LineNumber": 17,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -1152,7 +1228,7 @@
         {
           "Id": "cCoder.Eventing.Http.IServiceCollectionExtensions.AddHttpEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.Http.Models.HttpEventingOptions\u003E)",
           "Name": "AddHttpEventingHostedServices",
-          "LineNumber": 46,
+          "LineNumber": 47,
           "Inputs": [
             {
               "Name": "services",
@@ -1203,7 +1279,7 @@
         {
           "Id": "cCoder.Eventing.Http.IServiceCollectionExtensions.AddHttpEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Http.Models.HttpEventingOptions)",
           "Name": "AddHttpEventingHostedServices",
-          "LineNumber": 60,
+          "LineNumber": 61,
           "Inputs": [
             {
               "Name": "services",
@@ -1247,7 +1323,7 @@
         {
           "Id": "cCoder.Eventing.Http.IServiceCollectionExtensions.AddHttpEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.Http.Models.HttpEventingOptions\u003E)",
           "Name": "AddHttpEventingWeb",
-          "LineNumber": 18,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "services",
@@ -1298,7 +1374,7 @@
         {
           "Id": "cCoder.Eventing.Http.IServiceCollectionExtensions.AddHttpEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Http.Models.HttpEventingOptions)",
           "Name": "AddHttpEventingWeb",
-          "LineNumber": 32,
+          "LineNumber": 33,
           "Inputs": [
             {
               "Name": "services",
@@ -1433,6 +1509,51 @@
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+          "Name": "LogError",
+          "LineNumber": 9,
+          "Inputs": [
+            {
+              "Name": "exception",
+              "Type": "System.Exception"
+            },
+            {
+              "Name": "message",
+              "Type": "System.String"
+            },
+            {
+              "Name": "args",
+              "Type": "System.Object[]"
+            }
+          ],
+          "ReturnType": "System.Void",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -1999,6 +2120,10 @@
     }
   ],
   "Links": [
+    {
+      "FromType": "cCoder.Eventing.Http.Controllers.HttpEventController",
+      "ToType": "cCoder.Eventing.Http.Brokers.Loggings.LoggingBroker"
+    },
     {
       "FromType": "cCoder.Eventing.Http.Controllers.HttpEventController",
       "ToType": "cCoder.Eventing.Http.HttpEventHub"

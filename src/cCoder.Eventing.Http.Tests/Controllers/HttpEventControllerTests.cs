@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Eventing.Http.Brokers.Loggings;
 using cCoder.Eventing.Http.Controllers;
 using cCoder.Eventing.Http.Models;
 using FluentAssertions;
@@ -21,7 +22,10 @@ public partial class HttpEventControllerTests
 
         HttpEventMessage message = new();
         Mock<IHttpEventHub> eventHub = new();
-        HttpEventController controller = new(httpEventHub: eventHub.Object);
+
+        HttpEventController controller = new(
+            httpEventHub: eventHub.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
 
@@ -57,7 +61,9 @@ public partial class HttpEventControllerTests
                 cancellationToken: It.IsAny<CancellationToken>()))
             .ThrowsAsync(exception: failure);
 
-        HttpEventController controller = new(httpEventHub: eventHub.Object);
+        HttpEventController controller = new(
+            httpEventHub: eventHub.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
 
