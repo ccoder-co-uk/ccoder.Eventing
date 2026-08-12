@@ -50,14 +50,14 @@ jobs:
           retention-days: 7
           path: ${{ env.TEST_RESULTS_DIRECTORY }}
 
-      - name: Enforce code coverage above 90 percent
+      - name: Enforce services and exposures coverage above 95 percent
         run: |
           dotnet tool install --tool-path tools dotnet-reportgenerator-globaltool --version 5.5.10
-          tools/reportgenerator -reports:"${{ env.TEST_RESULTS_DIRECTORY }}/**/coverage.cobertura.xml" -targetdir:"coverage-gate" -reporttypes:"Cobertura"
+          tools/reportgenerator -reports:"${{ env.TEST_RESULTS_DIRECTORY }}/**/coverage.cobertura.xml" -targetdir:"coverage-gate" -reporttypes:"Cobertura" -filefilters:"+*/Services/*;+*/Exposures/*"
           [xml] $coverage = Get-Content "coverage-gate/Cobertura.xml"
           $lineRate = [double] $coverage.coverage.'line-rate'
-          if ($lineRate -le 0.90) {
-            throw "Line coverage must be above 90%; actual coverage is $($lineRate * 100)%"
+          if ($lineRate -le 0.95) {
+            throw "Services and exposures line coverage must be above 95%; actual coverage is $($lineRate * 100)%"
           }
 
       - name: Pack

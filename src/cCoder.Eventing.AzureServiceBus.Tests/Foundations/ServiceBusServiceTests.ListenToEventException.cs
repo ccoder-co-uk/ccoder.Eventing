@@ -13,6 +13,66 @@ namespace cCoder.Eventing.AzureServiceBus.Tests.Foundations;
 public partial class ServiceBusServiceTests
 {
     [Fact]
+    public void ShouldWrapArgumentExceptionOnListenToEvent()
+    {
+        // Given
+
+        ArgumentException dependencyException = new(message: "dependency failure");
+
+        serviceBusBrokerMock
+            .Setup(expression: broker => broker.Listen<FakeObject>(
+                name: It.IsAny<string>(),
+                handler: It.IsAny<Func<ServiceBusEventMessage<FakeObject>, ValueTask>>(),
+                errorHandler: It.IsAny<Func<Exception, Task>>()))
+            .Throws(exception: dependencyException);
+
+        // When
+
+        Action listenAction = () => ServiceBusService.ListenToEvent<FakeObject>(
+            name: "event-name",
+            handler: (_, _) => ValueTask.CompletedTask);
+
+        // Then
+
+        ServiceValidationException actualException =
+            Assert.Throws<ServiceValidationException>(testCode: listenAction);
+
+        actualException.InnerException
+            .Should()
+            .BeSameAs(expected: dependencyException);
+    }
+
+    [Fact]
+    public void ShouldWrapInvalidOperationExceptionOnListenToEvent()
+    {
+        // Given
+
+        InvalidOperationException dependencyException = new(message: "dependency failure");
+
+        serviceBusBrokerMock
+            .Setup(expression: broker => broker.Listen<FakeObject>(
+                name: It.IsAny<string>(),
+                handler: It.IsAny<Func<ServiceBusEventMessage<FakeObject>, ValueTask>>(),
+                errorHandler: It.IsAny<Func<Exception, Task>>()))
+            .Throws(exception: dependencyException);
+
+        // When
+
+        Action listenAction = () => ServiceBusService.ListenToEvent<FakeObject>(
+            name: "event-name",
+            handler: (_, _) => ValueTask.CompletedTask);
+
+        // Then
+
+        ServiceDependencyException actualException =
+            Assert.Throws<ServiceDependencyException>(testCode: listenAction);
+
+        actualException.InnerException
+            .Should()
+            .BeSameAs(expected: dependencyException);
+    }
+
+    [Fact]
     public void ShouldRethrowOnListenToEventIfBrokerFails()
     {
         // Given
