@@ -106,7 +106,9 @@ public static class IServiceCollectionExtensions
         this IServiceCollection services,
         AzureServiceBusEventingConfiguration configuration)
     {
-        services.AddSingleton<ServiceBusDependency>();
+        services.AddSingleton(
+            implementationFactory: _ =>
+                new ServiceBusDependency(configuration: configuration));
 
         return services;
     }
