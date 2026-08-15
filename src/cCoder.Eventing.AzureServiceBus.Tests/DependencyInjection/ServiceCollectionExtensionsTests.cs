@@ -62,6 +62,34 @@ public partial class ServiceCollectionExtensionsTests
     }
 
     [Fact]
+    public async Task ShouldResolveEventHubFromRegisteredServicesAsync()
+    {
+        // Given
+
+        const string connectionString =
+            "Endpoint=sb://fake/;SharedAccessKeyName=fake;SharedAccessKey=fake=";
+
+        ServiceCollection services = new();
+        services.AddLogging();
+
+        services.AddAzureServiceBusEventing(
+            serviceBusConnectionString: connectionString);
+
+        await using ServiceProvider provider = services.BuildServiceProvider();
+
+        // When
+
+        Action resolveEventHub = () =>
+            provider.GetRequiredService<IAzureServiceBusEventHub>();
+
+        // Then
+
+        resolveEventHub
+            .Should()
+            .NotThrow();
+    }
+
+    [Fact]
     public void ShouldRejectNullConfigurations()
     {
         // Given
