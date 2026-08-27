@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.8.26.2138" />
+    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.8.27.1637" />
 	</ItemGroup>
 	
 </Project>
