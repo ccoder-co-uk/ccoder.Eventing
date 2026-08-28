@@ -209,8 +209,8 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Eventing.Apps.IServiceCollectionExtensions.AddEventingAppCommon(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action\u003CcCoder.Eventing.Apps.Models.EventingAppCommonConfiguration\u003E?)",
-          "Name": "AddEventingAppCommon",
+          "Id": "cCoder.Eventing.Apps.IServiceCollectionExtensions.AddAppCommon(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action\u003CcCoder.Eventing.Apps.Models.AppConfiguration\u003E?)",
+          "Name": "AddAppCommon",
           "LineNumber": 19,
           "Inputs": [
             {
@@ -223,7 +223,7 @@
             },
             {
               "Name": "configure",
-              "Type": "System.Action\u003CcCoder.Eventing.Apps.Models.EventingAppCommonConfiguration\u003E?"
+              "Type": "System.Action\u003CcCoder.Eventing.Apps.Models.AppConfiguration\u003E?"
             }
           ],
           "ReturnType": "System.Void",
@@ -233,13 +233,6 @@
               "TypeName": "Microsoft.Extensions.Configuration.ConfigurationBinder",
               "MethodName": "Bind",
               "MethodId": "Microsoft.Extensions.Configuration.ConfigurationBinder.Bind(Microsoft.Extensions.Configuration.IConfiguration,System.Object?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "Microsoft.Extensions.Configuration.IConfiguration",
-              "MethodName": "GetSection",
-              "MethodId": "Microsoft.Extensions.Configuration.IConfiguration.GetSection(System.String)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -264,6 +257,22 @@
           "HasTryCatch": false
         }
       ]
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Models.AppConfiguration",
+      "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [
+        {
+          "Name": "EventingChat",
+          "Type": "cCoder.Eventing.Apps.Models.EventingChatConfiguration"
+        }
+      ],
+      "Methods": []
     },
     {
       "Name": "cCoder.Eventing.Apps.Models.ChatEventNames",
@@ -329,23 +338,7 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Eventing.Apps.Models.EventingAppCommonConfiguration",
-      "StandardElementType": "Model",
-      "LineNumber": 7,
-      "IsPublic": true,
-      "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [],
-      "Properties": [
-        {
-          "Name": "Eventing",
-          "Type": "cCoder.Eventing.Apps.Models.EventingAppConfiguration"
-        }
-      ],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Eventing.Apps.Models.EventingAppConfiguration",
+      "Name": "cCoder.Eventing.Apps.Models.EventingChatConfiguration",
       "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": true,
@@ -1001,7 +994,7 @@
   "Links": [
     {
       "FromType": "cCoder.Eventing.Apps.Controllers.ChatController",
-      "ToType": "cCoder.Eventing.Apps.Models.EventingAppCommonConfiguration"
+      "ToType": "cCoder.Eventing.Apps.Models.AppConfiguration"
     },
     {
       "FromType": "cCoder.Eventing.Apps.Controllers.ChatController",

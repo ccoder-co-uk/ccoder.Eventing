@@ -61,7 +61,7 @@ initialData: new Dictionary<string, string?>
                 ["EventingChat:RemoteHubUrl"] = remoteHubUrl
             });
 
-        builder.Services.AddEventingAppCommon(
+        builder.Services.AddAppCommon(
             applicationConfiguration: builder.Configuration);
 
         WebApplication app = builder.Build();

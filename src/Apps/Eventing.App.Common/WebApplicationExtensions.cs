@@ -52,7 +52,7 @@ public static class WebApplicationExtensions
         app.MapGet(pattern: "/Health", handler: () => Results.Ok(value: "OK"));
         app.MapGet(
             pattern: "/Api/Chat/Config",
-            handler: (EventingAppCommonConfiguration configuration) =>
+            handler: (AppConfiguration configuration) =>
                 Results.Ok(value: configuration));
 
         return app;
