@@ -4,12 +4,12 @@
 
 namespace cCoder.Eventing.Apps.Models;
 
-public class EventingAppCommonConfiguration
+public sealed class AppConfiguration
 {
-    public EventingAppCommonConfiguration()
+    public AppConfiguration()
     {
-        Eventing = new EventingAppConfiguration();
+        EventingChat = new EventingChatConfiguration();
     }
 
-    public EventingAppConfiguration Eventing { get; set; }
+    public EventingChatConfiguration EventingChat { get; set; }
 }

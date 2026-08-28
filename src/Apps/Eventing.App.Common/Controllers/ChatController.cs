@@ -14,7 +14,7 @@ namespace cCoder.Eventing.Apps.Controllers;
 [Route("Api/Chat")]
 public class ChatController(
     IChatManager chatOrchestrationService,
-    EventingAppCommonConfiguration configuration,
+    AppConfiguration configuration,
     ILoggingBroker loggingBroker)
     : ControllerBase
 {
@@ -36,7 +36,7 @@ public class ChatController(
                     {
                         User = newRequest.User,
                         Text = newRequest.Text,
-                        SourceApp = configuration.Eventing.AppName,
+                        SourceApp = configuration.EventingChat.AppName,
                     },
                     cancellationToken:cancellationToken);
 

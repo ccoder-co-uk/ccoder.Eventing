@@ -16,16 +16,13 @@ namespace cCoder.Eventing.Apps;
 
 public static class IServiceCollectionExtensions
 {
-    public static void AddEventingAppCommon(
+    public static void AddAppCommon(
         this IServiceCollection services,
         IConfiguration applicationConfiguration,
-        Action<EventingAppCommonConfiguration>? configure = null)
+        Action<AppConfiguration>? configure = null)
     {
-        EventingAppCommonConfiguration configuration = new();
-
-        applicationConfiguration
-            .GetSection(key: "EventingChat")
-            .Bind(instance: configuration.Eventing);
+        AppConfiguration configuration = new();
+        applicationConfiguration.Bind(instance: configuration);
 
         configure?.Invoke(obj: configuration);
 
@@ -39,14 +36,14 @@ public static class IServiceCollectionExtensions
 
     private static IServiceCollection AddConfiguration(
         this IServiceCollection services,
-        EventingAppCommonConfiguration configuration)
+        AppConfiguration configuration)
     {
         services.AddSingleton(implementationInstance: configuration);
         services.AddEventing();
         services.AddEventingForType<ChatMessage>();
         services.AddHttpEventingWeb(
             configure: options =>
-                options.HubUrl = configuration.Eventing.RemoteHubUrl);
+                options.HubUrl = configuration.EventingChat.RemoteHubUrl);
 
         return services;
     }

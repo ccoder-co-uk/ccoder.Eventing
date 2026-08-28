@@ -114,9 +114,9 @@ public partial class ChatControllerTests
     private static ChatController CreateController(IChatManager manager) =>
         new(
             chatOrchestrationService: manager,
-            configuration: new EventingAppCommonConfiguration
+            configuration: new AppConfiguration
             {
-                Eventing = new EventingAppConfiguration
+                EventingChat = new EventingChatConfiguration
                 {
                     AppName = "Test.App"
                 }

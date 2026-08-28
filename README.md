@@ -7,9 +7,17 @@ applications.
 
 ## Local Configuration
 
-Configuration binds directly into `EventingConfiguration`. HTTP settings use
-the `Eventing__Http__...` environment-variable prefix and Azure Service Bus
-settings use `Eventing__ServiceBus__...`. Leave provider secrets empty in
+Each executable binds its complete configuration root to an
+`AppConfiguration`. The two chat sample apps share the same root shape and use
+the `EventingChat__...` environment-variable prefix. Library consumers compose
+their own root with an `EventingConfiguration` property and pass that property
+to the Eventing registration they require. Eventing has no persistence
+dependency; applications that also use Data domains register those domains
+explicitly at their composition root. Applications consuming `cCoder.Core`
+should use Core's recursive composite API instead.
+
+HTTP settings use the `Eventing__Http__...` environment-variable prefix and
+Azure Service Bus settings use `Eventing__ServiceBus__...`. Leave provider secrets empty in
 appsettings, define them as user-level or machine-level environment variables,
 restart Visual Studio, and press F5. Runtime event-handler delegates are created
 in `Program.cs` before the Eventing registration call because delegates cannot

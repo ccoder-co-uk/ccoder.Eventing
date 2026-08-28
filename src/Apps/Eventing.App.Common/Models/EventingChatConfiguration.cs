@@ -4,9 +4,9 @@
 
 namespace cCoder.Eventing.Apps.Models;
 
-public sealed class EventingAppConfiguration
+public sealed class EventingChatConfiguration
 {
-    public EventingAppConfiguration()
+    public EventingChatConfiguration()
     {
         AppName = "Eventing.App";
         RemoteHubUrl = string.Empty;
