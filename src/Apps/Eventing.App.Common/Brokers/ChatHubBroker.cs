@@ -2,7 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Eventing.Apps.Dependencies;
+using cCoder.Eventing.Apps.Exposures;
 using cCoder.Eventing.Apps.Models;
 using Microsoft.AspNetCore.SignalR;
 

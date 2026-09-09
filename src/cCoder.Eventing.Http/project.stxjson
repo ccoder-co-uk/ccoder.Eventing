@@ -2121,6 +2121,10 @@
   ],
   "Links": [
     {
+      "FromType": "cCoder.Eventing.Http.Brokers.Loggings.LoggingBroker",
+      "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Http.Brokers.Loggings.LoggingBroker\u003E"
+    },
+    {
       "FromType": "cCoder.Eventing.Http.Controllers.HttpEventController",
       "ToType": "cCoder.Eventing.Http.Brokers.Loggings.LoggingBroker"
     },
@@ -2130,7 +2134,27 @@
     },
     {
       "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventBroker",
+      "ToType": "IHttpClientFactory"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventBroker",
+      "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Http.Dependencies.HttpEventBroker\u003E"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventBroker",
       "ToType": "cCoder.Eventing.Http.Models.HttpEventingOptions"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
+      "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Http.Dependencies.HttpEventDispatcher\u003E"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
+      "ToType": "System.Collections.Generic.IEnumerable\u003CcCoder.Eventing.Models.EventProvider\u003E"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
+      "ToType": "cCoder.Eventing.Brokers.IServiceProviderBroker"
     },
     {
       "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
@@ -2139,6 +2163,10 @@
     {
       "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
       "ToType": "cCoder.Eventing.Http.Models.HttpEventingOptions"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcherHostedService",
+      "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Http.Dependencies.HttpEventDispatcherHostedService\u003E"
     },
     {
       "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcherHostedService",
@@ -2155,6 +2183,10 @@
     {
       "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingServiceDependency",
       "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
+      "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Http.Dependencies.HttpEventServiceDependency\u003E"
     },
     {
       "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
