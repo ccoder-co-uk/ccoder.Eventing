@@ -4,6 +4,6 @@
 
 using Microsoft.AspNetCore.SignalR;
 
-namespace cCoder.Eventing.Apps.Dependencies;
+namespace cCoder.Eventing.Apps.Exposures;
 
 public class ChatHub : Hub;

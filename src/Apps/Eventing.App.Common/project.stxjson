@@ -179,8 +179,8 @@
       ]
     },
     {
-      "Name": "cCoder.Eventing.Apps.Dependencies.ChatHub",
-      "StandardElementType": "Dependency",
+      "Name": "cCoder.Eventing.Apps.Exposures.ChatHub",
+      "StandardElementType": "Exposure",
       "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
@@ -201,7 +201,7 @@
     {
       "Name": "cCoder.Eventing.Apps.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 17,
+      "LineNumber": 16,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -211,7 +211,7 @@
         {
           "Id": "cCoder.Eventing.Apps.IServiceCollectionExtensions.AddAppCommon(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action\u003CcCoder.Eventing.Apps.Models.AppConfiguration\u003E?)",
           "Name": "AddAppCommon",
-          "LineNumber": 19,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "services",
@@ -359,7 +359,7 @@
     },
     {
       "Name": "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceDependencyException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
@@ -379,7 +379,7 @@
     },
     {
       "Name": "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
@@ -399,7 +399,7 @@
     },
     {
       "Name": "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceValidationException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
@@ -993,12 +993,40 @@
   ],
   "Links": [
     {
+      "FromType": "cCoder.Eventing.Apps.Brokers.ChatHubBroker",
+      "ToType": "IHubContext\u003CcCoder.Eventing.Apps.Exposures.ChatHub\u003E"
+    },
+    {
       "FromType": "cCoder.Eventing.Apps.Controllers.ChatController",
       "ToType": "cCoder.Eventing.Apps.Models.AppConfiguration"
     },
     {
       "FromType": "cCoder.Eventing.Apps.Controllers.ChatController",
       "ToType": "cCoder.Eventing.Apps.Services.Orchestrations.ChatOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Eventing.Apps.Controllers.ChatController",
+      "ToType": "cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceDependencyException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceValidationException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Eventing.Apps.Services.Foundations.ChatEventService",
+      "ToType": "cCoder.Eventing.Http.IHttpEventHub"
+    },
+    {
+      "FromType": "cCoder.Eventing.Apps.Services.Foundations.ChatEventService",
+      "ToType": "cCoder.Eventing.IEventHub"
     },
     {
       "FromType": "cCoder.Eventing.Apps.Services.Foundations.ChatNotificationService",

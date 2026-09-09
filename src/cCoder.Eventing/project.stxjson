@@ -1248,7 +1248,7 @@
     },
     {
       "Name": "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
@@ -1268,7 +1268,7 @@
     },
     {
       "Name": "cCoder.Eventing.Models.Exceptions.ServiceException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
@@ -1288,7 +1288,7 @@
     },
     {
       "Name": "cCoder.Eventing.Models.Exceptions.ServiceValidationException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
@@ -3201,8 +3201,28 @@
   ],
   "Links": [
     {
+      "FromType": "cCoder.Eventing.Brokers.Loggings.LoggingBroker",
+      "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Brokers.Loggings.LoggingBroker\u003E"
+    },
+    {
+      "FromType": "cCoder.Eventing.Brokers.ServiceProviderBroker",
+      "ToType": "System.IServiceProvider"
+    },
+    {
       "FromType": "cCoder.Eventing.EventHub",
       "ToType": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Eventing.Models.Exceptions.ServiceException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Eventing.Models.Exceptions.ServiceValidationException",
+      "ToType": "System.Exception"
     },
     {
       "FromType": "cCoder.Eventing.Services.Foundations.EventAuthorizationService",
@@ -3247,6 +3267,10 @@
     {
       "FromType": "cCoder.Eventing.Services.Processings.EventProcessingService\u003CT\u003E",
       "ToType": "cCoder.Eventing.Brokers.Loggings.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Processings.EventProcessingService\u003CT\u003E",
+      "ToType": "cCoder.Eventing.Services.Foundations.IEventService\u003CT\u003E"
     }
   ],
   "AnalysisItems": []
