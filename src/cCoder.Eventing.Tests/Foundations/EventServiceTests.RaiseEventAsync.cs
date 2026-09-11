@@ -35,7 +35,7 @@ public partial class EventServiceTests
             .Returns(value:scopedServiceProvider);
 
         serviceProviderBrokerMock
-            .Setup(expression:broker => broker.GetScopeForEvent(message:inputMessage))
+            .Setup(expression:broker => broker.GetScopeForEvent(eventMessage:inputMessage))
             .Returns(value:serviceScopeMock.Object);
 
         IEnumerable<Func<IServiceProvider, FakeObject, ValueTask>> handlers =
@@ -91,7 +91,7 @@ public partial class EventServiceTests
             .Returns(value:Mock.Of<IServiceProvider>());
 
         serviceProviderBrokerMock
-            .Setup(expression:broker => broker.GetScopeForEvent(message:inputMessage))
+            .Setup(expression:broker => broker.GetScopeForEvent(eventMessage:inputMessage))
             .Returns(value:serviceScopeMock.Object);
 
         // When
@@ -126,12 +126,12 @@ public partial class EventServiceTests
             .Returns(value:Mock.Of<IServiceProvider>());
 
         serviceProviderBrokerMock
-            .Setup(expression:broker => broker.GetScopeForEvent(message:inputMessage))
+            .Setup(expression:broker => broker.GetScopeForEvent(eventMessage:inputMessage))
             .Returns(value:serviceScopeMock.Object);
 
         serviceProviderBrokerMock
             .Setup(expression: broker => broker.GetScopeForEvent(
-                message: inputMessage))
+                eventMessage: inputMessage))
             .Throws(exception:innerException);
 
         // When
@@ -170,7 +170,7 @@ public partial class EventServiceTests
             .Returns(value:scopedServiceProvider);
 
         serviceProviderBrokerMock
-            .Setup(expression:broker => broker.GetScopeForEvent(message:inputMessage))
+            .Setup(expression:broker => broker.GetScopeForEvent(eventMessage:inputMessage))
             .Returns(value:serviceScopeMock.Object);
 
         IEnumerable<Func<IServiceProvider, FakeObject, ValueTask>> handlers =

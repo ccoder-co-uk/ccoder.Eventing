@@ -9,14 +9,14 @@ namespace cCoder.Eventing.AzureServiceBus.Brokers;
 
 internal class ServiceProviderBroker(IServiceProvider serviceProvider) : IServiceProviderBroker
 {
-    public IServiceScope GetScopeForEvent(ServiceBusEventMessage message)
+    public IServiceScope GetScopeForEvent(ServiceBusEventMessage serviceBusEventMessage)
     {
         IServiceScope scope = serviceProvider.CreateScope();
 
         IServiceBusEventAuthorizationBroker authBroker =
             scope.ServiceProvider.GetService<IServiceBusEventAuthorizationBroker>();
 
-        authBroker.SetEventMessage(message: message);
+        authBroker.SetEventMessage(serviceBusEventMessage: serviceBusEventMessage);
 
         return scope;
     }

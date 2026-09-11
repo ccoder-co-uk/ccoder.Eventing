@@ -30,7 +30,7 @@ public partial class HttpEventControllerTests
         // When
 
         IActionResult result = await controller.Post(
-            newMessage: message,
+            newHttpEventMessage: message,
             cancellationToken: default);
 
         // Then
@@ -68,7 +68,7 @@ public partial class HttpEventControllerTests
         // When
 
         IActionResult result = await controller.Post(
-            newMessage: message,
+            newHttpEventMessage: message,
             cancellationToken: default);
 
         // Then

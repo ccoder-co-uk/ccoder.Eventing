@@ -56,7 +56,7 @@ eventProviders: new EventProvider<FakeObject>
             .BeSameAs(expected:scopedServiceProviderMock.Object);
 
         serviceProviderBrokerMock.Verify(
-expression: broker => broker.GetScopeForEvent(message:inputMessage),
+expression: broker => broker.GetScopeForEvent(eventMessage:inputMessage),
 times: Times.Once);
     }
 
@@ -111,7 +111,7 @@ times: Times.Once);
             .Be(expected:2);
 
         serviceProviderBrokerMock.Verify(
-expression: broker => broker.GetScopeForEvent(message:inputMessage),
+expression: broker => broker.GetScopeForEvent(eventMessage:inputMessage),
 times: Times.Once);
     }
 
@@ -145,7 +145,7 @@ eventProviders: new EventProvider<string>
             .BeFalse();
 
         serviceProviderBrokerMock.Verify(
-expression: broker => broker.GetScopeForEvent(message:It.IsAny<EventMessage>()),
+expression: broker => broker.GetScopeForEvent(eventMessage:It.IsAny<EventMessage>()),
 times: Times.Never);
     }
 }

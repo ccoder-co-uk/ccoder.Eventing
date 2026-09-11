@@ -9,7 +9,7 @@ namespace cCoder.Eventing.Apps.Exposures;
 public interface IChatManager
 {
     ValueTask<ChatMessage> SendChatMessageAsync(
-        ChatMessage newChatMessage,
+        ChatMessage chatMessage,
         CancellationToken cancellationToken = default);
 
     ValueTask ReceiveChatMessageAsync(ChatMessage chatMessage);

@@ -46,7 +46,7 @@ public partial class HttpEventHubTests
             cancellationToken: cancellationToken);
 
         await eventHub.ReceiveEventAsync(
-            message: transportMessage,
+            httpEventMessage: transportMessage,
             cancellationToken: cancellationToken);
 
         // Then

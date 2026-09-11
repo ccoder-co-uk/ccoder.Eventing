@@ -51,7 +51,7 @@ public partial class EventProviderTests
         await provider.ReceiveAsync(
             serviceProvider: serviceProvider,
             eventName: eventName,
-            message: message);
+            eventMessage: message);
 
         // Then
 

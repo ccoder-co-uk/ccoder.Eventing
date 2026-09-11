@@ -9,7 +9,8 @@ namespace cCoder.Eventing.Http;
 
 public static class IMvcBuilderExtensions
 {
-    public static IMvcBuilder AddHttpEventingControllers(this IMvcBuilder builder) =>
-        builder.AddApplicationPart(
+    public static IMvcBuilder AddHttpEventingControllers(
+        this IMvcBuilder mvcBuilder) =>
+        mvcBuilder.AddApplicationPart(
             assembly: typeof(HttpEventController).Assembly);
 }

@@ -23,6 +23,26 @@ internal sealed partial class EventServiceProviderService : IEventServiceProvide
         this.log = log;
     }
 
+    public void ListenToEvent<TMessage, THandlingService>(
+        string name,
+        Func<THandlingService, TMessage, ValueTask> handler) =>
+        TryCatch(operation: () =>
+        {
+            Validate(inputs: [name, handler]);
+
+            Func<IServiceProvider, TMessage, ValueTask> internalHandler =
+                async (serviceProvider, message) =>
+                {
+                    THandlingService handlingService =
+                        serviceProviderBroker.GetRequiredService<THandlingService>(
+                            serviceProvider: serviceProvider);
+
+                    await handler(arg1: handlingService, arg2: message);
+                };
+
+            ListenToEventInternal(name: name, handler: internalHandler);
+        });
+
     public void ListenToEvent<T>(
         string name,
         Func<IServiceProvider, T, ValueTask> handler) =>
@@ -30,28 +50,35 @@ internal sealed partial class EventServiceProviderService : IEventServiceProvide
         {
             Validate(inputs: [name, handler]);
 
-            try
-            {
-                IEventProcessingService<T> typedEventService = GetEventService<T>();
-
-                if (typedEventService is null)
-                {
-                    typedEventService = serviceProviderBroker.GetService<IEventProcessingService<T>>();
-                    services.Add(item:typedEventService);
-                }
-
-                typedEventService.ListenToEvent(name:name, handler:handler);
-            }
-            catch (Exception ex)
-            {
-                log.LogError(
-                    exception: ex,
-                    message: "Exception thrown whilst listening to {Name} event\n{Message}\n{StackTrace}",
-                    args: [name, ex.Message, ex.StackTrace]);
-
-                throw;
-            }
+            ListenToEventInternal(name: name, handler: handler);
         });
+
+    private void ListenToEventInternal<T>(
+        string name,
+        Func<IServiceProvider, T, ValueTask> handler)
+    {
+        try
+        {
+            IEventProcessingService<T> typedEventService = GetEventService<T>();
+
+            if (typedEventService is null)
+            {
+                typedEventService = serviceProviderBroker.GetService<IEventProcessingService<T>>();
+                services.Add(item: typedEventService);
+            }
+
+            typedEventService.ListenToEvent(name: name, handler: handler);
+        }
+        catch (Exception ex)
+        {
+            log.LogError(
+                exception: ex,
+                message: "Exception thrown whilst listening to {Name} event\n{Message}\n{StackTrace}",
+                args: [name, ex.Message, ex.StackTrace]);
+
+            throw;
+        }
+    }
 
     public ValueTask RaiseEventAsync<T>(
         string name,

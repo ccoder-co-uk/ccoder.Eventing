@@ -13,29 +13,29 @@ internal sealed partial class ChatOrchestrationService(
             : IChatOrchestrationService
 {
     public ValueTask<ChatMessage> SendChatMessageAsync(
-        ChatMessage newChatMessage,
+        ChatMessage chatMessage,
         CancellationToken cancellationToken = default) =>
         TryCatch<ChatMessage>(operation: async () =>
         {
             ValidateSendChatMessage(
-                newChatMessage: newChatMessage,
+                chatMessage: chatMessage,
                 cancellationToken: cancellationToken);
 
-            newChatMessage.Id = Guid.NewGuid();
+            chatMessage.Id = Guid.NewGuid();
 
-            newChatMessage.User =
-                string.IsNullOrWhiteSpace(value: newChatMessage.User)
+            chatMessage.User =
+                string.IsNullOrWhiteSpace(value: chatMessage.User)
                     ? "Guest"
-                    : newChatMessage.User.Trim();
+                    : chatMessage.User.Trim();
 
-            newChatMessage.Text = newChatMessage.Text!.Trim();
-            newChatMessage.CreatedOn = DateTimeOffset.UtcNow;
+            chatMessage.Text = chatMessage.Text!.Trim();
+            chatMessage.CreatedOn = DateTimeOffset.UtcNow;
 
             await chatEventService.RaiseChatMessageAsync(
-                chatMessage: newChatMessage,
+                chatMessage: chatMessage,
                 cancellationToken: cancellationToken);
 
-            return newChatMessage;
+            return chatMessage;
         });
 
     public ValueTask ReceiveChatMessageAsync(ChatMessage chatMessage) =>

@@ -85,7 +85,7 @@ internal sealed partial class ServiceBusService(
         try
         {
             using IServiceScope scope = serviceProviderBroker
-                .GetScopeForEvent(message:message);
+                .GetScopeForEvent(serviceBusEventMessage:message);
 
             await handler(arg1:scope.ServiceProvider, arg2:message.Data);
         }

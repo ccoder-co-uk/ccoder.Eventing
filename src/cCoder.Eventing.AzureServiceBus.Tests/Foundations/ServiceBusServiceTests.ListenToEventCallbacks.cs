@@ -31,7 +31,7 @@ public partial class ServiceBusServiceTests
 
         serviceProviderBrokerMock
             .Setup(expression: broker => broker.GetScopeForEvent(
-                message: It.IsAny<ServiceBusEventMessage<FakeObject>>()))
+                serviceBusEventMessage: It.IsAny<ServiceBusEventMessage<FakeObject>>()))
             .Returns(value: serviceScopeMock.Object);
 
         serviceBusBrokerMock
@@ -91,7 +91,7 @@ public partial class ServiceBusServiceTests
 
         serviceProviderBrokerMock
             .Setup(expression: broker => broker.GetScopeForEvent(
-                message: It.IsAny<ServiceBusEventMessage<FakeObject>>()))
+                serviceBusEventMessage: It.IsAny<ServiceBusEventMessage<FakeObject>>()))
             .Returns(value: serviceScopeMock.Object);
 
         serviceBusBrokerMock

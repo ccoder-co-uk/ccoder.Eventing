@@ -8,11 +8,11 @@ namespace cCoder.Eventing.AzureServiceBus.Brokers;
 
 internal class ServiceBusEventAuthorizationBroker : IServiceBusEventAuthorizationBroker
 {
-    private ServiceBusEventMessage message;
+    private ServiceBusEventMessage serviceBusEventMessage;
 
-    public void SetEventMessage(ServiceBusEventMessage message) =>
-        this.message = message;
+    public void SetEventMessage(ServiceBusEventMessage serviceBusEventMessage) =>
+        this.serviceBusEventMessage = serviceBusEventMessage;
 
     public IServiceBusEventAuthInfo GetEventAuthInfo() =>
-        message?.AuthInfo;
+        serviceBusEventMessage?.AuthInfo;
 }

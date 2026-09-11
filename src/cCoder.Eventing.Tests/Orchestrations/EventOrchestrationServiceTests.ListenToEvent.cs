@@ -3,8 +3,6 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Services.Foundations;
-using FluentAssertions;
-using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Xunit;
 
@@ -34,49 +32,29 @@ times: Times.Once);
     }
 
     [Fact]
-    public async Task ShouldListenToEventWithHandlingService()
+    public void ShouldListenToEventWithHandlingService()
     {
         // Given
 
         string inputName = "event-name";
-        FakeObject inputMessage = new() { Name = "test" };
-        Mock<IHandlingService> handlingServiceMock = new();
 
-        IServiceProvider inputServiceProvider = new ServiceCollection()
-            .AddSingleton(implementationInstance:handlingServiceMock.Object)
-            .BuildServiceProvider();
-
-        Func<IServiceProvider, FakeObject, ValueTask> internalHandler = null;
-        IHandlingService actualHandlingService = null;
-        FakeObject actualMessage = null;
-
-        eventServiceProviderServiceMock
-            .Setup(expression:service => service.ListenToEvent(
-name: inputName,
-handler: It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
-            .Callback<string, Func<IServiceProvider, FakeObject, ValueTask>>(
-action: (_, handler) => internalHandler = handler);
-
-        eventOrchestrationService.ListenToEvent<FakeObject, IHandlingService>(
-name: inputName,
-handler: (handlingService, message) =>
-            {
-                actualHandlingService = handlingService;
-                actualMessage = message;
-                return ValueTask.CompletedTask;
-            });
+        Func<IHandlingService, FakeObject, ValueTask> inputHandler =
+            (_, _) => ValueTask.CompletedTask;
 
         // When
 
-        await internalHandler(arg1:inputServiceProvider, arg2:inputMessage);
+        eventOrchestrationService.ListenToEvent<FakeObject, IHandlingService>(
+            name: inputName,
+            handler: inputHandler);
 
         // Then
 
-        actualHandlingService.Should()
-            .BeSameAs(expected:handlingServiceMock.Object);
-
-        actualMessage.Should()
-            .BeSameAs(expected:inputMessage);
+        eventServiceProviderServiceMock.Verify(
+            expression: service =>
+                service.ListenToEvent<FakeObject, IHandlingService>(
+                    name: inputName,
+                    handler: inputHandler),
+            times: Times.Once);
     }
 
     public interface IHandlingService;

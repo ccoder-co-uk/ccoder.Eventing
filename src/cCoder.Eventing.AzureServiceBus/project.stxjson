@@ -383,7 +383,7 @@
           "LineNumber": 13,
           "Inputs": [
             {
-              "Name": "message",
+              "Name": "serviceBusEventMessage",
               "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage"
             }
           ],
@@ -433,7 +433,7 @@
           "LineNumber": 12,
           "Inputs": [
             {
-              "Name": "message",
+              "Name": "serviceBusEventMessage",
               "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage"
             }
           ],
@@ -1457,7 +1457,7 @@
           "LineNumber": 11,
           "Inputs": [
             {
-              "Name": "message",
+              "Name": "serviceBusEventMessage",
               "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage"
             }
           ],
@@ -1494,7 +1494,7 @@
           "LineNumber": 12,
           "Inputs": [
             {
-              "Name": "message",
+              "Name": "serviceBusEventMessage",
               "Type": "cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage"
             }
           ],

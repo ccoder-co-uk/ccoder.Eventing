@@ -4,7 +4,6 @@
 
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Services.Foundations;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace cCoder.Eventing.Services.Orchestrations;
 
@@ -29,17 +28,9 @@ internal sealed partial class EventOrchestrationService(
         {
             Validate(inputs: [name, handler]);
 
-            Func<IServiceProvider, TMessage, ValueTask> internalHandler =
-                async (serviceProvider, message) =>
-                {
-                    THandlingService handlingService =
-                        serviceProvider.GetRequiredService<THandlingService>();
-
-                    await handler(arg1:handlingService, arg2:message);
-                };
-
-            eventServiceProviderService
-                .ListenToEvent(name:name, handler:internalHandler);
+            eventServiceProviderService.ListenToEvent<TMessage, THandlingService>(
+                name: name,
+                handler: handler);
         });
 
     public ValueTask RaiseEventAsync<T>(
