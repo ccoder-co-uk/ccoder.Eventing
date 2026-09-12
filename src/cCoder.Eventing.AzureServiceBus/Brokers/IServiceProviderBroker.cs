@@ -9,7 +9,7 @@ namespace cCoder.Eventing.AzureServiceBus.Brokers;
 
 internal interface IServiceProviderBroker
 {
-    IServiceScope GetScopeForEvent(ServiceBusEventMessage message);
+    IServiceScope GetScopeForEvent(ServiceBusEventMessage serviceBusEventMessage);
     object GetService(Type type);
     T GetService<T>();
     IServiceProvider GetServiceProvider();

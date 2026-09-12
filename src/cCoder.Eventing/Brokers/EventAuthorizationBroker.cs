@@ -8,11 +8,11 @@ namespace cCoder.Eventing.Brokers;
 
 internal class EventAuthorizationBroker : IEventAuthorizationBroker
 {
-    private EventMessage message;
+    private EventMessage eventMessage;
 
-    public void SetEventMessage(EventMessage message) =>
-        this.message = message;
+    public void SetEventMessage(EventMessage eventMessage) =>
+        this.eventMessage = eventMessage;
 
     public IEventAuthInfo GetEventAuthInfo() =>
-        message?.AuthInfo;
+        eventMessage?.AuthInfo;
 }

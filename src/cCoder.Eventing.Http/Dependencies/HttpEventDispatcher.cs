@@ -69,7 +69,7 @@ args: message.EventName);
             EventMessage eventMessage = CreateMessage(dataType:subscription.DataType, data:data, message:message);
 
             using IServiceScope scope =
-                serviceProviderBroker.GetScopeForEvent(message:eventMessage);
+                serviceProviderBroker.GetScopeForEvent(eventMessage:eventMessage);
 
             await subscription.Handler(arg1:scope.ServiceProvider, arg2:data);
         }
@@ -89,12 +89,12 @@ args: message.EventName);
             EventMessage eventMessage = CreateMessage(dataType:provider.DataType, data:data, message:message);
 
             using IServiceScope scope =
-                serviceProviderBroker.GetScopeForEvent(message:eventMessage);
+                serviceProviderBroker.GetScopeForEvent(eventMessage:eventMessage);
 
             await provider.ReceiveAsync(
 serviceProvider: scope.ServiceProvider,
 eventName: message.EventName,
-message: eventMessage);
+eventMessage: eventMessage);
         }
 
         return matchingProviders.Length > 0;

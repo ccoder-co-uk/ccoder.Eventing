@@ -35,7 +35,7 @@ internal sealed partial class EventProviderService(
                 return false;
             }
 
-            using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message:message);
+            using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(eventMessage:message);
 
             foreach (EventProvider provider in matchingProviders)
             {
@@ -79,7 +79,7 @@ internal sealed partial class EventProviderService(
                 return false;
             }
 
-            using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(message:messages[0]);
+            using IServiceScope scope = serviceProviderBroker.GetScopeForEvent(eventMessage:messages[0]);
 
             foreach (BulkEventProvider provider in matchingProviders)
             {

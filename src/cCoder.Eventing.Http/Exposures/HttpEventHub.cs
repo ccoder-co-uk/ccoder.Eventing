@@ -33,7 +33,7 @@ public class HttpEventHub : IHttpEventHub
         httpEventProcessingService.RaiseEventsAsync(name:name, messages:messages, cancellationToken:cancellationToken);
 
     public ValueTask ReceiveEventAsync(
-        HttpEventMessage message,
+        HttpEventMessage httpEventMessage,
         CancellationToken cancellationToken = default) =>
-        httpEventProcessingService.ReceiveEventAsync(message:message, cancellationToken:cancellationToken);
+        httpEventProcessingService.ReceiveEventAsync(message:httpEventMessage, cancellationToken:cancellationToken);
 }

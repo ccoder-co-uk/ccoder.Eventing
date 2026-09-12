@@ -20,7 +20,7 @@ public class ChatController(
 {
     [HttpPost]
     public async ValueTask<IActionResult> Post(
-        ChatMessageRequest newRequest,
+        ChatMessageRequest newChatMessageRequest,
         CancellationToken cancellationToken)
     {
         try
@@ -32,10 +32,10 @@ public class ChatController(
 
             ChatMessage message =
                 await chatOrchestrationService.SendChatMessageAsync(
-                    newChatMessage: new ChatMessage
+                    chatMessage: new ChatMessage
                     {
-                        User = newRequest.User,
-                        Text = newRequest.Text,
+                        User = newChatMessageRequest.User,
+                        Text = newChatMessageRequest.Text,
                         SourceApp = configuration.EventingChat.AppName,
                     },
                     cancellationToken:cancellationToken);

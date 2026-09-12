@@ -89,7 +89,7 @@
           "LineNumber": 22,
           "Inputs": [
             {
-              "Name": "newRequest",
+              "Name": "newChatMessageRequest",
               "Type": "cCoder.Eventing.Apps.Models.ChatMessageRequest"
             },
             {
@@ -644,7 +644,7 @@
           "LineNumber": 15,
           "Inputs": [
             {
-              "Name": "newChatMessage",
+              "Name": "chatMessage",
               "Type": "cCoder.Eventing.Apps.Models.ChatMessage"
             },
             {
@@ -865,7 +865,7 @@
           "LineNumber": 11,
           "Inputs": [
             {
-              "Name": "newChatMessage",
+              "Name": "chatMessage",
               "Type": "cCoder.Eventing.Apps.Models.ChatMessage"
             },
             {

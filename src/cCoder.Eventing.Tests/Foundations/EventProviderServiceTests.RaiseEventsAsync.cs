@@ -62,7 +62,7 @@ bulkEventProviders: [
             .BeSameAs(expected:scopedServiceProviderMock.Object);
 
         serviceProviderBrokerMock.Verify(
-expression: broker => broker.GetScopeForEvent(message:inputMessages[0]),
+expression: broker => broker.GetScopeForEvent(eventMessage:inputMessages[0]),
 times: Times.Once);
     }
 
@@ -156,7 +156,7 @@ bulkEventProviders: [
             .BeFalse();
 
         serviceProviderBrokerMock.Verify(
-expression: broker => broker.GetScopeForEvent(message:It.IsAny<EventMessage>()),
+expression: broker => broker.GetScopeForEvent(eventMessage:It.IsAny<EventMessage>()),
 times: Times.Never);
     }
 }

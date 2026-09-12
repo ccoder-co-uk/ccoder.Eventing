@@ -31,7 +31,7 @@ public partial class EventProviderServiceTests
             .Returns(value:scopedServiceProviderMock.Object);
 
         serviceProviderBrokerMock
-            .Setup(expression:broker => broker.GetScopeForEvent(message:It.IsAny<EventMessage>()))
+            .Setup(expression:broker => broker.GetScopeForEvent(eventMessage:It.IsAny<EventMessage>()))
             .Returns(value:serviceScopeMock.Object);
     }
 

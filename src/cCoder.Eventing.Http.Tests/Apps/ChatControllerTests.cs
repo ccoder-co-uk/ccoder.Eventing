@@ -26,7 +26,7 @@ public partial class ChatControllerTests
 
         manager
             .Setup(expression: service => service.SendChatMessageAsync(
-                newChatMessage: It.IsAny<ChatMessage>(),
+                chatMessage: It.IsAny<ChatMessage>(),
                 cancellationToken: It.IsAny<CancellationToken>()))
             .ReturnsAsync(value: expectedMessage);
 
@@ -35,7 +35,7 @@ public partial class ChatControllerTests
         // When
 
         IActionResult result = await controller.Post(
-            newRequest: new ChatMessageRequest
+            newChatMessageRequest: new ChatMessageRequest
             {
                 User = "user",
                 Text = "hello"
@@ -64,7 +64,7 @@ public partial class ChatControllerTests
         // When
 
         IActionResult result = await controller.Post(
-            newRequest: new ChatMessageRequest(),
+            newChatMessageRequest: new ChatMessageRequest(),
             cancellationToken: default);
 
         // Then
@@ -89,7 +89,7 @@ public partial class ChatControllerTests
 
         manager
             .Setup(expression: service => service.SendChatMessageAsync(
-                newChatMessage: It.IsAny<ChatMessage>(),
+                chatMessage: It.IsAny<ChatMessage>(),
                 cancellationToken: It.IsAny<CancellationToken>()))
             .ThrowsAsync(exception: failure);
 
@@ -98,7 +98,7 @@ public partial class ChatControllerTests
         // When
 
         IActionResult result = await controller.Post(
-            newRequest: new ChatMessageRequest(),
+            newChatMessageRequest: new ChatMessageRequest(),
             cancellationToken: default);
 
         // Then

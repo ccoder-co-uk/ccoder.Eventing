@@ -19,8 +19,8 @@ public abstract class EventProvider
     public ValueTask ReceiveAsync(
         IServiceProvider serviceProvider,
         string eventName,
-        EventMessage message) =>
-        HandleReceiveAsync(serviceProvider:serviceProvider, eventName:eventName, message:message);
+        EventMessage eventMessage) =>
+        HandleReceiveAsync(serviceProvider:serviceProvider, eventName:eventName, message:eventMessage);
 
     internal bool CanSend<T>(string name) =>
         Events?.Contains(value:name, comparer:StringComparer.Ordinal) == true &&

@@ -11,27 +11,27 @@ namespace cCoder.Eventing.Apps.Services.Orchestrations;
 internal sealed partial class ChatOrchestrationService
 {
     private static void ValidateSendChatMessage(
-        ChatMessage newChatMessage,
+        ChatMessage chatMessage,
         CancellationToken cancellationToken)
     {
         ValidationRule[] validationRules =
         [
             new ValidationRule
             {
-                IsInvalid = () => newChatMessage is null,
+                IsInvalid = () => chatMessage is null,
                 CreateException = () =>
                     new ArgumentNullException(
-                        paramName: nameof(newChatMessage))
+                        paramName: nameof(chatMessage))
             },
             new ValidationRule
             {
                 IsInvalid = () =>
                     string.IsNullOrWhiteSpace(
-                        value: newChatMessage?.Text),
+                        value: chatMessage?.Text),
                 CreateException = () =>
                     new ArgumentException(
                         message: "You must provide chat message text.",
-                        paramName: nameof(newChatMessage))
+                        paramName: nameof(chatMessage))
             }
         ];
 

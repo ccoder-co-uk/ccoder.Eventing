@@ -97,7 +97,7 @@
           "LineNumber": 19,
           "Inputs": [
             {
-              "Name": "newMessage",
+              "Name": "newHttpEventMessage",
               "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
             },
             {
@@ -1137,7 +1137,7 @@
           "LineNumber": 35,
           "Inputs": [
             {
-              "Name": "message",
+              "Name": "httpEventMessage",
               "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
             },
             {
@@ -1194,7 +1194,7 @@
           "LineNumber": 12,
           "Inputs": [
             {
-              "Name": "builder",
+              "Name": "mvcBuilder",
               "Type": "IMvcBuilder"
             }
           ],

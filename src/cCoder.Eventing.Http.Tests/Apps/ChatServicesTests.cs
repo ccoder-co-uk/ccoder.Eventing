@@ -137,7 +137,7 @@ public partial class ChatServicesTests
         // When
 
         ChatMessage result = await service.SendChatMessageAsync(
-            newChatMessage: message);
+            chatMessage: message);
 
         // Then
 
@@ -182,19 +182,19 @@ public partial class ChatServicesTests
         // When
 
         ChatMessage result = await service.SendChatMessageAsync(
-            newChatMessage: namedMessage);
+            chatMessage: namedMessage);
 
         Exception nullFailure = await Record.ExceptionAsync(
             testCode: async () => await service.SendChatMessageAsync(
-                newChatMessage: null));
+                chatMessage: null));
 
         Exception textFailure = await Record.ExceptionAsync(
             testCode: async () => await service.SendChatMessageAsync(
-                newChatMessage: new ChatMessage()));
+                chatMessage: new ChatMessage()));
 
         Exception cancellationFailure = await Record.ExceptionAsync(
             testCode: async () => await service.SendChatMessageAsync(
-                newChatMessage: namedMessage,
+                chatMessage: namedMessage,
                 cancellationToken: new CancellationToken(canceled: true)));
 
         // Then

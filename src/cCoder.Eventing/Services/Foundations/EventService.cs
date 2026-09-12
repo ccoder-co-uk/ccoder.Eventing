@@ -54,7 +54,7 @@ internal sealed partial class EventService<T>(
             try
             {
                 using IServiceScope scope =
-                    serviceProviderBroker.GetScopeForEvent(message: message);
+                    serviceProviderBroker.GetScopeForEvent(eventMessage: message);
 
                 IEnumerable<Func<IServiceProvider, T, ValueTask>> handlers =
                     GetOrCreateHandlers(name: name);

@@ -10,14 +10,14 @@ namespace cCoder.Eventing.Brokers;
 internal class ServiceProviderBroker(IServiceProvider serviceProvider) 
     : IServiceProviderBroker
 {
-    public IServiceScope GetScopeForEvent(EventMessage message)
+    public IServiceScope GetScopeForEvent(EventMessage eventMessage)
     {
         IServiceScope scope = serviceProvider.CreateScope();
 
         IEventAuthorizationBroker authBroker =
             scope.ServiceProvider.GetService<IEventAuthorizationBroker>();
 
-        authBroker.SetEventMessage(message: message);
+        authBroker.SetEventMessage(eventMessage: eventMessage);
 
         return scope;
     }
@@ -27,6 +27,9 @@ internal class ServiceProviderBroker(IServiceProvider serviceProvider)
 
     public T GetService<T>() => 
         serviceProvider.GetService<T>();
+
+    public T GetRequiredService<T>(IServiceProvider serviceProvider) =>
+        serviceProvider.GetRequiredService<T>();
 
     public T[] GetServices<T>() =>
         serviceProvider
