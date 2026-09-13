@@ -51,6 +51,8 @@ public static class IServiceCollectionExtensions
         this IServiceCollection services)
     {
         services.AddSingleton<IChatHubBroker, ChatHubBroker>();
+        services.AddSingleton<IChatEventBroker, ChatEventBroker>();
+        services.AddSingleton<IChatHttpEventBroker, ChatHttpEventBroker>();
 
         return services;
     }

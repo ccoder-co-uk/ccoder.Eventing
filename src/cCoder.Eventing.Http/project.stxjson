@@ -79,13 +79,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Eventing.Http:ControllerBase",
-        "FullName": "ControllerBase",
+        "Id": "Microsoft.AspNetCore.Mvc.Core:Microsoft.AspNetCore.Mvc.ControllerBase",
+        "FullName": "Microsoft.AspNetCore.Mvc.ControllerBase",
         "Name": "ControllerBase",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Eventing.Http",
+        "Namespace": "Microsoft.AspNetCore.Mvc",
+        "AssemblyName": "Microsoft.AspNetCore.Mvc.Core",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -105,9 +105,30 @@
               "Type": "System.Threading.CancellationToken"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E",
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CMicrosoft.AspNetCore.Mvc.IActionResult\u003E",
           "Implements": [],
           "Calls": [
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Accepted",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Accepted()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "BadRequest",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
             {
               "TypeName": "cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker",
               "MethodName": "LogError",
@@ -229,6 +250,13 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "System.Net.Http.IHttpClientFactory",
+              "MethodName": "CreateClient",
+              "MethodId": "System.Net.Http.IHttpClientFactory.CreateClient(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Net.Http.Json.HttpClientJsonExtensions",
               "MethodName": "PostAsJsonAsync",
               "MethodId": "System.Net.Http.Json.HttpClientJsonExtensions.PostAsJsonAsync(System.Net.Http.HttpClient,System.String?,TValue,System.Text.Json.JsonSerializerOptions?,System.Threading.CancellationToken)",
@@ -339,13 +367,13 @@
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
-        "Id": "cCoder.Eventing.Http:BackgroundService",
-        "FullName": "BackgroundService",
+        "Id": "Microsoft.Extensions.Hosting.Abstractions:Microsoft.Extensions.Hosting.BackgroundService",
+        "FullName": "Microsoft.Extensions.Hosting.BackgroundService",
         "Name": "BackgroundService",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "cCoder.Eventing.Http",
+        "Namespace": "Microsoft.Extensions.Hosting",
+        "AssemblyName": "Microsoft.Extensions.Hosting.Abstractions",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -1189,18 +1217,26 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Eventing.Http.IMvcBuilderExtensions.AddHttpEventingControllers(IMvcBuilder)",
+          "Id": "cCoder.Eventing.Http.IMvcBuilderExtensions.AddHttpEventingControllers(Microsoft.Extensions.DependencyInjection.IMvcBuilder)",
           "Name": "AddHttpEventingControllers",
           "LineNumber": 12,
           "Inputs": [
             {
               "Name": "mvcBuilder",
-              "Type": "IMvcBuilder"
+              "Type": "Microsoft.Extensions.DependencyInjection.IMvcBuilder"
             }
           ],
-          "ReturnType": "IMvcBuilder",
+          "ReturnType": "Microsoft.Extensions.DependencyInjection.IMvcBuilder",
           "Implements": [],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions",
+              "MethodName": "AddApplicationPart",
+              "MethodId": "Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.AddApplicationPart(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Reflection.Assembly)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -1294,6 +1330,13 @@
           "Implements": [],
           "Calls": [
             {
+              "TypeName": "Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions",
+              "MethodName": "AddControllers",
+              "MethodId": "Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllers(Microsoft.Extensions.DependencyInjection.IServiceCollection)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.ArgumentNullException",
               "MethodName": "ThrowIfNull",
               "MethodId": "System.ArgumentNullException.ThrowIfNull(System.Object?,System.String?)",
@@ -1303,7 +1346,7 @@
             {
               "TypeName": "cCoder.Eventing.Http.IMvcBuilderExtensions",
               "MethodName": "AddHttpEventingControllers",
-              "MethodId": "cCoder.Eventing.Http.IMvcBuilderExtensions.AddHttpEventingControllers(IMvcBuilder)",
+              "MethodId": "cCoder.Eventing.Http.IMvcBuilderExtensions.AddHttpEventingControllers(Microsoft.Extensions.DependencyInjection.IMvcBuilder)",
               "StandardElementType": "Exposure",
               "IsDependencyBoundary": false
             }
@@ -2134,11 +2177,11 @@
     },
     {
       "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventBroker",
-      "ToType": "IHttpClientFactory"
+      "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Http.Dependencies.HttpEventBroker\u003E"
     },
     {
       "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventBroker",
-      "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Http.Dependencies.HttpEventBroker\u003E"
+      "ToType": "System.Net.Http.IHttpClientFactory"
     },
     {
       "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventBroker",
@@ -2147,10 +2190,6 @@
     {
       "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
       "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Http.Dependencies.HttpEventDispatcher\u003E"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
-      "ToType": "System.Collections.Generic.IEnumerable\u003CcCoder.Eventing.Models.EventProvider\u003E"
     },
     {
       "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
@@ -2163,6 +2202,10 @@
     {
       "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
       "ToType": "cCoder.Eventing.Http.Models.HttpEventingOptions"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
+      "ToType": "cCoder.Eventing.Models.EventProvider"
     },
     {
       "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcherHostedService",

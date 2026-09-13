@@ -26,12 +26,12 @@ public partial class ChatServicesTests
             Text = "hello"
         };
 
-        Mock<IEventHub> eventHub = new();
-        Mock<IHttpEventHub> httpEventHub = new();
+        Mock<IChatEventBroker> eventHub = new();
+        Mock<IChatHttpEventBroker> httpEventHub = new();
 
         ChatEventService service = new(
-            eventHub: eventHub.Object,
-            httpEventHub: httpEventHub.Object);
+            chatEventBroker: eventHub.Object,
+            chatHttpEventBroker: httpEventHub.Object);
 
         // When
 
@@ -40,14 +40,14 @@ public partial class ChatServicesTests
         // Then
 
         eventHub.Verify(
-            expression: hub => hub.RaiseEventAsync(
+            expression: hub => hub.RaiseChatMessageAsync(
                 name: It.IsAny<string>(),
                 message: It.Is<EventMessage<ChatMessage>>(match: eventMessage =>
                     eventMessage.Data == message)),
             times: Times.Once);
 
         httpEventHub.Verify(
-            expression: hub => hub.RaiseEventAsync(
+            expression: hub => hub.RaiseChatMessageAsync(
                 name: It.IsAny<string>(),
                 message: It.Is<EventMessage<ChatMessage>>(match: eventMessage =>
                     eventMessage.Data == message),
@@ -61,8 +61,8 @@ public partial class ChatServicesTests
         // Given
 
         ChatEventService service = new(
-            eventHub: Mock.Of<IEventHub>(),
-            httpEventHub: Mock.Of<IHttpEventHub>());
+            chatEventBroker: Mock.Of<IChatEventBroker>(),
+            chatHttpEventBroker: Mock.Of<IChatHttpEventBroker>());
 
         CancellationToken canceledToken = new(canceled: true);
 
@@ -253,17 +253,17 @@ public partial class ChatServicesTests
     {
         // Given
 
-        Mock<IEventHub> eventHub = new();
+        Mock<IChatEventBroker> eventHub = new();
 
         eventHub
-            .Setup(expression: hub => hub.RaiseEventAsync(
+            .Setup(expression: hub => hub.RaiseChatMessageAsync(
                 name: It.IsAny<string>(),
                 message: It.IsAny<EventMessage<ChatMessage>>()))
             .ThrowsAsync(exception: new Exception());
 
         ChatEventService eventService = new(
-            eventHub: eventHub.Object,
-            httpEventHub: Mock.Of<IHttpEventHub>());
+            chatEventBroker: eventHub.Object,
+            chatHttpEventBroker: Mock.Of<IChatHttpEventBroker>());
 
         Mock<IChatHubBroker> broker = new();
 
