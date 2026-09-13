@@ -595,7 +595,29 @@
           "Implements": [
             "System.IAsyncDisposable.DisposeAsync()"
           ],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "Azure.Messaging.ServiceBus.ServiceBusClient",
+              "MethodName": "DisposeAsync",
+              "MethodId": "Azure.Messaging.ServiceBus.ServiceBusClient.DisposeAsync()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Azure.Messaging.ServiceBus.ServiceBusProcessor",
+              "MethodName": "DisposeAsync",
+              "MethodId": "Azure.Messaging.ServiceBus.ServiceBusProcessor.DisposeAsync()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Azure.Messaging.ServiceBus.ServiceBusSender",
+              "MethodName": "DisposeAsync",
+              "MethodId": "Azure.Messaging.ServiceBus.ServiceBusSender.DisposeAsync()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -1958,7 +1980,7 @@
     },
     {
       "FromType": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency",
-      "ToType": "ServiceBusClient"
+      "ToType": "Azure.Messaging.ServiceBus.ServiceBusClient"
     },
     {
       "FromType": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency",

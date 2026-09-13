@@ -2252,13 +2252,6 @@
           ],
           "Calls": [
             {
-              "TypeName": "System.Func\u003CT1, T2, TResult\u003E",
-              "MethodName": "Invoke",
-              "MethodId": "System.Func\u003CT1, T2, TResult\u003E.Invoke(T1,T2)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
               "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
               "MethodName": "LogDebug",
               "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogDebug(System.String,System.Object[])",

@@ -2,15 +2,15 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Eventing.Apps.Brokers;
 using cCoder.Eventing.Apps.Models;
-using cCoder.Eventing.Http;
 using cCoder.Eventing.Models;
 
 namespace cCoder.Eventing.Apps.Services.Foundations;
 
 internal sealed partial class ChatEventService(
-    IEventHub eventHub,
-    IHttpEventHub httpEventHub)
+    IChatEventBroker chatEventBroker,
+    IChatHttpEventBroker chatHttpEventBroker)
     : IChatEventService
 {
     public ValueTask RaiseChatMessageAsync(
@@ -31,11 +31,11 @@ internal sealed partial class ChatEventService(
                 Data = chatMessage
             };
 
-            await eventHub.RaiseEventAsync(
+            await chatEventBroker.RaiseChatMessageAsync(
                 name: ChatEventNames.ChatEvent,
                 message: eventMessage);
 
-            await httpEventHub.RaiseEventAsync(
+            await chatHttpEventBroker.RaiseChatMessageAsync(
                 name: ChatEventNames.ChatEvent,
                 message: eventMessage,
                 cancellationToken: cancellationToken);

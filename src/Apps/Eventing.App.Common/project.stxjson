@@ -7,6 +7,134 @@
   },
   "Classes": [
     {
+      "Name": "cCoder.Eventing.Apps.Brokers.ChatEventBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "Eventing.App.Common:cCoder.Eventing.Apps.Brokers.IChatEventBroker",
+          "FullName": "cCoder.Eventing.Apps.Brokers.IChatEventBroker",
+          "Name": "IChatEventBroker",
+          "Namespace": "cCoder.Eventing.Apps.Brokers",
+          "AssemblyName": "Eventing.App.Common",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Apps.Brokers.ChatEventBroker.RaiseChatMessageAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E)",
+          "Name": "RaiseChatMessageAsync",
+          "LineNumber": 13,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.Apps.Brokers.IChatEventBroker.RaiseChatMessageAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.IEventHub",
+              "MethodName": "RaiseEventAsync",
+              "MethodId": "cCoder.Eventing.IEventHub.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Brokers.ChatHttpEventBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 11,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "Eventing.App.Common:cCoder.Eventing.Apps.Brokers.IChatHttpEventBroker",
+          "FullName": "cCoder.Eventing.Apps.Brokers.IChatHttpEventBroker",
+          "Name": "IChatHttpEventBroker",
+          "Namespace": "cCoder.Eventing.Apps.Brokers",
+          "AssemblyName": "Eventing.App.Common",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Apps.Brokers.ChatHttpEventBroker.RaiseChatMessageAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E,System.Threading.CancellationToken)",
+          "Name": "RaiseChatMessageAsync",
+          "LineNumber": 14,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.Apps.Brokers.IChatHttpEventBroker.RaiseChatMessageAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E,System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Http.IHttpEventHub",
+              "MethodName": "RaiseEventAsync",
+              "MethodId": "cCoder.Eventing.Http.IHttpEventHub.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.Apps.Brokers.ChatHubBroker",
       "StandardElementType": "Broker",
       "LineNumber": 11,
@@ -43,9 +171,16 @@
           ],
           "Calls": [
             {
+              "TypeName": "Microsoft.AspNetCore.SignalR.ClientProxyExtensions",
+              "MethodName": "SendAsync",
+              "MethodId": "Microsoft.AspNetCore.SignalR.ClientProxyExtensions.SendAsync(Microsoft.AspNetCore.SignalR.IClientProxy,System.String,System.Object?,System.Threading.CancellationToken)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "System.Threading.Tasks.ValueTask",
               "MethodName": ".ctor",
-              "MethodId": "System.Threading.Tasks.ValueTask..ctor()",
+              "MethodId": "System.Threading.Tasks.ValueTask..ctor(System.Threading.Tasks.Task)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             }
@@ -71,13 +206,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "Eventing.App.Common:ControllerBase",
-        "FullName": "ControllerBase",
+        "Id": "Microsoft.AspNetCore.Mvc.Core:Microsoft.AspNetCore.Mvc.ControllerBase",
+        "FullName": "Microsoft.AspNetCore.Mvc.ControllerBase",
         "Name": "ControllerBase",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "Eventing.App.Common",
+        "Namespace": "Microsoft.AspNetCore.Mvc",
+        "AssemblyName": "Microsoft.AspNetCore.Mvc.Core",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -97,9 +232,37 @@
               "Type": "System.Threading.CancellationToken"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CIActionResult\u003E",
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CMicrosoft.AspNetCore.Mvc.IActionResult\u003E",
           "Implements": [],
           "Calls": [
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "Accepted",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.Accepted(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "BadRequest",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "BadRequest",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest(System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Mvc.ControllerBase",
+              "MethodName": "StatusCode",
+              "MethodId": "Microsoft.AspNetCore.Mvc.ControllerBase.StatusCode(System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
             {
               "TypeName": "cCoder.Eventing.Apps.Exposures.IChatManager",
               "MethodName": "SendChatMessageAsync",
@@ -185,13 +348,13 @@
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
-        "Id": "Eventing.App.Common:Hub",
-        "FullName": "Hub",
+        "Id": "Microsoft.AspNetCore.SignalR.Core:Microsoft.AspNetCore.SignalR.Hub",
+        "FullName": "Microsoft.AspNetCore.SignalR.Hub",
         "Name": "Hub",
-        "Namespace": "\u003Cglobal namespace\u003E",
-        "AssemblyName": "Eventing.App.Common",
+        "Namespace": "Microsoft.AspNetCore.SignalR",
+        "AssemblyName": "Microsoft.AspNetCore.SignalR.Core",
         "Kind": "Class",
-        "IsInCurrentProject": true,
+        "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
       "Interfaces": [],
@@ -458,18 +621,18 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Eventing.Http.IHttpEventHub",
-              "MethodName": "RaiseEventAsync",
-              "MethodId": "cCoder.Eventing.Http.IHttpEventHub.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "TypeName": "cCoder.Eventing.Apps.Brokers.IChatEventBroker",
+              "MethodName": "RaiseChatMessageAsync",
+              "MethodId": "cCoder.Eventing.Apps.Brokers.IChatEventBroker.RaiseChatMessageAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
-              "TypeName": "cCoder.Eventing.IEventHub",
-              "MethodName": "RaiseEventAsync",
-              "MethodId": "cCoder.Eventing.IEventHub.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "TypeName": "cCoder.Eventing.Apps.Brokers.IChatHttpEventBroker",
+              "MethodName": "RaiseChatMessageAsync",
+              "MethodId": "cCoder.Eventing.Apps.Brokers.IChatHttpEventBroker.RaiseChatMessageAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E,System.Threading.CancellationToken)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Eventing.Models.EventAuthInfo",
@@ -719,22 +882,85 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Eventing.Apps.WebApplicationExtensions.StartEventingChat(WebApplication)",
+          "Id": "cCoder.Eventing.Apps.WebApplicationExtensions.StartEventingChat(Microsoft.AspNetCore.Builder.WebApplication)",
           "Name": "StartEventingChat",
           "LineNumber": 19,
           "Inputs": [
             {
               "Name": "app",
-              "Type": "WebApplication"
+              "Type": "Microsoft.AspNetCore.Builder.WebApplication"
             }
           ],
-          "ReturnType": "WebApplication",
+          "ReturnType": "Microsoft.AspNetCore.Builder.WebApplication",
           "Implements": [],
           "Calls": [
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions",
+              "MethodName": "MapControllers",
+              "MethodId": "Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.DefaultFilesExtensions",
+              "MethodName": "UseDefaultFiles",
+              "MethodId": "Microsoft.AspNetCore.Builder.DefaultFilesExtensions.UseDefaultFiles(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Builder.DefaultFilesOptions)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.DefaultFilesOptions",
+              "MethodName": ".ctor",
+              "MethodId": "Microsoft.AspNetCore.Builder.DefaultFilesOptions..ctor()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions",
+              "MethodName": "MapGet",
+              "MethodId": "Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,System.String,System.Delegate)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.HubEndpointRouteBuilderExtensions",
+              "MethodName": "MapHub",
+              "MethodId": "Microsoft.AspNetCore.Builder.HubEndpointRouteBuilderExtensions.MapHub(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.StaticFileExtensions",
+              "MethodName": "UseStaticFiles",
+              "MethodId": "Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Builder.StaticFileOptions)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.StaticFileOptions",
+              "MethodName": ".ctor",
+              "MethodId": "Microsoft.AspNetCore.Builder.StaticFileOptions..ctor()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Http.Results",
+              "MethodName": "Ok",
+              "MethodId": "Microsoft.AspNetCore.Http.Results.Ok(TValue?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
             {
               "TypeName": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions",
               "MethodName": "GetRequiredService",
               "MethodId": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(System.IServiceProvider)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.FileProviders.PhysicalFileProvider",
+              "MethodName": ".ctor",
+              "MethodId": "Microsoft.Extensions.FileProviders.PhysicalFileProvider..ctor(System.String)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             },
@@ -787,6 +1013,92 @@
     }
   ],
   "Interfaces": [
+    {
+      "Name": "cCoder.Eventing.Apps.Brokers.IChatEventBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Apps.Brokers.IChatEventBroker.RaiseChatMessageAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E)",
+          "Name": "RaiseChatMessageAsync",
+          "LineNumber": 12,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Brokers.IChatHttpEventBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Apps.Brokers.IChatHttpEventBroker.RaiseChatMessageAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E,System.Threading.CancellationToken)",
+          "Name": "RaiseChatMessageAsync",
+          "LineNumber": 12,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
     {
       "Name": "cCoder.Eventing.Apps.Brokers.IChatHubBroker",
       "StandardElementType": "Broker",
@@ -993,8 +1305,16 @@
   ],
   "Links": [
     {
+      "FromType": "cCoder.Eventing.Apps.Brokers.ChatEventBroker",
+      "ToType": "cCoder.Eventing.IEventHub"
+    },
+    {
+      "FromType": "cCoder.Eventing.Apps.Brokers.ChatHttpEventBroker",
+      "ToType": "cCoder.Eventing.Http.IHttpEventHub"
+    },
+    {
       "FromType": "cCoder.Eventing.Apps.Brokers.ChatHubBroker",
-      "ToType": "IHubContext\u003CcCoder.Eventing.Apps.Exposures.ChatHub\u003E"
+      "ToType": "Microsoft.AspNetCore.SignalR.IHubContext\u003CcCoder.Eventing.Apps.Exposures.ChatHub\u003E"
     },
     {
       "FromType": "cCoder.Eventing.Apps.Controllers.ChatController",
@@ -1022,11 +1342,11 @@
     },
     {
       "FromType": "cCoder.Eventing.Apps.Services.Foundations.ChatEventService",
-      "ToType": "cCoder.Eventing.Http.IHttpEventHub"
+      "ToType": "cCoder.Eventing.Apps.Brokers.ChatEventBroker"
     },
     {
       "FromType": "cCoder.Eventing.Apps.Services.Foundations.ChatEventService",
-      "ToType": "cCoder.Eventing.IEventHub"
+      "ToType": "cCoder.Eventing.Apps.Brokers.ChatHttpEventBroker"
     },
     {
       "FromType": "cCoder.Eventing.Apps.Services.Foundations.ChatNotificationService",

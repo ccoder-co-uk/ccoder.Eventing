@@ -28,7 +28,43 @@
           ],
           "ReturnType": "System.Void",
           "Implements": [],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.WebApplication",
+              "MethodName": "CreateBuilder",
+              "MethodId": "Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(System.String[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.WebApplication",
+              "MethodName": "Run",
+              "MethodId": "Microsoft.AspNetCore.Builder.WebApplication.Run(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.WebApplicationBuilder",
+              "MethodName": "Build",
+              "MethodId": "Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.Apps.IServiceCollectionExtensions",
+              "MethodName": "AddAppCommon",
+              "MethodId": "cCoder.Eventing.Apps.IServiceCollectionExtensions.AddAppCommon(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action\u003CcCoder.Eventing.Apps.Models.AppConfiguration\u003E?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.Apps.WebApplicationExtensions",
+              "MethodName": "StartEventingChat",
+              "MethodId": "cCoder.Eventing.Apps.WebApplicationExtensions.StartEventingChat(Microsoft.AspNetCore.Builder.WebApplication)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
