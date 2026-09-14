@@ -3,11 +3,12 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.AzureServiceBus.Models;
+using cCoder.CodeAnalysis.Exposures;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace cCoder.Eventing.AzureServiceBus.Brokers;
 
-internal interface IServiceProviderBroker
+internal interface IServiceProviderBroker : IUtilityBroker
 {
     IServiceScope GetScopeForEvent(ServiceBusEventMessage serviceBusEventMessage);
     object GetService(Type type);

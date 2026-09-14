@@ -31,9 +31,8 @@ public partial class EventProviderServiceTests
 
         Exception innerException = new("Provider failure");
 
-        IEventProviderService eventProviderService = CreateEventProviderService(
-eventProviders: [],
-bulkEventProviders: [
+        IBulkEventProviderService eventProviderService = CreateBulkEventProviderService(
+            bulkEventProviders: [
                 new BulkEventProvider<FakeObject>
                 {
                     Events = [inputName],

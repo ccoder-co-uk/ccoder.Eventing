@@ -108,7 +108,8 @@ public partial class EventProviderServiceTests
     {
         // Given
 
-        IEventProviderService eventProviderService = CreateEventProviderService();
+        IBulkEventProviderService eventProviderService =
+            CreateBulkEventProviderService(bulkEventProviders: []);
 
         // When
 
@@ -135,7 +136,8 @@ public partial class EventProviderServiceTests
             }
         ];
 
-        IEventProviderService eventProviderService = CreateEventProviderService();
+        IBulkEventProviderService eventProviderService =
+            CreateBulkEventProviderService(bulkEventProviders: []);
 
         // When
 
@@ -162,7 +164,8 @@ public partial class EventProviderServiceTests
             }
         ];
 
-        IEventProviderService eventProviderService = CreateEventProviderService();
+        IBulkEventProviderService eventProviderService =
+            CreateBulkEventProviderService(bulkEventProviders: []);
 
         // When
 

@@ -127,6 +127,9 @@ public static class IServiceCollectionExtensions
             if (eventProvider is not null)
             {
                 services.AddSingleton(implementationInstance: eventProvider);
+                services.AddSingleton<IEventProviderBroker>(
+                    implementationInstance: new EventProviderBroker(
+                        eventProvider: eventProvider));
             }
         }
     }
@@ -140,6 +143,9 @@ public static class IServiceCollectionExtensions
             if (bulkEventProvider is not null)
             {
                 services.AddSingleton(implementationInstance: bulkEventProvider);
+                services.AddSingleton<IBulkEventProviderBroker>(
+                    implementationInstance: new BulkEventProviderBroker(
+                        eventProvider: bulkEventProvider));
             }
         }
     }
@@ -183,13 +189,18 @@ public static class IServiceCollectionExtensions
     {
         services.AddTransient<IEventAuthorizationService, EventAuthorizationService>();
         services.AddSingleton<IEventProviderService, EventProviderService>();
-        services.AddSingleton<IEventServiceProviderService, EventServiceProviderService>();
+        services.AddSingleton<IBulkEventProviderService, BulkEventProviderService>();
 
         return services;
     }
 
-    private static IServiceCollection AddProcessings(this IServiceCollection services) =>
-        services;
+    private static IServiceCollection AddProcessings(this IServiceCollection services)
+    {
+        services.AddSingleton<IEventProviderProcessingService, EventProviderProcessingService>();
+        services.AddSingleton<IBulkEventProviderProcessingService, BulkEventProviderProcessingService>();
+
+        return services;
+    }
 
     private static IServiceCollection AddOrchestrations(
         this IServiceCollection services)

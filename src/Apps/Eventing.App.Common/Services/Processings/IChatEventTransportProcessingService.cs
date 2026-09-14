@@ -4,9 +4,9 @@
 
 using cCoder.Eventing.Apps.Models;
 
-namespace cCoder.Eventing.Apps.Services.Foundations;
+namespace cCoder.Eventing.Apps.Services.Processings;
 
-internal interface IChatEventService
+internal interface IChatEventTransportProcessingService
 {
     ValueTask RaiseChatMessageAsync(
         ChatMessage chatMessage,

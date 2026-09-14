@@ -5,23 +5,24 @@
 using cCoder.Eventing.Apps.Models;
 using cCoder.Eventing.Apps.Models.Validations;
 using cCoder.Eventing.Apps.Services.Processings.Validations;
+using cCoder.Eventing.Models;
 
 namespace cCoder.Eventing.Apps.Services.Foundations;
 
-internal sealed partial class ChatEventService
+internal sealed partial class ChatHttpEventService
 {
     private static void ValidateRaiseChatMessage(
-        ChatMessage chatMessage,
+        EventMessage<ChatMessage> eventMessage,
         CancellationToken cancellationToken)
     {
         ValidationRule[] validationRules =
         [
             new ValidationRule
             {
-                IsInvalid = () => chatMessage is null,
+                IsInvalid = () => eventMessage is null,
                 CreateException = () =>
                     new ArgumentNullException(
-                        paramName: nameof(chatMessage))
+                        paramName: nameof(eventMessage))
             }
         ];
 

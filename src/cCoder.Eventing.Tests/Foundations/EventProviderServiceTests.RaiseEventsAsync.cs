@@ -31,9 +31,8 @@ public partial class EventProviderServiceTests
         EventMessage<FakeObject>[] actualMessages = null;
         IServiceProvider actualServiceProvider = null;
 
-        IEventProviderService eventProviderService = CreateEventProviderService(
-eventProviders: [],
-bulkEventProviders: [
+        IBulkEventProviderService eventProviderService = CreateBulkEventProviderService(
+            bulkEventProviders: [
                 new BulkEventProvider<FakeObject>
                 {
                     Events = [inputName],
@@ -84,9 +83,8 @@ times: Times.Once);
 
         int callCount = 0;
 
-        IEventProviderService eventProviderService = CreateEventProviderService(
-eventProviders: [],
-bulkEventProviders: [
+        IBulkEventProviderService eventProviderService = CreateBulkEventProviderService(
+            bulkEventProviders: [
                 new BulkEventProvider<FakeObject>
                 {
                     Events = [inputName],
@@ -118,6 +116,10 @@ bulkEventProviders: [
 
         callCount.Should()
             .Be(expected:2);
+
+        serviceProviderBrokerMock.Verify(
+expression: broker => broker.GetScopeForEvent(eventMessage:inputMessages[0]),
+times: Times.Once);
     }
 
     [Fact]
@@ -136,9 +138,8 @@ bulkEventProviders: [
             }
         ];
 
-        IEventProviderService eventProviderService = CreateEventProviderService(
-eventProviders: [],
-bulkEventProviders: [
+        IBulkEventProviderService eventProviderService = CreateBulkEventProviderService(
+            bulkEventProviders: [
                 new BulkEventProvider<string>
                 {
                     Events = [inputName],

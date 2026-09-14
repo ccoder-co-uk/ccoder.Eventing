@@ -27,6 +27,10 @@ public partial class EventOrchestrationServiceTests
             .Setup(expression:service => service.RaiseEventAsync(name:inputName, message:inputMessage))
             .ReturnsAsync(value:false);
 
+        eventOrchestrationService.ListenToEvent<FakeObject>(
+            name: inputName,
+            handler: (_, _) => ValueTask.CompletedTask);
+
         // When
 
         await eventOrchestrationService.RaiseEventAsync(name:inputName, message:inputMessage);
@@ -37,8 +41,8 @@ public partial class EventOrchestrationServiceTests
 expression: service => service.RaiseEventAsync(name:inputName, message:inputMessage),
 times: Times.Once);
 
-        eventServiceProviderServiceMock.Verify(
-expression: service => service.RaiseEventAsync(name:inputName, message:inputMessage),
+        eventProcessingServiceMock.Verify(
+expression: service => service.RaiseEventAsync(name:inputName, data:inputMessage),
 times: Times.Once);
     }
 
@@ -65,8 +69,8 @@ times: Times.Once);
 
         // Then
 
-        eventServiceProviderServiceMock.Verify(
-expression: service => service.RaiseEventAsync(name:It.IsAny<string>(), message:It.IsAny<EventMessage<FakeObject>>()),
+        eventProcessingServiceMock.Verify(
+expression: service => service.RaiseEventAsync(name:It.IsAny<string>(), data:It.IsAny<EventMessage<FakeObject>>()),
 times: Times.Never);
     }
 
@@ -86,9 +90,13 @@ times: Times.Never);
             }
         ];
 
-        eventProviderServiceMock
+        bulkEventProviderServiceMock
             .Setup(expression:service => service.RaiseEventsAsync(name:inputName, messages:inputMessages))
             .ReturnsAsync(value:false);
+
+        eventOrchestrationService.ListenToEvent<FakeObject>(
+            name: inputName,
+            handler: (_, _) => ValueTask.CompletedTask);
 
         // When
 
@@ -96,12 +104,12 @@ times: Times.Never);
 
         // Then
 
-        eventProviderServiceMock.Verify(
+        bulkEventProviderServiceMock.Verify(
 expression: service => service.RaiseEventsAsync(name:inputName, messages:inputMessages),
 times: Times.Once);
 
-        eventServiceProviderServiceMock.Verify(
-expression: service => service.RaiseEventsAsync(name:inputName, messages:inputMessages),
+        eventProcessingServiceMock.Verify(
+expression: service => service.RaiseEventAsync(name:inputName, data:inputMessages[0]),
 times: Times.Once);
     }
 
@@ -121,7 +129,7 @@ times: Times.Once);
             }
         ];
 
-        eventProviderServiceMock
+        bulkEventProviderServiceMock
             .Setup(expression:service => service.RaiseEventsAsync(name:inputName, messages:inputMessages))
             .ReturnsAsync(value:true);
 
@@ -131,8 +139,8 @@ times: Times.Once);
 
         // Then
 
-        eventServiceProviderServiceMock.Verify(
-expression: service => service.RaiseEventsAsync(name:It.IsAny<string>(), messages:It.IsAny<EventMessage<FakeObject>[]>()),
+        eventProcessingServiceMock.Verify(
+expression: service => service.RaiseEventAsync(name:It.IsAny<string>(), data:It.IsAny<EventMessage<FakeObject>>()),
 times: Times.Never);
     }
 }

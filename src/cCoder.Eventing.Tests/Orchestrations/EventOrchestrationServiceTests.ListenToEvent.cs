@@ -2,7 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Eventing.Services.Foundations;
+using cCoder.Eventing.Services.Processings;
+using FluentAssertions;
 using Moq;
 using Xunit;
 
@@ -26,20 +27,76 @@ public partial class EventOrchestrationServiceTests
 
         // Then
 
-        eventServiceProviderServiceMock.Verify(
+        eventProcessingServiceMock.Verify(
 expression: service => service.ListenToEvent(name:inputName, handler:inputHandler),
 times: Times.Once);
     }
 
     [Fact]
-    public void ShouldListenToEventWithHandlingService()
+    public void ShouldResolveEventProcessingServiceOnceForMultipleListenersOfSameType()
     {
         // Given
 
         string inputName = "event-name";
 
-        Func<IHandlingService, FakeObject, ValueTask> inputHandler =
+        Func<IServiceProvider, FakeObject, ValueTask> inputHandler =
             (_, _) => ValueTask.CompletedTask;
+
+        // When
+
+        eventOrchestrationService.ListenToEvent(
+            name: inputName,
+            handler: inputHandler);
+
+        eventOrchestrationService.ListenToEvent(
+            name: inputName,
+            handler: inputHandler);
+
+        // Then
+
+        serviceProviderBrokerMock.Verify(
+            expression: broker =>
+                broker.GetService<IEventProcessingService<FakeObject>>(),
+            times: Times.Once);
+
+        eventProcessingServiceMock.Verify(
+            expression: service => service.ListenToEvent(
+                name: inputName,
+                handler: inputHandler),
+            times: Times.Exactly(callCount: 2));
+    }
+
+    [Fact]
+    public async Task ShouldListenToEventWithHandlingService()
+    {
+        // Given
+
+        string inputName = "event-name";
+
+        Mock<IHandlingService> handlingServiceMock = new();
+        Mock<IServiceProvider> scopedServiceProviderMock = new();
+        Func<IServiceProvider, FakeObject, ValueTask> internalHandler = null;
+
+        serviceProviderBrokerMock
+            .Setup(expression: broker => broker.GetRequiredService<IHandlingService>(
+                serviceProvider: scopedServiceProviderMock.Object))
+            .Returns(value: handlingServiceMock.Object);
+
+        eventProcessingServiceMock
+            .Setup(expression: service => service.ListenToEvent(
+                name: inputName,
+                handler: It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
+            .Callback<string, Func<IServiceProvider, FakeObject, ValueTask>>(
+                action: (_, handler) => internalHandler = handler);
+
+        IHandlingService actualHandlingService = null;
+
+        Func<IHandlingService, FakeObject, ValueTask> inputHandler =
+            (handlingService, _) =>
+            {
+                actualHandlingService = handlingService;
+                return ValueTask.CompletedTask;
+            };
 
         // When
 
@@ -47,14 +104,15 @@ times: Times.Once);
             name: inputName,
             handler: inputHandler);
 
+        await internalHandler(
+            arg1: scopedServiceProviderMock.Object,
+            arg2: new FakeObject());
+
         // Then
 
-        eventServiceProviderServiceMock.Verify(
-            expression: service =>
-                service.ListenToEvent<FakeObject, IHandlingService>(
-                    name: inputName,
-                    handler: inputHandler),
-            times: Times.Once);
+        actualHandlingService
+            .Should()
+            .BeSameAs(expected: handlingServiceMock.Object);
     }
 
     public interface IHandlingService;

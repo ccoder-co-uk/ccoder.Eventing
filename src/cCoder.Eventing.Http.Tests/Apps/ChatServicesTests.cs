@@ -4,8 +4,10 @@
 
 using cCoder.Eventing.Apps.Brokers;
 using cCoder.Eventing.Apps.Models;
+using cCoder.Eventing.Apps.Models.Exceptions;
 using cCoder.Eventing.Apps.Services.Foundations;
 using cCoder.Eventing.Apps.Services.Orchestrations;
+using cCoder.Eventing.Apps.Services.Processings;
 using cCoder.Eventing.Models;
 using FluentAssertions;
 using Moq;
@@ -15,6 +17,67 @@ namespace cCoder.Eventing.Http.Tests.Apps;
 
 public partial class ChatServicesTests
 {
+    [Fact]
+    public async Task ShouldProcessChatMessageThroughLocalThenHttpFoundations()
+    {
+        // Given
+
+        ChatMessage inputMessage = new()
+        {
+            User = "user",
+            Text = "hello"
+        };
+
+        CancellationToken inputCancellationToken = new(canceled: false);
+        Mock<IChatEventTransportService> localEventServiceMock = new();
+        Mock<IChatEventTransportService> httpEventServiceMock = new();
+        MockSequence sequence = new();
+        EventMessage<ChatMessage> localEventMessage = null;
+
+        localEventServiceMock
+            .InSequence(sequence: sequence)
+            .Setup(expression: service => service.RaiseChatMessageAsync(
+                eventMessage: It.IsAny<EventMessage<ChatMessage>>(),
+                cancellationToken: inputCancellationToken))
+            .Callback<EventMessage<ChatMessage>, CancellationToken>(
+                action: (message, _) => localEventMessage = message)
+            .Returns(value: ValueTask.CompletedTask);
+
+        httpEventServiceMock
+            .InSequence(sequence: sequence)
+            .Setup(expression: service => service.RaiseChatMessageAsync(
+                eventMessage: It.Is<EventMessage<ChatMessage>>(match: message =>
+                    ReferenceEquals(objA: message, objB: localEventMessage)),
+                cancellationToken: inputCancellationToken))
+            .Returns(value: ValueTask.CompletedTask);
+
+        ChatEventTransportProcessingService service = new(
+            chatEventTransportServices:
+            [
+                localEventServiceMock.Object,
+                httpEventServiceMock.Object
+            ]);
+
+        // When
+
+        await service.RaiseChatMessageAsync(
+            chatMessage: inputMessage,
+            cancellationToken: inputCancellationToken);
+
+        // Then
+
+        localEventServiceMock.VerifyAll();
+        httpEventServiceMock.VerifyAll();
+
+        localEventMessage.Data
+            .Should()
+            .BeSameAs(expected: inputMessage);
+
+        localEventMessage.AuthInfo.SSOUserId
+            .Should()
+            .Be(expected: inputMessage.User);
+    }
+
     [Fact]
     public async Task ShouldRaiseChatMessagesThroughBothEventTransports()
     {
@@ -29,30 +92,154 @@ public partial class ChatServicesTests
         Mock<IChatEventBroker> eventHub = new();
         Mock<IChatHttpEventBroker> httpEventHub = new();
 
-        ChatEventService service = new(
-            chatEventBroker: eventHub.Object,
+        ChatLocalEventService localEventService = new(
+            chatEventBroker: eventHub.Object);
+
+        ChatHttpEventService httpEventService = new(
             chatHttpEventBroker: httpEventHub.Object);
+
+        EventMessage<ChatMessage> inputEventMessage = new()
+        {
+            AuthInfo = new EventAuthInfo
+            {
+                SSOUserId = message.User
+            },
+            Data = message
+        };
 
         // When
 
-        await service.RaiseChatMessageAsync(chatMessage: message);
+        await localEventService.RaiseChatMessageAsync(
+            eventMessage: inputEventMessage);
+
+        await httpEventService.RaiseChatMessageAsync(
+            eventMessage: inputEventMessage);
 
         // Then
 
         eventHub.Verify(
             expression: hub => hub.RaiseChatMessageAsync(
                 name: It.IsAny<string>(),
-                message: It.Is<EventMessage<ChatMessage>>(match: eventMessage =>
-                    eventMessage.Data == message)),
+                message: It.Is<EventMessage<ChatMessage>>(match: actualMessage =>
+                    ReferenceEquals(
+                        objA: actualMessage,
+                        objB: inputEventMessage))),
             times: Times.Once);
 
         httpEventHub.Verify(
             expression: hub => hub.RaiseChatMessageAsync(
                 name: It.IsAny<string>(),
-                message: It.Is<EventMessage<ChatMessage>>(match: eventMessage =>
-                    eventMessage.Data == message),
+                message: It.Is<EventMessage<ChatMessage>>(match: actualMessage =>
+                    ReferenceEquals(
+                        objA: actualMessage,
+                        objB: inputEventMessage)),
                 cancellationToken: It.IsAny<CancellationToken>()),
             times: Times.Once);
+    }
+
+    [Fact]
+    public async Task ShouldValidateAndTranslateLocalChatTransportFailures()
+    {
+        // Given
+
+        Mock<IChatEventBroker> brokerMock = new();
+        ChatLocalEventService service = new(chatEventBroker: brokerMock.Object);
+
+        EventMessage<ChatMessage> inputMessage = new()
+        {
+            Data = new ChatMessage()
+        };
+
+        InvalidOperationException dependencyException = new(
+            message: "dependency failure");
+
+        brokerMock
+            .Setup(expression: broker => broker.RaiseChatMessageAsync(
+                name: It.IsAny<string>(),
+                message: It.IsAny<EventMessage<ChatMessage>>()))
+            .ThrowsAsync(exception: dependencyException);
+
+        // When
+
+        Func<Task> nullMessageTask = async () =>
+            await service.RaiseChatMessageAsync(eventMessage: null);
+
+        Func<Task> canceledTask = async () =>
+            await service.RaiseChatMessageAsync(
+                eventMessage: inputMessage,
+                cancellationToken: new CancellationToken(canceled: true));
+
+        Func<Task> dependencyTask = async () =>
+            await service.RaiseChatMessageAsync(eventMessage: inputMessage);
+
+        // Then
+
+        await Assert.ThrowsAsync<ChatServiceValidationException>(
+            testCode: nullMessageTask);
+
+        await Assert.ThrowsAsync<ChatServiceException>(
+            testCode: canceledTask);
+
+        ChatServiceDependencyException actualException =
+            await Assert.ThrowsAsync<ChatServiceDependencyException>(
+                testCode: dependencyTask);
+
+        actualException.InnerException
+            .Should()
+            .BeSameAs(expected: dependencyException);
+    }
+
+    [Fact]
+    public async Task ShouldValidateAndTranslateHttpChatTransportFailures()
+    {
+        // Given
+
+        Mock<IChatHttpEventBroker> brokerMock = new();
+        ChatHttpEventService service = new(chatHttpEventBroker: brokerMock.Object);
+
+        EventMessage<ChatMessage> inputMessage = new()
+        {
+            Data = new ChatMessage()
+        };
+
+        InvalidOperationException dependencyException = new(
+            message: "dependency failure");
+
+        brokerMock
+            .Setup(expression: broker => broker.RaiseChatMessageAsync(
+                name: It.IsAny<string>(),
+                message: It.IsAny<EventMessage<ChatMessage>>(),
+                cancellationToken: It.IsAny<CancellationToken>()))
+            .ThrowsAsync(exception: dependencyException);
+
+        // When
+
+        Func<Task> nullMessageTask = async () =>
+            await service.RaiseChatMessageAsync(eventMessage: null);
+
+        Func<Task> canceledTask = async () =>
+            await service.RaiseChatMessageAsync(
+                eventMessage: inputMessage,
+                cancellationToken: new CancellationToken(canceled: true));
+
+        Func<Task> dependencyTask = async () =>
+            await service.RaiseChatMessageAsync(eventMessage: inputMessage);
+
+        // Then
+
+        await Assert.ThrowsAsync<ChatServiceValidationException>(
+            testCode: nullMessageTask);
+
+        await Assert.ThrowsAsync<ChatServiceException>(
+            testCode: canceledTask);
+
+        ChatServiceDependencyException actualException =
+            await Assert.ThrowsAsync<ChatServiceDependencyException>(
+                testCode: dependencyTask);
+
+        actualException.InnerException
+            .Should()
+            .BeSameAs(expected: dependencyException);
     }
 
     [Fact]
@@ -60,9 +247,11 @@ public partial class ChatServicesTests
     {
         // Given
 
-        ChatEventService service = new(
-            chatEventBroker: Mock.Of<IChatEventBroker>(),
-            chatHttpEventBroker: Mock.Of<IChatHttpEventBroker>());
+        ChatEventTransportProcessingService service = new(
+            chatEventTransportServices:
+            [
+                Mock.Of<IChatEventTransportService>()
+            ]);
 
         CancellationToken canceledToken = new(canceled: true);
 
@@ -118,6 +307,82 @@ public partial class ChatServicesTests
     }
 
     [Fact]
+    public async Task ShouldProcessChatNotificationThroughFoundation()
+    {
+        // Given
+
+        ChatMessage inputMessage = new();
+        Mock<IChatNotificationService> notificationServiceMock = new();
+
+        ChatNotificationProcessingService service = new(
+            chatNotificationService: notificationServiceMock.Object);
+
+        // When
+
+        await service.SendChatMessageAsync(chatMessage: inputMessage);
+
+        // Then
+
+        notificationServiceMock.Verify(
+            expression: dependency => dependency.SendChatMessageAsync(
+                chatMessage: inputMessage),
+            times: Times.Once);
+    }
+
+    [Fact]
+    public async Task ShouldTranslateChatNotificationProcessingFailure()
+    {
+        // Given
+
+        InvalidOperationException dependencyException = new(
+            message: "dependency failure");
+
+        Mock<IChatNotificationService> notificationServiceMock = new();
+
+        notificationServiceMock
+            .Setup(expression: dependency => dependency.SendChatMessageAsync(
+                chatMessage: It.IsAny<ChatMessage>()))
+            .ThrowsAsync(exception: dependencyException);
+
+        ChatNotificationProcessingService service = new(
+            chatNotificationService: notificationServiceMock.Object);
+
+        // When
+
+        Func<Task> sendChatMessageTask = async () =>
+            await service.SendChatMessageAsync(chatMessage: new ChatMessage());
+
+        // Then
+
+        ChatServiceDependencyException actualException =
+            await Assert.ThrowsAsync<ChatServiceDependencyException>(
+                testCode: sendChatMessageTask);
+
+        actualException.InnerException
+            .Should()
+            .BeSameAs(expected: dependencyException);
+    }
+
+    [Fact]
+    public async Task ShouldValidateChatNotificationProcessingRequest()
+    {
+        // Given
+
+        ChatNotificationProcessingService service = new(
+            chatNotificationService: Mock.Of<IChatNotificationService>());
+
+        // When
+
+        Func<Task> sendChatMessageTask = async () =>
+            await service.SendChatMessageAsync(chatMessage: null);
+
+        // Then
+
+        await Assert.ThrowsAsync<ChatServiceValidationException>(
+            testCode: sendChatMessageTask);
+    }
+
+    [Fact]
     public async Task ShouldNormalizeAndRaiseOutgoingChatMessages()
     {
         // Given
@@ -128,11 +393,11 @@ public partial class ChatServicesTests
             Text = " hello "
         };
 
-        Mock<IChatEventService> eventService = new();
+        Mock<IChatEventTransportProcessingService> eventService = new();
 
         ChatOrchestrationService service = new(
             chatEventService: eventService.Object,
-            chatNotificationService: Mock.Of<IChatNotificationService>());
+            chatNotificationService: Mock.Of<IChatNotificationProcessingService>());
 
         // When
 
@@ -170,8 +435,8 @@ public partial class ChatServicesTests
         // Given
 
         ChatOrchestrationService service = new(
-            chatEventService: Mock.Of<IChatEventService>(),
-            chatNotificationService: Mock.Of<IChatNotificationService>());
+            chatEventService: Mock.Of<IChatEventTransportProcessingService>(),
+            chatNotificationService: Mock.Of<IChatNotificationProcessingService>());
 
         ChatMessage namedMessage = new()
         {
@@ -222,10 +487,10 @@ public partial class ChatServicesTests
         // Given
 
         ChatMessage message = new();
-        Mock<IChatNotificationService> notificationService = new();
+        Mock<IChatNotificationProcessingService> notificationService = new();
 
         ChatOrchestrationService service = new(
-            chatEventService: Mock.Of<IChatEventService>(),
+            chatEventService: Mock.Of<IChatEventTransportProcessingService>(),
             chatNotificationService: notificationService.Object);
 
         // When
@@ -253,17 +518,19 @@ public partial class ChatServicesTests
     {
         // Given
 
-        Mock<IChatEventBroker> eventHub = new();
+        Mock<IChatEventTransportService> eventServiceMock = new();
 
-        eventHub
-            .Setup(expression: hub => hub.RaiseChatMessageAsync(
-                name: It.IsAny<string>(),
-                message: It.IsAny<EventMessage<ChatMessage>>()))
+        eventServiceMock
+            .Setup(expression: service => service.RaiseChatMessageAsync(
+                eventMessage: It.IsAny<EventMessage<ChatMessage>>(),
+                cancellationToken: It.IsAny<CancellationToken>()))
             .ThrowsAsync(exception: new Exception());
 
-        ChatEventService eventService = new(
-            chatEventBroker: eventHub.Object,
-            chatHttpEventBroker: Mock.Of<IChatHttpEventBroker>());
+        ChatEventTransportProcessingService eventService = new(
+            chatEventTransportServices:
+            [
+                eventServiceMock.Object
+            ]);
 
         Mock<IChatHubBroker> broker = new();
 

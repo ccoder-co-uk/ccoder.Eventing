@@ -2,12 +2,11 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Eventing.Dependencies;
+using cCoder.Eventing.Models;
 
 namespace cCoder.Eventing.Services.Foundations;
 
-internal sealed partial class EventServiceProviderService
+internal interface IBulkEventProviderService
 {
-    private static void Validate(params object[] inputs) =>
-        ValidationRulesEngine.Validate(inputs: inputs);
+    ValueTask<bool> RaiseEventsAsync<T>(string name, EventMessage<T>[] messages);
 }

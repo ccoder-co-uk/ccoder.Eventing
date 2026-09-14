@@ -8,36 +8,21 @@ using cCoder.Eventing.Models;
 
 namespace cCoder.Eventing.Apps.Services.Foundations;
 
-internal sealed partial class ChatEventService(
-    IChatEventBroker chatEventBroker,
-    IChatHttpEventBroker chatHttpEventBroker)
-    : IChatEventService
+internal sealed partial class ChatLocalEventService(
+    IChatEventBroker chatEventBroker)
+    : IChatEventTransportService
 {
     public ValueTask RaiseChatMessageAsync(
-        ChatMessage chatMessage,
+        EventMessage<ChatMessage> eventMessage,
         CancellationToken cancellationToken = default) =>
         TryCatch(operation: async () =>
         {
             ValidateRaiseChatMessage(
-                chatMessage: chatMessage,
+                eventMessage: eventMessage,
                 cancellationToken: cancellationToken);
-
-            EventMessage<ChatMessage> eventMessage = new()
-            {
-                AuthInfo = new EventAuthInfo
-                {
-                    SSOUserId = chatMessage.User
-                },
-                Data = chatMessage
-            };
 
             await chatEventBroker.RaiseChatMessageAsync(
                 name: ChatEventNames.ChatEvent,
                 message: eventMessage);
-
-            await chatHttpEventBroker.RaiseChatMessageAsync(
-                name: ChatEventNames.ChatEvent,
-                message: eventMessage,
-                cancellationToken: cancellationToken);
         });
 }

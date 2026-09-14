@@ -7,9 +7,9 @@ using cCoder.Eventing.Services.Processings;
 using Moq;
 using Xunit;
 
-namespace cCoder.Eventing.Tests.Foundations;
+namespace cCoder.Eventing.Tests.Orchestrations;
 
-public partial class EventServiceProviderServiceTests
+public partial class EventOrchestrationOwnershipTests
 {
     [Fact]
     public async Task ShouldRaiseEventsAsync()
