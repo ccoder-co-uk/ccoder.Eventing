@@ -22,7 +22,7 @@ internal sealed partial class BulkEventProviderService(
 
             try
             {
-                ValidateRequest(name: name, messages: messages);
+                ValidateRequest(messages: messages);
 
                 IBulkEventProviderBroker[] matchingProviders = eventProviderBrokers
                     .Where(predicate: provider => provider.CanHandle<T>(name: name))
@@ -56,22 +56,10 @@ internal sealed partial class BulkEventProviderService(
             }
         });
 
-    private static void ValidateRequest<T>(string name, EventMessage<T>[] messages)
-    {
-        if (name is null)
-        {
-            throw new InvalidOperationException("You must provide an event name when raising events.");
-        }
-
-        if (messages is null)
-        {
-            throw new InvalidOperationException("You must provide a message collection when raising events.");
-        }
-
+    private static void ValidateRequest<T>(EventMessage<T>[] messages) =>
         Array.ForEach(
             array: messages,
             action: message => ValidateMessage(message: message));
-    }
 
     private static void ValidateMessage<T>(EventMessage<T> message)
     {
