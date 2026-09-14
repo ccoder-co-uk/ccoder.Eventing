@@ -138,6 +138,111 @@ public partial class ChatServicesTests
     }
 
     [Fact]
+    public async Task ShouldValidateAndTranslateLocalChatTransportFailures()
+    {
+        // Given
+
+        Mock<IChatEventBroker> brokerMock = new();
+        ChatLocalEventService service = new(chatEventBroker: brokerMock.Object);
+
+        EventMessage<ChatMessage> inputMessage = new()
+        {
+            Data = new ChatMessage()
+        };
+
+        InvalidOperationException dependencyException = new(
+            message: "dependency failure");
+
+        brokerMock
+            .Setup(expression: broker => broker.RaiseChatMessageAsync(
+                name: It.IsAny<string>(),
+                message: It.IsAny<EventMessage<ChatMessage>>()))
+            .ThrowsAsync(exception: dependencyException);
+
+        // When
+
+        Func<Task> nullMessageTask = async () =>
+            await service.RaiseChatMessageAsync(eventMessage: null);
+
+        Func<Task> canceledTask = async () =>
+            await service.RaiseChatMessageAsync(
+                eventMessage: inputMessage,
+                cancellationToken: new CancellationToken(canceled: true));
+
+        Func<Task> dependencyTask = async () =>
+            await service.RaiseChatMessageAsync(eventMessage: inputMessage);
+
+        // Then
+
+        await Assert.ThrowsAsync<ChatServiceValidationException>(
+            testCode: nullMessageTask);
+
+        await Assert.ThrowsAsync<ChatServiceException>(
+            testCode: canceledTask);
+
+        ChatServiceDependencyException actualException =
+            await Assert.ThrowsAsync<ChatServiceDependencyException>(
+                testCode: dependencyTask);
+
+        actualException.InnerException
+            .Should()
+            .BeSameAs(expected: dependencyException);
+    }
+
+    [Fact]
+    public async Task ShouldValidateAndTranslateHttpChatTransportFailures()
+    {
+        // Given
+
+        Mock<IChatHttpEventBroker> brokerMock = new();
+        ChatHttpEventService service = new(chatHttpEventBroker: brokerMock.Object);
+
+        EventMessage<ChatMessage> inputMessage = new()
+        {
+            Data = new ChatMessage()
+        };
+
+        InvalidOperationException dependencyException = new(
+            message: "dependency failure");
+
+        brokerMock
+            .Setup(expression: broker => broker.RaiseChatMessageAsync(
+                name: It.IsAny<string>(),
+                message: It.IsAny<EventMessage<ChatMessage>>(),
+                cancellationToken: It.IsAny<CancellationToken>()))
+            .ThrowsAsync(exception: dependencyException);
+
+        // When
+
+        Func<Task> nullMessageTask = async () =>
+            await service.RaiseChatMessageAsync(eventMessage: null);
+
+        Func<Task> canceledTask = async () =>
+            await service.RaiseChatMessageAsync(
+                eventMessage: inputMessage,
+                cancellationToken: new CancellationToken(canceled: true));
+
+        Func<Task> dependencyTask = async () =>
+            await service.RaiseChatMessageAsync(eventMessage: inputMessage);
+
+        // Then
+
+        await Assert.ThrowsAsync<ChatServiceValidationException>(
+            testCode: nullMessageTask);
+
+        await Assert.ThrowsAsync<ChatServiceException>(
+            testCode: canceledTask);
+
+        ChatServiceDependencyException actualException =
+            await Assert.ThrowsAsync<ChatServiceDependencyException>(
+                testCode: dependencyTask);
+
+        actualException.InnerException
+            .Should()
+            .BeSameAs(expected: dependencyException);
+    }
+
+    [Fact]
     public async Task ShouldValidateChatEventRequests()
     {
         // Given
@@ -256,6 +361,25 @@ public partial class ChatServicesTests
         actualException.InnerException
             .Should()
             .BeSameAs(expected: dependencyException);
+    }
+
+    [Fact]
+    public async Task ShouldValidateChatNotificationProcessingRequest()
+    {
+        // Given
+
+        ChatNotificationProcessingService service = new(
+            chatNotificationService: Mock.Of<IChatNotificationService>());
+
+        // When
+
+        Func<Task> sendChatMessageTask = async () =>
+            await service.SendChatMessageAsync(chatMessage: null);
+
+        // Then
+
+        await Assert.ThrowsAsync<ChatServiceValidationException>(
+            testCode: sendChatMessageTask);
     }
 
     [Fact]
