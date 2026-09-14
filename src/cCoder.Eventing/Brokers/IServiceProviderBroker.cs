@@ -3,11 +3,12 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Models;
+using cCoder.CodeAnalysis.Exposures;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace cCoder.Eventing.Brokers;
 
-public interface IServiceProviderBroker
+public interface IServiceProviderBroker : IUtilityBroker
 {
     IServiceScope GetScopeForEvent(EventMessage eventMessage);
     IServiceProvider GetServiceProvider();

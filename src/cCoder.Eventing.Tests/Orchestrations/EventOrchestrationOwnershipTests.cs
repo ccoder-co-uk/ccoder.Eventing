@@ -4,26 +4,29 @@
 
 using cCoder.Eventing.Brokers;
 using cCoder.Eventing.Services.Foundations;
+using cCoder.Eventing.Services.Orchestrations;
 using cCoder.Eventing.Services.Processings;
 using cCoder.Eventing.Brokers.Loggings;
 using Moq;
 
-namespace cCoder.Eventing.Tests.Foundations;
+namespace cCoder.Eventing.Tests.Orchestrations;
 
-public partial class EventServiceProviderServiceTests
+public partial class EventOrchestrationOwnershipTests
 {
     private readonly Mock<IServiceProviderBroker> serviceProviderBrokerMock;
     private readonly Mock<IEventProcessingService<FakeObject>> eventProcessingServiceMock;
     private readonly Mock<ILoggingBroker> loggerMock;
-    private readonly IEventServiceProviderService eventServiceProviderService;
+    private readonly EventOrchestrationService eventServiceProviderService;
 
-    public EventServiceProviderServiceTests()
+    public EventOrchestrationOwnershipTests()
     {
         serviceProviderBrokerMock = new Mock<IServiceProviderBroker>();
         eventProcessingServiceMock = new Mock<IEventProcessingService<FakeObject>>();
         loggerMock = new Mock<ILoggingBroker>();
 
-        eventServiceProviderService = new EventServiceProviderService(
+        eventServiceProviderService = new EventOrchestrationService(
+            Mock.Of<IEventProviderProcessingService>(),
+            Mock.Of<IBulkEventProviderProcessingService>(),
             serviceProviderBrokerMock.Object,
             loggerMock.Object);
     }

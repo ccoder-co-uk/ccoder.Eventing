@@ -3,13 +3,13 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Apps.Models;
-using cCoder.Eventing.Apps.Services.Foundations;
+using cCoder.Eventing.Apps.Services.Processings;
 
 namespace cCoder.Eventing.Apps.Services.Orchestrations;
 
 internal sealed partial class ChatOrchestrationService(
-        IChatEventService chatEventService,
-        IChatNotificationService chatNotificationService)
+        IChatEventTransportProcessingService chatEventService,
+        IChatNotificationProcessingService chatNotificationService)
             : IChatOrchestrationService
 {
     public ValueTask<ChatMessage> SendChatMessageAsync(

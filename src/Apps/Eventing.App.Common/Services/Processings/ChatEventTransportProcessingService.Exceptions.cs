@@ -4,9 +4,9 @@
 
 using cCoder.Eventing.Apps.Models.Exceptions;
 
-namespace cCoder.Eventing.Apps.Services.Foundations;
+namespace cCoder.Eventing.Apps.Services.Processings;
 
-internal sealed partial class ChatEventService
+internal sealed partial class ChatEventTransportProcessingService
 {
     private static async ValueTask TryCatch(
         Func<ValueTask> operation)

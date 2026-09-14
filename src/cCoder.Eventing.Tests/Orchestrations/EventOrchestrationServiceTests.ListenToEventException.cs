@@ -18,8 +18,8 @@ public partial class EventOrchestrationServiceTests
 
         ArgumentException dependencyException = new(message: "dependency failure");
 
-        eventServiceProviderServiceMock
-            .Setup(expression: service => service.ListenToEvent<FakeObject>(
+        eventProcessingServiceMock
+            .Setup(expression: service => service.ListenToEvent(
                 name: It.IsAny<string>(),
                 handler: It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
             .Throws(exception: dependencyException);
@@ -47,8 +47,8 @@ public partial class EventOrchestrationServiceTests
 
         InvalidOperationException dependencyException = new(message: "dependency failure");
 
-        eventServiceProviderServiceMock
-            .Setup(expression: service => service.ListenToEvent<FakeObject>(
+        eventProcessingServiceMock
+            .Setup(expression: service => service.ListenToEvent(
                 name: It.IsAny<string>(),
                 handler: It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
             .Throws(exception: dependencyException);
@@ -76,8 +76,8 @@ public partial class EventOrchestrationServiceTests
 
         Exception unexpectedException = new(message: "unexpected failure");
 
-        eventServiceProviderServiceMock
-            .Setup(expression: service => service.ListenToEvent<FakeObject>(
+        eventProcessingServiceMock
+            .Setup(expression: service => service.ListenToEvent(
                 name: It.IsAny<string>(),
                 handler: It.IsAny<Func<IServiceProvider, FakeObject, ValueTask>>()))
             .Throws(exception: unexpectedException);

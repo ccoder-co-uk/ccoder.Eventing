@@ -8,9 +8,9 @@ using Moq;
 using Xunit;
 using cCoder.Eventing.Services.Processings;
 
-namespace cCoder.Eventing.Tests.Foundations;
+namespace cCoder.Eventing.Tests.Orchestrations;
 
-public partial class EventServiceProviderServiceTests
+public partial class EventOrchestrationOwnershipTests
 {
     [Fact]
     public void ShouldRethrowOnListenToEventIfProcessingServiceFails()

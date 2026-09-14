@@ -7,6 +7,7 @@ using cCoder.Eventing.Apps.Models;
 using cCoder.Eventing.Apps.Exposures;
 using cCoder.Eventing.Apps.Services.Foundations;
 using cCoder.Eventing.Apps.Services.Orchestrations;
+using cCoder.Eventing.Apps.Services.Processings;
 using cCoder.Eventing.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -60,7 +61,8 @@ public static class IServiceCollectionExtensions
     private static IServiceCollection AddFoundations(
         this IServiceCollection services)
     {
-        services.AddSingleton<IChatEventService, ChatEventService>();
+        services.AddSingleton<IChatEventTransportService, ChatLocalEventService>();
+        services.AddSingleton<IChatEventTransportService, ChatHttpEventService>();
         services.AddSingleton<
             IChatNotificationService,
             ChatNotificationService>();
@@ -69,8 +71,17 @@ public static class IServiceCollectionExtensions
     }
 
     private static IServiceCollection AddProcessings(
-        this IServiceCollection services) =>
-        services;
+        this IServiceCollection services)
+    {
+        services.AddSingleton<
+            IChatEventTransportProcessingService,
+            ChatEventTransportProcessingService>();
+        services.AddSingleton<
+            IChatNotificationProcessingService,
+            ChatNotificationProcessingService>();
+
+        return services;
+    }
 
     private static IServiceCollection AddOrchestrations(
         this IServiceCollection services)

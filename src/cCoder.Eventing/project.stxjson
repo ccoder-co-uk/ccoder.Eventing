@@ -7,6 +7,87 @@
   },
   "Classes": [
     {
+      "Name": "cCoder.Eventing.Brokers.BulkEventProviderBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing:cCoder.Eventing.Brokers.IBulkEventProviderBroker",
+          "FullName": "cCoder.Eventing.Brokers.IBulkEventProviderBroker",
+          "Name": "IBulkEventProviderBroker",
+          "Namespace": "cCoder.Eventing.Brokers",
+          "AssemblyName": "cCoder.Eventing",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Brokers.BulkEventProviderBroker.CanHandle(System.String)",
+          "Name": "CanHandle",
+          "LineNumber": 12,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Boolean",
+          "Implements": [
+            "cCoder.Eventing.Brokers.IBulkEventProviderBroker.CanHandle(System.String)"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Brokers.BulkEventProviderBroker.HandleAsync(System.IServiceProvider,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
+          "Name": "HandleAsync",
+          "LineNumber": 15,
+          "Inputs": [
+            {
+              "Name": "serviceProvider",
+              "Type": "System.IServiceProvider"
+            },
+            {
+              "Name": "messages",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.Brokers.IBulkEventProviderBroker.HandleAsync(System.IServiceProvider,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.Brokers.EventAuthorizationBroker",
       "StandardElementType": "Broker",
       "LineNumber": 9,
@@ -62,6 +143,91 @@
           "ReturnType": "System.Void",
           "Implements": [
             "cCoder.Eventing.Brokers.IEventAuthorizationBroker.SetEventMessage(cCoder.Eventing.Models.EventMessage)"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Brokers.EventProviderBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing:cCoder.Eventing.Brokers.IEventProviderBroker",
+          "FullName": "cCoder.Eventing.Brokers.IEventProviderBroker",
+          "Name": "IEventProviderBroker",
+          "Namespace": "cCoder.Eventing.Brokers",
+          "AssemblyName": "cCoder.Eventing",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Brokers.EventProviderBroker.CanSend(System.String)",
+          "Name": "CanSend",
+          "LineNumber": 12,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Boolean",
+          "Implements": [
+            "cCoder.Eventing.Brokers.IEventProviderBroker.CanSend(System.String)"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Brokers.EventProviderBroker.HandleSendAsync(System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
+          "Name": "HandleSendAsync",
+          "LineNumber": 15,
+          "Inputs": [
+            {
+              "Name": "serviceProvider",
+              "Type": "System.IServiceProvider"
+            },
+            {
+              "Name": "eventName",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.Brokers.IEventProviderBroker.HandleSendAsync(System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)"
           ],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -600,9 +766,11 @@
             "cCoder.Eventing.Models.Exceptions.ServiceValidationException"
           ],
           "IncomingExceptionTypes": [
+            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
             "cCoder.Eventing.Models.Exceptions.ServiceException"
           ],
           "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
             "cCoder.Eventing.Models.Exceptions.ServiceException"
           ],
           "HttpMethods": [],
@@ -648,9 +816,11 @@
             "cCoder.Eventing.Models.Exceptions.ServiceValidationException"
           ],
           "IncomingExceptionTypes": [
+            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
             "cCoder.Eventing.Models.Exceptions.ServiceException"
           ],
           "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
             "cCoder.Eventing.Models.Exceptions.ServiceException"
           ],
           "HttpMethods": [],
@@ -1382,6 +1552,114 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Eventing.Services.Foundations.BulkEventProviderService",
+      "StandardElementType": "FoundationService",
+      "LineNumber": 12,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing:cCoder.Eventing.Services.Foundations.IBulkEventProviderService",
+          "FullName": "cCoder.Eventing.Services.Foundations.IBulkEventProviderService",
+          "Name": "IBulkEventProviderService",
+          "Namespace": "cCoder.Eventing.Services.Foundations",
+          "AssemblyName": "cCoder.Eventing",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "FoundationService"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Services.Foundations.BulkEventProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
+          "Name": "RaiseEventsAsync",
+          "LineNumber": 18,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "messages",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Boolean\u003E",
+          "Implements": [
+            "cCoder.Eventing.Services.Foundations.IBulkEventProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Linq.Enumerable",
+              "MethodName": "ToArray",
+              "MethodId": "System.Linq.Enumerable.ToArray(System.Collections.Generic.IEnumerable\u003CTSource\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Linq.Enumerable",
+              "MethodName": "Where",
+              "MethodId": "System.Linq.Enumerable.Where(System.Collections.Generic.IEnumerable\u003CTSource\u003E,System.Func\u003CTSource, System.Boolean\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.Brokers.IBulkEventProviderBroker",
+              "MethodName": "CanHandle",
+              "MethodId": "cCoder.Eventing.Brokers.IBulkEventProviderBroker.CanHandle(System.String)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Brokers.IBulkEventProviderBroker",
+              "MethodName": "HandleAsync",
+              "MethodId": "cCoder.Eventing.Brokers.IBulkEventProviderBroker.HandleAsync(System.IServiceProvider,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Brokers.IServiceProviderBroker",
+              "MethodName": "GetScopeForEvent",
+              "MethodId": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetScopeForEvent(cCoder.Eventing.Models.EventMessage)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
+              "MethodName": "LogError",
+              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.InvalidOperationException",
+            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.InvalidOperationException",
+            "cCoder.Eventing.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": true
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.Services.Foundations.EventAuthorizationService",
       "StandardElementType": "FoundationService",
       "LineNumber": 11,
@@ -1473,7 +1751,7 @@
         {
           "Id": "cCoder.Eventing.Services.Foundations.EventProviderService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 17,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "name",
@@ -1504,94 +1782,23 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "cCoder.Eventing.Brokers.IServiceProviderBroker",
-              "MethodName": "GetScopeForEvent",
-              "MethodId": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetScopeForEvent(cCoder.Eventing.Models.EventMessage)",
+              "TypeName": "cCoder.Eventing.Brokers.IEventProviderBroker",
+              "MethodName": "CanSend",
+              "MethodId": "cCoder.Eventing.Brokers.IEventProviderBroker.CanSend(System.String)",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
             {
-              "TypeName": "cCoder.Eventing.Brokers.IServiceProviderBroker",
-              "MethodName": "GetServices",
-              "MethodId": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetServices()",
+              "TypeName": "cCoder.Eventing.Brokers.IEventProviderBroker",
+              "MethodName": "HandleSendAsync",
+              "MethodId": "cCoder.Eventing.Brokers.IEventProviderBroker.HandleSendAsync(System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
-            },
-            {
-              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
-              "MethodName": "LogError",
-              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
-              "StandardElementType": "Broker",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.InvalidOperationException",
-            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
-            "cCoder.Eventing.Models.Exceptions.ServiceException",
-            "cCoder.Eventing.Models.Exceptions.ServiceValidationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.InvalidOperationException",
-            "cCoder.Eventing.Models.Exceptions.ServiceException"
-          ],
-          "ThrowsExceptionTypes": [
-            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
-            "cCoder.Eventing.Models.Exceptions.ServiceException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": true
-        },
-        {
-          "Id": "cCoder.Eventing.Services.Foundations.EventProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
-          "Name": "RaiseEventsAsync",
-          "LineNumber": 61,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "messages",
-              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Boolean\u003E",
-          "Implements": [
-            "cCoder.Eventing.Services.Foundations.IEventProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])"
-          ],
-          "Calls": [
-            {
-              "TypeName": "System.Linq.Enumerable",
-              "MethodName": "ToArray",
-              "MethodId": "System.Linq.Enumerable.ToArray(System.Collections.Generic.IEnumerable\u003CTSource\u003E)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Linq.Enumerable",
-              "MethodName": "Where",
-              "MethodId": "System.Linq.Enumerable.Where(System.Collections.Generic.IEnumerable\u003CTSource\u003E,System.Func\u003CTSource, System.Boolean\u003E)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
             },
             {
               "TypeName": "cCoder.Eventing.Brokers.IServiceProviderBroker",
               "MethodName": "GetScopeForEvent",
               "MethodId": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetScopeForEvent(cCoder.Eventing.Models.EventMessage)",
-              "StandardElementType": "Broker",
-              "IsDependencyBoundary": false
-            },
-            {
-              "TypeName": "cCoder.Eventing.Brokers.IServiceProviderBroker",
-              "MethodName": "GetServices",
-              "MethodId": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetServices()",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -1767,225 +1974,9 @@
       ]
     },
     {
-      "Name": "cCoder.Eventing.Services.Foundations.EventServiceProviderService",
-      "StandardElementType": "FoundationService",
-      "LineNumber": 12,
-      "IsPublic": false,
-      "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [
-        {
-          "Id": "cCoder.Eventing:cCoder.Eventing.Services.Foundations.IEventServiceProviderService",
-          "FullName": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService",
-          "Name": "IEventServiceProviderService",
-          "Namespace": "cCoder.Eventing.Services.Foundations",
-          "AssemblyName": "cCoder.Eventing",
-          "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "FoundationService"
-        }
-      ],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Eventing.Services.Foundations.EventServiceProviderService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
-          "Name": "ListenToEvent",
-          "LineNumber": 46,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "handler",
-              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
-            }
-          ],
-          "ReturnType": "System.Void",
-          "Implements": [
-            "cCoder.Eventing.Services.Foundations.IEventServiceProviderService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)"
-          ],
-          "Calls": [],
-          "PossibleExceptionTypes": [
-            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
-            "cCoder.Eventing.Models.Exceptions.ServiceException",
-            "cCoder.Eventing.Models.Exceptions.ServiceValidationException"
-          ],
-          "IncomingExceptionTypes": [
-            "cCoder.Eventing.Models.Exceptions.ServiceException"
-          ],
-          "ThrowsExceptionTypes": [
-            "cCoder.Eventing.Models.Exceptions.ServiceException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Eventing.Services.Foundations.EventServiceProviderService.ListenToEvent(System.String,System.Func\u003CTHandlingService, TMessage, System.Threading.Tasks.ValueTask\u003E)",
-          "Name": "ListenToEvent",
-          "LineNumber": 26,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "handler",
-              "Type": "System.Func\u003CTHandlingService, TMessage, System.Threading.Tasks.ValueTask\u003E"
-            }
-          ],
-          "ReturnType": "System.Void",
-          "Implements": [
-            "cCoder.Eventing.Services.Foundations.IEventServiceProviderService.ListenToEvent(System.String,System.Func\u003CTHandlingService, TMessage, System.Threading.Tasks.ValueTask\u003E)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "System.Func\u003CT1, T2, TResult\u003E",
-              "MethodName": "Invoke",
-              "MethodId": "System.Func\u003CT1, T2, TResult\u003E.Invoke(T1,T2)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "cCoder.Eventing.Brokers.IServiceProviderBroker",
-              "MethodName": "GetRequiredService",
-              "MethodId": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetRequiredService(System.IServiceProvider)",
-              "StandardElementType": "Broker",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
-            "cCoder.Eventing.Models.Exceptions.ServiceException",
-            "cCoder.Eventing.Models.Exceptions.ServiceValidationException"
-          ],
-          "IncomingExceptionTypes": [
-            "cCoder.Eventing.Models.Exceptions.ServiceException"
-          ],
-          "ThrowsExceptionTypes": [
-            "cCoder.Eventing.Models.Exceptions.ServiceException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Eventing.Services.Foundations.EventServiceProviderService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
-          "Name": "RaiseEventAsync",
-          "LineNumber": 83,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [
-            "cCoder.Eventing.Services.Foundations.IEventServiceProviderService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
-              "MethodName": "LogError",
-              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
-              "StandardElementType": "Broker",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.InvalidOperationException",
-            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
-            "cCoder.Eventing.Models.Exceptions.ServiceException",
-            "cCoder.Eventing.Models.Exceptions.ServiceValidationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.InvalidOperationException",
-            "cCoder.Eventing.Models.Exceptions.ServiceException"
-          ],
-          "ThrowsExceptionTypes": [
-            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
-            "cCoder.Eventing.Models.Exceptions.ServiceException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": true
-        },
-        {
-          "Id": "cCoder.Eventing.Services.Foundations.EventServiceProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
-          "Name": "RaiseEventsAsync",
-          "LineNumber": 105,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "messages",
-              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [
-            "cCoder.Eventing.Services.Foundations.IEventServiceProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])"
-          ],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
-              "MethodName": "LogError",
-              "MethodId": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
-              "StandardElementType": "Broker",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.InvalidOperationException",
-            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
-            "cCoder.Eventing.Models.Exceptions.ServiceException",
-            "cCoder.Eventing.Models.Exceptions.ServiceValidationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.InvalidOperationException",
-            "cCoder.Eventing.Models.Exceptions.ServiceException"
-          ],
-          "ThrowsExceptionTypes": [
-            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
-            "cCoder.Eventing.Models.Exceptions.ServiceException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": true
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService",
       "StandardElementType": "OrchestrationService",
-      "LineNumber": 10,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -2006,7 +1997,7 @@
         {
           "Id": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 15,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "name",
@@ -2023,10 +2014,10 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService",
+              "TypeName": "cCoder.Eventing.Services.Processings.IEventProcessingService\u003CT\u003E",
               "MethodName": "ListenToEvent",
-              "MethodId": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
-              "StandardElementType": "FoundationService",
+              "MethodId": "cCoder.Eventing.Services.Processings.IEventProcessingService\u003CT\u003E.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "ProcessingService",
               "IsDependencyBoundary": false
             }
           ],
@@ -2053,7 +2044,7 @@
         {
           "Id": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService.ListenToEvent(System.String,System.Func\u003CTHandlingService, TMessage, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 24,
+          "LineNumber": 32,
           "Inputs": [
             {
               "Name": "name",
@@ -2070,10 +2061,24 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService",
+              "TypeName": "System.Func\u003CT1, T2, TResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CT1, T2, TResult\u003E.Invoke(T1,T2)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.Brokers.IServiceProviderBroker",
+              "MethodName": "GetRequiredService",
+              "MethodId": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetRequiredService(System.IServiceProvider)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Services.Processings.IEventProcessingService\u003CT\u003E",
               "MethodName": "ListenToEvent",
-              "MethodId": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService.ListenToEvent(System.String,System.Func\u003CTHandlingService, TMessage, System.Threading.Tasks.ValueTask\u003E)",
-              "StandardElementType": "FoundationService",
+              "MethodId": "cCoder.Eventing.Services.Processings.IEventProcessingService\u003CT\u003E.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "ProcessingService",
               "IsDependencyBoundary": false
             }
           ],
@@ -2100,7 +2105,7 @@
         {
           "Id": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 36,
+          "LineNumber": 53,
           "Inputs": [
             {
               "Name": "name",
@@ -2117,17 +2122,10 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Eventing.Services.Foundations.IEventProviderService",
+              "TypeName": "cCoder.Eventing.Services.Processings.IEventProviderProcessingService",
               "MethodName": "RaiseEventAsync",
-              "MethodId": "cCoder.Eventing.Services.Foundations.IEventProviderService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
-              "StandardElementType": "FoundationService",
-              "IsDependencyBoundary": false
-            },
-            {
-              "TypeName": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService",
-              "MethodName": "RaiseEventAsync",
-              "MethodId": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
-              "StandardElementType": "FoundationService",
+              "MethodId": "cCoder.Eventing.Services.Processings.IEventProviderProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
+              "StandardElementType": "ProcessingService",
               "IsDependencyBoundary": false
             }
           ],
@@ -2138,10 +2136,11 @@
             "cCoder.Eventing.Models.Exceptions.ServiceValidationException"
           ],
           "IncomingExceptionTypes": [
-            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
+            "System.InvalidOperationException",
             "cCoder.Eventing.Models.Exceptions.ServiceException"
           ],
           "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
             "cCoder.Eventing.Models.Exceptions.ServiceException"
           ],
           "HttpMethods": [],
@@ -2156,7 +2155,7 @@
         {
           "Id": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 51,
+          "LineNumber": 69,
           "Inputs": [
             {
               "Name": "name",
@@ -2173,16 +2172,82 @@
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Eventing.Services.Foundations.IEventProviderService",
+              "TypeName": "cCoder.Eventing.Services.Processings.IBulkEventProviderProcessingService",
               "MethodName": "RaiseEventsAsync",
-              "MethodId": "cCoder.Eventing.Services.Foundations.IEventProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
-              "StandardElementType": "FoundationService",
+              "MethodId": "cCoder.Eventing.Services.Processings.IBulkEventProviderProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
+              "StandardElementType": "ProcessingService",
               "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.InvalidOperationException",
+            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.InvalidOperationException",
+            "cCoder.Eventing.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Services.Processings.BulkEventProviderProcessingService",
+      "StandardElementType": "ProcessingService",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing:cCoder.Eventing.Services.Processings.IBulkEventProviderProcessingService",
+          "FullName": "cCoder.Eventing.Services.Processings.IBulkEventProviderProcessingService",
+          "Name": "IBulkEventProviderProcessingService",
+          "Namespace": "cCoder.Eventing.Services.Processings",
+          "AssemblyName": "cCoder.Eventing",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "ProcessingService"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Services.Processings.BulkEventProviderProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
+          "Name": "RaiseEventsAsync",
+          "LineNumber": 14,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
             },
             {
-              "TypeName": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService",
+              "Name": "messages",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Boolean\u003E",
+          "Implements": [
+            "cCoder.Eventing.Services.Processings.IBulkEventProviderProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Services.Foundations.IBulkEventProviderService",
               "MethodName": "RaiseEventsAsync",
-              "MethodId": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
+              "MethodId": "cCoder.Eventing.Services.Foundations.IBulkEventProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
               "StandardElementType": "FoundationService",
               "IsDependencyBoundary": false
             }
@@ -2341,11 +2406,83 @@
           "HasTryCatch": false
         }
       ]
+    },
+    {
+      "Name": "cCoder.Eventing.Services.Processings.EventProviderProcessingService",
+      "StandardElementType": "ProcessingService",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing:cCoder.Eventing.Services.Processings.IEventProviderProcessingService",
+          "FullName": "cCoder.Eventing.Services.Processings.IEventProviderProcessingService",
+          "Name": "IEventProviderProcessingService",
+          "Namespace": "cCoder.Eventing.Services.Processings",
+          "AssemblyName": "cCoder.Eventing",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "ProcessingService"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Services.Processings.EventProviderProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
+          "Name": "RaiseEventAsync",
+          "LineNumber": 14,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Boolean\u003E",
+          "Implements": [
+            "cCoder.Eventing.Services.Processings.IEventProviderProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Services.Foundations.IEventProviderService",
+              "MethodName": "RaiseEventAsync",
+              "MethodId": "cCoder.Eventing.Services.Foundations.IEventProviderService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
+              "StandardElementType": "FoundationService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.InvalidOperationException",
+            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
     }
   ],
   "Interfaces": [
     {
-      "Name": "cCoder.Eventing.Brokers.IEventAuthorizationBroker",
+      "Name": "cCoder.Eventing.Brokers.IBulkEventProviderBroker",
       "StandardElementType": "Broker",
       "LineNumber": 9,
       "IsPublic": false,
@@ -2355,9 +2492,86 @@
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Eventing.Brokers.IBulkEventProviderBroker.CanHandle(System.String)",
+          "Name": "CanHandle",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Boolean",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Brokers.IBulkEventProviderBroker.HandleAsync(System.IServiceProvider,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
+          "Name": "HandleAsync",
+          "LineNumber": 12,
+          "Inputs": [
+            {
+              "Name": "serviceProvider",
+              "Type": "System.IServiceProvider"
+            },
+            {
+              "Name": "messages",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Brokers.IEventAuthorizationBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.CodeAnalysis:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis",
+          "Kind": "Interface",
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
           "Id": "cCoder.Eventing.Brokers.IEventAuthorizationBroker.GetEventAuthInfo()",
           "Name": "GetEventAuthInfo",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [],
           "ReturnType": "cCoder.Eventing.Models.IEventAuthInfo",
           "Implements": [],
@@ -2377,7 +2591,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IEventAuthorizationBroker.SetEventMessage(cCoder.Eventing.Models.EventMessage)",
           "Name": "SetEventMessage",
-          "LineNumber": 11,
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "eventMessage",
@@ -2402,19 +2616,100 @@
       ]
     },
     {
-      "Name": "cCoder.Eventing.Brokers.IServiceProviderBroker",
+      "Name": "cCoder.Eventing.Brokers.IEventProviderBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 10,
-      "IsPublic": true,
+      "LineNumber": 9,
+      "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
       "Interfaces": [],
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Eventing.Brokers.IEventProviderBroker.CanSend(System.String)",
+          "Name": "CanSend",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Boolean",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Brokers.IEventProviderBroker.HandleSendAsync(System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
+          "Name": "HandleSendAsync",
+          "LineNumber": 12,
+          "Inputs": [
+            {
+              "Name": "serviceProvider",
+              "Type": "System.IServiceProvider"
+            },
+            {
+              "Name": "eventName",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Brokers.IServiceProviderBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 11,
+      "IsPublic": true,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.CodeAnalysis:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis",
+          "Kind": "Interface",
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
           "Id": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetRequiredService(System.IServiceProvider)",
           "Name": "GetRequiredService",
-          "LineNumber": 15,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "serviceProvider",
@@ -2439,7 +2734,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetScopeForEvent(cCoder.Eventing.Models.EventMessage)",
           "Name": "GetScopeForEvent",
-          "LineNumber": 12,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "eventMessage",
@@ -2464,7 +2759,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetService()",
           "Name": "GetService",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [],
           "ReturnType": "T",
           "Implements": [],
@@ -2484,7 +2779,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetService(System.Type)",
           "Name": "GetService",
-          "LineNumber": 17,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "type",
@@ -2509,7 +2804,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetServiceProvider()",
           "Name": "GetServiceProvider",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [],
           "ReturnType": "System.IServiceProvider",
           "Implements": [],
@@ -2529,7 +2824,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetServices()",
           "Name": "GetServices",
-          "LineNumber": 16,
+          "LineNumber": 17,
           "Inputs": [],
           "ReturnType": "T[]",
           "Implements": [],
@@ -2551,17 +2846,28 @@
     {
       "Name": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "cCoder.CodeAnalysis:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "Name": "IUtilityBroker",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis",
+          "Kind": "Interface",
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
           "Id": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogDebug(System.String,System.Object[])",
           "Name": "LogDebug",
-          "LineNumber": 9,
+          "LineNumber": 11,
           "Inputs": [
             {
               "Name": "message",
@@ -2590,7 +2896,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
           "Name": "LogError",
-          "LineNumber": 10,
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "exception",
@@ -2623,7 +2929,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogWarning(System.String,System.Object[])",
           "Name": "LogWarning",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "message",
@@ -2794,6 +3100,47 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Eventing.Services.Foundations.IBulkEventProviderService",
+      "StandardElementType": "FoundationService",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Services.Foundations.IBulkEventProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
+          "Name": "RaiseEventsAsync",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "messages",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Boolean\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.Services.Foundations.IEventAuthorizationService",
       "StandardElementType": "FoundationService",
       "LineNumber": 9,
@@ -2847,35 +3194,6 @@
             {
               "Name": "message",
               "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Boolean\u003E",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Eventing.Services.Foundations.IEventProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
-          "Name": "RaiseEventsAsync",
-          "LineNumber": 12,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "messages",
-              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Boolean\u003E",
@@ -2946,134 +3264,6 @@
             {
               "Name": "message",
               "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService",
-      "StandardElementType": "FoundationService",
-      "LineNumber": 9,
-      "IsPublic": false,
-      "Kind": "Interface",
-      "BaseType": null,
-      "Interfaces": [],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
-          "Name": "ListenToEvent",
-          "LineNumber": 11,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "handler",
-              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
-            }
-          ],
-          "ReturnType": "System.Void",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService.ListenToEvent(System.String,System.Func\u003CTHandlingService, TMessage, System.Threading.Tasks.ValueTask\u003E)",
-          "Name": "ListenToEvent",
-          "LineNumber": 12,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "handler",
-              "Type": "System.Func\u003CTHandlingService, TMessage, System.Threading.Tasks.ValueTask\u003E"
-            }
-          ],
-          "ReturnType": "System.Void",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
-          "Name": "RaiseEventAsync",
-          "LineNumber": 15,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Eventing.Services.Foundations.IEventServiceProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
-          "Name": "RaiseEventsAsync",
-          "LineNumber": 16,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "messages",
-              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask",
@@ -3222,6 +3412,47 @@
       ]
     },
     {
+      "Name": "cCoder.Eventing.Services.Processings.IBulkEventProviderProcessingService",
+      "StandardElementType": "ProcessingService",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Services.Processings.IBulkEventProviderProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
+          "Name": "RaiseEventsAsync",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "messages",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Boolean\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.Services.Processings.IEventProcessingService\u003CT\u003E",
       "StandardElementType": "ProcessingService",
       "LineNumber": 9,
@@ -3290,9 +3521,58 @@
           "HasTryCatch": false
         }
       ]
+    },
+    {
+      "Name": "cCoder.Eventing.Services.Processings.IEventProviderProcessingService",
+      "StandardElementType": "ProcessingService",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Services.Processings.IEventProviderProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
+          "Name": "RaiseEventAsync",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Boolean\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
     }
   ],
   "Links": [
+    {
+      "FromType": "cCoder.Eventing.Brokers.BulkEventProviderBroker",
+      "ToType": "cCoder.Eventing.Models.BulkEventProvider"
+    },
+    {
+      "FromType": "cCoder.Eventing.Brokers.EventProviderBroker",
+      "ToType": "cCoder.Eventing.Models.EventProvider"
+    },
     {
       "FromType": "cCoder.Eventing.Brokers.Loggings.LoggingBroker",
       "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Brokers.Loggings.LoggingBroker\u003E"
@@ -3318,6 +3598,18 @@
       "ToType": "System.Exception"
     },
     {
+      "FromType": "cCoder.Eventing.Services.Foundations.BulkEventProviderService",
+      "ToType": "cCoder.Eventing.Brokers.BulkEventProviderBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Foundations.BulkEventProviderService",
+      "ToType": "cCoder.Eventing.Brokers.Loggings.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Foundations.BulkEventProviderService",
+      "ToType": "cCoder.Eventing.Brokers.ServiceProviderBroker"
+    },
+    {
       "FromType": "cCoder.Eventing.Services.Foundations.EventAuthorizationService",
       "ToType": "cCoder.Eventing.Brokers.EventAuthorizationBroker"
     },
@@ -3327,6 +3619,10 @@
     },
     {
       "FromType": "cCoder.Eventing.Services.Foundations.EventProviderService",
+      "ToType": "cCoder.Eventing.Brokers.EventProviderBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Foundations.EventProviderService",
       "ToType": "cCoder.Eventing.Brokers.Loggings.LoggingBroker"
     },
     {
@@ -3342,20 +3638,24 @@
       "ToType": "cCoder.Eventing.Brokers.ServiceProviderBroker"
     },
     {
-      "FromType": "cCoder.Eventing.Services.Foundations.EventServiceProviderService",
+      "FromType": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService",
       "ToType": "cCoder.Eventing.Brokers.Loggings.LoggingBroker"
     },
     {
-      "FromType": "cCoder.Eventing.Services.Foundations.EventServiceProviderService",
+      "FromType": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService",
       "ToType": "cCoder.Eventing.Brokers.ServiceProviderBroker"
     },
     {
       "FromType": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService",
-      "ToType": "cCoder.Eventing.Services.Foundations.EventProviderService"
+      "ToType": "cCoder.Eventing.Services.Processings.BulkEventProviderProcessingService"
     },
     {
       "FromType": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService",
-      "ToType": "cCoder.Eventing.Services.Foundations.EventServiceProviderService"
+      "ToType": "cCoder.Eventing.Services.Processings.EventProviderProcessingService"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Processings.BulkEventProviderProcessingService",
+      "ToType": "cCoder.Eventing.Services.Foundations.BulkEventProviderService"
     },
     {
       "FromType": "cCoder.Eventing.Services.Processings.EventProcessingService\u003CT\u003E",
@@ -3364,6 +3664,10 @@
     {
       "FromType": "cCoder.Eventing.Services.Processings.EventProcessingService\u003CT\u003E",
       "ToType": "cCoder.Eventing.Services.Foundations.IEventService\u003CT\u003E"
+    },
+    {
+      "FromType": "cCoder.Eventing.Services.Processings.EventProviderProcessingService",
+      "ToType": "cCoder.Eventing.Services.Foundations.EventProviderService"
     }
   ],
   "AnalysisItems": []

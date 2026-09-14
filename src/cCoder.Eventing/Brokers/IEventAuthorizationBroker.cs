@@ -3,10 +3,11 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Models;
+using cCoder.CodeAnalysis.Exposures;
 
 namespace cCoder.Eventing.Brokers;
 
-internal interface IEventAuthorizationBroker
+internal interface IEventAuthorizationBroker : IUtilityBroker
 {
     void SetEventMessage(EventMessage eventMessage);
 
