@@ -22,7 +22,7 @@ internal sealed partial class EventProviderService(
 
             try
             {
-                ValidateRequest(name: name, message: message);
+                ValidateRequest(message: message);
 
                 IEventProviderBroker[] matchingProviders = eventProviderBrokers
                     .Where(predicate: provider => provider.CanSend<T>(name: name))
@@ -57,18 +57,8 @@ internal sealed partial class EventProviderService(
             }
         });
 
-    private static void ValidateRequest<T>(string name, EventMessage<T> message)
+    private static void ValidateRequest<T>(EventMessage<T> message)
     {
-        if (name is null)
-        {
-            throw new InvalidOperationException("You must provide an event name when raising events.");
-        }
-
-        if (message is null)
-        {
-            throw new InvalidOperationException("You must provide a message when raising events.");
-        }
-
         if (message.Data is null)
         {
             throw new InvalidOperationException("You must provide some message data when raising events.");

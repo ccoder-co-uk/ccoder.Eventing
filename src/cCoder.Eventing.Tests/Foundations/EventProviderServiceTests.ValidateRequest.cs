@@ -177,4 +177,59 @@ public partial class EventProviderServiceTests
         await raiseEventsAsyncTask.Should()
             .ThrowAsync<ServiceDependencyException>();
     }
+
+    [Fact]
+    public async Task ShouldThrowOnRaiseEventsAsyncIfMessageIsNull()
+    {
+        // Given
+
+        EventMessage<FakeObject>[] inputMessages = [null];
+
+        IBulkEventProviderService eventProviderService =
+            CreateBulkEventProviderService(bulkEventProviders: []);
+
+        // When
+
+        Func<Task> raiseEventsAsyncTask = async () =>
+            await eventProviderService.RaiseEventsAsync(
+                name: "event-name",
+                messages: inputMessages);
+
+        // Then
+
+        await raiseEventsAsyncTask
+            .Should()
+            .ThrowAsync<ServiceDependencyException>();
+    }
+
+    [Fact]
+    public async Task ShouldThrowOnRaiseEventsAsyncIfMessageContainsNoAuthInfo()
+    {
+        // Given
+
+        EventMessage<FakeObject>[] inputMessages =
+        [
+            new EventMessage<FakeObject>
+            {
+                AuthInfo = null,
+                Data = new FakeObject()
+            }
+        ];
+
+        IBulkEventProviderService eventProviderService =
+            CreateBulkEventProviderService(bulkEventProviders: []);
+
+        // When
+
+        Func<Task> raiseEventsAsyncTask = async () =>
+            await eventProviderService.RaiseEventsAsync(
+                name: "event-name",
+                messages: inputMessages);
+
+        // Then
+
+        await raiseEventsAsyncTask
+            .Should()
+            .ThrowAsync<ServiceDependencyException>();
+    }
 }
