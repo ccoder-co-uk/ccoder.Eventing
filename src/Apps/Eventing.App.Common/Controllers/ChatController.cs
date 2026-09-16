@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Apps.Models;
-using cCoder.Eventing.Apps.Exposures;
 using cCoder.Eventing.Apps.Services.Orchestrations;
 using cCoder.Eventing.Http.Brokers.Loggings;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +12,7 @@ namespace cCoder.Eventing.Apps.Controllers;
 [ApiController]
 [Route("Api/Chat")]
 public class ChatController(
-    IChatManager chatOrchestrationService,
+    IChatOrchestrationService chatOrchestrationService,
     AppConfiguration configuration,
     ILoggingBroker loggingBroker)
     : ControllerBase
@@ -27,7 +26,7 @@ public class ChatController(
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(modelState:ModelState);
+                return BadRequest(modelState: ModelState);
             }
 
             ChatMessage message =
@@ -38,9 +37,9 @@ public class ChatController(
                         Text = newChatMessageRequest.Text,
                         SourceApp = configuration.EventingChat.AppName,
                     },
-                    cancellationToken:cancellationToken);
+                    cancellationToken: cancellationToken);
 
-            return Accepted(value:message);
+            return Accepted(value: message);
         }
         catch (InvalidOperationException exception)
         {

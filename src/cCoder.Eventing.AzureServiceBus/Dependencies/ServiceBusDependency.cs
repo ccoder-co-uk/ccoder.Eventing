@@ -3,63 +3,59 @@
 // ---------------------------------------------------------------
 
 using Azure.Messaging.ServiceBus;
-using cCoder.Eventing.AzureServiceBus.Models;
 
 namespace cCoder.Eventing.AzureServiceBus.Dependencies;
 
 internal sealed class ServiceBusDependency : IAsyncDisposable
 {
-    private readonly AzureServiceBusEventingConfiguration configuration;
     private readonly ServiceBusClient client;
+    private readonly int maxConcurrency;
 
     private readonly Dictionary<string, ServiceBusSender> senders = [];
     private readonly Dictionary<string, ServiceBusProcessor> processors = [];
 
     internal ServiceBusDependency(
-        AzureServiceBusEventingConfiguration configuration)
+        string connectionString,
+        int maxConcurrency)
         : this(
-            configuration: configuration,
+            maxConcurrency: maxConcurrency,
             client: new ServiceBusClient(
-                connectionString: configuration.ConnectionString))
+                connectionString: connectionString))
     { }
 
     internal ServiceBusDependency(
-        AzureServiceBusEventingConfiguration configuration,
+        int maxConcurrency,
         ServiceBusClient client)
     {
-        this.configuration = configuration;
+        this.maxConcurrency = maxConcurrency;
         this.client = client;
     }
 
-    internal async ValueTask SendAsync<T>(
+    internal async ValueTask SendAsync(
         string name,
-        ServiceBusEventMessage<T> eventMessage)
+        BinaryData body,
+        string messageId)
     {
         ServiceBusSender sender = GetOrCreateSender(name: name);
         ServiceBusMessage message = new()
         {
-            Body = new BinaryData(eventMessage),
-            MessageId = $"{eventMessage.AuthInfo.SSOUserId}_{typeof(T).Name}_{Guid.NewGuid()}"
+            Body = body,
+            MessageId = messageId
         };
 
         await sender.SendMessageAsync(message: message);
     }
 
-    internal void Listen<T>(
+    internal void Listen(
         string name,
-        Func<ServiceBusEventMessage<T>, ValueTask> handler,
+        Func<BinaryData, ValueTask> handler,
         Func<Exception, Task> errorHandler)
     {
         ServiceBusProcessor processor = GetOrCreateProcessor(name: name);
 
         processor.ProcessMessageAsync += async messageDetails =>
         {
-            ServiceBusEventMessage<T> message = messageDetails
-                .Message
-                .Body
-                .ToObjectFromJson<ServiceBusEventMessage<T>>();
-
-            await handler(message);
+            await handler(messageDetails.Message.Body);
         };
 
         processor.ProcessErrorAsync += problemDetails =>
@@ -96,7 +92,7 @@ internal sealed class ServiceBusDependency : IAsyncDisposable
                     {
                         MaxConcurrentCalls = Math.Max(
                             val1: 1,
-                            val2: configuration.MaxConcurrency)
+                            val2: maxConcurrency)
                     });
 
                 processors[name] = processor;

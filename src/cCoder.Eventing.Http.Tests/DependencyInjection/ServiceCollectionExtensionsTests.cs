@@ -3,7 +3,9 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Http.Models;
+using cCoder.Eventing.Http.Brokers;
 using cCoder.Eventing.Http.Services.Processings;
+using cCoder.Eventing.Models;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -85,5 +87,40 @@ public partial class ServiceCollectionExtensionsTests
         addHosted
             .Should()
             .Throw<ArgumentNullException>();
+    }
+
+    [Fact]
+    public void ShouldDiscoverEventProvidersRegisteredAfterHttpEventing()
+    {
+        // Given
+
+        ServiceCollection services = new();
+
+        EventProvider<object> eventProvider = new()
+        {
+            Events = ["event"],
+            ReceiveHandler = (_, _, _) => ValueTask.CompletedTask
+        };
+
+        services.AddEventing();
+        services.AddHttpEventingWeb();
+
+        // When
+
+        services.AddEventProviders(eventProviders: eventProvider);
+
+        using ServiceProvider serviceProvider =
+            services.BuildServiceProvider();
+
+        IReadOnlyCollection<HttpEventProviderBrokerConfiguration>
+            eventProviderConfigurations = serviceProvider
+                .GetRequiredService<IHttpEventBroker>()
+                .SelectEventProviderConfigurations(name: "event");
+
+        // Then
+
+        eventProviderConfigurations
+            .Should()
+            .ContainSingle();
     }
 }

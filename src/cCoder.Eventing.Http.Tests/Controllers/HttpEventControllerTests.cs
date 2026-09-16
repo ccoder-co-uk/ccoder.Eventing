@@ -5,6 +5,7 @@
 using cCoder.Eventing.Http.Brokers.Loggings;
 using cCoder.Eventing.Http.Controllers;
 using cCoder.Eventing.Http.Models;
+using cCoder.Eventing.Http.Services.Processings;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -21,10 +22,10 @@ public partial class HttpEventControllerTests
         // Given
 
         HttpEventMessage message = new();
-        Mock<IHttpEventHub> eventHub = new();
+        Mock<IHttpEventProcessingService> eventProcessingService = new();
 
         HttpEventController controller = new(
-            httpEventHub: eventHub.Object,
+            httpEventProcessingService: eventProcessingService.Object,
             loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
@@ -53,16 +54,16 @@ public partial class HttpEventControllerTests
             ? new InvalidOperationException()
             : new Exception();
 
-        Mock<IHttpEventHub> eventHub = new();
+        Mock<IHttpEventProcessingService> eventProcessingService = new();
 
-        eventHub
-            .Setup(expression: hub => hub.ReceiveEventAsync(
-                message: message,
+        eventProcessingService
+            .Setup(expression: service => service.ReceiveHttpEventMessageAsync(
+                httpEventMessage: message,
                 cancellationToken: It.IsAny<CancellationToken>()))
             .ThrowsAsync(exception: failure);
 
         HttpEventController controller = new(
-            httpEventHub: eventHub.Object,
+            httpEventProcessingService: eventProcessingService.Object,
             loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When

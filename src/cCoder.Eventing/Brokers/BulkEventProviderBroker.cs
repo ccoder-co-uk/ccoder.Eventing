@@ -6,16 +6,19 @@ using cCoder.Eventing.Models;
 
 namespace cCoder.Eventing.Brokers;
 
-internal sealed class BulkEventProviderBroker(BulkEventProvider eventProvider)
+internal sealed class BulkEventProviderBroker(
+    BulkEventProviderBrokerConfiguration configuration)
     : IBulkEventProviderBroker
 {
     public bool CanHandle<T>(string name) =>
-        eventProvider.CanHandle<T>(name: name);
+        configuration.CanHandle(
+            arg1: name,
+            arg2: typeof(T));
 
     public ValueTask HandleAsync<T>(
         IServiceProvider serviceProvider,
         EventMessage<T>[] messages) =>
-        eventProvider.HandleAsync(
-            serviceProvider: serviceProvider,
-            messages: messages);
+        configuration.HandleAsync(
+            arg1: serviceProvider,
+            arg2: messages);
 }

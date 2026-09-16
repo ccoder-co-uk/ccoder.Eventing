@@ -3,8 +3,8 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Apps.Controllers;
-using cCoder.Eventing.Apps.Exposures;
 using cCoder.Eventing.Apps.Models;
+using cCoder.Eventing.Apps.Services.Orchestrations;
 using cCoder.Eventing.Http.Brokers.Loggings;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +22,7 @@ public partial class ChatControllerTests
         // Given
 
         ChatMessage expectedMessage = new();
-        Mock<IChatManager> manager = new();
+        Mock<IChatOrchestrationService> manager = new();
 
         manager
             .Setup(expression: service => service.SendChatMessageAsync(
@@ -55,7 +55,7 @@ public partial class ChatControllerTests
         // Given
 
         ChatController controller = CreateController(
-            manager: Mock.Of<IChatManager>());
+            manager: Mock.Of<IChatOrchestrationService>());
 
         controller.ModelState.AddModelError(
             key: "Text",
@@ -85,7 +85,7 @@ public partial class ChatControllerTests
             ? new InvalidOperationException()
             : new Exception();
 
-        Mock<IChatManager> manager = new();
+        Mock<IChatOrchestrationService> manager = new();
 
         manager
             .Setup(expression: service => service.SendChatMessageAsync(
@@ -111,7 +111,8 @@ public partial class ChatControllerTests
             .Be(expected: expectedStatusCode);
     }
 
-    private static ChatController CreateController(IChatManager manager) =>
+    private static ChatController CreateController(
+        IChatOrchestrationService manager) =>
         new(
             chatOrchestrationService: manager,
             configuration: new AppConfiguration

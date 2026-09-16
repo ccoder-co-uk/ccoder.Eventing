@@ -11,8 +11,15 @@ public abstract class BulkEventProvider
     internal abstract Type MessageType { get; }
 
     internal bool CanHandle<T>(string name) =>
+        CanHandle(
+            name: name,
+            messageType: typeof(T));
+
+    internal bool CanHandle(
+        string name,
+        Type messageType) =>
         Events?.Contains(value:name, comparer:StringComparer.Ordinal) == true &&
-        MessageType == typeof(T);
+        MessageType == messageType;
 
     internal abstract ValueTask HandleAsync(IServiceProvider serviceProvider, Array messages);
 }

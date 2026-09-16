@@ -15,7 +15,8 @@ internal sealed class ServiceBusBroker(
         ServiceBusEventMessage<T> eventMessage) =>
         serviceBusDependency.SendAsync(
             name: name,
-            eventMessage: eventMessage);
+            body: new BinaryData(eventMessage),
+            messageId: $"{eventMessage.AuthInfo.SSOUserId}_{typeof(T).Name}_{Guid.NewGuid()}");
 
     public void Listen<T>(
         string name,
@@ -23,6 +24,7 @@ internal sealed class ServiceBusBroker(
         Func<Exception, Task> errorHandler) =>
         serviceBusDependency.Listen(
             name: name,
-            handler: handler,
+            handler: body => handler(
+                arg: body.ToObjectFromJson<ServiceBusEventMessage<T>>()),
             errorHandler: errorHandler);
 }

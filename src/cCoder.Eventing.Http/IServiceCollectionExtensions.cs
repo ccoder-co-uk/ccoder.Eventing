@@ -4,10 +4,10 @@
 
 using cCoder.Eventing.Http.Brokers;
 using cCoder.Eventing.Http.Brokers.Loggings;
-using cCoder.Eventing.Http.Dependencies;
 using cCoder.Eventing.Http.Models;
 using cCoder.Eventing.Http.Services.Foundations;
 using cCoder.Eventing.Http.Services.Processings;
+using cCoder.Eventing.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Text.Json;
@@ -37,10 +37,9 @@ public static class IServiceCollectionExtensions
         ArgumentNullException.ThrowIfNull(argument: configuration);
 
         services.AddConfiguration(configuration: configuration);
-        services.AddBrokers();
+        services.AddBrokers(configuration: configuration);
         services.AddFoundations();
         services.AddProcessings();
-        services.AddOrchestrations();
         services.AddExposures();
     }
 
@@ -65,10 +64,9 @@ public static class IServiceCollectionExtensions
         ArgumentNullException.ThrowIfNull(argument: configuration);
 
         services.AddConfiguration(configuration: configuration);
-        services.AddBrokers();
+        services.AddBrokers(configuration: configuration);
         services.AddFoundations();
         services.AddProcessings();
-        services.AddOrchestrations();
         services.AddExposures();
         IMvcBuilder mvcBuilder = services.AddControllers();
         mvcBuilder.AddHttpEventingControllers();
@@ -84,22 +82,43 @@ public static class IServiceCollectionExtensions
         return services;
     }
 
-    private static IServiceCollection AddBrokers(this IServiceCollection services)
+    private static IServiceCollection AddBrokers(
+        this IServiceCollection services,
+        HttpEventingOptions configuration)
     {
         services.TryAddSingleton<ILoggingBroker, LoggingBroker>();
-        services.TryAddSingleton<IHttpEventQueue, HttpEventQueue>();
-        services.TryAddSingleton<IHttpEventHandlerRegistry, HttpEventHandlerRegistry>();
-        services.TryAddSingleton<IHttpEventBroker, HttpEventBroker>();
-        services.TryAddSingleton<IHttpEventDispatcher, HttpEventDispatcher>();
+        services.TryAddSingleton<IHttpEventBroker>(
+            implementationFactory: serviceProvider =>
+                new HttpEventBroker(
+                    httpClientFactory: serviceProvider
+                        .GetRequiredService<IHttpClientFactory>(),
+                    configuration: new HttpEventBrokerConfiguration
+                    {
+                        HubUrl = configuration.HubUrl,
+                        JsonSerializerOptions =
+                            configuration.JsonSerializerOptions,
+                        MaxConcurrency = configuration.MaxConcurrency,
+                        EventProviderConfigurations =
+                            serviceProvider
+                                .GetServices<EventProvider>()
+                                .Select(selector: eventProvider =>
+                                    new HttpEventProviderBrokerConfiguration
+                                    {
+                                        CanReceive = eventProvider.CanReceive,
+                                        DataType = eventProvider.DataType,
+                                        ReceiveAsync = eventProvider.ReceiveAsync,
+                                        JsonSerializerOptions = configuration
+                                            .JsonSerializerOptions
+                                    })
+                                .ToArray()
+                    }));
 
         return services;
     }
 
     private static IServiceCollection AddFoundations(this IServiceCollection services)
     {
-        services.TryAddTransient<
-            IHttpEventService,
-            HttpEventServiceDependency>();
+        services.TryAddTransient<IHttpEventService, HttpEventService>();
 
         return services;
     }
@@ -108,21 +127,16 @@ public static class IServiceCollectionExtensions
     {
         services.TryAddTransient<
             IHttpEventProcessingService,
-            HttpEventProcessingServiceDependency>();
-
+            HttpEventProcessingService>();
         return services;
     }
-
-    private static IServiceCollection AddOrchestrations(
-        this IServiceCollection services) =>
-        services;
 
     private static IServiceCollection AddExposures(this IServiceCollection services)
     {
         services.TryAddSingleton<IHttpEventHub>(
             implementationFactory: serviceProvider =>
                 new HttpEventHub(
-                    serviceProvider
+                    httpEventProcessingService: serviceProvider
                         .GetRequiredService<IHttpEventProcessingService>()));
 
         services.AddHostedService<HttpEventDispatcherHostedService>();

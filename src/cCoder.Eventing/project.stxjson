@@ -30,7 +30,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.BulkEventProviderBroker.CanHandle(System.String)",
           "Name": "CanHandle",
-          "LineNumber": 12,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "name",
@@ -41,7 +41,15 @@
           "Implements": [
             "cCoder.Eventing.Brokers.IBulkEventProviderBroker.CanHandle(System.String)"
           ],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "System.Func\u003CT1, T2, TResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CT1, T2, TResult\u003E.Invoke(T1,T2)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -57,7 +65,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.BulkEventProviderBroker.HandleAsync(System.IServiceProvider,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
           "Name": "HandleAsync",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "serviceProvider",
@@ -72,7 +80,15 @@
           "Implements": [
             "cCoder.Eventing.Brokers.IBulkEventProviderBroker.HandleAsync(System.IServiceProvider,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])"
           ],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "System.Func\u003CT1, T2, TResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CT1, T2, TResult\u003E.Invoke(T1,T2)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -183,7 +199,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.EventProviderBroker.CanSend(System.String)",
           "Name": "CanSend",
-          "LineNumber": 12,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "name",
@@ -194,7 +210,15 @@
           "Implements": [
             "cCoder.Eventing.Brokers.IEventProviderBroker.CanSend(System.String)"
           ],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "System.Func\u003CT1, T2, TResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CT1, T2, TResult\u003E.Invoke(T1,T2)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -210,7 +234,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.EventProviderBroker.HandleSendAsync(System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "HandleSendAsync",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "serviceProvider",
@@ -229,7 +253,15 @@
           "Implements": [
             "cCoder.Eventing.Brokers.IEventProviderBroker.HandleSendAsync(System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)"
           ],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "System.Func\u003CT1, T2, T3, TResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CT1, T2, T3, TResult\u003E.Invoke(T1,T2,T3)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -1232,6 +1264,26 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Eventing.Models.BulkEventProviderBrokerConfiguration",
+      "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [
+        {
+          "Name": "CanHandle",
+          "Type": "System.Func\u003CSystem.String, System.Type, System.Boolean\u003E"
+        },
+        {
+          "Name": "HandleAsync",
+          "Type": "System.Func\u003CSystem.IServiceProvider, System.Array, System.Threading.Tasks.ValueTask\u003E"
+        }
+      ],
+      "Methods": []
+    },
+    {
       "Name": "cCoder.Eventing.Models.EventAuthInfo",
       "StandardElementType": "Model",
       "LineNumber": 7,
@@ -1415,6 +1467,26 @@
         {
           "Name": "SendHandler",
           "Type": "System.Func\u003CSystem.IServiceProvider, System.String, cCoder.Eventing.Models.EventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Models.EventProviderBrokerConfiguration",
+      "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [
+        {
+          "Name": "CanSend",
+          "Type": "System.Func\u003CSystem.String, System.Type, System.Boolean\u003E"
+        },
+        {
+          "Name": "HandleSendAsync",
+          "Type": "System.Func\u003CSystem.IServiceProvider, System.String, cCoder.Eventing.Models.EventMessage, System.Threading.Tasks.ValueTask\u003E"
         }
       ],
       "Methods": []
@@ -3567,11 +3639,11 @@
   "Links": [
     {
       "FromType": "cCoder.Eventing.Brokers.BulkEventProviderBroker",
-      "ToType": "cCoder.Eventing.Models.BulkEventProvider"
+      "ToType": "cCoder.Eventing.Models.BulkEventProviderBrokerConfiguration"
     },
     {
       "FromType": "cCoder.Eventing.Brokers.EventProviderBroker",
-      "ToType": "cCoder.Eventing.Models.EventProvider"
+      "ToType": "cCoder.Eventing.Models.EventProviderBrokerConfiguration"
     },
     {
       "FromType": "cCoder.Eventing.Brokers.Loggings.LoggingBroker",

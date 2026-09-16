@@ -4,6 +4,7 @@
 
 using cCoder.Eventing.Http.Brokers.Loggings;
 using cCoder.Eventing.Http.Models;
+using cCoder.Eventing.Http.Services.Processings;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cCoder.Eventing.Http.Controllers;
@@ -12,7 +13,7 @@ namespace cCoder.Eventing.Http.Controllers;
 [Route("Api/Eventing")]
 [Route("Api/Eventing/Http")]
 public class HttpEventController(
-    IHttpEventHub httpEventHub,
+    IHttpEventProcessingService httpEventProcessingService,
     ILoggingBroker loggingBroker) : ControllerBase
 {
     [HttpPost]
@@ -22,8 +23,8 @@ public class HttpEventController(
     {
         try
         {
-            await httpEventHub.ReceiveEventAsync(
-                message: newHttpEventMessage,
+            await httpEventProcessingService.ReceiveHttpEventMessageAsync(
+                httpEventMessage: newHttpEventMessage,
                 cancellationToken: cancellationToken);
 
             return Accepted();
