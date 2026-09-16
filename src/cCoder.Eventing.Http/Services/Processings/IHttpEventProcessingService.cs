@@ -7,7 +7,7 @@ using cCoder.Eventing.Http.Models;
 
 namespace cCoder.Eventing.Http.Services.Processings;
 
-internal interface IHttpEventProcessingService
+public interface IHttpEventProcessingService
 {
     ValueTask RaiseEventAsync<T>(
         string name,

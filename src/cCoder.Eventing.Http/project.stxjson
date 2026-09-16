@@ -596,7 +596,7 @@
     {
       "Name": "cCoder.Eventing.Http.Controllers.HttpEventController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 11,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -615,7 +615,7 @@
         {
           "Id": "cCoder.Eventing.Http.Controllers.HttpEventController.Post(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "Post",
-          "LineNumber": 19,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "newHttpEventMessage",
@@ -658,10 +658,10 @@
               "IsDependencyBoundary": false
             },
             {
-              "TypeName": "cCoder.Eventing.Http.IHttpEventHub",
-              "MethodName": "ReceiveEventAsync",
-              "MethodId": "cCoder.Eventing.Http.IHttpEventHub.ReceiveEventAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-              "StandardElementType": "Exposure",
+              "TypeName": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService",
+              "MethodName": "ReceiveHttpEventMessageAsync",
+              "MethodId": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ReceiveHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+              "StandardElementType": "ProcessingService",
               "IsDependencyBoundary": false
             }
           ],
@@ -2883,7 +2883,7 @@
       "Name": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService",
       "StandardElementType": "ProcessingService",
       "LineNumber": 10,
-      "IsPublic": false,
+      "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
       "Interfaces": [],
@@ -3060,7 +3060,7 @@
     },
     {
       "FromType": "cCoder.Eventing.Http.Controllers.HttpEventController",
-      "ToType": "cCoder.Eventing.Http.HttpEventHub"
+      "ToType": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService"
     },
     {
       "FromType": "cCoder.Eventing.Http.HttpEventDispatcherHostedService",
