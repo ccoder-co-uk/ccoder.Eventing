@@ -4,7 +4,6 @@
 
 using Azure.Messaging.ServiceBus;
 using cCoder.Eventing.AzureServiceBus.Dependencies;
-using cCoder.Eventing.AzureServiceBus.Models;
 using Moq;
 using Xunit;
 
@@ -18,7 +17,6 @@ public partial class ServiceBusTransportTests
         // Given
 
         const string eventName = "test-event";
-        AzureServiceBusEventingConfiguration configuration = new();
         Mock<ServiceBusSender> sender = new();
         Mock<ServiceBusClient> client = new();
 
@@ -28,19 +26,23 @@ public partial class ServiceBusTransportTests
             .Returns(value: sender.Object);
 
         ServiceBusDependency dependency = new(
-            configuration: configuration,
+            maxConcurrency: 1,
             client: client.Object);
 
-        ServiceBusEventMessage<FakeObject> message = new()
-        {
-            AuthInfo = new ServiceBusEventAuthInfo(),
-            Data = new FakeObject()
-        };
+        BinaryData body = new(data: "payload");
 
         // When
 
-        await dependency.SendAsync(name: eventName, eventMessage: message);
-        await dependency.SendAsync(name: eventName, eventMessage: message);
+        await dependency.SendAsync(
+            name: eventName,
+            body: body,
+            messageId: "message-id-1");
+
+        await dependency.SendAsync(
+            name: eventName,
+            body: body,
+            messageId: "message-id-2");
+
         await dependency.DisposeAsync();
 
         // Then
@@ -72,11 +74,6 @@ public partial class ServiceBusTransportTests
 
         const string eventName = "test-event";
 
-        AzureServiceBusEventingConfiguration configuration = new()
-        {
-            MaxConcurrency = 0
-        };
-
         Mock<ServiceBusProcessor> processor = new();
         Mock<ServiceBusClient> client = new();
 
@@ -87,12 +84,12 @@ public partial class ServiceBusTransportTests
             .Returns(value: processor.Object);
 
         ServiceBusDependency dependency = new(
-            configuration: configuration,
+            maxConcurrency: 0,
             client: client.Object);
 
         // When
 
-        dependency.Listen<FakeObject>(
+        dependency.Listen(
             name: eventName,
             handler: _ => ValueTask.CompletedTask,
             errorHandler: _ => Task.CompletedTask);

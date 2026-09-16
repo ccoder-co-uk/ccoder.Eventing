@@ -7,6 +7,527 @@
   },
   "Classes": [
     {
+      "Name": "cCoder.Eventing.Http.Brokers.HttpEventBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 15,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing.Http:cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+          "FullName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+          "Name": "IHttpEventBroker",
+          "Namespace": "cCoder.Eventing.Http.Brokers",
+          "AssemblyName": "cCoder.Eventing.Http",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.CreateMessage(cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration,cCoder.Eventing.Http.Models.HttpEventMessage)",
+          "Name": "CreateMessage",
+          "LineNumber": 118,
+          "Inputs": [
+            {
+              "Name": "httpEventProviderBrokerConfiguration",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration"
+            },
+            {
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
+            }
+          ],
+          "ReturnType": "cCoder.Eventing.Models.EventMessage",
+          "Implements": [
+            "cCoder.Eventing.Http.Brokers.IHttpEventBroker.CreateMessage(cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration,cCoder.Eventing.Http.Models.HttpEventMessage)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Reflection.MethodBase",
+              "MethodName": "Invoke",
+              "MethodId": "System.Reflection.MethodBase.Invoke(System.Object?,System.Object?[]?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Reflection.MethodInfo",
+              "MethodName": "MakeGenericMethod",
+              "MethodId": "System.Reflection.MethodInfo.MakeGenericMethod(System.Type[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Text.Json.JsonSerializer",
+              "MethodName": "Deserialize",
+              "MethodId": "System.Text.Json.JsonSerializer.Deserialize(System.String,System.Type,System.Text.Json.JsonSerializerOptions?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.Deserialize(cCoder.Eventing.Http.Models.HttpEventSubscription,cCoder.Eventing.Http.Models.HttpEventMessage)",
+          "Name": "Deserialize",
+          "LineNumber": 103,
+          "Inputs": [
+            {
+              "Name": "httpEventSubscription",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventSubscription"
+            },
+            {
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
+            }
+          ],
+          "ReturnType": "System.Object",
+          "Implements": [
+            "cCoder.Eventing.Http.Brokers.IHttpEventBroker.Deserialize(cCoder.Eventing.Http.Models.HttpEventSubscription,cCoder.Eventing.Http.Models.HttpEventMessage)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Text.Json.JsonSerializer",
+              "MethodName": "Deserialize",
+              "MethodId": "System.Text.Json.JsonSerializer.Deserialize(System.String,System.Type,System.Text.Json.JsonSerializerOptions?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.EnqueueAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+          "Name": "EnqueueAsync",
+          "LineNumber": 63,
+          "Inputs": [
+            {
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.Http.Brokers.IHttpEventBroker.EnqueueAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Threading.Channels.ChannelWriter\u003CT\u003E",
+              "MethodName": "WriteAsync",
+              "MethodId": "System.Threading.Channels.ChannelWriter\u003CT\u003E.WriteAsync(T,System.Threading.CancellationToken)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.HandleAsync(cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration,System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage)",
+          "Name": "HandleAsync",
+          "LineNumber": 136,
+          "Inputs": [
+            {
+              "Name": "httpEventProviderBrokerConfiguration",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration"
+            },
+            {
+              "Name": "serviceProvider",
+              "Type": "System.IServiceProvider"
+            },
+            {
+              "Name": "eventName",
+              "Type": "System.String"
+            },
+            {
+              "Name": "eventMessage",
+              "Type": "cCoder.Eventing.Models.EventMessage"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.Http.Brokers.IHttpEventBroker.HandleAsync(cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration,System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Func\u003CT1, T2, T3, TResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CT1, T2, T3, TResult\u003E.Invoke(T1,T2,T3)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.InsertSubscription(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+          "Name": "InsertSubscription",
+          "LineNumber": 74,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Eventing.Http.Brokers.IHttpEventBroker.InsertSubscription(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Collections.Generic.List\u003CT\u003E",
+              "MethodName": "Add",
+              "MethodId": "System.Collections.Generic.List\u003CT\u003E.Add(T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Func\u003CT1, T2, TResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CT1, T2, TResult\u003E.Invoke(T1,T2)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.IsConfigured()",
+          "Name": "IsConfigured",
+          "LineNumber": 36,
+          "Inputs": [],
+          "ReturnType": "System.Boolean",
+          "Implements": [
+            "cCoder.Eventing.Http.Brokers.IHttpEventBroker.IsConfigured()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.String",
+              "MethodName": "IsNullOrWhiteSpace",
+              "MethodId": "System.String.IsNullOrWhiteSpace(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.ReadAllAsync(System.Threading.CancellationToken)",
+          "Name": "ReadAllAsync",
+          "LineNumber": 70,
+          "Inputs": [
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Collections.Generic.IAsyncEnumerable\u003CcCoder.Eventing.Http.Models.HttpEventMessage\u003E",
+          "Implements": [
+            "cCoder.Eventing.Http.Brokers.IHttpEventBroker.ReadAllAsync(System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Threading.Channels.ChannelReader\u003CT\u003E",
+              "MethodName": "ReadAllAsync",
+              "MethodId": "System.Threading.Channels.ChannelReader\u003CT\u003E.ReadAllAsync(System.Threading.CancellationToken)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.SelectEventProviderConfigurations(System.String)",
+          "Name": "SelectEventProviderConfigurations",
+          "LineNumber": 112,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Collections.Generic.IReadOnlyCollection\u003CcCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration\u003E",
+          "Implements": [
+            "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SelectEventProviderConfigurations(System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Func\u003CT, TResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CT, TResult\u003E.Invoke(T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Linq.Enumerable",
+              "MethodName": "ToArray",
+              "MethodId": "System.Linq.Enumerable.ToArray(System.Collections.Generic.IEnumerable\u003CTSource\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Linq.Enumerable",
+              "MethodName": "Where",
+              "MethodId": "System.Linq.Enumerable.Where(System.Collections.Generic.IEnumerable\u003CTSource\u003E,System.Func\u003CTSource, System.Boolean\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.SelectMaxConcurrency()",
+          "Name": "SelectMaxConcurrency",
+          "LineNumber": 39,
+          "Inputs": [],
+          "ReturnType": "System.Int32",
+          "Implements": [
+            "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SelectMaxConcurrency()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Math",
+              "MethodName": "Max",
+              "MethodId": "System.Math.Max(System.Int32,System.Int32)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.SelectSubscriptions(System.String)",
+          "Name": "SelectSubscriptions",
+          "LineNumber": 91,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Collections.Generic.IReadOnlyCollection\u003CcCoder.Eventing.Http.Models.HttpEventSubscription\u003E",
+          "Implements": [
+            "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SelectSubscriptions(System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Linq.Enumerable",
+              "MethodName": "ToArray",
+              "MethodId": "System.Linq.Enumerable.ToArray(System.Collections.Generic.IEnumerable\u003CTSource\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Linq.Enumerable",
+              "MethodName": "Where",
+              "MethodId": "System.Linq.Enumerable.Where(System.Collections.Generic.IEnumerable\u003CTSource\u003E,System.Func\u003CTSource, System.Boolean\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.SendAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+          "Name": "SendAsync",
+          "LineNumber": 47,
+          "Inputs": [
+            {
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SendAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Net.Http.HttpResponseMessage",
+              "MethodName": "EnsureSuccessStatusCode",
+              "MethodId": "System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Net.Http.IHttpClientFactory",
+              "MethodName": "CreateClient",
+              "MethodId": "System.Net.Http.IHttpClientFactory.CreateClient(System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Net.Http.Json.HttpClientJsonExtensions",
+              "MethodName": "PostAsJsonAsync",
+              "MethodId": "System.Net.Http.Json.HttpClientJsonExtensions.PostAsJsonAsync(System.Net.Http.HttpClient,System.String?,TValue,System.Text.Json.JsonSerializerOptions?,System.Threading.CancellationToken)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.Serialize(System.Object)",
+          "Name": "Serialize",
+          "LineNumber": 42,
+          "Inputs": [
+            {
+              "Name": "value",
+              "Type": "System.Object"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [
+            "cCoder.Eventing.Http.Brokers.IHttpEventBroker.Serialize(System.Object)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Text.Json.JsonSerializer",
+              "MethodName": "Serialize",
+              "MethodId": "System.Text.Json.JsonSerializer.Serialize(TValue,System.Text.Json.JsonSerializerOptions?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Eventing.Http.Brokers.Loggings.LoggingBroker",
       "StandardElementType": "Broker",
       "LineNumber": 9,
@@ -145,10 +666,14 @@
             }
           ],
           "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
           ],
           "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
           ],
           "ThrowsExceptionTypes": [],
           "HttpMethods": [
@@ -196,174 +721,9 @@
       ]
     },
     {
-      "Name": "cCoder.Eventing.Http.Dependencies.HttpEventBroker",
-      "StandardElementType": "Dependency",
-      "LineNumber": 12,
-      "IsPublic": false,
-      "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [
-        {
-          "Id": "cCoder.Eventing.Http:cCoder.Eventing.Http.Brokers.IHttpEventBroker",
-          "FullName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
-          "Name": "IHttpEventBroker",
-          "Namespace": "cCoder.Eventing.Http.Brokers",
-          "AssemblyName": "cCoder.Eventing.Http",
-          "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Broker"
-        }
-      ],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Eventing.Http.Dependencies.HttpEventBroker.SendAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-          "Name": "SendAsync",
-          "LineNumber": 18,
-          "Inputs": [
-            {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
-            },
-            {
-              "Name": "cancellationToken",
-              "Type": "System.Threading.CancellationToken"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [
-            "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SendAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
-              "MethodName": "LogError",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Net.Http.HttpResponseMessage",
-              "MethodName": "EnsureSuccessStatusCode",
-              "MethodId": "System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Net.Http.IHttpClientFactory",
-              "MethodName": "CreateClient",
-              "MethodId": "System.Net.Http.IHttpClientFactory.CreateClient(System.String)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Net.Http.Json.HttpClientJsonExtensions",
-              "MethodName": "PostAsJsonAsync",
-              "MethodId": "System.Net.Http.Json.HttpClientJsonExtensions.PostAsJsonAsync(System.Net.Http.HttpClient,System.String?,TValue,System.Text.Json.JsonSerializerOptions?,System.Threading.CancellationToken)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "ThrowsExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": true
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
-      "StandardElementType": "Dependency",
-      "LineNumber": 17,
-      "IsPublic": false,
-      "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [
-        {
-          "Id": "cCoder.Eventing.Http:cCoder.Eventing.Http.Services.Processings.IHttpEventDispatcher",
-          "FullName": "cCoder.Eventing.Http.Services.Processings.IHttpEventDispatcher",
-          "Name": "IHttpEventDispatcher",
-          "Namespace": "cCoder.Eventing.Http.Services.Processings",
-          "AssemblyName": "cCoder.Eventing.Http",
-          "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "ProcessingService"
-        }
-      ],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher.DispatchAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-          "Name": "DispatchAsync",
-          "LineNumber": 32,
-          "Inputs": [
-            {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
-            },
-            {
-              "Name": "cancellationToken",
-              "Type": "System.Threading.CancellationToken"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [
-            "cCoder.Eventing.Http.Services.Processings.IHttpEventDispatcher.DispatchAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
-              "MethodName": "LogError",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
-              "MethodName": "LogWarning",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Threading.CancellationToken",
-              "MethodName": "ThrowIfCancellationRequested",
-              "MethodId": "System.Threading.CancellationToken.ThrowIfCancellationRequested()",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            }
-          ],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": true
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcherHostedService",
-      "StandardElementType": "Dependency",
-      "LineNumber": 13,
+      "Name": "cCoder.Eventing.Http.HttpEventDispatcherHostedService",
+      "StandardElementType": "Exposure",
+      "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -379,621 +739,6 @@
       "Interfaces": [],
       "Properties": [],
       "Methods": []
-    },
-    {
-      "Name": "cCoder.Eventing.Http.Dependencies.HttpEventHandlerRegistry",
-      "StandardElementType": "Dependency",
-      "LineNumber": 10,
-      "IsPublic": false,
-      "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [
-        {
-          "Id": "cCoder.Eventing.Http:cCoder.Eventing.Http.Services.Foundations.IHttpEventHandlerRegistry",
-          "FullName": "cCoder.Eventing.Http.Services.Foundations.IHttpEventHandlerRegistry",
-          "Name": "IHttpEventHandlerRegistry",
-          "Namespace": "cCoder.Eventing.Http.Services.Foundations",
-          "AssemblyName": "cCoder.Eventing.Http",
-          "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "FoundationService"
-        }
-      ],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Eventing.Http.Dependencies.HttpEventHandlerRegistry.GetSubscriptions(System.String)",
-          "Name": "GetSubscriptions",
-          "LineNumber": 39,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "System.Collections.Generic.IReadOnlyCollection\u003CcCoder.Eventing.Http.Models.HttpEventSubscription\u003E",
-          "Implements": [
-            "cCoder.Eventing.Http.Services.Foundations.IHttpEventHandlerRegistry.GetSubscriptions(System.String)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "System.Linq.Enumerable",
-              "MethodName": "ToArray",
-              "MethodId": "System.Linq.Enumerable.ToArray(System.Collections.Generic.IEnumerable\u003CTSource\u003E)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Linq.Enumerable",
-              "MethodName": "Where",
-              "MethodId": "System.Linq.Enumerable.Where(System.Collections.Generic.IEnumerable\u003CTSource\u003E,System.Func\u003CTSource, System.Boolean\u003E)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            }
-          ],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Eventing.Http.Dependencies.HttpEventHandlerRegistry.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
-          "Name": "ListenToEvent",
-          "LineNumber": 14,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "handler",
-              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
-            }
-          ],
-          "ReturnType": "System.Void",
-          "Implements": [
-            "cCoder.Eventing.Http.Services.Foundations.IHttpEventHandlerRegistry.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "System.Collections.Generic.List\u003CT\u003E",
-              "MethodName": "Add",
-              "MethodId": "System.Collections.Generic.List\u003CT\u003E.Add(T)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Func\u003CT1, T2, TResult\u003E",
-              "MethodName": "Invoke",
-              "MethodId": "System.Func\u003CT1, T2, TResult\u003E.Invoke(T1,T2)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.InvalidOperationException",
-              "MethodName": ".ctor",
-              "MethodId": "System.InvalidOperationException..ctor(System.String?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.String",
-              "MethodName": "IsNullOrWhiteSpace",
-              "MethodId": "System.String.IsNullOrWhiteSpace(System.String?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "ThrowsExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingServiceDependency",
-      "StandardElementType": "Unknown",
-      "LineNumber": 12,
-      "IsPublic": false,
-      "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [
-        {
-          "Id": "cCoder.Eventing.Http:cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService",
-          "FullName": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService",
-          "Name": "IHttpEventProcessingService",
-          "Namespace": "cCoder.Eventing.Http.Services.Processings",
-          "AssemblyName": "cCoder.Eventing.Http",
-          "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "ProcessingService"
-        }
-      ],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingServiceDependency.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
-          "Name": "ListenToEvent",
-          "LineNumber": 16,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "handler",
-              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
-            }
-          ],
-          "ReturnType": "System.Void",
-          "Implements": [
-            "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
-              "MethodName": "ListenToEvent",
-              "MethodId": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
-              "StandardElementType": "FoundationService",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "ThrowsExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingServiceDependency.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
-          "Name": "RaiseEventAsync",
-          "LineNumber": 21,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
-            },
-            {
-              "Name": "cancellationToken",
-              "Type": "System.Threading.CancellationToken"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [
-            "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
-              "MethodName": "RaiseEventAsync",
-              "MethodId": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
-              "StandardElementType": "FoundationService",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "ThrowsExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingServiceDependency.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[],System.Threading.CancellationToken)",
-          "Name": "RaiseEventsAsync",
-          "LineNumber": 27,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "messages",
-              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
-            },
-            {
-              "Name": "cancellationToken",
-              "Type": "System.Threading.CancellationToken"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [
-            "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[],System.Threading.CancellationToken)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingServiceDependency",
-              "MethodName": "RaiseEventAsync",
-              "MethodId": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingServiceDependency.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
-              "StandardElementType": "Unknown",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "ThrowsExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingServiceDependency.ReceiveEventAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-          "Name": "ReceiveEventAsync",
-          "LineNumber": 38,
-          "Inputs": [
-            {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
-            },
-            {
-              "Name": "cancellationToken",
-              "Type": "System.Threading.CancellationToken"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [
-            "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ReceiveEventAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
-              "MethodName": "ReceiveEventAsync",
-              "MethodId": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.ReceiveEventAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-              "StandardElementType": "FoundationService",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "ThrowsExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.Http.Dependencies.HttpEventQueue",
-      "StandardElementType": "Dependency",
-      "LineNumber": 11,
-      "IsPublic": false,
-      "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [
-        {
-          "Id": "cCoder.Eventing.Http:cCoder.Eventing.Http.Services.Foundations.IHttpEventQueue",
-          "FullName": "cCoder.Eventing.Http.Services.Foundations.IHttpEventQueue",
-          "Name": "IHttpEventQueue",
-          "Namespace": "cCoder.Eventing.Http.Services.Foundations",
-          "AssemblyName": "cCoder.Eventing.Http",
-          "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "FoundationService"
-        }
-      ],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Eventing.Http.Dependencies.HttpEventQueue.EnqueueAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-          "Name": "EnqueueAsync",
-          "LineNumber": 21,
-          "Inputs": [
-            {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
-            },
-            {
-              "Name": "cancellationToken",
-              "Type": "System.Threading.CancellationToken"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [
-            "cCoder.Eventing.Http.Services.Foundations.IHttpEventQueue.EnqueueAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "System.Threading.Channels.ChannelWriter\u003CT\u003E",
-              "MethodName": "WriteAsync",
-              "MethodId": "System.Threading.Channels.ChannelWriter\u003CT\u003E.WriteAsync(T,System.Threading.CancellationToken)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            }
-          ],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Eventing.Http.Dependencies.HttpEventQueue.ReadAllAsync(System.Threading.CancellationToken)",
-          "Name": "ReadAllAsync",
-          "LineNumber": 26,
-          "Inputs": [
-            {
-              "Name": "cancellationToken",
-              "Type": "System.Threading.CancellationToken"
-            }
-          ],
-          "ReturnType": "System.Collections.Generic.IAsyncEnumerable\u003CcCoder.Eventing.Http.Models.HttpEventMessage\u003E",
-          "Implements": [
-            "cCoder.Eventing.Http.Services.Foundations.IHttpEventQueue.ReadAllAsync(System.Threading.CancellationToken)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "System.Threading.Channels.ChannelReader\u003CT\u003E",
-              "MethodName": "ReadAllAsync",
-              "MethodId": "System.Threading.Channels.ChannelReader\u003CT\u003E.ReadAllAsync(System.Threading.CancellationToken)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            }
-          ],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
-      "StandardElementType": "Dependency",
-      "LineNumber": 14,
-      "IsPublic": false,
-      "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [
-        {
-          "Id": "cCoder.Eventing.Http:cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
-          "FullName": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
-          "Name": "IHttpEventService",
-          "Namespace": "cCoder.Eventing.Http.Services.Foundations",
-          "AssemblyName": "cCoder.Eventing.Http",
-          "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "FoundationService"
-        }
-      ],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
-          "Name": "ListenToEvent",
-          "LineNumber": 22,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "handler",
-              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
-            }
-          ],
-          "ReturnType": "System.Void",
-          "Implements": [
-            "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Eventing.Http.Services.Foundations.IHttpEventHandlerRegistry",
-              "MethodName": "ListenToEvent",
-              "MethodId": "cCoder.Eventing.Http.Services.Foundations.IHttpEventHandlerRegistry.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
-              "StandardElementType": "FoundationService",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "ThrowsExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        },
-        {
-          "Id": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
-          "Name": "RaiseEventAsync",
-          "LineNumber": 27,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
-            },
-            {
-              "Name": "cancellationToken",
-              "Type": "System.Threading.CancellationToken"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [
-            "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "Microsoft.Extensions.Logging.LoggerExtensions",
-              "MethodName": "LogError",
-              "MethodId": "Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception?,System.String?,System.Object?[])",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Text.Json.JsonSerializer",
-              "MethodName": "Serialize",
-              "MethodId": "System.Text.Json.JsonSerializer.Serialize(TValue,System.Text.Json.JsonSerializerOptions?)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
-              "MethodName": "SendAsync",
-              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SendAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-              "StandardElementType": "Broker",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "ThrowsExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": true
-        },
-        {
-          "Id": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency.ReceiveEventAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-          "Name": "ReceiveEventAsync",
-          "LineNumber": 58,
-          "Inputs": [
-            {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
-            },
-            {
-              "Name": "cancellationToken",
-              "Type": "System.Threading.CancellationToken"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [
-            "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.ReceiveEventAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)"
-          ],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Eventing.Http.Services.Foundations.IHttpEventQueue",
-              "MethodName": "EnqueueAsync",
-              "MethodId": "cCoder.Eventing.Http.Services.Foundations.IHttpEventQueue.EnqueueAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-              "StandardElementType": "FoundationService",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "ThrowsExceptionTypes": [
-            "System.InvalidOperationException"
-          ],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        }
-      ]
     },
     {
       "Name": "cCoder.Eventing.Http.HttpEventHub",
@@ -1019,7 +764,7 @@
         {
           "Id": "cCoder.Eventing.Http.HttpEventHub.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 18,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "name",
@@ -1044,13 +789,17 @@
             }
           ],
           "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
           ],
           "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
           ],
           "ThrowsExceptionTypes": [
-            "System.InvalidOperationException"
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -1064,7 +813,7 @@
         {
           "Id": "cCoder.Eventing.Http.HttpEventHub.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 23,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "name",
@@ -1093,13 +842,22 @@
             }
           ],
           "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
           ],
           "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
           ],
           "ThrowsExceptionTypes": [
-            "System.InvalidOperationException"
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -1113,7 +871,7 @@
         {
           "Id": "cCoder.Eventing.Http.HttpEventHub.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[],System.Threading.CancellationToken)",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 29,
+          "LineNumber": 35,
           "Inputs": [
             {
               "Name": "name",
@@ -1142,13 +900,22 @@
             }
           ],
           "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
           ],
           "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
           ],
           "ThrowsExceptionTypes": [
-            "System.InvalidOperationException"
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -1162,7 +929,7 @@
         {
           "Id": "cCoder.Eventing.Http.HttpEventHub.ReceiveEventAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "ReceiveEventAsync",
-          "LineNumber": 35,
+          "LineNumber": 44,
           "Inputs": [
             {
               "Name": "httpEventMessage",
@@ -1180,20 +947,24 @@
           "Calls": [
             {
               "TypeName": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService",
-              "MethodName": "ReceiveEventAsync",
-              "MethodId": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ReceiveEventAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+              "MethodName": "ReceiveHttpEventMessageAsync",
+              "MethodId": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ReceiveHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
               "StandardElementType": "ProcessingService",
               "IsDependencyBoundary": false
             }
           ],
           "PossibleExceptionTypes": [
-            "System.InvalidOperationException"
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
           ],
           "IncomingExceptionTypes": [
-            "System.InvalidOperationException"
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
           ],
           "ThrowsExceptionTypes": [
-            "System.InvalidOperationException"
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -1264,7 +1035,7 @@
         {
           "Id": "cCoder.Eventing.Http.IServiceCollectionExtensions.AddHttpEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.Http.Models.HttpEventingOptions\u003E)",
           "Name": "AddHttpEventingHostedServices",
-          "LineNumber": 47,
+          "LineNumber": 46,
           "Inputs": [
             {
               "Name": "services",
@@ -1315,7 +1086,7 @@
         {
           "Id": "cCoder.Eventing.Http.IServiceCollectionExtensions.AddHttpEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Http.Models.HttpEventingOptions)",
           "Name": "AddHttpEventingHostedServices",
-          "LineNumber": 61,
+          "LineNumber": 60,
           "Inputs": [
             {
               "Name": "services",
@@ -1454,6 +1225,94 @@
       ]
     },
     {
+      "Name": "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+      "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "System.Private.CoreLib:System.Exception",
+        "FullName": "System.Exception",
+        "Name": "Exception",
+        "Namespace": "System",
+        "AssemblyName": "System.Private.CoreLib",
+        "Kind": "Class",
+        "IsInCurrentProject": false,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+      "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "System.Private.CoreLib:System.Exception",
+        "FullName": "System.Exception",
+        "Name": "Exception",
+        "Namespace": "System",
+        "AssemblyName": "System.Private.CoreLib",
+        "Kind": "Class",
+        "IsInCurrentProject": false,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException",
+      "StandardElementType": "Model",
+      "LineNumber": 7,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": {
+        "Id": "System.Private.CoreLib:System.Exception",
+        "FullName": "System.Exception",
+        "Name": "Exception",
+        "Namespace": "System",
+        "AssemblyName": "System.Private.CoreLib",
+        "Kind": "Class",
+        "IsInCurrentProject": false,
+        "StandardElementType": "Dependency"
+      },
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Http.Models.HttpEventBrokerConfiguration",
+      "StandardElementType": "Model",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [
+        {
+          "Name": "EventProviderConfigurations",
+          "Type": "System.Collections.Generic.IReadOnlyCollection\u003CcCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration\u003E"
+        },
+        {
+          "Name": "HubUrl",
+          "Type": "System.String"
+        },
+        {
+          "Name": "JsonSerializerOptions",
+          "Type": "System.Text.Json.JsonSerializerOptions"
+        },
+        {
+          "Name": "MaxConcurrency",
+          "Type": "System.Int32"
+        }
+      ],
+      "Methods": []
+    },
+    {
       "Name": "cCoder.Eventing.Http.Models.HttpEventMessage",
       "StandardElementType": "Model",
       "LineNumber": 7,
@@ -1473,6 +1332,34 @@
         {
           "Name": "SSOUserId",
           "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration",
+      "StandardElementType": "Model",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [
+        {
+          "Name": "CanReceive",
+          "Type": "System.Func\u003CSystem.String, System.Boolean\u003E"
+        },
+        {
+          "Name": "DataType",
+          "Type": "System.Type"
+        },
+        {
+          "Name": "JsonSerializerOptions",
+          "Type": "System.Text.Json.JsonSerializerOptions"
+        },
+        {
+          "Name": "ReceiveAsync",
+          "Type": "System.Func\u003CSystem.IServiceProvider, System.String, cCoder.Eventing.Models.EventMessage, System.Threading.Tasks.ValueTask\u003E"
         }
       ],
       "Methods": []
@@ -1524,26 +1411,122 @@
         }
       ],
       "Methods": []
-    }
-  ],
-  "Interfaces": [
+    },
     {
-      "Name": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
-      "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "Name": "cCoder.Eventing.Http.Services.Foundations.HttpEventService",
+      "StandardElementType": "FoundationService",
+      "LineNumber": 13,
       "IsPublic": false,
-      "Kind": "Interface",
+      "Kind": "Class",
       "BaseType": null,
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing.Http:cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
+          "FullName": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
+          "Name": "IHttpEventService",
+          "Namespace": "cCoder.Eventing.Http.Services.Foundations",
+          "AssemblyName": "cCoder.Eventing.Http",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "FoundationService"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SendAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-          "Name": "SendAsync",
-          "LineNumber": 11,
+          "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.DispatchHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage)",
+          "Name": "DispatchHttpEventMessageAsync",
+          "LineNumber": 87,
           "Inputs": [
             {
-              "Name": "message",
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Boolean\u003E",
+          "Implements": [
+            "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.DispatchHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "System.Func\u003CT1, T2, TResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CT1, T2, TResult\u003E.Invoke(T1,T2)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.Brokers.IServiceProviderBroker",
+              "MethodName": "GetScopeForEvent",
+              "MethodId": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetScopeForEvent(cCoder.Eventing.Models.EventMessage)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+              "MethodName": "CreateMessage",
+              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.CreateMessage(cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration,cCoder.Eventing.Http.Models.HttpEventMessage)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+              "MethodName": "Deserialize",
+              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.Deserialize(cCoder.Eventing.Http.Models.HttpEventSubscription,cCoder.Eventing.Http.Models.HttpEventMessage)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+              "MethodName": "HandleAsync",
+              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.HandleAsync(cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration,System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+              "MethodName": "SelectEventProviderConfigurations",
+              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SelectEventProviderConfigurations(System.String)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+              "MethodName": "SelectSubscriptions",
+              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SelectSubscriptions(System.String)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.EnqueueHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+          "Name": "EnqueueHttpEventMessageAsync",
+          "LineNumber": 58,
+          "Inputs": [
+            {
+              "Name": "httpEventMessage",
               "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
             },
             {
@@ -1552,6 +1535,928 @@
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.EnqueueHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+              "MethodName": "EnqueueAsync",
+              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.EnqueueAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.GetMaxConcurrency()",
+          "Name": "GetMaxConcurrency",
+          "LineNumber": 71,
+          "Inputs": [],
+          "ReturnType": "System.Int32",
+          "Implements": [
+            "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.GetMaxConcurrency()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+              "MethodName": "SelectMaxConcurrency",
+              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SelectMaxConcurrency()",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.IsConfigured()",
+          "Name": "IsConfigured",
+          "LineNumber": 17,
+          "Inputs": [],
+          "ReturnType": "System.Boolean",
+          "Implements": [
+            "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.IsConfigured()"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+              "MethodName": "IsConfigured",
+              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.IsConfigured()",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+          "Name": "ListenToEvent",
+          "LineNumber": 45,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+              "MethodName": "InsertSubscription",
+              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.InsertSubscription(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.ReadAllHttpEventMessagesAsync(System.Threading.CancellationToken)",
+          "Name": "ReadAllHttpEventMessagesAsync",
+          "LineNumber": 77,
+          "Inputs": [
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Collections.Generic.IAsyncEnumerable\u003CcCoder.Eventing.Http.Models.HttpEventMessage\u003E",
+          "Implements": [
+            "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.ReadAllHttpEventMessagesAsync(System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+              "MethodName": "ReadAllAsync",
+              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.ReadAllAsync(System.Threading.CancellationToken)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.SendHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+          "Name": "SendHttpEventMessageAsync",
+          "LineNumber": 31,
+          "Inputs": [
+            {
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.SendHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+              "MethodName": "IsConfigured",
+              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.IsConfigured()",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+              "MethodName": "SendAsync",
+              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SendAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.Serialize(System.Object)",
+          "Name": "Serialize",
+          "LineNumber": 23,
+          "Inputs": [
+            {
+              "Name": "value",
+              "Type": "System.Object"
+            }
+          ],
+          "ReturnType": "System.String",
+          "Implements": [
+            "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.Serialize(System.Object)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+              "MethodName": "Serialize",
+              "MethodId": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.Serialize(System.Object)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService",
+      "StandardElementType": "ProcessingService",
+      "LineNumber": 12,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Eventing.Http:cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService",
+          "FullName": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService",
+          "Name": "IHttpEventProcessingService",
+          "Namespace": "cCoder.Eventing.Http.Services.Processings",
+          "AssemblyName": "cCoder.Eventing.Http",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "ProcessingService"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+          "Name": "ListenToEvent",
+          "LineNumber": 53,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [
+            "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
+              "MethodName": "ListenToEvent",
+              "MethodId": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+              "StandardElementType": "FoundationService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService.ProcessHttpEventMessagesAsync(System.Threading.CancellationToken)",
+          "Name": "ProcessHttpEventMessagesAsync",
+          "LineNumber": 77,
+          "Inputs": [
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task",
+          "Implements": [
+            "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ProcessHttpEventMessagesAsync(System.Threading.CancellationToken)"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
+          "Name": "RaiseEventAsync",
+          "LineNumber": 17,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "message",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
+              "MethodName": "IsConfigured",
+              "MethodId": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.IsConfigured()",
+              "StandardElementType": "FoundationService",
+              "IsDependencyBoundary": false
+            },
+            {
+              "TypeName": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
+              "MethodName": "SendHttpEventMessageAsync",
+              "MethodId": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.SendHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+              "StandardElementType": "FoundationService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[],System.Threading.CancellationToken)",
+          "Name": "RaiseEventsAsync",
+          "LineNumber": 39,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "messages",
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E[]"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[],System.Threading.CancellationToken)"
+          ],
+          "Calls": [],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "System.InvalidOperationException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService.ReceiveHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+          "Name": "ReceiveHttpEventMessageAsync",
+          "LineNumber": 65,
+          "Inputs": [
+            {
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ReceiveHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
+              "MethodName": "EnqueueHttpEventMessageAsync",
+              "MethodId": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.EnqueueHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+              "StandardElementType": "FoundationService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.ArgumentException",
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.ArgumentNullException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Http.Models.Exceptions.ServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    }
+  ],
+  "Interfaces": [
+    {
+      "Name": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.CreateMessage(cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration,cCoder.Eventing.Http.Models.HttpEventMessage)",
+          "Name": "CreateMessage",
+          "LineNumber": 43,
+          "Inputs": [
+            {
+              "Name": "httpEventProviderBrokerConfiguration",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration"
+            },
+            {
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
+            }
+          ],
+          "ReturnType": "cCoder.Eventing.Models.EventMessage",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.Deserialize(cCoder.Eventing.Http.Models.HttpEventSubscription,cCoder.Eventing.Http.Models.HttpEventMessage)",
+          "Name": "Deserialize",
+          "LineNumber": 36,
+          "Inputs": [
+            {
+              "Name": "httpEventSubscription",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventSubscription"
+            },
+            {
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
+            }
+          ],
+          "ReturnType": "System.Object",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.EnqueueAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+          "Name": "EnqueueAsync",
+          "LineNumber": 22,
+          "Inputs": [
+            {
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.HandleAsync(cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration,System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage)",
+          "Name": "HandleAsync",
+          "LineNumber": 48,
+          "Inputs": [
+            {
+              "Name": "httpEventProviderBrokerConfiguration",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration"
+            },
+            {
+              "Name": "serviceProvider",
+              "Type": "System.IServiceProvider"
+            },
+            {
+              "Name": "eventName",
+              "Type": "System.String"
+            },
+            {
+              "Name": "eventMessage",
+              "Type": "cCoder.Eventing.Models.EventMessage"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.InsertSubscription(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+          "Name": "InsertSubscription",
+          "LineNumber": 29,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            },
+            {
+              "Name": "handler",
+              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
+            }
+          ],
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.IsConfigured()",
+          "Name": "IsConfigured",
+          "LineNumber": 12,
+          "Inputs": [],
+          "ReturnType": "System.Boolean",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.ReadAllAsync(System.Threading.CancellationToken)",
+          "Name": "ReadAllAsync",
+          "LineNumber": 26,
+          "Inputs": [
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Collections.Generic.IAsyncEnumerable\u003CcCoder.Eventing.Http.Models.HttpEventMessage\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SelectEventProviderConfigurations(System.String)",
+          "Name": "SelectEventProviderConfigurations",
+          "LineNumber": 41,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Collections.Generic.IReadOnlyCollection\u003CcCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SelectMaxConcurrency()",
+          "Name": "SelectMaxConcurrency",
+          "LineNumber": 14,
+          "Inputs": [],
+          "ReturnType": "System.Int32",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SelectSubscriptions(System.String)",
+          "Name": "SelectSubscriptions",
+          "LineNumber": 33,
+          "Inputs": [
+            {
+              "Name": "name",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Collections.Generic.IReadOnlyCollection\u003CcCoder.Eventing.Http.Models.HttpEventSubscription\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SendAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+          "Name": "SendAsync",
+          "LineNumber": 18,
+          "Inputs": [
+            {
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.Serialize(System.Object)",
+          "Name": "Serialize",
+          "LineNumber": 16,
+          "Inputs": [
+            {
+              "Name": "value",
+              "Type": "System.Object"
+            }
+          ],
+          "ReturnType": "System.String",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -1761,7 +2666,7 @@
       ]
     },
     {
-      "Name": "cCoder.Eventing.Http.Services.Foundations.IHttpEventHandlerRegistry",
+      "Name": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
       "StandardElementType": "FoundationService",
       "LineNumber": 9,
       "IsPublic": false,
@@ -1771,16 +2676,16 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventHandlerRegistry.GetSubscriptions(System.String)",
-          "Name": "GetSubscriptions",
-          "LineNumber": 13,
+          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.DispatchHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage)",
+          "Name": "DispatchHttpEventMessageAsync",
+          "LineNumber": 32,
           "Inputs": [
             {
-              "Name": "name",
-              "Type": "System.String"
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
             }
           ],
-          "ReturnType": "System.Collections.Generic.IReadOnlyCollection\u003CcCoder.Eventing.Http.Models.HttpEventSubscription\u003E",
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Boolean\u003E",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -1796,9 +2701,78 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventHandlerRegistry.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
-          "Name": "ListenToEvent",
+          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.EnqueueHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+          "Name": "EnqueueHttpEventMessageAsync",
+          "LineNumber": 23,
+          "Inputs": [
+            {
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.GetMaxConcurrency()",
+          "Name": "GetMaxConcurrency",
+          "LineNumber": 27,
+          "Inputs": [],
+          "ReturnType": "System.Int32",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.IsConfigured()",
+          "Name": "IsConfigured",
           "LineNumber": 11,
+          "Inputs": [],
+          "ReturnType": "System.Boolean",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
+          "Name": "ListenToEvent",
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "name",
@@ -1823,52 +2797,11 @@
           "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": false
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.Http.Services.Foundations.IHttpEventQueue",
-      "StandardElementType": "FoundationService",
-      "LineNumber": 9,
-      "IsPublic": false,
-      "Kind": "Interface",
-      "BaseType": null,
-      "Interfaces": [],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventQueue.EnqueueAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-          "Name": "EnqueueAsync",
-          "LineNumber": 11,
-          "Inputs": [
-            {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
-            },
-            {
-              "Name": "cancellationToken",
-              "Type": "System.Threading.CancellationToken"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventQueue.ReadAllAsync(System.Threading.CancellationToken)",
-          "Name": "ReadAllAsync",
-          "LineNumber": 15,
+          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.ReadAllHttpEventMessagesAsync(System.Threading.CancellationToken)",
+          "Name": "ReadAllHttpEventMessagesAsync",
+          "LineNumber": 29,
           "Inputs": [
             {
               "Name": "cancellationToken",
@@ -1889,60 +2822,15 @@
           "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": false
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
-      "StandardElementType": "FoundationService",
-      "LineNumber": 10,
-      "IsPublic": false,
-      "Kind": "Interface",
-      "BaseType": null,
-      "Interfaces": [],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
-          "Name": "ListenToEvent",
-          "LineNumber": 12,
-          "Inputs": [
-            {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "handler",
-              "Type": "System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E"
-            }
-          ],
-          "ReturnType": "System.Void",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
-          "Name": "RaiseEventAsync",
-          "LineNumber": 14,
+          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.SendHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+          "Name": "SendHttpEventMessageAsync",
+          "LineNumber": 15,
           "Inputs": [
             {
-              "Name": "name",
-              "Type": "System.String"
-            },
-            {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Models.EventMessage\u003CT\u003E"
+              "Name": "httpEventMessage",
+              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
             },
             {
               "Name": "cancellationToken",
@@ -1965,61 +2853,16 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.ReceiveEventAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-          "Name": "ReceiveEventAsync",
-          "LineNumber": 19,
+          "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.Serialize(System.Object)",
+          "Name": "Serialize",
+          "LineNumber": 13,
           "Inputs": [
             {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
-            },
-            {
-              "Name": "cancellationToken",
-              "Type": "System.Threading.CancellationToken"
+              "Name": "value",
+              "Type": "System.Object"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
-          "Implements": [],
-          "Calls": [],
-          "PossibleExceptionTypes": [],
-          "IncomingExceptionTypes": [],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [],
-          "IsHttpRequestHandler": false,
-          "IsODataControllerAction": false,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": false,
-          "HasTryCatch": false
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Eventing.Http.Services.Processings.IHttpEventDispatcher",
-      "StandardElementType": "ProcessingService",
-      "LineNumber": 9,
-      "IsPublic": false,
-      "Kind": "Interface",
-      "BaseType": null,
-      "Interfaces": [],
-      "Properties": [],
-      "Methods": [
-        {
-          "Id": "cCoder.Eventing.Http.Services.Processings.IHttpEventDispatcher.DispatchAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-          "Name": "DispatchAsync",
-          "LineNumber": 11,
-          "Inputs": [
-            {
-              "Name": "message",
-              "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
-            },
-            {
-              "Name": "cancellationToken",
-              "Type": "System.Threading.CancellationToken"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "ReturnType": "System.String",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -2049,7 +2892,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 12,
+          "LineNumber": 22,
           "Inputs": [
             {
               "Name": "name",
@@ -2076,9 +2919,34 @@
           "HasTryCatch": false
         },
         {
+          "Id": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ProcessHttpEventMessagesAsync(System.Threading.CancellationToken)",
+          "Name": "ProcessHttpEventMessagesAsync",
+          "LineNumber": 30,
+          "Inputs": [
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
           "Id": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "name",
@@ -2111,7 +2979,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[],System.Threading.CancellationToken)",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 19,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "name",
@@ -2142,12 +3010,12 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ReceiveEventAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
-          "Name": "ReceiveEventAsync",
-          "LineNumber": 24,
+          "Id": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ReceiveHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
+          "Name": "ReceiveHttpEventMessageAsync",
+          "LineNumber": 26,
           "Inputs": [
             {
-              "Name": "message",
+              "Name": "httpEventMessage",
               "Type": "cCoder.Eventing.Http.Models.HttpEventMessage"
             },
             {
@@ -2175,6 +3043,14 @@
   ],
   "Links": [
     {
+      "FromType": "cCoder.Eventing.Http.Brokers.HttpEventBroker",
+      "ToType": "System.Net.Http.IHttpClientFactory"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Brokers.HttpEventBroker",
+      "ToType": "cCoder.Eventing.Http.Models.HttpEventBrokerConfiguration"
+    },
+    {
       "FromType": "cCoder.Eventing.Http.Brokers.Loggings.LoggingBroker",
       "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Http.Brokers.Loggings.LoggingBroker\u003E"
     },
@@ -2187,80 +3063,40 @@
       "ToType": "cCoder.Eventing.Http.HttpEventHub"
     },
     {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventBroker",
-      "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Http.Dependencies.HttpEventBroker\u003E"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventBroker",
-      "ToType": "System.Net.Http.IHttpClientFactory"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventBroker",
-      "ToType": "cCoder.Eventing.Http.Models.HttpEventingOptions"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
-      "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Http.Dependencies.HttpEventDispatcher\u003E"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
-      "ToType": "cCoder.Eventing.Brokers.IServiceProviderBroker"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
-      "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventHandlerRegistry"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
-      "ToType": "cCoder.Eventing.Http.Models.HttpEventingOptions"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher",
-      "ToType": "cCoder.Eventing.Models.EventProvider"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcherHostedService",
-      "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Http.Dependencies.HttpEventDispatcherHostedService\u003E"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcherHostedService",
-      "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcher"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcherHostedService",
-      "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventQueue"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventDispatcherHostedService",
-      "ToType": "cCoder.Eventing.Http.Models.HttpEventingOptions"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingServiceDependency",
-      "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
-      "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Eventing.Http.Dependencies.HttpEventServiceDependency\u003E"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
-      "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventBroker"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
-      "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventHandlerRegistry"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
-      "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventQueue"
-    },
-    {
-      "FromType": "cCoder.Eventing.Http.Dependencies.HttpEventServiceDependency",
-      "ToType": "cCoder.Eventing.Http.Models.HttpEventingOptions"
+      "FromType": "cCoder.Eventing.Http.HttpEventDispatcherHostedService",
+      "ToType": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService"
     },
     {
       "FromType": "cCoder.Eventing.Http.HttpEventHub",
-      "ToType": "cCoder.Eventing.Http.Dependencies.HttpEventProcessingServiceDependency"
+      "ToType": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Services.Foundations.HttpEventService",
+      "ToType": "cCoder.Eventing.Brokers.IServiceProviderBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Services.Foundations.HttpEventService",
+      "ToType": "cCoder.Eventing.Http.Brokers.HttpEventBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService",
+      "ToType": "cCoder.Eventing.Http.Brokers.Loggings.LoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService",
+      "ToType": "cCoder.Eventing.Http.Services.Foundations.HttpEventService"
     }
   ],
   "AnalysisItems": []

@@ -3,20 +3,32 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing.Http.Models;
-using cCoder.Eventing.Models;
 
 namespace cCoder.Eventing.Http.Services.Foundations;
 
 internal interface IHttpEventService
 {
-    void ListenToEvent<T>(string name, Func<IServiceProvider, T, ValueTask> handler);
+    bool IsConfigured();
 
-    ValueTask RaiseEventAsync<T>(
+    string Serialize(object value);
+
+    ValueTask SendHttpEventMessageAsync(
+        HttpEventMessage httpEventMessage,
+        CancellationToken cancellationToken = default);
+
+    void ListenToEvent<T>(
         string name,
-        EventMessage<T> message,
+        Func<IServiceProvider, T, ValueTask> handler);
+
+    ValueTask EnqueueHttpEventMessageAsync(
+        HttpEventMessage httpEventMessage,
         CancellationToken cancellationToken = default);
 
-    ValueTask ReceiveEventAsync(
-        HttpEventMessage message,
-        CancellationToken cancellationToken = default);
+    int GetMaxConcurrency();
+
+    IAsyncEnumerable<HttpEventMessage> ReadAllHttpEventMessagesAsync(
+        CancellationToken cancellationToken);
+
+    ValueTask<bool> DispatchHttpEventMessageAsync(
+        HttpEventMessage httpEventMessage);
 }

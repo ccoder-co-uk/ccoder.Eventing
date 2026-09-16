@@ -40,7 +40,11 @@ public sealed partial class ArchitectureOwnershipTests
         };
 
         IEventProviderBroker broker = new EventProviderBroker(
-            eventProvider: provider);
+            configuration: new EventProviderBrokerConfiguration
+            {
+                CanSend = provider.CanSend,
+                HandleSendAsync = provider.HandleSendAsync
+            });
 
         // When
 
@@ -91,7 +95,11 @@ public sealed partial class ArchitectureOwnershipTests
         };
 
         IBulkEventProviderBroker broker = new BulkEventProviderBroker(
-            eventProvider: provider);
+            configuration: new BulkEventProviderBrokerConfiguration
+            {
+                CanHandle = provider.CanHandle,
+                HandleAsync = provider.HandleAsync
+            });
 
         // When
 

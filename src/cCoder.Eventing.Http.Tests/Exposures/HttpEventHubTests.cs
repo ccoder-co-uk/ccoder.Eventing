@@ -72,8 +72,8 @@ public partial class HttpEventHubTests
             times: Times.Once);
 
         processingService.Verify(
-            expression: service => service.ReceiveEventAsync(
-                message: transportMessage,
+            expression: service => service.ReceiveHttpEventMessageAsync(
+                httpEventMessage: transportMessage,
                 cancellationToken: cancellationToken),
             times: Times.Once);
     }
