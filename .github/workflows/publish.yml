@@ -34,7 +34,7 @@ jobs:
           "value=$(Get-Date -Format 'yyyy.M.d.HHmm')" >> $env:GITHUB_OUTPUT
 
       - name: Restore
-        run: dotnet restore src/cCoder.Eventing.slnx
+        run: dotnet restore src/cCoder.Eventing.slnx --no-http-cache
 
       - name: Build
         run: dotnet build src/cCoder.Eventing.slnx -c Release --no-restore -m /p:Version="${{ steps.version.outputs.value }}"
