@@ -41,7 +41,11 @@ public partial class EventProviderServiceTests
         return new EventProviderService(
             eventProviderBrokers: eventProviders.Select(
                 selector: provider => new EventProviderBroker(
-                    eventProvider: provider)),
+                    configuration: new EventProviderBrokerConfiguration
+                    {
+                        CanSend = provider.CanSend,
+                        HandleSendAsync = provider.HandleSendAsync
+                    })),
             serviceProviderBroker: serviceProviderBrokerMock.Object,
             log: loggerMock.Object);
     }
@@ -52,7 +56,11 @@ public partial class EventProviderServiceTests
         return new BulkEventProviderService(
             eventProviderBrokers: bulkEventProviders.Select(
                 selector: provider => new BulkEventProviderBroker(
-                    eventProvider: provider)),
+                    configuration: new BulkEventProviderBrokerConfiguration
+                    {
+                        CanHandle = provider.CanHandle,
+                        HandleAsync = provider.HandleAsync
+                    })),
             serviceProviderBroker: serviceProviderBrokerMock.Object,
             log: loggerMock.Object);
     }

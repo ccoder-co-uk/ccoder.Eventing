@@ -23,8 +23,15 @@ public abstract class EventProvider
         HandleReceiveAsync(serviceProvider:serviceProvider, eventName:eventName, message:eventMessage);
 
     internal bool CanSend<T>(string name) =>
+        CanSend(
+            name: name,
+            messageType: typeof(T));
+
+    internal bool CanSend(
+        string name,
+        Type messageType) =>
         Events?.Contains(value:name, comparer:StringComparer.Ordinal) == true &&
-        MessageType == typeof(T) &&
+        MessageType == messageType &&
         HasSendHandler;
 
     internal bool CanReceive<T>(string name) =>

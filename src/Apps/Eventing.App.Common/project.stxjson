@@ -202,7 +202,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Controllers.ChatController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 13,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -221,7 +221,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Controllers.ChatController.Post(cCoder.Eventing.Apps.Models.ChatMessageRequest,System.Threading.CancellationToken)",
           "Name": "Post",
-          "LineNumber": 22,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "newChatMessageRequest",
@@ -264,10 +264,10 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "cCoder.Eventing.Apps.Exposures.IChatManager",
+              "TypeName": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService",
               "MethodName": "SendChatMessageAsync",
-              "MethodId": "cCoder.Eventing.Apps.Exposures.IChatManager.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)",
-              "StandardElementType": "Exposure",
+              "MethodId": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)",
+              "StandardElementType": "OrchestrationService",
               "IsDependencyBoundary": false
             },
             {
@@ -360,6 +360,119 @@
       "Interfaces": [],
       "Properties": [],
       "Methods": []
+    },
+    {
+      "Name": "cCoder.Eventing.Apps.Exposures.ChatManager",
+      "StandardElementType": "Exposure",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "Eventing.App.Common:cCoder.Eventing.Apps.Exposures.IChatManager",
+          "FullName": "cCoder.Eventing.Apps.Exposures.IChatManager",
+          "Name": "IChatManager",
+          "Namespace": "cCoder.Eventing.Apps.Exposures",
+          "AssemblyName": "Eventing.App.Common",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Exposure"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Apps.Exposures.ChatManager.ReceiveChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
+          "Name": "ReceiveChatMessageAsync",
+          "LineNumber": 20,
+          "Inputs": [
+            {
+              "Name": "chatMessage",
+              "Type": "cCoder.Eventing.Apps.Models.ChatMessage"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [
+            "cCoder.Eventing.Apps.Exposures.IChatManager.ReceiveChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService",
+              "MethodName": "ReceiveChatMessageAsync",
+              "MethodId": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService.ReceiveChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
+              "StandardElementType": "OrchestrationService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceDependencyException",
+            "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceException",
+            "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Apps.Exposures.ChatManager.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)",
+          "Name": "SendChatMessageAsync",
+          "LineNumber": 13,
+          "Inputs": [
+            {
+              "Name": "chatMessage",
+              "Type": "cCoder.Eventing.Apps.Models.ChatMessage"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E",
+          "Implements": [
+            "cCoder.Eventing.Apps.Exposures.IChatManager.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService",
+              "MethodName": "SendChatMessageAsync",
+              "MethodId": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)",
+              "StandardElementType": "OrchestrationService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceDependencyException",
+            "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceException",
+            "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
     },
     {
       "Name": "cCoder.Eventing.Apps.IServiceCollectionExtensions",
@@ -819,7 +932,7 @@
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask",
           "Implements": [
-            "cCoder.Eventing.Apps.Exposures.IChatManager.ReceiveChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)"
+            "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService.ReceiveChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)"
           ],
           "Calls": [
             {
@@ -866,7 +979,7 @@
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E",
           "Implements": [
-            "cCoder.Eventing.Apps.Exposures.IChatManager.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)"
+            "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)"
           ],
           "Calls": [
             {
@@ -1164,10 +1277,10 @@
               "IsDependencyBoundary": true
             },
             {
-              "TypeName": "cCoder.Eventing.Apps.Exposures.IChatManager",
+              "TypeName": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService",
               "MethodName": "ReceiveChatMessageAsync",
-              "MethodId": "cCoder.Eventing.Apps.Exposures.IChatManager.ReceiveChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
-              "StandardElementType": "Exposure",
+              "MethodId": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService.ReceiveChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
+              "StandardElementType": "OrchestrationService",
               "IsDependencyBoundary": false
             },
             {
@@ -1482,24 +1595,68 @@
     {
       "Name": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService",
       "StandardElementType": "OrchestrationService",
-      "LineNumber": 10,
-      "IsPublic": false,
+      "LineNumber": 9,
+      "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
-      "Interfaces": [
-        {
-          "Id": "Eventing.App.Common:cCoder.Eventing.Apps.Exposures.IChatManager",
-          "FullName": "cCoder.Eventing.Apps.Exposures.IChatManager",
-          "Name": "IChatManager",
-          "Namespace": "cCoder.Eventing.Apps.Exposures",
-          "AssemblyName": "Eventing.App.Common",
-          "Kind": "Interface",
-          "IsInCurrentProject": true,
-          "StandardElementType": "Exposure"
-        }
-      ],
+      "Interfaces": [],
       "Properties": [],
-      "Methods": []
+      "Methods": [
+        {
+          "Id": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService.ReceiveChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
+          "Name": "ReceiveChatMessageAsync",
+          "LineNumber": 15,
+          "Inputs": [
+            {
+              "Name": "chatMessage",
+              "Type": "cCoder.Eventing.Apps.Models.ChatMessage"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
+          "Id": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)",
+          "Name": "SendChatMessageAsync",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "chatMessage",
+              "Type": "cCoder.Eventing.Apps.Models.ChatMessage"
+            },
+            {
+              "Name": "cancellationToken",
+              "Type": "System.Threading.CancellationToken"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
     },
     {
       "Name": "cCoder.Eventing.Apps.Services.Processings.IChatEventTransportProcessingService",
@@ -1604,6 +1761,10 @@
     {
       "FromType": "cCoder.Eventing.Apps.Controllers.ChatController",
       "ToType": "cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker"
+    },
+    {
+      "FromType": "cCoder.Eventing.Apps.Exposures.ChatManager",
+      "ToType": "cCoder.Eventing.Apps.Services.Orchestrations.ChatOrchestrationService"
     },
     {
       "FromType": "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceDependencyException",

@@ -2,99 +2,120 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Eventing.Http.Dependencies;
+using cCoder.Eventing.Http.Brokers.Loggings;
 using cCoder.Eventing.Http.Models;
 using cCoder.Eventing.Http.Services.Foundations;
+using cCoder.Eventing.Http.Services.Processings;
 using cCoder.Eventing.Models;
+using FluentAssertions;
 using Moq;
 using Xunit;
 
 namespace cCoder.Eventing.Http.Tests.Services;
 
-public partial class HttpEventProcessingServiceTests
+public sealed partial class HttpEventProcessingServiceTests
 {
     [Fact]
-    public async Task ShouldForwardAllSingleEventOperations()
+    public async Task ShouldMapAndSendSingleEventMessage()
     {
         // Given
 
-        const string eventName = "test-event";
-        CancellationToken cancellationToken = new(canceled: false);
-        EventMessage<FakePayload> message = new();
-        HttpEventMessage transportMessage = new();
+        HttpEventMessage actualMessage = null;
+        Mock<IHttpEventService> eventService = CreateEventServiceMock();
 
-        Func<IServiceProvider, FakePayload, ValueTask> handler =
-            (_, _) => ValueTask.CompletedTask;
+        eventService
+            .Setup(expression: service => service.SendHttpEventMessageAsync(
+                httpEventMessage: It.IsAny<HttpEventMessage>(),
+                cancellationToken: It.IsAny<CancellationToken>()))
+            .Callback<HttpEventMessage, CancellationToken>(
+                action: (message, _) => actualMessage = message)
+            .Returns(value: ValueTask.CompletedTask);
 
-        Mock<IHttpEventService> eventService = new();
-
-        HttpEventProcessingServiceDependency processingService = new(
-            httpEventService: eventService.Object);
+        HttpEventProcessingService service = new(
+            httpEventService: eventService.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
 
-        processingService.ListenToEvent(name: eventName, handler: handler);
-
-        await processingService.RaiseEventAsync(
-            name: eventName,
-            message: message,
-            cancellationToken: cancellationToken);
-
-        await processingService.ReceiveEventAsync(
-            message: transportMessage,
-            cancellationToken: cancellationToken);
+        await service.RaiseEventAsync(
+            name: "event",
+            message: new EventMessage<FakePayload>
+            {
+                AuthInfo = new EventAuthInfo { SSOUserId = "user-123" },
+                Data = new FakePayload { Value = "hello" }
+            });
 
         // Then
 
-        eventService.Verify(
-            expression: service => service.ListenToEvent(
-                name: eventName,
-                handler: handler),
-            times: Times.Once);
+        actualMessage.EventName
+            .Should()
+            .Be(expected: "event");
 
-        eventService.Verify(
-            expression: service => service.RaiseEventAsync(
-                name: eventName,
-                message: message,
-                cancellationToken: cancellationToken),
-            times: Times.Once);
+        actualMessage.SSOUserId
+            .Should()
+            .Be(expected: "user-123");
 
-        eventService.Verify(
-            expression: service => service.ReceiveEventAsync(
-                message: transportMessage,
-                cancellationToken: cancellationToken),
-            times: Times.Once);
+        actualMessage.Data
+            .Should()
+            .Be(expected: "serialized");
     }
 
     [Fact]
-    public async Task ShouldForwardEveryBulkEventAndAcceptNullArrays()
+    public async Task ShouldSendEveryBulkEventMessage()
     {
         // Given
 
-        const string eventName = "test-event";
-        EventMessage<FakePayload>[] messages = [new(), new()];
-        Mock<IHttpEventService> eventService = new();
+        Mock<IHttpEventService> eventService = CreateEventServiceMock();
 
-        HttpEventProcessingServiceDependency processingService = new(
-            httpEventService: eventService.Object);
+        HttpEventProcessingService service = new(
+            httpEventService: eventService.Object,
+            loggingBroker: Mock.Of<ILoggingBroker>());
 
         // When
 
-        await processingService.RaiseEventsAsync(
-            name: eventName,
-            messages: messages);
-
-        await processingService.RaiseEventsAsync<FakePayload>(
-            name: eventName,
-            messages: null);
+        await service.RaiseEventsAsync(
+            name: "event",
+            messages:
+            [
+                CreateEventMessage(),
+                CreateEventMessage()
+            ]);
 
         // Then
 
         eventService.Verify(
-            expression: service => service.RaiseEventAsync(
-                name: eventName,
-                message: It.IsAny<EventMessage<FakePayload>>(),
+            expression: value => value.SendHttpEventMessageAsync(
+                httpEventMessage: It.IsAny<HttpEventMessage>(),
                 cancellationToken: It.IsAny<CancellationToken>()),
             times: Times.Exactly(callCount: 2));
     }
+
+    private static Mock<IHttpEventService> CreateEventServiceMock()
+    {
+        Mock<IHttpEventService> eventService = new();
+
+        eventService
+            .Setup(expression: service => service.IsConfigured())
+            .Returns(value: true);
+
+        eventService
+            .Setup(expression: service => service.Serialize(
+                value: It.IsAny<object>()))
+            .Returns(value: "serialized");
+
+        eventService
+            .Setup(expression: service => service.SendHttpEventMessageAsync(
+                httpEventMessage: It.IsAny<HttpEventMessage>(),
+                cancellationToken: It.IsAny<CancellationToken>()))
+            .Returns(value: ValueTask.CompletedTask);
+
+        return eventService;
+    }
+
+    private static EventMessage<FakePayload> CreateEventMessage() =>
+        new()
+        {
+            AuthInfo = new EventAuthInfo(),
+            Data = new FakePayload()
+        };
 }

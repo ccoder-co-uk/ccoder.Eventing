@@ -129,7 +129,11 @@ public static class IServiceCollectionExtensions
                 services.AddSingleton(implementationInstance: eventProvider);
                 services.AddSingleton<IEventProviderBroker>(
                     implementationInstance: new EventProviderBroker(
-                        eventProvider: eventProvider));
+                        configuration: new EventProviderBrokerConfiguration
+                        {
+                            CanSend = eventProvider.CanSend,
+                            HandleSendAsync = eventProvider.HandleSendAsync
+                        }));
             }
         }
     }
@@ -145,7 +149,11 @@ public static class IServiceCollectionExtensions
                 services.AddSingleton(implementationInstance: bulkEventProvider);
                 services.AddSingleton<IBulkEventProviderBroker>(
                     implementationInstance: new BulkEventProviderBroker(
-                        eventProvider: bulkEventProvider));
+                        configuration: new BulkEventProviderBrokerConfiguration
+                        {
+                            CanHandle = bulkEventProvider.CanHandle,
+                            HandleAsync = bulkEventProvider.HandleAsync
+                        }));
             }
         }
     }

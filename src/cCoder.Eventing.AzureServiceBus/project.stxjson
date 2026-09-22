@@ -269,7 +269,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusBroker.Listen(System.String,System.Func\u003CcCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E,System.Func\u003CSystem.Exception, System.Threading.Tasks.Task\u003E)",
           "Name": "Listen",
-          "LineNumber": 20,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "name",
@@ -288,7 +288,22 @@
           "Implements": [
             "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker.Listen(System.String,System.Func\u003CcCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E,System.Func\u003CSystem.Exception, System.Threading.Tasks.Task\u003E)"
           ],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "System.BinaryData",
+              "MethodName": "ToObjectFromJson",
+              "MethodId": "System.BinaryData.ToObjectFromJson(System.Text.Json.JsonSerializerOptions?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Func\u003CT, TResult\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Func\u003CT, TResult\u003E.Invoke(T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -319,7 +334,22 @@
           "Implements": [
             "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker.SendAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)"
           ],
-          "Calls": [],
+          "Calls": [
+            {
+              "TypeName": "System.BinaryData",
+              "MethodName": ".ctor",
+              "MethodId": "System.BinaryData..ctor(System.Object?,System.Text.Json.JsonSerializerOptions?,System.Type?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "System.Guid",
+              "MethodName": "NewGuid",
+              "MethodId": "System.Guid.NewGuid()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
           "PossibleExceptionTypes": [],
           "IncomingExceptionTypes": [],
           "ThrowsExceptionTypes": [],
@@ -568,7 +598,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency",
       "StandardElementType": "Dependency",
-      "LineNumber": 10,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -589,7 +619,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency.DisposeAsync()",
           "Name": "DisposeAsync",
-          "LineNumber": 109,
+          "LineNumber": 105,
           "Inputs": [],
           "ReturnType": "System.Threading.Tasks.ValueTask",
           "Implements": [
@@ -2017,7 +2047,11 @@
     },
     {
       "FromType": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency",
-      "ToType": "cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration"
+      "ToType": "System.Int32"
+    },
+    {
+      "FromType": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency",
+      "ToType": "System.String"
     },
     {
       "FromType": "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",

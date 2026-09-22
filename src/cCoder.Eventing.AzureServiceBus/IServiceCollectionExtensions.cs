@@ -108,7 +108,9 @@ public static class IServiceCollectionExtensions
     {
         services.AddSingleton(
             implementationFactory: _ =>
-                new ServiceBusDependency(configuration: configuration));
+                new ServiceBusDependency(
+                    connectionString: configuration.ConnectionString,
+                    maxConcurrency: configuration.MaxConcurrency));
 
         return services;
     }

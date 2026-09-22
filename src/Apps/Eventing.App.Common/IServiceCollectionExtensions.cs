@@ -87,13 +87,13 @@ public static class IServiceCollectionExtensions
         this IServiceCollection services)
     {
         services.AddSingleton<IChatOrchestrationService, ChatOrchestrationService>();
-        services.AddSingleton<IChatManager, ChatOrchestrationService>();
 
         return services;
     }
 
     private static IServiceCollection AddExposures(this IServiceCollection services)
     {
+        services.AddSingleton<IChatManager, ChatManager>();
         services.AddSignalR();
 
         IMvcBuilder mvcBuilder = services.AddControllers();

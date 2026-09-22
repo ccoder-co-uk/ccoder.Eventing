@@ -12,28 +12,39 @@ public class HttpEventHub : IHttpEventHub
 {
     private readonly IHttpEventProcessingService httpEventProcessingService;
 
-    internal HttpEventHub(IHttpEventProcessingService httpEventProcessingService) =>
+    internal HttpEventHub(
+        IHttpEventProcessingService httpEventProcessingService) =>
         this.httpEventProcessingService = httpEventProcessingService;
 
     public void ListenToEvent<T>(
         string name,
         Func<IServiceProvider, T, ValueTask> handler) =>
-        httpEventProcessingService.ListenToEvent(name:name, handler:handler);
+        httpEventProcessingService.ListenToEvent(
+            name: name,
+            handler: handler);
 
     public ValueTask RaiseEventAsync<T>(
         string name,
         EventMessage<T> message,
         CancellationToken cancellationToken = default) =>
-        httpEventProcessingService.RaiseEventAsync(name:name, message:message, cancellationToken:cancellationToken);
+        httpEventProcessingService.RaiseEventAsync(
+            name: name,
+            message: message,
+            cancellationToken: cancellationToken);
 
     public ValueTask RaiseEventsAsync<T>(
         string name,
         EventMessage<T>[] messages,
         CancellationToken cancellationToken = default) =>
-        httpEventProcessingService.RaiseEventsAsync(name:name, messages:messages, cancellationToken:cancellationToken);
+        httpEventProcessingService.RaiseEventsAsync(
+            name: name,
+            messages: messages,
+            cancellationToken: cancellationToken);
 
     public ValueTask ReceiveEventAsync(
         HttpEventMessage httpEventMessage,
         CancellationToken cancellationToken = default) =>
-        httpEventProcessingService.ReceiveEventAsync(message:httpEventMessage, cancellationToken:cancellationToken);
+        httpEventProcessingService.ReceiveHttpEventMessageAsync(
+            httpEventMessage: httpEventMessage,
+            cancellationToken: cancellationToken);
 }
