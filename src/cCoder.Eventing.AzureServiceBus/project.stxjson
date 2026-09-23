@@ -1482,11 +1482,11 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.CodeAnalysis:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "Name": "IUtilityBroker",
           "Namespace": "cCoder.CodeAnalysis.Exposures",
-          "AssemblyName": "cCoder.CodeAnalysis",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
           "Kind": "Interface",
           "IsInCurrentProject": false,
           "StandardElementType": "Dependency"
@@ -1550,11 +1550,11 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.CodeAnalysis:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "Name": "IUtilityBroker",
           "Namespace": "cCoder.CodeAnalysis.Exposures",
-          "AssemblyName": "cCoder.CodeAnalysis",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
           "Kind": "Interface",
           "IsInCurrentProject": false,
           "StandardElementType": "Dependency"
@@ -1663,11 +1663,11 @@
       "BaseType": null,
       "Interfaces": [
         {
-          "Id": "cCoder.CodeAnalysis:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "FullName": "cCoder.CodeAnalysis.Exposures.IUtilityBroker",
           "Name": "IUtilityBroker",
           "Namespace": "cCoder.CodeAnalysis.Exposures",
-          "AssemblyName": "cCoder.CodeAnalysis",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
           "Kind": "Interface",
           "IsInCurrentProject": false,
           "StandardElementType": "Dependency"

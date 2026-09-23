@@ -15,6 +15,31 @@ namespace cCoder.Eventing.Http.Tests;
 public sealed partial class ArchitectureDependencyTests
 {
     [Fact]
+    public void RuntimeAssembly_WhenAnalyzerIsNotDeployed_UsesContractsAssembly()
+    {
+        // Given
+
+        Assembly runtimeAssembly = typeof(IHttpEventHub).Assembly;
+
+        // When
+
+        string[] runtimeDependencies = runtimeAssembly
+            .GetReferencedAssemblies()
+            .Select(selector: dependency => dependency.Name)
+            .ToArray();
+
+        // Then
+
+        runtimeDependencies
+            .Should()
+            .NotContain(unexpected: "cCoder.CodeAnalysis");
+
+        runtimeDependencies
+            .Should()
+            .Contain(expected: "cCoder.CodeAnalysis.Contracts");
+    }
+
+    [Fact]
     public void HttpEventController_WhenConstructed_ConsumesProcessingServiceDirectly()
     {
         // Given

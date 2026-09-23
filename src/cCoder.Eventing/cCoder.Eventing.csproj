@@ -32,7 +32,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.9.22.2024" PrivateAssets="all" />
+		<PackageReference Include="cCoder.CodeAnalysis" Version="2026.9.23.1632" IncludeAssets="analyzers;build;buildTransitive" PrivateAssets="all" />
+		<PackageReference Include="cCoder.CodeAnalysis.Contracts" Version="2026.9.23.1632" />
 	</ItemGroup>
 	
 </Project>
