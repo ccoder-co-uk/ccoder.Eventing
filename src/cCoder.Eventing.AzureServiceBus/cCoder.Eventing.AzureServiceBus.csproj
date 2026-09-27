@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.20.2" />
-    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.9.27.1158" IncludeAssets="analyzers;build;buildTransitive" PrivateAssets="all" />
-    <PackageReference Include="cCoder.CodeAnalysis.Contracts" Version="2026.9.27.1158" />
+    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.9.27.1258" IncludeAssets="analyzers;build;buildTransitive" PrivateAssets="all" />
+    <PackageReference Include="cCoder.CodeAnalysis.Contracts" Version="2026.9.27.1258" />
   </ItemGroup>
 
   <ItemGroup>
