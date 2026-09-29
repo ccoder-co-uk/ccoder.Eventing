@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Linq;
+
 namespace cCoder.Eventing.AzureServiceBus.Services.Processings;
 
 internal sealed partial class ServiceBusProcessingService

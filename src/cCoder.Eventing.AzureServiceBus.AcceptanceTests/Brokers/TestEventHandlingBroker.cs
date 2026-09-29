@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Collections.Generic;
+
 using cCoder.Eventing.AzureServiceBus.AcceptanceTests.Models;
 
 namespace cCoder.Eventing.AzureServiceBus.AcceptanceTests.Brokers;

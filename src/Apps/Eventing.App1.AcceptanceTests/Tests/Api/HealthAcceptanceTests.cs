@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Net.Http;
+using System.Threading.Tasks;
+
 using Eventing.App1.AcceptanceTests.Infrastructure;
 using FluentAssertions;
 

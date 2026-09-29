@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
+
 using cCoder.Eventing.Http.Models.Exceptions;
 
 namespace cCoder.Eventing.Http.Services.Processings;

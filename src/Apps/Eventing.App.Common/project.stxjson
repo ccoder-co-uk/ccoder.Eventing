@@ -9,7 +9,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Brokers.ChatEventBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 10,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -30,7 +30,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Brokers.ChatEventBroker.RaiseChatMessageAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E)",
           "Name": "RaiseChatMessageAsync",
-          "LineNumber": 13,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "name",
@@ -71,7 +71,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Brokers.ChatHttpEventBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 11,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -92,7 +92,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Brokers.ChatHttpEventBroker.RaiseChatMessageAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E,System.Threading.CancellationToken)",
           "Name": "RaiseChatMessageAsync",
-          "LineNumber": 14,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "name",
@@ -137,7 +137,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Brokers.ChatHubBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 11,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -158,7 +158,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Brokers.ChatHubBroker.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
           "Name": "SendChatMessageAsync",
-          "LineNumber": 15,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -202,7 +202,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Controllers.ChatController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 12,
+      "LineNumber": 17,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -221,7 +221,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Controllers.ChatController.Post(cCoder.Eventing.Apps.Models.ChatMessageRequest,System.Threading.CancellationToken)",
           "Name": "Post",
-          "LineNumber": 21,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "newChatMessageRequest",
@@ -364,7 +364,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Exposures.ChatManager",
       "StandardElementType": "Exposure",
-      "LineNumber": 10,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -385,7 +385,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Exposures.ChatManager.ReceiveChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
           "Name": "ReceiveChatMessageAsync",
-          "LineNumber": 20,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -428,7 +428,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Exposures.ChatManager.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)",
           "Name": "SendChatMessageAsync",
-          "LineNumber": 13,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -477,7 +477,7 @@
     {
       "Name": "cCoder.Eventing.Apps.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 17,
+      "LineNumber": 19,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -487,7 +487,7 @@
         {
           "Id": "cCoder.Eventing.Apps.IServiceCollectionExtensions.AddAppCommon(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action\u003CcCoder.Eventing.Apps.Models.AppConfiguration\u003E?)",
           "Name": "AddAppCommon",
-          "LineNumber": 19,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "services",
@@ -564,7 +564,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Models.ChatMessage",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -636,7 +636,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceDependencyException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -656,7 +656,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -676,7 +676,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Models.Exceptions.ChatServiceValidationException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -696,7 +696,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Services.Foundations.ChatHttpEventService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 11,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -717,7 +717,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Services.Foundations.ChatHttpEventService.RaiseChatMessageAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E,System.Threading.CancellationToken)",
           "Name": "RaiseChatMessageAsync",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "eventMessage",
@@ -766,7 +766,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Services.Foundations.ChatLocalEventService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 11,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -787,7 +787,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Services.Foundations.ChatLocalEventService.RaiseChatMessageAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E,System.Threading.CancellationToken)",
           "Name": "RaiseChatMessageAsync",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "eventMessage",
@@ -836,7 +836,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Services.Foundations.ChatNotificationService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 10,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -857,7 +857,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Services.Foundations.ChatNotificationService.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
           "Name": "SendChatMessageAsync",
-          "LineNumber": 14,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -902,7 +902,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Services.Orchestrations.ChatOrchestrationService",
       "StandardElementType": "OrchestrationService",
-      "LineNumber": 10,
+      "LineNumber": 15,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -923,7 +923,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Services.Orchestrations.ChatOrchestrationService.ReceiveChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
           "Name": "ReceiveChatMessageAsync",
-          "LineNumber": 41,
+          "LineNumber": 46,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -966,7 +966,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Services.Orchestrations.ChatOrchestrationService.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)",
           "Name": "SendChatMessageAsync",
-          "LineNumber": 15,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -1036,7 +1036,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Services.Processings.ChatEventTransportProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 11,
+      "LineNumber": 15,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1057,7 +1057,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Services.Processings.ChatEventTransportProcessingService.RaiseChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)",
           "Name": "RaiseChatMessageAsync",
-          "LineNumber": 15,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -1120,7 +1120,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Services.Processings.ChatNotificationProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 10,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1141,7 +1141,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Services.Processings.ChatNotificationProcessingService.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
           "Name": "SendChatMessageAsync",
-          "LineNumber": 14,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -1186,7 +1186,7 @@
     {
       "Name": "cCoder.Eventing.Apps.WebApplicationExtensions",
       "StandardElementType": "App",
-      "LineNumber": 17,
+      "LineNumber": 20,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -1196,7 +1196,7 @@
         {
           "Id": "cCoder.Eventing.Apps.WebApplicationExtensions.StartEventingChat(Microsoft.AspNetCore.Builder.WebApplication)",
           "Name": "StartEventingChat",
-          "LineNumber": 19,
+          "LineNumber": 22,
           "Inputs": [
             {
               "Name": "app",
@@ -1328,7 +1328,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Brokers.IChatEventBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 10,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -1338,7 +1338,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Brokers.IChatEventBroker.RaiseChatMessageAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E)",
           "Name": "RaiseChatMessageAsync",
-          "LineNumber": 12,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "name",
@@ -1369,7 +1369,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Brokers.IChatHttpEventBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 10,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -1379,7 +1379,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Brokers.IChatHttpEventBroker.RaiseChatMessageAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E,System.Threading.CancellationToken)",
           "Name": "RaiseChatMessageAsync",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "name",
@@ -1414,7 +1414,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Brokers.IChatHubBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -1424,7 +1424,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Brokers.IChatHubBroker.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
           "Name": "SendChatMessageAsync",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -1451,7 +1451,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Exposures.IChatManager",
       "StandardElementType": "Exposure",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -1461,7 +1461,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Exposures.IChatManager.ReceiveChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
           "Name": "ReceiveChatMessageAsync",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -1486,7 +1486,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Exposures.IChatManager.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)",
           "Name": "SendChatMessageAsync",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -1517,7 +1517,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Services.Foundations.IChatEventTransportService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 10,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -1527,7 +1527,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Services.Foundations.IChatEventTransportService.RaiseChatMessageAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Eventing.Apps.Models.ChatMessage\u003E,System.Threading.CancellationToken)",
           "Name": "RaiseChatMessageAsync",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "eventMessage",
@@ -1558,7 +1558,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Services.Foundations.IChatNotificationService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -1568,7 +1568,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Services.Foundations.IChatNotificationService.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
           "Name": "SendChatMessageAsync",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -1595,7 +1595,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService",
       "StandardElementType": "OrchestrationService",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -1605,7 +1605,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService.ReceiveChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
           "Name": "ReceiveChatMessageAsync",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -1630,7 +1630,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Services.Orchestrations.IChatOrchestrationService.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)",
           "Name": "SendChatMessageAsync",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -1661,7 +1661,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Services.Processings.IChatEventTransportProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -1671,7 +1671,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Services.Processings.IChatEventTransportProcessingService.RaiseChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage,System.Threading.CancellationToken)",
           "Name": "RaiseChatMessageAsync",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "chatMessage",
@@ -1702,7 +1702,7 @@
     {
       "Name": "cCoder.Eventing.Apps.Services.Processings.IChatNotificationProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -1712,7 +1712,7 @@
         {
           "Id": "cCoder.Eventing.Apps.Services.Processings.IChatNotificationProcessingService.SendChatMessageAsync(cCoder.Eventing.Apps.Models.ChatMessage)",
           "Name": "SendChatMessageAsync",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "chatMessage",

@@ -9,7 +9,7 @@
     {
       "Name": "cCoder.Eventing.Http.Brokers.HttpEventBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 15,
+      "LineNumber": 22,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -30,7 +30,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.CreateMessage(cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration,cCoder.Eventing.Http.Models.HttpEventMessage)",
           "Name": "CreateMessage",
-          "LineNumber": 118,
+          "LineNumber": 125,
           "Inputs": [
             {
               "Name": "httpEventProviderBrokerConfiguration",
@@ -83,7 +83,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.Deserialize(cCoder.Eventing.Http.Models.HttpEventSubscription,cCoder.Eventing.Http.Models.HttpEventMessage)",
           "Name": "Deserialize",
-          "LineNumber": 103,
+          "LineNumber": 110,
           "Inputs": [
             {
               "Name": "httpEventSubscription",
@@ -122,7 +122,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.EnqueueAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "EnqueueAsync",
-          "LineNumber": 63,
+          "LineNumber": 70,
           "Inputs": [
             {
               "Name": "httpEventMessage",
@@ -161,7 +161,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.HandleAsync(cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration,System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage)",
           "Name": "HandleAsync",
-          "LineNumber": 136,
+          "LineNumber": 143,
           "Inputs": [
             {
               "Name": "httpEventProviderBrokerConfiguration",
@@ -208,7 +208,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.InsertSubscription(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "InsertSubscription",
-          "LineNumber": 74,
+          "LineNumber": 81,
           "Inputs": [
             {
               "Name": "name",
@@ -254,7 +254,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.IsConfigured()",
           "Name": "IsConfigured",
-          "LineNumber": 36,
+          "LineNumber": 43,
           "Inputs": [],
           "ReturnType": "System.Boolean",
           "Implements": [
@@ -284,7 +284,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.ReadAllAsync(System.Threading.CancellationToken)",
           "Name": "ReadAllAsync",
-          "LineNumber": 70,
+          "LineNumber": 77,
           "Inputs": [
             {
               "Name": "cancellationToken",
@@ -319,7 +319,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.SelectEventProviderConfigurations(System.String)",
           "Name": "SelectEventProviderConfigurations",
-          "LineNumber": 112,
+          "LineNumber": 119,
           "Inputs": [
             {
               "Name": "name",
@@ -368,7 +368,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.SelectMaxConcurrency()",
           "Name": "SelectMaxConcurrency",
-          "LineNumber": 39,
+          "LineNumber": 46,
           "Inputs": [],
           "ReturnType": "System.Int32",
           "Implements": [
@@ -398,7 +398,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.SelectSubscriptions(System.String)",
           "Name": "SelectSubscriptions",
-          "LineNumber": 91,
+          "LineNumber": 98,
           "Inputs": [
             {
               "Name": "name",
@@ -440,7 +440,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.SendAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "SendAsync",
-          "LineNumber": 47,
+          "LineNumber": 54,
           "Inputs": [
             {
               "Name": "httpEventMessage",
@@ -493,7 +493,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.HttpEventBroker.Serialize(System.Object)",
           "Name": "Serialize",
-          "LineNumber": 42,
+          "LineNumber": 49,
           "Inputs": [
             {
               "Name": "value",
@@ -530,7 +530,7 @@
     {
       "Name": "cCoder.Eventing.Http.Brokers.Loggings.LoggingBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -551,7 +551,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.Loggings.LoggingBroker.LogError(System.Exception,System.String,System.Object[])",
           "Name": "LogError",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "exception",
@@ -596,7 +596,7 @@
     {
       "Name": "cCoder.Eventing.Http.Controllers.HttpEventController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 12,
+      "LineNumber": 17,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -615,7 +615,7 @@
         {
           "Id": "cCoder.Eventing.Http.Controllers.HttpEventController.Post(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "Post",
-          "LineNumber": 20,
+          "LineNumber": 25,
           "Inputs": [
             {
               "Name": "newHttpEventMessage",
@@ -723,7 +723,7 @@
     {
       "Name": "cCoder.Eventing.Http.HttpEventDispatcherHostedService",
       "StandardElementType": "Exposure",
-      "LineNumber": 10,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -743,7 +743,7 @@
     {
       "Name": "cCoder.Eventing.Http.HttpEventHub",
       "StandardElementType": "Exposure",
-      "LineNumber": 11,
+      "LineNumber": 15,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -764,7 +764,7 @@
         {
           "Id": "cCoder.Eventing.Http.HttpEventHub.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 19,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "name",
@@ -813,7 +813,7 @@
         {
           "Id": "cCoder.Eventing.Http.HttpEventHub.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 26,
+          "LineNumber": 30,
           "Inputs": [
             {
               "Name": "name",
@@ -871,7 +871,7 @@
         {
           "Id": "cCoder.Eventing.Http.HttpEventHub.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[],System.Threading.CancellationToken)",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 35,
+          "LineNumber": 39,
           "Inputs": [
             {
               "Name": "name",
@@ -929,7 +929,7 @@
         {
           "Id": "cCoder.Eventing.Http.HttpEventHub.ReceiveEventAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "ReceiveEventAsync",
-          "LineNumber": 44,
+          "LineNumber": 48,
           "Inputs": [
             {
               "Name": "httpEventMessage",
@@ -1025,7 +1025,7 @@
     {
       "Name": "cCoder.Eventing.Http.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 17,
+      "LineNumber": 22,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -1035,7 +1035,7 @@
         {
           "Id": "cCoder.Eventing.Http.IServiceCollectionExtensions.AddHttpEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.Http.Models.HttpEventingOptions\u003E)",
           "Name": "AddHttpEventingHostedServices",
-          "LineNumber": 46,
+          "LineNumber": 51,
           "Inputs": [
             {
               "Name": "services",
@@ -1086,7 +1086,7 @@
         {
           "Id": "cCoder.Eventing.Http.IServiceCollectionExtensions.AddHttpEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Http.Models.HttpEventingOptions)",
           "Name": "AddHttpEventingHostedServices",
-          "LineNumber": 60,
+          "LineNumber": 65,
           "Inputs": [
             {
               "Name": "services",
@@ -1137,7 +1137,7 @@
         {
           "Id": "cCoder.Eventing.Http.IServiceCollectionExtensions.AddHttpEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.Http.Models.HttpEventingOptions\u003E)",
           "Name": "AddHttpEventingWeb",
-          "LineNumber": 19,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "services",
@@ -1188,7 +1188,7 @@
         {
           "Id": "cCoder.Eventing.Http.IServiceCollectionExtensions.AddHttpEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Http.Models.HttpEventingOptions)",
           "Name": "AddHttpEventingWeb",
-          "LineNumber": 33,
+          "LineNumber": 38,
           "Inputs": [
             {
               "Name": "services",
@@ -1227,7 +1227,7 @@
     {
       "Name": "cCoder.Eventing.Http.Models.Exceptions.ServiceDependencyException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -1247,7 +1247,7 @@
     {
       "Name": "cCoder.Eventing.Http.Models.Exceptions.ServiceException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -1267,7 +1267,7 @@
     {
       "Name": "cCoder.Eventing.Http.Models.Exceptions.ServiceValidationException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -1287,7 +1287,7 @@
     {
       "Name": "cCoder.Eventing.Http.Models.HttpEventBrokerConfiguration",
       "StandardElementType": "Model",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1339,7 +1339,7 @@
     {
       "Name": "cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration",
       "StandardElementType": "Model",
-      "LineNumber": 10,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1367,7 +1367,7 @@
     {
       "Name": "cCoder.Eventing.Http.Models.HttpEventSubscription",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1415,7 +1415,7 @@
     {
       "Name": "cCoder.Eventing.Http.Services.Foundations.HttpEventService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 13,
+      "LineNumber": 19,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1436,7 +1436,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.DispatchHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage)",
           "Name": "DispatchHttpEventMessageAsync",
-          "LineNumber": 87,
+          "LineNumber": 93,
           "Inputs": [
             {
               "Name": "httpEventMessage",
@@ -1523,7 +1523,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.EnqueueHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "EnqueueHttpEventMessageAsync",
-          "LineNumber": 58,
+          "LineNumber": 64,
           "Inputs": [
             {
               "Name": "httpEventMessage",
@@ -1575,7 +1575,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.GetMaxConcurrency()",
           "Name": "GetMaxConcurrency",
-          "LineNumber": 71,
+          "LineNumber": 77,
           "Inputs": [],
           "ReturnType": "System.Int32",
           "Implements": [
@@ -1613,7 +1613,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.IsConfigured()",
           "Name": "IsConfigured",
-          "LineNumber": 17,
+          "LineNumber": 23,
           "Inputs": [],
           "ReturnType": "System.Boolean",
           "Implements": [
@@ -1651,7 +1651,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 45,
+          "LineNumber": 51,
           "Inputs": [
             {
               "Name": "name",
@@ -1703,7 +1703,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.ReadAllHttpEventMessagesAsync(System.Threading.CancellationToken)",
           "Name": "ReadAllHttpEventMessagesAsync",
-          "LineNumber": 77,
+          "LineNumber": 83,
           "Inputs": [
             {
               "Name": "cancellationToken",
@@ -1748,7 +1748,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.SendHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "SendHttpEventMessageAsync",
-          "LineNumber": 31,
+          "LineNumber": 37,
           "Inputs": [
             {
               "Name": "httpEventMessage",
@@ -1810,7 +1810,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.HttpEventService.Serialize(System.Object)",
           "Name": "Serialize",
-          "LineNumber": 23,
+          "LineNumber": 29,
           "Inputs": [
             {
               "Name": "value",
@@ -1857,7 +1857,7 @@
     {
       "Name": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 12,
+      "LineNumber": 16,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1878,7 +1878,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 53,
+          "LineNumber": 57,
           "Inputs": [
             {
               "Name": "name",
@@ -1929,7 +1929,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService.ProcessHttpEventMessagesAsync(System.Threading.CancellationToken)",
           "Name": "ProcessHttpEventMessagesAsync",
-          "LineNumber": 77,
+          "LineNumber": 81,
           "Inputs": [
             {
               "Name": "cancellationToken",
@@ -1966,7 +1966,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 17,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "name",
@@ -2034,7 +2034,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[],System.Threading.CancellationToken)",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 39,
+          "LineNumber": 43,
           "Inputs": [
             {
               "Name": "name",
@@ -2087,7 +2087,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Processings.HttpEventProcessingService.ReceiveHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "ReceiveHttpEventMessageAsync",
-          "LineNumber": 65,
+          "LineNumber": 69,
           "Inputs": [
             {
               "Name": "httpEventMessage",
@@ -2142,7 +2142,7 @@
     {
       "Name": "cCoder.Eventing.Http.Brokers.IHttpEventBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 10,
+      "LineNumber": 16,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -2152,7 +2152,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.CreateMessage(cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration,cCoder.Eventing.Http.Models.HttpEventMessage)",
           "Name": "CreateMessage",
-          "LineNumber": 43,
+          "LineNumber": 49,
           "Inputs": [
             {
               "Name": "httpEventProviderBrokerConfiguration",
@@ -2181,7 +2181,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.Deserialize(cCoder.Eventing.Http.Models.HttpEventSubscription,cCoder.Eventing.Http.Models.HttpEventMessage)",
           "Name": "Deserialize",
-          "LineNumber": 36,
+          "LineNumber": 42,
           "Inputs": [
             {
               "Name": "httpEventSubscription",
@@ -2210,7 +2210,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.EnqueueAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "EnqueueAsync",
-          "LineNumber": 22,
+          "LineNumber": 28,
           "Inputs": [
             {
               "Name": "httpEventMessage",
@@ -2239,7 +2239,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.HandleAsync(cCoder.Eventing.Http.Models.HttpEventProviderBrokerConfiguration,System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage)",
           "Name": "HandleAsync",
-          "LineNumber": 48,
+          "LineNumber": 54,
           "Inputs": [
             {
               "Name": "httpEventProviderBrokerConfiguration",
@@ -2276,7 +2276,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.InsertSubscription(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "InsertSubscription",
-          "LineNumber": 29,
+          "LineNumber": 35,
           "Inputs": [
             {
               "Name": "name",
@@ -2305,7 +2305,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.IsConfigured()",
           "Name": "IsConfigured",
-          "LineNumber": 12,
+          "LineNumber": 18,
           "Inputs": [],
           "ReturnType": "System.Boolean",
           "Implements": [],
@@ -2325,7 +2325,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.ReadAllAsync(System.Threading.CancellationToken)",
           "Name": "ReadAllAsync",
-          "LineNumber": 26,
+          "LineNumber": 32,
           "Inputs": [
             {
               "Name": "cancellationToken",
@@ -2350,7 +2350,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SelectEventProviderConfigurations(System.String)",
           "Name": "SelectEventProviderConfigurations",
-          "LineNumber": 41,
+          "LineNumber": 47,
           "Inputs": [
             {
               "Name": "name",
@@ -2375,7 +2375,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SelectMaxConcurrency()",
           "Name": "SelectMaxConcurrency",
-          "LineNumber": 14,
+          "LineNumber": 20,
           "Inputs": [],
           "ReturnType": "System.Int32",
           "Implements": [],
@@ -2395,7 +2395,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SelectSubscriptions(System.String)",
           "Name": "SelectSubscriptions",
-          "LineNumber": 33,
+          "LineNumber": 39,
           "Inputs": [
             {
               "Name": "name",
@@ -2420,7 +2420,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.SendAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "SendAsync",
-          "LineNumber": 18,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "httpEventMessage",
@@ -2449,7 +2449,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.IHttpEventBroker.Serialize(System.Object)",
           "Name": "Serialize",
-          "LineNumber": 16,
+          "LineNumber": 22,
           "Inputs": [
             {
               "Name": "value",
@@ -2476,7 +2476,7 @@
     {
       "Name": "cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -2497,7 +2497,7 @@
         {
           "Id": "cCoder.Eventing.Http.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
           "Name": "LogError",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "exception",
@@ -2532,7 +2532,7 @@
     {
       "Name": "cCoder.Eventing.Http.IHttpEventHub",
       "StandardElementType": "Exposure",
-      "LineNumber": 10,
+      "LineNumber": 14,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -2542,7 +2542,7 @@
         {
           "Id": "cCoder.Eventing.Http.IHttpEventHub.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 12,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "name",
@@ -2571,7 +2571,7 @@
         {
           "Id": "cCoder.Eventing.Http.IHttpEventHub.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "name",
@@ -2604,7 +2604,7 @@
         {
           "Id": "cCoder.Eventing.Http.IHttpEventHub.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[],System.Threading.CancellationToken)",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 19,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "name",
@@ -2637,7 +2637,7 @@
         {
           "Id": "cCoder.Eventing.Http.IHttpEventHub.ReceiveEventAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "ReceiveEventAsync",
-          "LineNumber": 24,
+          "LineNumber": 28,
           "Inputs": [
             {
               "Name": "message",
@@ -2668,7 +2668,7 @@
     {
       "Name": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 9,
+      "LineNumber": 15,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -2678,7 +2678,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.DispatchHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage)",
           "Name": "DispatchHttpEventMessageAsync",
-          "LineNumber": 32,
+          "LineNumber": 38,
           "Inputs": [
             {
               "Name": "httpEventMessage",
@@ -2703,7 +2703,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.EnqueueHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "EnqueueHttpEventMessageAsync",
-          "LineNumber": 23,
+          "LineNumber": 29,
           "Inputs": [
             {
               "Name": "httpEventMessage",
@@ -2732,7 +2732,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.GetMaxConcurrency()",
           "Name": "GetMaxConcurrency",
-          "LineNumber": 27,
+          "LineNumber": 33,
           "Inputs": [],
           "ReturnType": "System.Int32",
           "Implements": [],
@@ -2752,7 +2752,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.IsConfigured()",
           "Name": "IsConfigured",
-          "LineNumber": 11,
+          "LineNumber": 17,
           "Inputs": [],
           "ReturnType": "System.Boolean",
           "Implements": [],
@@ -2772,7 +2772,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 19,
+          "LineNumber": 25,
           "Inputs": [
             {
               "Name": "name",
@@ -2801,7 +2801,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.ReadAllHttpEventMessagesAsync(System.Threading.CancellationToken)",
           "Name": "ReadAllHttpEventMessagesAsync",
-          "LineNumber": 29,
+          "LineNumber": 35,
           "Inputs": [
             {
               "Name": "cancellationToken",
@@ -2826,7 +2826,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.SendHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "SendHttpEventMessageAsync",
-          "LineNumber": 15,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "httpEventMessage",
@@ -2855,7 +2855,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Foundations.IHttpEventService.Serialize(System.Object)",
           "Name": "Serialize",
-          "LineNumber": 13,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "value",
@@ -2882,7 +2882,7 @@
     {
       "Name": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 10,
+      "LineNumber": 14,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -2892,7 +2892,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 22,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "name",
@@ -2921,7 +2921,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ProcessHttpEventMessagesAsync(System.Threading.CancellationToken)",
           "Name": "ProcessHttpEventMessagesAsync",
-          "LineNumber": 30,
+          "LineNumber": 34,
           "Inputs": [
             {
               "Name": "cancellationToken",
@@ -2946,7 +2946,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E,System.Threading.CancellationToken)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 12,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "name",
@@ -2979,7 +2979,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[],System.Threading.CancellationToken)",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 17,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "name",
@@ -3012,7 +3012,7 @@
         {
           "Id": "cCoder.Eventing.Http.Services.Processings.IHttpEventProcessingService.ReceiveHttpEventMessageAsync(cCoder.Eventing.Http.Models.HttpEventMessage,System.Threading.CancellationToken)",
           "Name": "ReceiveHttpEventMessageAsync",
-          "LineNumber": 26,
+          "LineNumber": 30,
           "Inputs": [
             {
               "Name": "httpEventMessage",

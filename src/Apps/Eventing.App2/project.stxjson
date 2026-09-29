@@ -9,7 +9,7 @@
     {
       "Name": "Eventing.App2.Program",
       "StandardElementType": "App",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -19,7 +19,7 @@
         {
           "Id": "Eventing.App2.Program.Main(System.String[])",
           "Name": "Main",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "args",

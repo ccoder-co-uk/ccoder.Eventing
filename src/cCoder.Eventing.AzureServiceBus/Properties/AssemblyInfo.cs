@@ -5,4 +5,5 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("cCoder.Eventing.AzureServiceBus.Tests")]
+[assembly: InternalsVisibleTo("cCoder.Eventing.AzureServiceBus.AcceptanceTests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

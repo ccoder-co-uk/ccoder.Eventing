@@ -2,27 +2,26 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
+
 using cCoder.Eventing.AzureServiceBus.Models;
 using cCoder.Eventing.AzureServiceBus.Services.Processings;
 using Moq;
-using Xunit;
 
-namespace cCoder.Eventing.AzureServiceBus.Tests.Exposures;
+namespace cCoder.Eventing.AzureServiceBus.AcceptanceTests.Hubs;
 
-public partial class AzureServiceBusEventHubTests
+public sealed partial class AzureServiceBusExposureAcceptanceTests
 {
     [Fact]
-    public async Task ShouldForwardEveryExposureOperation()
+    public async Task ShouldForwardEveryAzureServiceBusHubOperation()
     {
         // Given
 
         const string eventName = "test-event";
-        ServiceBusEventMessage<FakeObject> message = new();
-        ServiceBusEventMessage<FakeObject>[] messages = [message];
-
-        Func<IServiceProvider, FakeObject, ValueTask> handler =
-            (_, _) => ValueTask.CompletedTask;
-
+        ServiceBusEventMessage<string> message = new();
+        ServiceBusEventMessage<string>[] messages = [message];
+        Func<IServiceProvider, string, ValueTask> handler = (_, _) => ValueTask.CompletedTask;
         Mock<IServiceBusProcessingService> processingService = new();
 
         AzureServiceBusEventHub eventHub = new(
@@ -37,21 +36,15 @@ public partial class AzureServiceBusEventHubTests
         // Then
 
         processingService.Verify(
-            expression: service => service.ListenToEvent(
-                name: eventName,
-                handler: handler),
+            expression: service => service.ListenToEvent(name: eventName, handler: handler),
             times: Times.Once);
 
         processingService.Verify(
-            expression: service => service.RaiseEventAsync(
-                name: eventName,
-                message: message),
+            expression: service => service.RaiseEventAsync(name: eventName, message: message),
             times: Times.Once);
 
         processingService.Verify(
-            expression: service => service.RaiseEventsAsync(
-                name: eventName,
-                messages: messages),
+            expression: service => service.RaiseEventsAsync(name: eventName, messages: messages),
             times: Times.Once);
     }
 }

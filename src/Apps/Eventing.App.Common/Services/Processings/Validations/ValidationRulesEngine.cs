@@ -2,6 +2,11 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Linq;
+
+using System.Collections.Generic;
+
 using cCoder.Eventing.Apps.Models.Validations;
 
 namespace cCoder.Eventing.Apps.Services.Processings.Validations;

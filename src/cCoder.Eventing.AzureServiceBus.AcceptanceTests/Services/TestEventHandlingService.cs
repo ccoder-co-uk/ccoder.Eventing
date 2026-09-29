@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Threading.Tasks;
+
 using cCoder.Eventing.AzureServiceBus.AcceptanceTests.Brokers;
 using cCoder.Eventing.AzureServiceBus.AcceptanceTests.Models;
 using cCoder.Eventing.AzureServiceBus.Models;
