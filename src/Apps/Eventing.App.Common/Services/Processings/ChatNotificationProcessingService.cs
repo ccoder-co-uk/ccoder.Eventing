@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Threading.Tasks;
+
 using cCoder.Eventing.Apps.Models;
 using cCoder.Eventing.Apps.Services.Foundations;
 

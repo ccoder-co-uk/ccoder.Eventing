@@ -2,6 +2,11 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Linq;
+
+using System.Threading;
+
 namespace cCoder.Eventing.Http.Services.Foundations;
 
 using cCoder.Eventing.Http.Models;

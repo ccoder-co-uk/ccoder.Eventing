@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+
 using cCoder.Eventing.Models.Exceptions;
 
 namespace cCoder.Eventing.Services.Foundations;

@@ -2,6 +2,10 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+
+using System.Threading.Tasks;
+
 using cCoder.Eventing.AzureServiceBus.Services.Processings;
 using cCoder.Eventing.AzureServiceBus.Models;
 using cCoder.Eventing.AzureServiceBus.Models.Exceptions;

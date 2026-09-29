@@ -9,7 +9,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.AzureServiceBusEventHub",
       "StandardElementType": "Exposure",
-      "LineNumber": 10,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -30,7 +30,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.AzureServiceBusEventHub.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 17,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "name",
@@ -78,7 +78,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.AzureServiceBusEventHub.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 20,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "name",
@@ -129,7 +129,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.AzureServiceBusEventHub.RaiseEventsAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 23,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "name",
@@ -182,7 +182,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.LoggingBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -203,7 +203,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.LoggingBroker.LogError(System.Exception,System.String,System.Object[])",
           "Name": "LogError",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "exception",
@@ -248,7 +248,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 10,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -269,7 +269,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusBroker.Listen(System.String,System.Func\u003CcCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E,System.Func\u003CSystem.Exception, System.Threading.Tasks.Task\u003E)",
           "Name": "Listen",
-          "LineNumber": 21,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "name",
@@ -319,7 +319,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceBusBroker.SendAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
           "Name": "SendAsync",
-          "LineNumber": 13,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "name",
@@ -439,7 +439,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceProviderBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 10,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -460,7 +460,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceProviderBroker.GetScopeForEvent(cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage)",
           "Name": "GetScopeForEvent",
-          "LineNumber": 12,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "serviceBusEventMessage",
@@ -509,7 +509,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceProviderBroker.GetService()",
           "Name": "GetService",
-          "LineNumber": 27,
+          "LineNumber": 29,
           "Inputs": [],
           "ReturnType": "T",
           "Implements": [
@@ -539,7 +539,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceProviderBroker.GetService(System.Type)",
           "Name": "GetService",
-          "LineNumber": 30,
+          "LineNumber": 32,
           "Inputs": [
             {
               "Name": "type",
@@ -574,7 +574,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.ServiceProviderBroker.GetServiceProvider()",
           "Name": "GetServiceProvider",
-          "LineNumber": 24,
+          "LineNumber": 26,
           "Inputs": [],
           "ReturnType": "System.IServiceProvider",
           "Implements": [
@@ -598,7 +598,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency",
       "StandardElementType": "Dependency",
-      "LineNumber": 9,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -619,7 +619,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Dependencies.ServiceBusDependency.DisposeAsync()",
           "Name": "DisposeAsync",
-          "LineNumber": 105,
+          "LineNumber": 109,
           "Inputs": [],
           "ReturnType": "System.Threading.Tasks.ValueTask",
           "Implements": [
@@ -665,7 +665,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 15,
+      "LineNumber": 17,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -675,7 +675,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventing(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E)",
           "Name": "AddAzureServiceBusEventing",
-          "LineNumber": 64,
+          "LineNumber": 66,
           "Inputs": [
             {
               "Name": "services",
@@ -712,7 +712,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventing(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)",
           "Name": "AddAzureServiceBusEventing",
-          "LineNumber": 79,
+          "LineNumber": 81,
           "Inputs": [
             {
               "Name": "services",
@@ -741,7 +741,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E)",
           "Name": "AddAzureServiceBusEventingHostedServices",
-          "LineNumber": 40,
+          "LineNumber": 42,
           "Inputs": [
             {
               "Name": "services",
@@ -785,7 +785,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration)",
           "Name": "AddAzureServiceBusEventingHostedServices",
-          "LineNumber": 50,
+          "LineNumber": 52,
           "Inputs": [
             {
               "Name": "services",
@@ -822,7 +822,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration\u003E)",
           "Name": "AddAzureServiceBusEventingWeb",
-          "LineNumber": 17,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "services",
@@ -866,7 +866,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IServiceCollectionExtensions.AddAzureServiceBusEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.AzureServiceBus.Models.AzureServiceBusEventingConfiguration)",
           "Name": "AddAzureServiceBusEventingWeb",
-          "LineNumber": 26,
+          "LineNumber": 28,
           "Inputs": [
             {
               "Name": "services",
@@ -925,7 +925,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceDependencyException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -945,7 +945,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -965,7 +965,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Models.Exceptions.ServiceValidationException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -1053,7 +1053,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Services.Foundations.ServiceBusService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 12,
+      "LineNumber": 15,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1074,7 +1074,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Services.Foundations.ServiceBusService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 17,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "name",
@@ -1130,7 +1130,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Services.Foundations.ServiceBusService.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 48,
+          "LineNumber": 51,
           "Inputs": [
             {
               "Name": "name",
@@ -1188,7 +1188,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Services.Processings.ServiceBusProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 10,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1209,7 +1209,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.ServiceBusProcessingService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "name",
@@ -1258,7 +1258,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.ServiceBusProcessingService.RaiseEventAsync(System.String,T)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 24,
+          "LineNumber": 27,
           "Inputs": [
             {
               "Name": "name",
@@ -1310,7 +1310,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.ServiceBusProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 44,
+          "LineNumber": 47,
           "Inputs": [
             {
               "Name": "name",
@@ -1354,7 +1354,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.ServiceBusProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 53,
+          "LineNumber": 56,
           "Inputs": [
             {
               "Name": "name",
@@ -1402,7 +1402,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -1412,7 +1412,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker.Listen(System.String,System.Func\u003CcCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E, System.Threading.Tasks.ValueTask\u003E,System.Func\u003CSystem.Exception, System.Threading.Tasks.Task\u003E)",
           "Name": "Listen",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "name",
@@ -1445,7 +1445,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceBusBroker.SendAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
           "Name": "SendAsync",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "name",
@@ -1544,7 +1544,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 11,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -1565,7 +1565,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker.GetScopeForEvent(cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage)",
           "Name": "GetScopeForEvent",
-          "LineNumber": 13,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "serviceBusEventMessage",
@@ -1590,7 +1590,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker.GetService()",
           "Name": "GetService",
-          "LineNumber": 15,
+          "LineNumber": 17,
           "Inputs": [],
           "ReturnType": "T",
           "Implements": [],
@@ -1610,7 +1610,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker.GetService(System.Type)",
           "Name": "GetService",
-          "LineNumber": 14,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "type",
@@ -1635,7 +1635,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.IServiceProviderBroker.GetServiceProvider()",
           "Name": "GetServiceProvider",
-          "LineNumber": 16,
+          "LineNumber": 18,
           "Inputs": [],
           "ReturnType": "System.IServiceProvider",
           "Implements": [],
@@ -1657,7 +1657,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.ILoggingBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -1678,7 +1678,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
           "Name": "LogError",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "exception",
@@ -1713,7 +1713,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub",
       "StandardElementType": "Exposure",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -1723,7 +1723,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "name",
@@ -1752,7 +1752,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "name",
@@ -1781,7 +1781,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.IAzureServiceBusEventHub.RaiseEventsAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 13,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "name",
@@ -1828,7 +1828,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Services.Foundations.IServiceBusService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -1838,7 +1838,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Services.Foundations.IServiceBusService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "name",
@@ -1867,7 +1867,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Services.Foundations.IServiceBusService.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "name",
@@ -1898,7 +1898,7 @@
     {
       "Name": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -1908,7 +1908,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "name",
@@ -1937,7 +1937,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.RaiseEventAsync(System.String,T)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "name",
@@ -1966,7 +1966,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 13,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "name",
@@ -1995,7 +1995,7 @@
         {
           "Id": "cCoder.Eventing.AzureServiceBus.Services.Processings.IServiceBusProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.AzureServiceBus.Models.ServiceBusEventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 14,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "name",

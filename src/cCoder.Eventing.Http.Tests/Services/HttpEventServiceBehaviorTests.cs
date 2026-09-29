@@ -2,6 +2,11 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
 using cCoder.Eventing.Brokers;
 using cCoder.Eventing.Http.Brokers;
 using cCoder.Eventing.Http.Models;

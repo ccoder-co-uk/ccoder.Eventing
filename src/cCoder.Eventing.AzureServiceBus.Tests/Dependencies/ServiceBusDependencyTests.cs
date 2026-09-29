@@ -2,6 +2,11 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading;
+
+using System.Threading.Tasks;
+
 using Azure.Messaging.ServiceBus;
 using cCoder.Eventing.AzureServiceBus.Dependencies;
 using Moq;

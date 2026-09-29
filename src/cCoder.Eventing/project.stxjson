@@ -9,7 +9,7 @@
     {
       "Name": "cCoder.Eventing.Brokers.BulkEventProviderBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -30,7 +30,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.BulkEventProviderBroker.CanHandle(System.String)",
           "Name": "CanHandle",
-          "LineNumber": 13,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "name",
@@ -65,7 +65,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.BulkEventProviderBroker.HandleAsync(System.IServiceProvider,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
           "Name": "HandleAsync",
-          "LineNumber": 18,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "serviceProvider",
@@ -178,7 +178,7 @@
     {
       "Name": "cCoder.Eventing.Brokers.EventProviderBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -199,7 +199,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.EventProviderBroker.CanSend(System.String)",
           "Name": "CanSend",
-          "LineNumber": 13,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "name",
@@ -234,7 +234,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.EventProviderBroker.HandleSendAsync(System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "HandleSendAsync",
-          "LineNumber": 18,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "serviceProvider",
@@ -279,7 +279,7 @@
     {
       "Name": "cCoder.Eventing.Brokers.Loggings.LoggingBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -300,7 +300,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.Loggings.LoggingBroker.LogDebug(System.String,System.Object[])",
           "Name": "LogDebug",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "message",
@@ -339,7 +339,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.Loggings.LoggingBroker.LogError(System.Exception,System.String,System.Object[])",
           "Name": "LogError",
-          "LineNumber": 14,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "exception",
@@ -382,7 +382,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.Loggings.LoggingBroker.LogWarning(System.String,System.Object[])",
           "Name": "LogWarning",
-          "LineNumber": 17,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "message",
@@ -423,7 +423,7 @@
     {
       "Name": "cCoder.Eventing.Brokers.ServiceProviderBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 10,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -444,7 +444,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.ServiceProviderBroker.GetRequiredService(System.IServiceProvider)",
           "Name": "GetRequiredService",
-          "LineNumber": 31,
+          "LineNumber": 35,
           "Inputs": [
             {
               "Name": "serviceProvider",
@@ -479,7 +479,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.ServiceProviderBroker.GetScopeForEvent(cCoder.Eventing.Models.EventMessage)",
           "Name": "GetScopeForEvent",
-          "LineNumber": 13,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "eventMessage",
@@ -528,7 +528,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.ServiceProviderBroker.GetService()",
           "Name": "GetService",
-          "LineNumber": 28,
+          "LineNumber": 32,
           "Inputs": [],
           "ReturnType": "T",
           "Implements": [
@@ -558,7 +558,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.ServiceProviderBroker.GetService(System.Type)",
           "Name": "GetService",
-          "LineNumber": 39,
+          "LineNumber": 43,
           "Inputs": [
             {
               "Name": "type",
@@ -593,7 +593,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.ServiceProviderBroker.GetServiceProvider()",
           "Name": "GetServiceProvider",
-          "LineNumber": 25,
+          "LineNumber": 29,
           "Inputs": [],
           "ReturnType": "System.IServiceProvider",
           "Implements": [
@@ -615,7 +615,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.ServiceProviderBroker.GetServices()",
           "Name": "GetServices",
-          "LineNumber": 34,
+          "LineNumber": 38,
           "Inputs": [],
           "ReturnType": "T[]",
           "Implements": [
@@ -654,7 +654,7 @@
     {
       "Name": "cCoder.Eventing.EventHub",
       "StandardElementType": "Exposure",
-      "LineNumber": 10,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -675,7 +675,7 @@
         {
           "Id": "cCoder.Eventing.EventHub.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 17,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "name",
@@ -720,7 +720,7 @@
         {
           "Id": "cCoder.Eventing.EventHub.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 20,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "name",
@@ -767,7 +767,7 @@
         {
           "Id": "cCoder.Eventing.EventHub.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 23,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "name",
@@ -817,7 +817,7 @@
         {
           "Id": "cCoder.Eventing.EventHub.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 26,
+          "LineNumber": 29,
           "Inputs": [
             {
               "Name": "name",
@@ -869,7 +869,7 @@
     {
       "Name": "cCoder.Eventing.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 15,
+      "LineNumber": 17,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -879,7 +879,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddBulkEventProviders(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Models.BulkEventProvider[])",
           "Name": "AddBulkEventProviders",
-          "LineNumber": 109,
+          "LineNumber": 111,
           "Inputs": [
             {
               "Name": "services",
@@ -908,7 +908,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventProviders(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Models.EventProvider[])",
           "Name": "AddEventProviders",
-          "LineNumber": 104,
+          "LineNumber": 106,
           "Inputs": [
             {
               "Name": "services",
@@ -937,7 +937,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventing(Microsoft.Extensions.DependencyInjection.IServiceCollection)",
           "Name": "AddEventing",
-          "LineNumber": 63,
+          "LineNumber": 65,
           "Inputs": [
             {
               "Name": "services",
@@ -962,7 +962,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventing(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.Models.EventingConfiguration\u003E)",
           "Name": "AddEventing",
-          "LineNumber": 75,
+          "LineNumber": 77,
           "Inputs": [
             {
               "Name": "services",
@@ -999,7 +999,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventing(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Models.EventingConfiguration)",
           "Name": "AddEventing",
-          "LineNumber": 90,
+          "LineNumber": 92,
           "Inputs": [
             {
               "Name": "services",
@@ -1036,7 +1036,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventingForType(Microsoft.Extensions.DependencyInjection.IServiceCollection)",
           "Name": "AddEventingForType",
-          "LineNumber": 114,
+          "LineNumber": 116,
           "Inputs": [
             {
               "Name": "services",
@@ -1061,7 +1061,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.Models.EventingConfiguration\u003E)",
           "Name": "AddEventingHostedServices",
-          "LineNumber": 40,
+          "LineNumber": 42,
           "Inputs": [
             {
               "Name": "services",
@@ -1105,7 +1105,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventingHostedServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Models.EventingConfiguration)",
           "Name": "AddEventingHostedServices",
-          "LineNumber": 49,
+          "LineNumber": 51,
           "Inputs": [
             {
               "Name": "services",
@@ -1142,7 +1142,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Eventing.Models.EventingConfiguration\u003E)",
           "Name": "AddEventingWeb",
-          "LineNumber": 17,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "services",
@@ -1186,7 +1186,7 @@
         {
           "Id": "cCoder.Eventing.IServiceCollectionExtensions.AddEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Models.EventingConfiguration)",
           "Name": "AddEventingWeb",
-          "LineNumber": 26,
+          "LineNumber": 28,
           "Inputs": [
             {
               "Name": "services",
@@ -1225,7 +1225,7 @@
     {
       "Name": "cCoder.Eventing.Models.BulkEventProvider",
       "StandardElementType": "Exposure",
-      "LineNumber": 7,
+      "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -1241,7 +1241,7 @@
     {
       "Name": "cCoder.Eventing.Models.BulkEventProvider\u003CT\u003E",
       "StandardElementType": "Exposure",
-      "LineNumber": 7,
+      "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -1266,7 +1266,7 @@
     {
       "Name": "cCoder.Eventing.Models.BulkEventProviderBrokerConfiguration",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1354,7 +1354,7 @@
     {
       "Name": "cCoder.Eventing.Models.EventProvider",
       "StandardElementType": "Exposure",
-      "LineNumber": 7,
+      "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -1373,7 +1373,7 @@
         {
           "Id": "cCoder.Eventing.Models.EventProvider.CanReceive(System.String)",
           "Name": "CanReceive",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "name",
@@ -1406,7 +1406,7 @@
         {
           "Id": "cCoder.Eventing.Models.EventProvider.ReceiveAsync(System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage)",
           "Name": "ReceiveAsync",
-          "LineNumber": 19,
+          "LineNumber": 22,
           "Inputs": [
             {
               "Name": "serviceProvider",
@@ -1441,7 +1441,7 @@
     {
       "Name": "cCoder.Eventing.Models.EventProvider\u003CT\u003E",
       "StandardElementType": "Exposure",
-      "LineNumber": 7,
+      "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -1474,7 +1474,7 @@
     {
       "Name": "cCoder.Eventing.Models.EventProviderBrokerConfiguration",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1526,7 +1526,7 @@
     {
       "Name": "cCoder.Eventing.Models.Exceptions.ServiceDependencyException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -1546,7 +1546,7 @@
     {
       "Name": "cCoder.Eventing.Models.Exceptions.ServiceException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -1566,7 +1566,7 @@
     {
       "Name": "cCoder.Eventing.Models.Exceptions.ServiceValidationException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -1626,7 +1626,7 @@
     {
       "Name": "cCoder.Eventing.Services.Foundations.BulkEventProviderService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 12,
+      "LineNumber": 18,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1647,7 +1647,7 @@
         {
           "Id": "cCoder.Eventing.Services.Foundations.BulkEventProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 18,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "name",
@@ -1734,7 +1734,7 @@
     {
       "Name": "cCoder.Eventing.Services.Foundations.EventAuthorizationService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 11,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1755,7 +1755,7 @@
         {
           "Id": "cCoder.Eventing.Services.Foundations.EventAuthorizationService.GetEventAuthInfo()",
           "Name": "GetEventAuthInfo",
-          "LineNumber": 24,
+          "LineNumber": 26,
           "Inputs": [],
           "ReturnType": "cCoder.Eventing.Models.IEventAuthInfo",
           "Implements": [
@@ -1802,7 +1802,7 @@
     {
       "Name": "cCoder.Eventing.Services.Foundations.EventProviderService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 12,
+      "LineNumber": 18,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1823,7 +1823,7 @@
         {
           "Id": "cCoder.Eventing.Services.Foundations.EventProviderService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 18,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "name",
@@ -1910,7 +1910,7 @@
     {
       "Name": "cCoder.Eventing.Services.Foundations.EventService\u003CT\u003E",
       "StandardElementType": "FoundationService",
-      "LineNumber": 12,
+      "LineNumber": 16,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1931,7 +1931,7 @@
         {
           "Id": "cCoder.Eventing.Services.Foundations.EventService\u003CT\u003E.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 24,
+          "LineNumber": 28,
           "Inputs": [
             {
               "Name": "name",
@@ -1985,7 +1985,7 @@
         {
           "Id": "cCoder.Eventing.Services.Foundations.EventService\u003CT\u003E.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 47,
+          "LineNumber": 51,
           "Inputs": [
             {
               "Name": "name",
@@ -2048,7 +2048,7 @@
     {
       "Name": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService",
       "StandardElementType": "OrchestrationService",
-      "LineNumber": 12,
+      "LineNumber": 18,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -2069,7 +2069,7 @@
         {
           "Id": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 21,
+          "LineNumber": 27,
           "Inputs": [
             {
               "Name": "name",
@@ -2116,7 +2116,7 @@
         {
           "Id": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService.ListenToEvent(System.String,System.Func\u003CTHandlingService, TMessage, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 32,
+          "LineNumber": 38,
           "Inputs": [
             {
               "Name": "name",
@@ -2177,7 +2177,7 @@
         {
           "Id": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 53,
+          "LineNumber": 59,
           "Inputs": [
             {
               "Name": "name",
@@ -2227,7 +2227,7 @@
         {
           "Id": "cCoder.Eventing.Services.Orchestrations.EventOrchestrationService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 69,
+          "LineNumber": 75,
           "Inputs": [
             {
               "Name": "name",
@@ -2279,7 +2279,7 @@
     {
       "Name": "cCoder.Eventing.Services.Processings.BulkEventProviderProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 10,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -2300,7 +2300,7 @@
         {
           "Id": "cCoder.Eventing.Services.Processings.BulkEventProviderProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 14,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "name",
@@ -2351,7 +2351,7 @@
     {
       "Name": "cCoder.Eventing.Services.Processings.EventProcessingService\u003CT\u003E",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 11,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -2372,7 +2372,7 @@
         {
           "Id": "cCoder.Eventing.Services.Processings.EventProcessingService\u003CT\u003E.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 16,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "name",
@@ -2426,7 +2426,7 @@
         {
           "Id": "cCoder.Eventing.Services.Processings.EventProcessingService\u003CT\u003E.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 35,
+          "LineNumber": 38,
           "Inputs": [
             {
               "Name": "name",
@@ -2482,7 +2482,7 @@
     {
       "Name": "cCoder.Eventing.Services.Processings.EventProviderProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 10,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -2503,7 +2503,7 @@
         {
           "Id": "cCoder.Eventing.Services.Processings.EventProviderProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "name",
@@ -2556,7 +2556,7 @@
     {
       "Name": "cCoder.Eventing.Brokers.IBulkEventProviderBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -2566,7 +2566,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IBulkEventProviderBroker.CanHandle(System.String)",
           "Name": "CanHandle",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "name",
@@ -2591,7 +2591,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IBulkEventProviderBroker.HandleAsync(System.IServiceProvider,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
           "Name": "HandleAsync",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "serviceProvider",
@@ -2690,7 +2690,7 @@
     {
       "Name": "cCoder.Eventing.Brokers.IEventProviderBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -2700,7 +2700,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IEventProviderBroker.CanSend(System.String)",
           "Name": "CanSend",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "name",
@@ -2725,7 +2725,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IEventProviderBroker.HandleSendAsync(System.IServiceProvider,System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "HandleSendAsync",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "serviceProvider",
@@ -2760,7 +2760,7 @@
     {
       "Name": "cCoder.Eventing.Brokers.IServiceProviderBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 11,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -2781,7 +2781,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetRequiredService(System.IServiceProvider)",
           "Name": "GetRequiredService",
-          "LineNumber": 16,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "serviceProvider",
@@ -2806,7 +2806,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetScopeForEvent(cCoder.Eventing.Models.EventMessage)",
           "Name": "GetScopeForEvent",
-          "LineNumber": 13,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "eventMessage",
@@ -2831,7 +2831,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetService()",
           "Name": "GetService",
-          "LineNumber": 15,
+          "LineNumber": 17,
           "Inputs": [],
           "ReturnType": "T",
           "Implements": [],
@@ -2851,7 +2851,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetService(System.Type)",
           "Name": "GetService",
-          "LineNumber": 18,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "type",
@@ -2876,7 +2876,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetServiceProvider()",
           "Name": "GetServiceProvider",
-          "LineNumber": 14,
+          "LineNumber": 16,
           "Inputs": [],
           "ReturnType": "System.IServiceProvider",
           "Implements": [],
@@ -2896,7 +2896,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.IServiceProviderBroker.GetServices()",
           "Name": "GetServices",
-          "LineNumber": 17,
+          "LineNumber": 19,
           "Inputs": [],
           "ReturnType": "T[]",
           "Implements": [],
@@ -2918,7 +2918,7 @@
     {
       "Name": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -2939,7 +2939,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogDebug(System.String,System.Object[])",
           "Name": "LogDebug",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "message",
@@ -2968,7 +2968,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
           "Name": "LogError",
-          "LineNumber": 12,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "exception",
@@ -3001,7 +3001,7 @@
         {
           "Id": "cCoder.Eventing.Brokers.Loggings.ILoggingBroker.LogWarning(System.String,System.Object[])",
           "Name": "LogWarning",
-          "LineNumber": 13,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "message",
@@ -3059,7 +3059,7 @@
     {
       "Name": "cCoder.Eventing.IEventHub",
       "StandardElementType": "Exposure",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -3069,7 +3069,7 @@
         {
           "Id": "cCoder.Eventing.IEventHub.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "name",
@@ -3098,7 +3098,7 @@
         {
           "Id": "cCoder.Eventing.IEventHub.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "name",
@@ -3127,7 +3127,7 @@
         {
           "Id": "cCoder.Eventing.IEventHub.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 13,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "name",
@@ -3174,7 +3174,7 @@
     {
       "Name": "cCoder.Eventing.Services.Foundations.IBulkEventProviderService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -3184,7 +3184,7 @@
         {
           "Id": "cCoder.Eventing.Services.Foundations.IBulkEventProviderService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "name",
@@ -3247,7 +3247,7 @@
     {
       "Name": "cCoder.Eventing.Services.Foundations.IEventProviderService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -3257,7 +3257,7 @@
         {
           "Id": "cCoder.Eventing.Services.Foundations.IEventProviderService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "name",
@@ -3288,7 +3288,7 @@
     {
       "Name": "cCoder.Eventing.Services.Foundations.IEventService\u003CT\u003E",
       "StandardElementType": "FoundationService",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -3298,7 +3298,7 @@
         {
           "Id": "cCoder.Eventing.Services.Foundations.IEventService\u003CT\u003E.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "name",
@@ -3327,7 +3327,7 @@
         {
           "Id": "cCoder.Eventing.Services.Foundations.IEventService\u003CT\u003E.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "name",
@@ -3358,7 +3358,7 @@
     {
       "Name": "cCoder.Eventing.Services.Orchestrations.IEventOrchestrationService",
       "StandardElementType": "OrchestrationService",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -3368,7 +3368,7 @@
         {
           "Id": "cCoder.Eventing.Services.Orchestrations.IEventOrchestrationService.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "name",
@@ -3397,7 +3397,7 @@
         {
           "Id": "cCoder.Eventing.Services.Orchestrations.IEventOrchestrationService.ListenToEvent(System.String,System.Func\u003CTService, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "name",
@@ -3426,7 +3426,7 @@
         {
           "Id": "cCoder.Eventing.Services.Orchestrations.IEventOrchestrationService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 13,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "name",
@@ -3455,7 +3455,7 @@
         {
           "Id": "cCoder.Eventing.Services.Orchestrations.IEventOrchestrationService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 14,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "name",
@@ -3486,7 +3486,7 @@
     {
       "Name": "cCoder.Eventing.Services.Processings.IBulkEventProviderProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -3496,7 +3496,7 @@
         {
           "Id": "cCoder.Eventing.Services.Processings.IBulkEventProviderProcessingService.RaiseEventsAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E[])",
           "Name": "RaiseEventsAsync",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "name",
@@ -3527,7 +3527,7 @@
     {
       "Name": "cCoder.Eventing.Services.Processings.IEventProcessingService\u003CT\u003E",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -3537,7 +3537,7 @@
         {
           "Id": "cCoder.Eventing.Services.Processings.IEventProcessingService\u003CT\u003E.ListenToEvent(System.String,System.Func\u003CSystem.IServiceProvider, T, System.Threading.Tasks.ValueTask\u003E)",
           "Name": "ListenToEvent",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "name",
@@ -3566,7 +3566,7 @@
         {
           "Id": "cCoder.Eventing.Services.Processings.IEventProcessingService\u003CT\u003E.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "name",
@@ -3597,7 +3597,7 @@
     {
       "Name": "cCoder.Eventing.Services.Processings.IEventProviderProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -3607,7 +3607,7 @@
         {
           "Id": "cCoder.Eventing.Services.Processings.IEventProviderProcessingService.RaiseEventAsync(System.String,cCoder.Eventing.Models.EventMessage\u003CT\u003E)",
           "Name": "RaiseEventAsync",
-          "LineNumber": 11,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "name",

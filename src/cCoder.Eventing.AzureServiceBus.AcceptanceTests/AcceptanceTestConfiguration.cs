@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+
 namespace cCoder.Eventing.AzureServiceBus.AcceptanceTests;
 
 internal sealed class AcceptanceTestConfiguration

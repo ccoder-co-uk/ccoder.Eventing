@@ -2,6 +2,10 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Linq;
+
+using System;
+
 using cCoder.Eventing.Models;
 using Microsoft.Extensions.DependencyInjection;
 

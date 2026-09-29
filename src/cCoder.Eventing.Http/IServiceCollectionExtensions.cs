@@ -2,6 +2,11 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Linq;
+using System.Net.Http;
+
+using System;
+
 using cCoder.Eventing.Http.Brokers;
 using cCoder.Eventing.Http.Brokers.Loggings;
 using cCoder.Eventing.Http.Models;

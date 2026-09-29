@@ -2,6 +2,13 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Linq;
+
+using System;
+using System.Collections.Generic;
+
+using System.Threading.Tasks;
+
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Models.Exceptions;
 using FluentAssertions;

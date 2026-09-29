@@ -2,30 +2,31 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using cCoder.Eventing.Http;
 using cCoder.Eventing.Http.Models;
 using cCoder.Eventing.Http.Services.Processings;
 using cCoder.Eventing.Models;
 using Moq;
-using Xunit;
 
-namespace cCoder.Eventing.Http.Tests.Exposures;
+namespace cCoder.Eventing.IntegrationTests.Tests;
 
-public partial class HttpEventHubTests
+public sealed partial class HttpEventHubExposureTests
 {
     [Fact]
-    public async Task ShouldForwardEveryExposureOperation()
+    public async Task ShouldForwardEveryHttpEventHubOperation()
     {
         // Given
 
         const string eventName = "test-event";
         CancellationToken cancellationToken = new(canceled: false);
-        EventMessage<FakePayload> message = new();
-        EventMessage<FakePayload>[] messages = [message];
+        EventMessage<string> message = new();
+        EventMessage<string>[] messages = [message];
         HttpEventMessage transportMessage = new();
-
-        Func<IServiceProvider, FakePayload, ValueTask> handler =
-            (_, _) => ValueTask.CompletedTask;
-
+        Func<IServiceProvider, string, ValueTask> handler = (_, _) => ValueTask.CompletedTask;
         Mock<IHttpEventProcessingService> processingService = new();
 
         HttpEventHub eventHub = new(
@@ -52,9 +53,7 @@ public partial class HttpEventHubTests
         // Then
 
         processingService.Verify(
-            expression: service => service.ListenToEvent(
-                name: eventName,
-                handler: handler),
+            expression: service => service.ListenToEvent(name: eventName, handler: handler),
             times: Times.Once);
 
         processingService.Verify(

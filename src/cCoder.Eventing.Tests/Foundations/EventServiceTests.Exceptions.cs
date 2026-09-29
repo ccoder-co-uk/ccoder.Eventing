@@ -2,6 +2,11 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+
+using System.Threading.Tasks;
+
 using System.Reflection;
 using cCoder.Eventing.Models;
 using cCoder.Eventing.Models.Exceptions;
