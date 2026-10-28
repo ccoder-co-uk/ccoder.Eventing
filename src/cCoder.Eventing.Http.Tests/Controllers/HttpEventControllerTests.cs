@@ -65,7 +65,7 @@ public partial class HttpEventControllerTests
             .Setup(expression: service => service.ReceiveHttpEventMessageAsync(
                 httpEventMessage: message,
                 cancellationToken: It.IsAny<CancellationToken>()))
-            .ThrowsAsync(exception: failure);
+            .Returns(value: ValueTask.FromException(exception: failure));
 
         HttpEventController controller = new(
             httpEventProcessingService: eventProcessingService.Object,
