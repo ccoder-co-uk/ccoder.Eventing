@@ -161,7 +161,7 @@ public partial class ChatServicesTests
             .Setup(expression: broker => broker.RaiseChatMessageAsync(
                 name: It.IsAny<string>(),
                 message: It.IsAny<EventMessage<ChatMessage>>()))
-            .ThrowsAsync(exception: dependencyException);
+            .Returns(value: ValueTask.FromException(exception: dependencyException));
 
         // When
 
@@ -214,7 +214,7 @@ public partial class ChatServicesTests
                 name: It.IsAny<string>(),
                 message: It.IsAny<EventMessage<ChatMessage>>(),
                 cancellationToken: It.IsAny<CancellationToken>()))
-            .ThrowsAsync(exception: dependencyException);
+            .Returns(value: ValueTask.FromException(exception: dependencyException));
 
         // When
 
@@ -346,7 +346,7 @@ public partial class ChatServicesTests
         notificationServiceMock
             .Setup(expression: dependency => dependency.SendChatMessageAsync(
                 chatMessage: It.IsAny<ChatMessage>()))
-            .ThrowsAsync(exception: dependencyException);
+            .Returns(value: ValueTask.FromException(exception: dependencyException));
 
         ChatNotificationProcessingService service = new(
             chatNotificationService: notificationServiceMock.Object);
@@ -528,7 +528,7 @@ public partial class ChatServicesTests
             .Setup(expression: service => service.RaiseChatMessageAsync(
                 eventMessage: It.IsAny<EventMessage<ChatMessage>>(),
                 cancellationToken: It.IsAny<CancellationToken>()))
-            .ThrowsAsync(exception: new Exception());
+            .Returns(value: ValueTask.FromException(exception: new Exception()));
 
         ChatEventTransportProcessingService eventService = new(
             chatEventTransportServices:
@@ -541,7 +541,7 @@ public partial class ChatServicesTests
         broker
             .Setup(expression: dependency => dependency.SendChatMessageAsync(
                 chatMessage: It.IsAny<ChatMessage>()))
-            .ThrowsAsync(exception: new Exception());
+            .Returns(value: ValueTask.FromException(exception: new Exception()));
 
         ChatNotificationService notificationService = new(
             chatHubBroker: broker.Object);
