@@ -28,6 +28,7 @@ public static class IServiceCollectionExtensions
         HttpEventingOptions configuration = new()
         {
             MaxConcurrency = 1,
+            QueueCapacity = 2048,
             JsonSerializerOptions =
                 new JsonSerializerOptions(JsonSerializerDefaults.Web)
         };
@@ -55,6 +56,7 @@ public static class IServiceCollectionExtensions
         HttpEventingOptions configuration = new()
         {
             MaxConcurrency = 1,
+            QueueCapacity = 2048,
             JsonSerializerOptions =
                 new JsonSerializerOptions(JsonSerializerDefaults.Web)
         };
@@ -100,6 +102,7 @@ public static class IServiceCollectionExtensions
                     configuration: new HttpEventBrokerConfiguration
                     {
                         HubUrl = configuration.HubUrl,
+                        QueueCapacity = configuration.QueueCapacity,
                         JsonSerializerOptions =
                             configuration.JsonSerializerOptions,
                         MaxConcurrency = configuration.MaxConcurrency,
@@ -124,6 +127,7 @@ public static class IServiceCollectionExtensions
     private static IServiceCollection AddFoundations(this IServiceCollection services)
     {
         services.TryAddTransient<IHttpEventService, HttpEventService>();
+        services.TryAddTransient<IHttpEventQueueService, HttpEventQueueService>();
 
         return services;
     }
@@ -133,6 +137,9 @@ public static class IServiceCollectionExtensions
         services.TryAddTransient<
             IHttpEventProcessingService,
             HttpEventProcessingService>();
+        services.TryAddTransient<
+            IHttpEventQueueProcessingService,
+            HttpEventQueueProcessingService>();
         return services;
     }
 
@@ -143,6 +150,12 @@ public static class IServiceCollectionExtensions
                 new HttpEventHub(
                     httpEventProcessingService: serviceProvider
                         .GetRequiredService<IHttpEventProcessingService>()));
+
+        services.TryAddSingleton<IHttpEventQueueMonitor>(
+            implementationFactory: serviceProvider =>
+                new HttpEventQueueHub(
+                    queueService: serviceProvider
+                        .GetRequiredService<IHttpEventQueueProcessingService>()));
 
         services.AddHostedService<HttpEventDispatcherHostedService>();
 

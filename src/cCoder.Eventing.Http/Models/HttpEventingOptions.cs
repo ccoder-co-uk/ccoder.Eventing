@@ -14,5 +14,7 @@ public class HttpEventingOptions
 
     public int MaxConcurrency { get; set; }
 
+    public int QueueCapacity { get; set; }
+
     public JsonSerializerOptions JsonSerializerOptions { get; set; }
 }

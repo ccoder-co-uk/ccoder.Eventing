@@ -80,6 +80,37 @@ internal sealed partial class HttpEventService(
             return httpEventBroker.SelectMaxConcurrency();
         });
 
+    public void RecordQueued(string name) =>
+        TryCatch(operation: () =>
+        {
+            Validate(inputs: [name]);
+            httpEventBroker.RecordQueued(name: name);
+        });
+
+    public void RecordRejected(string name) =>
+        TryCatch(operation: () =>
+        {
+            Validate(inputs: [name]);
+            httpEventBroker.RecordRejected(name: name);
+        });
+
+    public void RecordStarted(string name) =>
+        TryCatch(operation: () =>
+        {
+            Validate(inputs: [name]);
+            httpEventBroker.RecordStarted(name: name);
+        });
+
+    public void RecordFinished(string name, bool succeeded) =>
+        TryCatch(operation: () =>
+        {
+            Validate(inputs: [name, succeeded]);
+
+            httpEventBroker.RecordFinished(
+                name: name,
+                succeeded: succeeded);
+        });
+
     public IAsyncEnumerable<HttpEventMessage> ReadAllHttpEventMessagesAsync(
         CancellationToken cancellationToken) =>
         TryCatch(operation: () =>

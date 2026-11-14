@@ -16,6 +16,8 @@ internal sealed class HttpEventBrokerConfiguration
 
     public int MaxConcurrency { get; set; }
 
+    public int QueueCapacity { get; set; }
+
     public IReadOnlyCollection<HttpEventProviderBrokerConfiguration>
         EventProviderConfigurations { get; set; }
 }

@@ -16,6 +16,7 @@ using System.Net.Http.Json;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Channels;
+using System.Collections.Concurrent;
 
 namespace cCoder.Eventing.Http.Brokers;
 
@@ -31,12 +32,16 @@ internal sealed class HttpEventBroker(
                 && method.IsGenericMethodDefinition);
 
     private readonly Channel<HttpEventMessage> channel =
-        Channel.CreateUnbounded<HttpEventMessage>(
-            options: new UnboundedChannelOptions
+        Channel.CreateBounded<HttpEventMessage>(
+            options: new BoundedChannelOptions(
+                capacity: Math.Max(val1: 1, val2: configuration.QueueCapacity))
             {
                 SingleReader = false,
-                SingleWriter = false
+                SingleWriter = false,
+                FullMode = BoundedChannelFullMode.Wait
             });
+
+    private readonly ConcurrentDictionary<string, HttpEventQueueCounters> queueCounters = new();
 
     private readonly List<HttpEventSubscription> subscriptions = [];
 
@@ -45,6 +50,71 @@ internal sealed class HttpEventBroker(
 
     public int SelectMaxConcurrency() =>
         Math.Max(val1: 1, val2: configuration.MaxConcurrency);
+
+    public IReadOnlyCollection<HttpEventQueueSnapshot> GetQueueSnapshots() =>
+        queueCounters.Select(selector: pair => CreateSnapshot(
+            name: pair.Key,
+            counters: pair.Value))
+            .OrderBy(keySelector: snapshot => snapshot.Name)
+            .ToArray();
+
+    public void RecordQueued(string name)
+    {
+        HttpEventQueueCounters counters = queueCounters.GetOrAdd(
+            key: name,
+            valueFactory: static _ => new HttpEventQueueCounters());
+
+        Interlocked.Increment(location: ref counters.Queued);
+    }
+
+    public void RecordRejected(string name)
+    {
+        HttpEventQueueCounters counters = queueCounters.GetOrAdd(
+            key: name,
+            valueFactory: static _ => new HttpEventQueueCounters());
+
+        Interlocked.Decrement(location: ref counters.Queued);
+        Interlocked.Increment(location: ref counters.Failed);
+    }
+
+    public void RecordStarted(string name)
+    {
+        HttpEventQueueCounters counters = queueCounters.GetOrAdd(
+            key: name,
+            valueFactory: static _ => new HttpEventQueueCounters());
+
+        Interlocked.Decrement(location: ref counters.Queued);
+        Interlocked.Increment(location: ref counters.Processing);
+    }
+
+    public void RecordFinished(string name, bool succeeded)
+    {
+        HttpEventQueueCounters counters = queueCounters.GetOrAdd(
+            key: name,
+            valueFactory: static _ => new HttpEventQueueCounters());
+
+        Interlocked.Decrement(location: ref counters.Processing);
+
+        Interlocked.Add(
+            location1: ref counters.Completed,
+            value: Convert.ToInt32(value: succeeded));
+
+        Interlocked.Add(
+            location1: ref counters.Failed,
+            value: 1 - Convert.ToInt32(value: succeeded));
+    }
+
+    private static HttpEventQueueSnapshot CreateSnapshot(
+        string name,
+        HttpEventQueueCounters counters) =>
+        new()
+        {
+            Name = name,
+            Queued = Interlocked.Read(location: ref counters.Queued),
+            Processing = Interlocked.Read(location: ref counters.Processing),
+            Completed = Interlocked.Read(location: ref counters.Completed),
+            Failed = Interlocked.Read(location: ref counters.Failed)
+        };
 
     public string Serialize(object value) =>
         JsonSerializer.Serialize(
