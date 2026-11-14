@@ -56,6 +56,13 @@ public partial class ServiceCollectionExtensionsTests
             .Should()
             .NotBeNull();
 
+        provider
+            .GetRequiredService<IHttpEventQueueMonitor>()
+            .GetQueueReport()
+            .Queues
+            .Should()
+            .BeEmpty();
+
         services
             .Any(predicate: descriptor =>
                 descriptor.ServiceType == typeof(IHostedService))
