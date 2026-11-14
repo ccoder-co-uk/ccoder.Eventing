@@ -73,10 +73,29 @@ internal partial class HttpEventProcessingService(
         {
             Validate(inputs: [httpEventMessage, cancellationToken]);
 
-            return httpEventService.EnqueueHttpEventMessageAsync(
+            return EnqueueAndTrackAsync(
                 httpEventMessage: httpEventMessage,
                 cancellationToken: cancellationToken);
         });
+
+    private async ValueTask EnqueueAndTrackAsync(
+        HttpEventMessage httpEventMessage,
+        CancellationToken cancellationToken)
+    {
+        httpEventService.RecordQueued(name: httpEventMessage.EventName);
+
+        try
+        {
+            await httpEventService.EnqueueHttpEventMessageAsync(
+                httpEventMessage: httpEventMessage,
+                cancellationToken: cancellationToken);
+        }
+        catch
+        {
+            httpEventService.RecordRejected(name: httpEventMessage.EventName);
+            throw;
+        }
+    }
 
     public Task ProcessHttpEventMessagesAsync(
         CancellationToken cancellationToken) =>
@@ -120,15 +139,30 @@ internal partial class HttpEventProcessingService(
             httpEventService.ReadAllHttpEventMessagesAsync(
                 cancellationToken: cancellationToken))
         {
-            await concurrencyGate.WaitAsync(
-                cancellationToken: cancellationToken);
+            httpEventService.RecordStarted(name: httpEventMessage.EventName);
+
+            try
+            {
+                await concurrencyGate.WaitAsync(
+                    cancellationToken: cancellationToken);
+            }
+            catch
+            {
+                httpEventService.RecordFinished(
+                    name: httpEventMessage.EventName,
+                    succeeded: false);
+
+                throw;
+            }
 
             _ = Task.Run(
                 function: async () =>
                 {
+                    bool succeeded = false;
+
                     try
                     {
-                        await DispatchHttpEventMessageAsync(
+                        succeeded = await DispatchHttpEventMessageAsync(
                             httpEventMessage: httpEventMessage,
                             cancellationToken: cancellationToken);
                     }
@@ -149,14 +183,17 @@ internal partial class HttpEventProcessingService(
                     }
                     finally
                     {
+                        httpEventService.RecordFinished(
+                            name: httpEventMessage.EventName,
+                            succeeded: succeeded);
+
                         concurrencyGate.Release();
                     }
-                },
-                cancellationToken: cancellationToken);
+                });
         }
     }
 
-    private async ValueTask DispatchHttpEventMessageAsync(
+    private async ValueTask<bool> DispatchHttpEventMessageAsync(
         HttpEventMessage httpEventMessage,
         CancellationToken cancellationToken)
     {
@@ -172,6 +209,8 @@ internal partial class HttpEventProcessingService(
                 message: "HTTP event {EventName} was received but no matching handlers were registered.",
                 args: [httpEventMessage.EventName]);
         }
+
+        return handled;
     }
 
     private HttpEventMessage CreateHttpEventMessage<T>(

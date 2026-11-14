@@ -19,6 +19,16 @@ internal interface IHttpEventBroker
 
     int SelectMaxConcurrency();
 
+    IReadOnlyCollection<HttpEventQueueSnapshot> GetQueueSnapshots();
+
+    void RecordQueued(string name);
+
+    void RecordRejected(string name);
+
+    void RecordStarted(string name);
+
+    void RecordFinished(string name, bool succeeded);
+
     string Serialize(object value);
 
     ValueTask SendAsync(

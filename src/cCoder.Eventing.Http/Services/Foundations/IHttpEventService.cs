@@ -32,6 +32,14 @@ internal interface IHttpEventService
 
     int GetMaxConcurrency();
 
+    void RecordQueued(string name);
+
+    void RecordRejected(string name);
+
+    void RecordStarted(string name);
+
+    void RecordFinished(string name, bool succeeded);
+
     IAsyncEnumerable<HttpEventMessage> ReadAllHttpEventMessagesAsync(
         CancellationToken cancellationToken);
 
