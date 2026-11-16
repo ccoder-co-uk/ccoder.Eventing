@@ -53,7 +53,8 @@ jobs:
       - name: Enforce services and exposures coverage above 95 percent
         run: |
           dotnet tool install --tool-path tools dotnet-reportgenerator-globaltool --version 5.5.10
-          tools/reportgenerator -reports:"${{ env.TEST_RESULTS_DIRECTORY }}/**/coverage.cobertura.xml" -targetdir:"coverage-gate" -reporttypes:"Cobertura" -filefilters:"+*/Services/*;+*/Exposures/*"
+          # Include the source-layer directories, not the runner's C:\Services root.
+          tools/reportgenerator -reports:"${{ env.TEST_RESULTS_DIRECTORY }}/**/coverage.cobertura.xml" -targetdir:"coverage-gate" -reporttypes:"Cobertura" -filefilters:"+*/src/*/Services/*;+*/src/*/Exposures/*"
           [xml] $coverage = Get-Content "coverage-gate/Cobertura.xml"
           $lineRate = [double] $coverage.coverage.'line-rate'
           if ($lineRate -le 0.95) {
@@ -66,6 +67,7 @@ jobs:
           dotnet pack src/cCoder.Eventing/cCoder.Eventing.csproj -c Release --no-build --output "${{ env.NUGET_DIRECTORY }}" /p:Version="${{ steps.version.outputs.value }}"
           dotnet pack src/cCoder.Eventing.AzureServiceBus/cCoder.Eventing.AzureServiceBus.csproj -c Release --no-build --output "${{ env.NUGET_DIRECTORY }}" /p:Version="${{ steps.version.outputs.value }}"
           dotnet pack src/cCoder.Eventing.Http/cCoder.Eventing.Http.csproj -c Release --no-build --output "${{ env.NUGET_DIRECTORY }}" /p:Version="${{ steps.version.outputs.value }}"
+          dotnet pack src/cCoder.Eventing.Sql/cCoder.Eventing.Sql.csproj -c Release --no-build --output "${{ env.NUGET_DIRECTORY }}" /p:Version="${{ steps.version.outputs.value }}"
 
       - name: Upload package artifacts
         uses: actions/upload-artifact@v4
