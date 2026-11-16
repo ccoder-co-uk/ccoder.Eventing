@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <NoWarn>1591</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>cCoder.Eventing.Sql</PackageId>
+    <Authors>cCoder</Authors>
+    <Description>SQL-backed cCoder event transport</Description>
+    <PackageTags>cCoder;Eventing;cCoder.Eventing.Sql</PackageTags>
+    <LocalDataProject>..\..\..\cCoder.Data\src\cCoder.Data\cCoder.Data.csproj</LocalDataProject>
+    <UseLocalData Condition="'$(UseLocalData)' == ''">false</UseLocalData>
+    <UseLocalEventing Condition="'$(UseLocalEventing)' == ''">false</UseLocalEventing>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <ProjectReference Include="..\cCoder.Eventing\cCoder.Eventing.csproj" Condition="'$(UseLocalEventing)' == 'true'" />
+    <PackageReference Include="cCoder.Eventing" Version="2026.10.8.1222" Condition="'$(UseLocalEventing)' != 'true'" />
+    <ProjectReference Include="$(LocalDataProject)" Condition="'$(UseLocalData)' == 'true'" />
+    <PackageReference Include="cCoder.Data" Version="2026.11.16.1737" Condition="'$(UseLocalData)' != 'true'" />
+    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.10.8.1211" IncludeAssets="analyzers;build;buildTransitive" PrivateAssets="all" />
+    <PackageReference Include="cCoder.CodeAnalysis.Contracts" Version="2026.10.8.1211" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
+  </ItemGroup>
+</Project>

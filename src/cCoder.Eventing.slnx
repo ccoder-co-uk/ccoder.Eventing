@@ -25,5 +25,9 @@
     <Project Path="cCoder.Eventing.Tests/cCoder.Eventing.Tests.csproj" />
     <Project Path="cCoder.Eventing/cCoder.Eventing.csproj" />
   </Folder>
+  <Folder Name="/Sql/">
+    <Project Path="cCoder.Eventing.Sql/cCoder.Eventing.Sql.csproj" />
+  </Folder>
   <Project Path="cCoder.Eventing.IntegrationTests/cCoder.Eventing.IntegrationTests.csproj" />
+  <Project Path="cCoder.Eventing.Sql.Tests/cCoder.Eventing.Sql.Tests.csproj" />
 </Solution>
