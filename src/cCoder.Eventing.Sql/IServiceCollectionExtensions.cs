@@ -77,7 +77,7 @@ public static class IServiceCollectionExtensions
 
     private static void AddBrokers(this IServiceCollection services)
     {
-        services.TryAddSingleton<ISqlEventStore, SqlEventBroker>();
+        services.TryAddScoped<ISqlEventStore, SqlEventBroker>();
         services.TryAddSingleton<ISqlEventTransportBroker, SqlEventTransportBroker>();
         services.TryAddSingleton<ISqlEventLoggingBroker, SqlEventLoggingBroker>();
         services.TryAddSingleton<SqlEventRetryBroker>();
@@ -89,7 +89,7 @@ public static class IServiceCollectionExtensions
 
     private static void AddDependencies(this IServiceCollection services)
     {
-        services.TryAddSingleton<ISqlEventStorage, SqlEventStoreDependency>();
+        services.TryAddScoped<ISqlEventStorage, SqlEventStoreDependency>();
         services.TryAddSingleton<SqlEventWorkerScopeDependency>();
     }
 
