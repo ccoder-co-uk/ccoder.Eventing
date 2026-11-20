@@ -15,9 +15,9 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <ProjectReference Include="..\cCoder.Eventing\cCoder.Eventing.csproj" Condition="'$(UseLocalEventing)' == 'true'" />
-    <PackageReference Include="cCoder.Eventing" Version="2026.10.8.1222" Condition="'$(UseLocalEventing)' != 'true'" />
+    <PackageReference Include="cCoder.Eventing" Version="2026.11.20.1627" Condition="'$(UseLocalEventing)' != 'true'" />
     <ProjectReference Include="$(LocalDataProject)" Condition="'$(UseLocalData)' == 'true'" />
-    <PackageReference Include="cCoder.Data" Version="2026.11.16.1737" Condition="'$(UseLocalData)' != 'true'" />
+    <PackageReference Include="cCoder.Data" Version="2026.11.20.1700" Condition="'$(UseLocalData)' != 'true'" />
     <PackageReference Include="cCoder.CodeAnalysis" Version="2026.11.20.1604" IncludeAssets="analyzers;build;buildTransitive" PrivateAssets="all" />
     <PackageReference Include="cCoder.CodeAnalysis.Contracts" Version="2026.11.20.1604" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
