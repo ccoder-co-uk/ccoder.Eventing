@@ -3,11 +3,15 @@
 // ---------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using System.Security;
+using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 
 using cCoder.Eventing.Apps.Controllers;
 using cCoder.Eventing.Apps.Models;
+using cCoder.Eventing.Apps.Models.Exceptions;
 using cCoder.Eventing.Apps.Services.Orchestrations;
 using cCoder.Eventing.Http.Brokers.Loggings;
 using FluentAssertions;
@@ -27,6 +31,7 @@ public partial class ChatControllerTests
 
         ChatMessage expectedMessage = new();
         Mock<IChatOrchestrationService> manager = new();
+        Mock<ILoggingBroker> loggingBroker = new();
 
         manager
             .Setup(expression: service => service.SendChatMessageAsync(
@@ -34,7 +39,9 @@ public partial class ChatControllerTests
                 cancellationToken: It.IsAny<CancellationToken>()))
             .ReturnsAsync(value: expectedMessage);
 
-        ChatController controller = CreateController(manager: manager.Object);
+        ChatController controller = CreateController(
+            manager: manager.Object,
+            loggingBroker: loggingBroker.Object);
 
         // When
 
@@ -51,6 +58,21 @@ public partial class ChatControllerTests
         result
             .Should()
             .BeOfType<AcceptedResult>();
+
+        manager.Verify(
+            expression: service => service.SendChatMessageAsync(
+                chatMessage: It.IsAny<ChatMessage>(),
+                cancellationToken: It.IsAny<CancellationToken>()),
+            times: Times.Once);
+
+        loggingBroker.Verify(
+            expression: broker => broker.LogInformation(
+                message: It.IsAny<string>(),
+                args: It.IsAny<object[]>()),
+            times: Times.Once);
+
+        VerifyNoFailureLogs(loggingBroker: loggingBroker);
+        loggingBroker.VerifyNoOtherCalls();
     }
 
     [Fact]
@@ -58,8 +80,11 @@ public partial class ChatControllerTests
     {
         // Given
 
+        Mock<ILoggingBroker> loggingBroker = new();
+
         ChatController controller = CreateController(
-            manager: Mock.Of<IChatOrchestrationService>());
+            manager: Mock.Of<IChatOrchestrationService>(),
+            loggingBroker: loggingBroker.Object);
 
         controller.ModelState.AddModelError(
             key: "Text",
@@ -76,20 +101,33 @@ public partial class ChatControllerTests
         result
             .Should()
             .BeOfType<BadRequestObjectResult>();
+
+        loggingBroker.Verify(
+            expression: broker => broker.LogWarning(
+                message: It.IsAny<string>(),
+                args: It.IsAny<object[]>()),
+            times: Times.Once);
+
+        loggingBroker.Verify(
+            expression: broker => broker.LogInformation(
+                message: It.IsAny<string>(),
+                args: It.IsAny<object[]>()),
+            times: Times.Never);
+
+        loggingBroker.VerifyNoOtherCalls();
     }
 
     [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public async Task ShouldTranslateChatFailures(bool isValidationFailure)
+    [MemberData(nameof(FailureCases))]
+    public async Task ShouldTranslateChatFailures(
+        Exception failure,
+        int expectedStatusCode,
+        string expectedResponse)
     {
         // Given
 
-        Exception failure = isValidationFailure
-            ? new InvalidOperationException()
-            : new Exception();
-
         Mock<IChatOrchestrationService> manager = new();
+        Mock<ILoggingBroker> loggingBroker = new();
 
         manager
             .Setup(expression: service => service.SendChatMessageAsync(
@@ -97,7 +135,9 @@ public partial class ChatControllerTests
                 cancellationToken: It.IsAny<CancellationToken>()))
             .ThrowsAsync(exception: failure);
 
-        ChatController controller = CreateController(manager: manager.Object);
+        ChatController controller = CreateController(
+            manager: manager.Object,
+            loggingBroker: loggingBroker.Object);
 
         // When
 
@@ -107,24 +147,87 @@ public partial class ChatControllerTests
 
         // Then
 
-        int expectedStatusCode = isValidationFailure ? 400 : 500;
-
         ((IStatusCodeActionResult)result)
             .StatusCode
             .Should()
             .Be(expected: expectedStatusCode);
+
+        ((ObjectResult)result).Value.Should()
+            .Be(expected: expectedResponse);
+
+        if (expectedStatusCode == 500)
+        {
+            loggingBroker.Verify(
+                expression: broker => broker.LogError(
+                    exception: failure,
+                    message: It.IsAny<string>(),
+                    args: It.IsAny<object[]>()),
+                times: Times.Once);
+
+        }
+        else
+        {
+            loggingBroker.Verify(
+                expression: broker => broker.LogWarning(
+                    exception: failure,
+                    message: It.IsAny<string>(),
+                    args: It.IsAny<object[]>()),
+                times: Times.Once);
+        }
+
+        loggingBroker.Verify(
+            expression: broker => broker.LogInformation(
+                message: It.IsAny<string>(),
+                args: It.IsAny<object[]>()),
+            times: Times.Never);
+
+        loggingBroker.VerifyNoOtherCalls();
     }
 
     private static ChatController CreateController(
-        IChatOrchestrationService manager) =>
-        new(
-            chatOrchestrationService: manager,
-            configuration: new AppConfiguration
-            {
-                EventingChat = new EventingChatConfiguration
+        IChatOrchestrationService manager,
+        ILoggingBroker loggingBroker)
+    {
+        return new(
+                chatOrchestrationService: manager,
+                configuration: new AppConfiguration
                 {
-                    AppName = "Test.App"
-                }
-            },
-            loggingBroker: Mock.Of<ILoggingBroker>());
+                    EventingChat = new EventingChatConfiguration
+                    {
+                        AppName = "Test.App"
+                    }
+                },
+                loggingBroker: loggingBroker);
+    }
+
+    public static IEnumerable<object[]> FailureCases() =>
+        [
+            [new ChatServiceValidationException(new ArgumentException()), 400, "The chat request is invalid."],
+            [new AuthenticationException(), 401, "Authentication failed."],
+            [new SecurityException(), 403, "The chat request is forbidden."],
+            [new Exception("Sensitive detail."), 500, "The chat request failed."]
+        ];
+
+    private static void VerifyNoFailureLogs(Mock<ILoggingBroker> loggingBroker)
+    {
+        loggingBroker.Verify(
+            expression: broker => broker.LogWarning(
+                message: It.IsAny<string>(),
+                args: It.IsAny<object[]>()),
+            times: Times.Never);
+
+        loggingBroker.Verify(
+            expression: broker => broker.LogWarning(
+                exception: It.IsAny<Exception>(),
+                message: It.IsAny<string>(),
+                args: It.IsAny<object[]>()),
+            times: Times.Never);
+
+        loggingBroker.Verify(
+            expression: broker => broker.LogError(
+                exception: It.IsAny<Exception>(),
+                message: It.IsAny<string>(),
+                args: It.IsAny<object[]>()),
+            times: Times.Never);
+    }
 }

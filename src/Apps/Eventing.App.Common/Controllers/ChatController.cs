@@ -3,11 +3,14 @@
 // ---------------------------------------------------------------
 
 using System;
+using System.Security;
+using System.Security.Authentication;
 
 using System.Threading;
 using System.Threading.Tasks;
 
 using cCoder.Eventing.Apps.Models;
+using cCoder.Eventing.Apps.Models.Exceptions;
 using cCoder.Eventing.Apps.Services.Orchestrations;
 using cCoder.Eventing.Http.Brokers.Loggings;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +34,9 @@ public class ChatController(
         {
             if (!ModelState.IsValid)
             {
+                loggingBroker.LogWarning(
+                    message: "The chat request is invalid.");
+
                 return BadRequest(modelState: ModelState);
             }
 
@@ -44,15 +50,36 @@ public class ChatController(
                     },
                     cancellationToken: cancellationToken);
 
+            loggingBroker.LogInformation(
+                message: "The chat request was accepted.");
+
             return Accepted(value: message);
         }
-        catch (InvalidOperationException exception)
+        catch (ChatServiceValidationException exception)
         {
-            loggingBroker.LogError(
+            loggingBroker.LogWarning(
                 exception: exception,
                 message: "The chat request is invalid.");
 
             return BadRequest(error: "The chat request is invalid.");
+        }
+        catch (AuthenticationException exception)
+        {
+            loggingBroker.LogWarning(
+                exception: exception,
+                message: "The chat request was not authenticated.");
+
+            return Unauthorized(value: "Authentication failed.");
+        }
+        catch (SecurityException exception)
+        {
+            loggingBroker.LogWarning(
+                exception: exception,
+                message: "The chat request was forbidden.");
+
+            return StatusCode(
+                statusCode: 403,
+                value: "The chat request is forbidden.");
         }
         catch (Exception exception)
         {
@@ -60,7 +87,9 @@ public class ChatController(
                 exception: exception,
                 message: "The chat request failed.");
 
-            return StatusCode(statusCode: 500);
+            return StatusCode(
+                statusCode: 500,
+                value: "The chat request failed.");
         }
     }
 }
