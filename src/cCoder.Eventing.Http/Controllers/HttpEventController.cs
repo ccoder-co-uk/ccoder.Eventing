@@ -3,12 +3,15 @@
 // ---------------------------------------------------------------
 
 using System;
+using System.Security;
+using System.Security.Authentication;
 
 using System.Threading;
 using System.Threading.Tasks;
 
 using cCoder.Eventing.Http.Brokers.Loggings;
 using cCoder.Eventing.Http.Models;
+using cCoder.Eventing.Http.Models.Exceptions;
 using cCoder.Eventing.Http.Services.Processings;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,15 +35,36 @@ public class HttpEventController(
                 httpEventMessage: newHttpEventMessage,
                 cancellationToken: cancellationToken);
 
+            loggingBroker.LogInformation(
+                message: "The event request was accepted.");
+
             return Accepted();
         }
-        catch (InvalidOperationException exception)
+        catch (ServiceValidationException exception)
         {
-            loggingBroker.LogError(
+            loggingBroker.LogWarning(
                 exception: exception,
                 message: "The event request is invalid.");
 
             return BadRequest(error: "The event request is invalid.");
+        }
+        catch (AuthenticationException exception)
+        {
+            loggingBroker.LogWarning(
+                exception: exception,
+                message: "The event request was not authenticated.");
+
+            return Unauthorized(value: "Authentication failed.");
+        }
+        catch (SecurityException exception)
+        {
+            loggingBroker.LogWarning(
+                exception: exception,
+                message: "The event request was forbidden.");
+
+            return StatusCode(
+                statusCode: 403,
+                value: "The event request is forbidden.");
         }
         catch (Exception exception)
         {
@@ -48,7 +72,9 @@ public class HttpEventController(
                 exception: exception,
                 message: "The event request failed.");
 
-            return StatusCode(statusCode: 500);
+            return StatusCode(
+                statusCode: 500,
+                value: "The event request failed.");
         }
     }
 }
