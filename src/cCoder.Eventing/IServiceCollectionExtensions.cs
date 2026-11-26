@@ -11,11 +11,16 @@ using cCoder.Eventing.Services.Foundations;
 using cCoder.Eventing.Services.Orchestrations;
 using cCoder.Eventing.Services.Processings;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace cCoder.Eventing;
 
 public static class IServiceCollectionExtensions
 {
+    public static void ListenToLocalEvent<T, THandler>(this IServiceCollection services, string name)
+        where THandler : class, ILocalEventHandler<T> =>
+        services.AddKeyedScoped<ILocalEventHandler<T>, THandler>(serviceKey: name);
+
     public static void AddEventingWeb(
         this IServiceCollection services,
         Action<EventingConfiguration> configure = null)
@@ -222,6 +227,7 @@ public static class IServiceCollectionExtensions
 
     private static IServiceCollection AddExposures(this IServiceCollection services)
     {
+        services.TryAddScoped<ILocalEventBroker, LocalEventBroker>();
         services.AddTransient(implementationFactory: serviceProvider =>
             serviceProvider
                 .GetRequiredService<IEventAuthorizationBroker>()
